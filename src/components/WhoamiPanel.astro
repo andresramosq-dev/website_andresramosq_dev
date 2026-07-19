@@ -2,6 +2,8 @@
 import ProfilePhoto from './ProfilePhoto.astro';
 import Icon from './Icon.astro';
 import { site } from '../data/site';
+
+const echoText = `${site.tagline} ${site.pillars.map((p) => `· ${p}`).join(' ')}`;
 ---
 
 <div class="whoami">
@@ -33,9 +35,6 @@ import { site } from '../data/site';
 	</div>
 
 	<p class="whoami__tagline">
-		<span class="whoami__sig">$</span> {site.tagline}
-		{site.pillars.map((p) => (
-			<span class="whoami__pillar">· {p}</span>
-		))}
+		<span class="whoami__sig">@</span><span class="whoami__cmd"> echo "{echoText}"</span>
 	</p>
 </div>

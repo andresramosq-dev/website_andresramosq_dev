@@ -175,7 +175,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	color: var(--muted);
 }
 .cmd-block__path { white-space: nowrap; }
-.cmd-block__sep { color: var(--muted); }
+.cmd-block__sig { color: var(--muted); }
 .cmd-block__line--idle { margin-top: 0.5rem; margin-bottom: 0; }
 .cmd-block__user { color: var(--prompt); }
 .cmd-block__host { color: var(--host); }
@@ -312,16 +312,16 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	font-size: 0.82rem;
 	color: var(--text);
 	line-height: 1.55;
+	word-break: break-word;
 }
-.whoami__tagline .whoami__sig {
-	color: var(--prompt);
-	font-weight: 600;
-	margin-right: 0.2rem;
-}
-.whoami__pillar {
+.whoami__tagline .whoami__sig,
+.whoami__tagline .whoami__cmd {
 	color: var(--ink);
 	font-weight: 600;
-	margin-left: 0.35rem;
+}
+.whoami__tagline .whoami__sig {
+	color: var(--muted);
+	font-weight: 400;
 }
 
 .about-hero {
