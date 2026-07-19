@@ -20,8 +20,8 @@ export const site = {
 	bioValues: ['clean code', 'modular architecture'] as const,
 	bioLead: 'Backend developer with 4+ years building APIs, scalable services, and cloud infrastructure',
 	bioExperience: [
-		'At an insurance fintech (R5), I integrated 2 insurers and a payment gateway into the SOAT sales platform, improved fraud detection by 20%, and reduced redundant data by 60%.',
-		'At Nova Dynamics, I helped start the product core in under 4 weeks, then built the IAM microservice (NestJS, JWT, PostgreSQL) and the VCC orchestrator — with Dockerized deploys on AWS.',
+		'Integrated 2 insurers and a payment gateway into a SOAT sales platform, improved fraud detection by 20%, and reduced redundant data by 60%.',
+		'Helped start a product core in under 4 weeks, then built the IAM microservice (NestJS, JWT, PostgreSQL) and the VCC orchestrator — with Dockerized deploys on AWS.',
 	] as const,
 	bioPersonal: [
 		'Lately I have been playing a lot with AI — this site was built with it (I am not great at web design 😉).',

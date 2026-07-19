@@ -363,6 +363,11 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	line-height: 1.65;
 	letter-spacing: -0.015em;
 }
+.whoami__tagline-prefix {
+	color: var(--muted);
+	font-weight: 400;
+	margin-right: 0.2rem;
+}
 .whoami__sig {
 	color: var(--muted);
 	font-weight: 400;
