@@ -1,0 +1,36 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="section" id="perfil" aria-labelledby="perfil-title">
+	<p class="section__kicker"># perfil</p>
+	<h2 class="section__title" id="perfil-title">Quién escribe aquí</h2>
+	{
+		site.bio.map((paragraph) => (
+			<p>{paragraph}</p>
+		))
+	}
+	<div class="profile-meta">
+		<div>
+			<span class="label">Rol</span>
+			<span>{site.role}</span>
+		</div>
+		<div>
+			<span class="label">Lugar</span>
+			<span>{site.location}</span>
+		</div>
+		<div>
+			<span class="label">Contacto</span>
+			<span>
+				{
+					site.links.map((link, i) => (
+						<span>
+							{i > 0 && ' · '}
+							<a href={link.href}>{link.label}</a>
+						</span>
+					))
+				}
+			</span>
+		</div>
+	</div>
+</section>

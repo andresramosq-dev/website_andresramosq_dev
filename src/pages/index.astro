@@ -1,11 +1,25 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProfileSection from '../components/ProfileSection.astro';
+import TechTimeline from '../components/TechTimeline.astro';
+import BlogTeaser from '../components/BlogTeaser.astro';
+import ProjectsTeaser from '../components/ProjectsTeaser.astro';
+import MusicSection from '../components/MusicSection.astro';
+import MethodSection from '../components/MethodSection.astro';
+import { site } from '../data/site';
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title={site.name} description={site.tagline} currentPath="/">
+	<div class="page-grid home-main">
+		<ProfileSection />
+		<MethodSection />
+		<div class="home-span">
+			<TechTimeline />
+		</div>
+		<BlogTeaser />
+		<ProjectsTeaser />
+		<div class="home-span">
+			<MusicSection />
+		</div>
+	</div>
+</BaseLayout>

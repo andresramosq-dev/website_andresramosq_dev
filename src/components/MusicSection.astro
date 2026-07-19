@@ -1,0 +1,24 @@
+---
+import { music } from '../data/site';
+---
+
+<section class="section" id="musica" aria-labelledby="musica-title">
+	<p class="section__kicker"># música</p>
+	<h2 class="section__title" id="musica-title">Discos de trabajo</h2>
+	<p class="section__lead">
+		Una lista corta de álbumes que suelen acompañar sesiones de código o escritura.
+	</p>
+	<div class="music-list">
+		{
+			music.map((item) => (
+				<article class="music-item">
+					<div>
+						<h3 class="music-item__title">{item.title}</h3>
+						<p class="music-item__artist">{item.artist}</p>
+					</div>
+					<p class="music-item__why">{item.why}</p>
+				</article>
+			))
+		}
+	</div>
+</section>

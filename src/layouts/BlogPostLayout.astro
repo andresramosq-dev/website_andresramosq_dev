@@ -1,0 +1,29 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	pubDate: Date;
+	section: string;
+}
+
+const { title, description, pubDate, section } = Astro.props;
+const date = pubDate.toLocaleDateString('es-ES', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
+---
+
+<BaseLayout title={title} description={description} currentPath="/blog">
+	<article class="section" style="margin-top: 0.85rem;">
+		<p class="back-link"><a href="/blog">← Blog</a></p>
+		<h1 class="page-title">{title}</h1>
+		<p class="page-deck">{description}</p>
+		<p class="post-meta">{section} · {date}</p>
+		<div class="prose">
+			<slot />
+		</div>
+	</article>
+</BaseLayout>
