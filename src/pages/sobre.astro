@@ -1,32 +1,29 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import TermBlock from '../components/TermBlock.astro';
 import ProfilePhoto from '../components/ProfilePhoto.astro';
 import { site, skills, timeline } from '../data/site';
 ---
 
 <BaseLayout title="sobre" path="/sobre">
-  <header class="pg-head">
-    <p class="crumb"><a href="/">~</a> / sobre</p>
-    <h1 class="pg-title">Sobre mí</h1>
-    <p class="pg-desc">{site.tagline}</p>
-  </header>
+  <PageHeader segment="sobre" title="Sobre mí" />
 
-  <div class="about-row">
-    <ProfilePhoto size="sm" />
-    <div class="about-text">
-      {site.about.map((p) => <p>{p}</p>)}
+  <TermBlock cmd="cat bio.txt">
+    <div class="about-row">
+      <ProfilePhoto size="sm" />
+      <div class="about-text">
+        <p>{site.about[0]}</p>
+        <p>{site.about[1]}</p>
+      </div>
     </div>
-  </div>
+  </TermBlock>
 
-  <section class="panel" style="margin-bottom:1.25rem">
-    <h2 class="panel__title" style="margin-bottom:0.85rem">ls skills/</h2>
-    <div class="tags">
-      {skills.map((s) => <span class="tag">{s}</span>)}
-    </div>
-  </section>
+  <TermBlock cmd="ls skills/">
+    <p class="skills-line">{skills.join('  ·  ')}</p>
+  </TermBlock>
 
-  <section class="panel">
-    <h2 class="panel__title" style="margin-bottom:0.85rem">cat timeline.log</h2>
+  <TermBlock cmd="cat timeline.log">
     <ul class="timeline">
       {timeline.map((t) => (
         <li>
@@ -38,9 +35,6 @@ import { site, skills, timeline } from '../data/site';
         </li>
       ))}
     </ul>
-  </section>
-
-  <p style="margin-top:1.5rem;font-size:0.9rem">
-    <a href="/experiencia">Ver experiencia completa →</a>
-  </p>
+    <a class="mt-link" href="/experiencia">ver experiencia →</a>
+  </TermBlock>
 </BaseLayout>

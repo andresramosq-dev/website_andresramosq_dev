@@ -1,0 +1,14 @@
+---
+interface Props {
+	cmd: string;
+}
+
+const { cmd } = Astro.props;
+---
+
+<div class="tblock">
+	<p class="tblock__cmd"><span class="prompt">$</span> {cmd}</p>
+	<div class="tblock__body">
+		<slot />
+	</div>
+</div>

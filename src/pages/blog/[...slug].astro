@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import CategoryDot from '../../components/CategoryDot.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import TermBlock from '../../components/TermBlock.astro';
 import { getCollection, render } from 'astro:content';
 import { categoryLabel } from '../../data/site';
 
@@ -19,43 +20,35 @@ export async function getStaticPaths() {
 
 const { post, prev, next } = Astro.props;
 const { Content } = await render(post);
+const date = post.data.pubDate.toLocaleDateString('es-ES', {
+  day: 'numeric', month: 'long', year: 'numeric',
+});
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} path="/blog">
-  <article class="article">
-    <p class="crumb">
-      <a href="/">~</a> / <a href="/blog">blog</a> / {post.id}
-    </p>
-    <h1 class="pg-title">{post.data.title}</h1>
-    <p class="article__meta">
-      <CategoryDot category={post.data.category} />
-      {categoryLabel[post.data.category]} ·{' '}
-      {post.data.pubDate.toLocaleDateString('es-ES', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      })}{' '}
-      · {post.data.minutes} min read
-    </p>
+  <PageHeader segment={`blog/${post.id}`} title={post.data.title} />
+
+  <TermBlock cmd={`cat ${post.id}.md`}>
+    <p class="article__meta">{date} · {categoryLabel[post.data.category]}</p>
     <div class="article__body">
       <Content />
     </div>
 
-  {(prev || next) && (
-    <nav class="post-nav" aria-label="Navegación entre artículos">
-      {prev ? (
-        <a href={`/blog/${prev.id}`}>
-          <span class="post-nav__label">← anterior</span>
-          <p class="post-nav__title">{prev.data.title}</p>
-        </a>
-      ) : <div />}
-      {next ? (
-        <a class="post-nav__next" href={`/blog/${next.id}`}>
-          <span class="post-nav__label">siguiente →</span>
-          <p class="post-nav__title">{next.data.title}</p>
-        </a>
-      ) : <div />}
-    </nav>
-  )}
-  </article>
+    {(prev || next) && (
+      <nav class="post-nav" aria-label="Artículos">
+        {prev ? (
+          <a href={`/blog/${prev.id}`}>
+            <span class="post-nav__label">← anterior</span>
+            <p class="post-nav__title">{prev.data.title}</p>
+          </a>
+        ) : <div />}
+        {next ? (
+          <a class="post-nav__next" href={`/blog/${next.id}`}>
+            <span class="post-nav__label">siguiente →</span>
+            <p class="post-nav__title">{next.data.title}</p>
+          </a>
+        ) : <div />}
+      </nav>
+    )}
+  </TermBlock>
 </BaseLayout>

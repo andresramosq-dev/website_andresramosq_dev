@@ -1,0 +1,26 @@
+---
+export interface FeedItem {
+	href: string;
+	title: string;
+	meta?: string;
+}
+
+interface Props {
+	items: FeedItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="feed">
+	{
+		items.map((item) => (
+			<li>
+				<a href={item.href}>
+					<span class="feed__title">{item.title}</span>
+					{item.meta && <span class="feed__meta">{item.meta}</span>}
+				</a>
+			</li>
+		))
+	}
+</ul>

@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import TermBlock from '../../components/TermBlock.astro';
+import FeedList from '../../components/FeedList.astro';
 import { getCollection } from 'astro:content';
 import { categories } from '../../data/site';
 
@@ -10,22 +13,15 @@ const counts = Object.fromEntries(
 ---
 
 <BaseLayout title="tags" path="/categorias">
-  <header class="pg-head">
-    <p class="crumb"><a href="/">~</a> / tags</p>
-    <h1 class="pg-title">Tags</h1>
-    <p class="pg-desc">Artículos por categoría.</p>
-  </header>
+  <PageHeader segment="tags" title="Tags" />
 
-  <ul class="list">
-    {
-      categories.map((cat) => (
-        <li>
-          <a href={`/categorias/${cat.id}`}>
-            <p class="list__title">#{cat.label}</p>
-            <p class="list__meta">{counts[cat.id]} posts · {cat.description}</p>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+  <TermBlock cmd="ls tags/">
+    <FeedList
+      items={categories.map((c) => ({
+        href: `/categorias/${c.id}`,
+        title: c.label,
+        meta: `${counts[c.id]} posts`,
+      }))}
+    />
+  </TermBlock>
 </BaseLayout>

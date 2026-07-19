@@ -1,0 +1,13 @@
+---
+interface Props {
+	segment: string;
+	title: string;
+}
+
+const { segment, title } = Astro.props;
+---
+
+<header class="page-hd">
+	<p class="page-hd__path">~/andres/{segment}</p>
+	<h1 class="page-hd__title">{title}</h1>
+</header>

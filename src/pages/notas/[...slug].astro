@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import TermBlock from '../../components/TermBlock.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -17,27 +19,22 @@ export async function getStaticPaths() {
 
 const { note, prev, next } = Astro.props;
 const { Content } = await render(note);
+const date = note.data.pubDate.toLocaleDateString('es-ES', {
+  day: 'numeric', month: 'long', year: 'numeric',
+});
 ---
 
 <BaseLayout title={note.data.title} path="/notas">
-  <article class="article">
-    <p class="crumb">
-      <a href="/">~</a> / <a href="/notas">notas</a> / {note.id}
-    </p>
-    <h1 class="pg-title">{note.data.title}</h1>
-    <p class="article__meta">
-      {note.data.pubDate.toLocaleDateString('es-ES', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      })}
-    </p>
+  <PageHeader segment={`notas/${note.id}`} title={note.data.title} />
+
+  <TermBlock cmd={`cat ${note.id}.md`}>
+    <p class="article__meta">{date}</p>
     <div class="article__body">
       <Content />
     </div>
 
     {(prev || next) && (
-      <nav class="post-nav" aria-label="Navegación entre notas">
+      <nav class="post-nav" aria-label="Notas">
         {prev ? (
           <a href={`/notas/${prev.id}`}>
             <span class="post-nav__label">← anterior</span>
@@ -52,5 +49,5 @@ const { Content } = await render(note);
         ) : <div />}
       </nav>
     )}
-  </article>
+  </TermBlock>
 </BaseLayout>

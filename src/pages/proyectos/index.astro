@@ -1,29 +1,23 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import TermBlock from '../../components/TermBlock.astro';
+import FeedList from '../../components/FeedList.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year);
 ---
 
 <BaseLayout title="proyectos" path="/proyectos">
-  <header class="pg-head">
-    <p class="crumb"><a href="/">~</a> / proyectos</p>
-    <h1 class="pg-title">Proyectos</h1>
-    <p class="pg-desc">Cosas que construyo y experimentos.</p>
-  </header>
+  <PageHeader segment="proyectos" title="Proyectos" />
 
-  <ul class="list">
-    {
-      projects.map((p) => (
-        <li>
-          <a href={`/proyectos/${p.id}`}>
-            <p class="list__title">{p.data.title}</p>
-            <p class="list__meta">
-              {p.data.year} · {p.data.status} · {p.data.stack.join(', ')}
-            </p>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+  <TermBlock cmd="ls proyectos/">
+    <FeedList
+      items={projects.map((p) => ({
+        href: `/proyectos/${p.id}`,
+        title: p.data.title,
+        meta: String(p.data.year),
+      }))}
+    />
+  </TermBlock>
 </BaseLayout>

@@ -1,17 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
 ---
 
 <BaseLayout title="404" path="/404">
+  <PageHeader segment="404" title="Página no encontrada" />
   <div class="err">
     <p class="err__code">404</p>
-    <p class="err__msg">$ command not found: esta ruta no existe</p>
-    <p>
-      <a href="/">cd ~</a>
-      {' · '}
-      <a href="/blog">ls blog/</a>
-      {' · '}
-      <a href="/notas">ls notas/</a>
-    </p>
+    <p class="err__msg">command not found</p>
+    <p><a href="/">volver al inicio →</a></p>
   </div>
 </BaseLayout>

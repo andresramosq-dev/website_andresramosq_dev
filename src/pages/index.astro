@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TermBlock from '../components/TermBlock.astro';
+import FeedList from '../components/FeedList.astro';
 import ProfilePhoto from '../components/ProfilePhoto.astro';
 import { getCollection } from 'astro:content';
-import { site, skills } from '../data/site';
+import { site } from '../data/site';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -11,7 +13,8 @@ const projects = (await getCollection('projects'))
   .sort((a, b) => b.data.year - a.data.year)
   .slice(0, 3);
 
-const recent = posts.slice(0, 3);
+const recent = posts.slice(0, 4);
+const fmt = (d: Date) => d.toLocaleDateString('es-ES', { month: 'short', year: 'numeric' });
 ---
 
 <BaseLayout path="/">
@@ -19,58 +22,31 @@ const recent = posts.slice(0, 3);
     <ProfilePhoto />
     <div>
       <h1 class="hero__name">{site.name}</h1>
-      <p class="hero__role">{site.role} · {site.location}</p>
-
-      <div class="hero__block">
-        <p class="hero__cmd">cat about.txt</p>
-        <p class="hero__text">{site.bio}</p>
-      </div>
-
-      <div class="hero__block">
-        <p class="hero__cmd">ls skills/</p>
-        <p class="hero__skills">{skills.join('   ')}</p>
-      </div>
-
-      <p class="hero__cmd"><span class="hero__cursor"></span></p>
+      <p class="hero__role">{site.role}</p>
+      <p class="hero__bio">{site.bio}</p>
+      <a class="hero__link" href="/sobre">sobre mí →</a>
     </div>
   </section>
 
-  <div class="grid-2">
-    <section class="panel">
-      <div class="panel__head">
-        <h2 class="panel__title">ls blog/</h2>
-        <a class="panel__link" href="/blog">ver todos →</a>
-      </div>
-      <ul class="list">
-        {recent.map((post) => (
-          <li>
-            <a href={`/blog/${post.id}`}>
-              <p class="list__title">{post.data.title}</p>
-              <p class="list__meta">
-                {post.data.pubDate.toLocaleDateString('es-ES', { month: 'short', year: 'numeric' })}
-                {' · '}{post.data.category}
-              </p>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
+  <TermBlock cmd="ls blog/">
+    <FeedList
+      items={recent.map((p) => ({
+        href: `/blog/${p.id}`,
+        title: p.data.title,
+        meta: fmt(p.data.pubDate),
+      }))}
+    />
+    <a class="mt-link" href="/blog">ver todos los artículos →</a>
+  </TermBlock>
 
-    <section class="panel">
-      <div class="panel__head">
-        <h2 class="panel__title">ls proyectos/</h2>
-        <a class="panel__link" href="/proyectos">ver todos →</a>
-      </div>
-      <ul class="list">
-        {projects.map((p) => (
-          <li>
-            <a href={`/proyectos/${p.id}`}>
-              <p class="list__title">{p.data.title}</p>
-              <p class="list__meta">{p.data.year} · {p.data.status}</p>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
-  </div>
+  <TermBlock cmd="ls proyectos/">
+    <FeedList
+      items={projects.map((p) => ({
+        href: `/proyectos/${p.id}`,
+        title: p.data.title,
+        meta: String(p.data.year),
+      }))}
+    />
+    <a class="mt-link" href="/proyectos">ver proyectos →</a>
+  </TermBlock>
 </BaseLayout>
