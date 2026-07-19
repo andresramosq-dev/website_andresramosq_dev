@@ -1,8 +1,9 @@
 ---
 import { site } from '../data/site';
 import BioTag from './BioTag.astro';
+import BioKeyword from './BioKeyword.astro';
 
-function joinTags(items: readonly string[]) {
+function joinItems(items: readonly string[]) {
 	return items.map((item, i) => ({
 		item,
 		sep: i === 0 ? '' : i === items.length - 1 ? ', and ' : ', ',
@@ -13,27 +14,17 @@ function joinTags(items: readonly string[]) {
 <div class="bio">
 	<p class="bio__out">
 		Senior software developer with 4+ years in backend work —
-		{joinTags(site.bioStack).map(({ item, sep }) => (
+		{joinItems(site.bioStack).map(({ item, sep }) => (
 			<>
 				{sep}<BioTag label={item} />
 			</>
 		))}.
-		I have built software at an insurance fintech:
-		{joinTags(site.bioFintechTags).map(({ item, sep }) => (
-			<>
-				{sep}<BioTag label={item} />
-			</>
-		))}, and keeping codebases healthy over time.
-		I have also built systems from scratch — including
-		{joinTags(site.bioVccTags).map(({ item, sep }) => (
-			<>
-				{sep}<BioTag label={item} />
-			</>
-		))}, and more.
+		I have built software at an insurance fintech: payment gateways, SOAT product sales, and keeping codebases healthy over time.
+		I have also built systems from scratch — including a VCC platform with IAM, call handling, CRM, and more.
 		Passionate about
-		{joinTags(site.bioValues).map(({ item, sep }) => (
+		{joinItems(site.bioValues).map(({ item, sep }) => (
 			<>
-				{sep}<BioTag label={item} />
+				{sep}<BioKeyword label={item} />
 			</>
 		))}.
 	</p>

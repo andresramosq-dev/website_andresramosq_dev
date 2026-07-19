@@ -17,8 +17,6 @@ export const site = {
 	description:
 		'Personal console of Andrés Ramos. Backend development, APIs, microservices, and notes on the craft.',
 	bioStack: ['JavaScript', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL', 'AWS', 'Docker', 'Git'] as const,
-	bioFintechTags: ['payment gateways', 'SOAT product sales'] as const,
-	bioVccTags: ['VCC platform', 'IAM', 'call handling', 'CRM'] as const,
 	bioValues: ['clean code', 'modular architecture'] as const,
 	bioPersonal: [
 		'Lately I have been playing a lot with AI — this site was built with it (I am not great at web design 😉).',
