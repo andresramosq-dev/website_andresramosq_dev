@@ -37,11 +37,34 @@ export const site = {
 	],
 	aboutSite: {
 		leadBefore: 'This is',
-		leadAfter:
-			' — my space to share ideas, projects, and what I am learning as a developer.',
+		leadAfter: [
+			{ text: ' — my space to share ', tone: 'ink' },
+			{ text: 'ideas', tone: 'kw' },
+			{ text: ', ', tone: 'ink' },
+			{ text: 'projects', tone: 'kw' },
+			{ text: ', and what I am learning as a developer.', tone: 'ink' },
+		] as const,
 		body: [
-			'Here I write about software, technology, product thinking, and the day-to-day of building systems. You will find notes, experiments, lessons from real work, and a blog where I publish what I am exploring right now.',
-			'It is also a place to leave a trail of my process: architecture decisions, tools I am trying, mistakes worth documenting, and the skills I am sharpening over time.',
+			[
+				{ text: 'Here I write about ', tone: 'soft' },
+				{ text: 'software', tone: 'kw' },
+				{ text: ', ', tone: 'soft' },
+				{ text: 'technology', tone: 'kw' },
+				{ text: ', ', tone: 'soft' },
+				{ text: 'product thinking', tone: 'kw' },
+				{ text: ', and the day-to-day of building systems. You will find ', tone: 'soft' },
+				{ text: 'notes', tone: 'kw' },
+				{ text: ', ', tone: 'soft' },
+				{ text: 'experiments', tone: 'kw' },
+				{ text: ', lessons from real work, and a ', tone: 'soft' },
+				{ text: 'blog', tone: 'kw' },
+				{ text: ' where I publish what I am exploring right now.', tone: 'soft' },
+			],
+			[
+				{ text: 'It is also a place to leave a trail of my process: ', tone: 'soft' },
+				{ text: 'architecture decisions', tone: 'kw' },
+				{ text: ', tools I am trying, mistakes worth documenting, and the skills I am sharpening over time.', tone: 'soft' },
+			],
 		] as const,
 		builtBefore: 'I built it with',
 		builtWith: ['Astro'] as const,
@@ -50,8 +73,22 @@ export const site = {
 		builtAfter:
 			' to move faster on the development side (I am not that great at web design 😉).',
 		closing: [
-			'The terminal look comes from how much I like simple design — and because this is my workspace, I wanted it to feel a bit like my day to day: consoles, tests, and errors.',
-			'I write everything in English. It is not my strongest language yet, but practicing here is part of the point: clearer thinking, shorter sentences, and the habit of writing in public.',
+			[
+				{ text: 'The terminal look comes from how much I like ', tone: 'soft' },
+				{ text: 'simple design', tone: 'kw' },
+				{ text: ' — and because this is my workspace, I wanted it to feel a bit like my day to day: ', tone: 'soft' },
+				{ text: 'consoles', tone: 'kw' },
+				{ text: ', ', tone: 'soft' },
+				{ text: 'tests', tone: 'kw' },
+				{ text: ', and ', tone: 'soft' },
+				{ text: 'errors', tone: 'kw' },
+				{ text: '.', tone: 'soft' },
+			],
+			[
+				{ text: 'I write everything in ', tone: 'soft' },
+				{ text: 'English', tone: 'kw' },
+				{ text: '. It is not my strongest language yet, but practicing here is part of the point: clearer thinking, shorter sentences, and the habit of writing in public.', tone: 'soft' },
+			],
 		] as const,
 	},
 };

@@ -1,6 +1,7 @@
 ---
 import { site } from '../data/site';
 import BioTag from './BioTag.astro';
+import BioKeyword from './BioKeyword.astro';
 
 function joinItems(items: readonly string[]) {
 	return items.map((item, i) => ({
@@ -16,11 +17,25 @@ const { aboutSite } = site;
 	<p class="site-about__lead">
 		<span class="site-about__lead-text">{aboutSite.leadBefore}</span>{' '}
 		<a class="site-about__domain" href="#profile">{site.domain}</a>
-		<span class="site-about__lead-text">{aboutSite.leadAfter}</span>
+		{aboutSite.leadAfter.map((part) =>
+			part.tone === 'kw' ? (
+				<BioKeyword label={part.text} />
+			) : (
+				<span class="site-about__lead-text">{part.text}</span>
+			)
+		)}
 	</p>
 
 	{aboutSite.body.map((line) => (
-		<p class="site-about__out">{line}</p>
+		<p class="site-about__out">
+			{line.map((part) =>
+				part.tone === 'kw' ? (
+					<BioKeyword label={part.text} />
+				) : (
+					<span class="site-about__out-inline">{part.text}</span>
+				)
+			)}
+		</p>
 	))}
 
 	<div class="tag-box tag-box--c site-about__build">
@@ -43,6 +58,14 @@ const { aboutSite } = site;
 	</div>
 
 	{aboutSite.closing.map((line) => (
-		<p class="site-about__lang">{line}</p>
+		<p class="site-about__lang">
+			{line.map((part) =>
+				part.tone === 'kw' ? (
+					<BioKeyword label={part.text} />
+				) : (
+					<span class="site-about__out-inline">{part.text}</span>
+				)
+			)}
+		</p>
 	))}
 </div>
