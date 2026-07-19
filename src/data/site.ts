@@ -40,9 +40,9 @@ export const site = {
 export const nav = [{ label: 'about', href: '/about' }] as const;
 
 export const now = {
-	working: 'Backend at Nova Dynamics — IAM, microservices, and AWS/Docker infrastructure.',
-	learning: 'System design, cloud architecture, and clear technical writing.',
-	reading: 'Backend craft, clean architecture, and maintainable codebases.',
+	exploring: 'AI for web development — building and breaking things with it, including this site.',
+	looking_for: 'A real challenge to build: a product worth shipping, or a team worth growing with.',
+	into: 'Getting better at English, shipping small personal experiments, and staying curious outside the day-to-day.',
 };
 
 export const principles = [
