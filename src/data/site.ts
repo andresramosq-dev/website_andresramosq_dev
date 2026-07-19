@@ -16,9 +16,12 @@ export const site = {
 	consoleSlug: 'andres-ramos-console',
 	description:
 		'Personal console of Andrés Ramos. Backend development, APIs, microservices, and notes on the craft.',
-	bio: 'Senior software developer with 4+ years in backend work — JavaScript, TypeScript, Node.js, Python, PostgreSQL, AWS, Docker, and Git. I focus on clean code, modular architecture, and systems a team can own long term.',
-	bioPersonal:
-		'These days I am deep in AI — this site is living proof (web design is not my superpower 😉). I like building systems from scratch and I am most excited about products worth improving and growing.',
+	bio: 'Senior software developer with 4+ years in backend work — JavaScript, TypeScript, Node.js, Python, PostgreSQL, AWS, Docker, and Git. Passionate about clean code and modular architecture.',
+	bioPersonal: [
+		'Lately I have been playing a lot with AI — this site was built with it (I am not great at web design 😉).',
+		'Right now I am looking for that kind of challenge: building software or growing strong teams. Got something for me? Get in touch.',
+		'This site is in English — not my strongest language, but I am working on getting better at it.',
+	],
 	about: [],
 	social: [
 		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/aframos-dev', value: 'github.com/aframos-dev' },

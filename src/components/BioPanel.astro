@@ -4,12 +4,14 @@ import { site } from '../data/site';
 
 <div class="bio">
 	<p class="bio__out">{site.bio}</p>
-	<div class="whoami__print">
-		<p class="whoami__print-line">
-			<span class="whoami__sig">@</span><span class="whoami__cmd"> print \</span>
-		</p>
-		<p class="whoami__print-line whoami__print-line--cont">
-			<span class="whoami__sig">&gt;</span> <span class="whoami__cmd">"{site.bioPersonal}"</span>
-		</p>
-	</div>
+	{site.bioPersonal.map((line) => (
+		<div class="whoami__print">
+			<p class="whoami__print-line">
+				<span class="whoami__sig">@</span><span class="whoami__cmd"> print \</span>
+			</p>
+			<p class="whoami__print-line whoami__print-line--cont">
+				<span class="whoami__sig">&gt;</span> <span class="whoami__cmd">"{line}"</span>
+			</p>
+		</div>
+	))}
 </div>
