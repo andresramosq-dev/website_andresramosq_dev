@@ -1,15 +1,72 @@
 ---
 import { tastes } from '../data/site';
+
+function spotifyPlaylistEmbed(url: string | null) {
+	if (!url) return null;
+	const match = url.match(/playlist\/([a-zA-Z0-9]+)/);
+	if (!match) return null;
+	return `https://open.spotify.com/embed/playlist/${match[1]}?utm_source=generator`;
+}
+
+const playlistEmbed = spotifyPlaylistEmbed(tastes.spotify.playlistUrl);
 ---
 
 <div class="tastes">
 	<p class="tastes__lead">{tastes.lead}</p>
-	<div class="taste-grid">
-		{tastes.items.map((item) => (
-			<article class="taste-card">
-				<h3 class="taste-card__title">{item.title}</h3>
-				<p class="taste-card__body">{item.text}</p>
-			</article>
-		))}
-	</div>
+
+	<section class="taste-section">
+		<h3 class="taste-section__head">influential figures</h3>
+		<ul class="taste-figures">
+			{tastes.figures.map((figure) => (
+				<li class="taste-figure">
+					<span class="taste-figure__name">{figure.name}</span>
+					<span class="taste-figure__text">{figure.text}</span>
+				</li>
+			))}
+		</ul>
+	</section>
+
+	<section class="taste-section">
+		<h3 class="taste-section__head">top movies</h3>
+		<ol class="taste-movies">
+			{tastes.movies.map((movie) => (
+				<li>
+					<span class="taste-movies__rank">{movie.rank}.</span>
+					<span class="taste-movies__title">{movie.title}</span>
+					<span class="taste-movies__year">({movie.year})</span>
+				</li>
+			))}
+		</ol>
+	</section>
+
+	<section class="taste-section">
+		<h3 class="taste-section__head">influential series</h3>
+		<div class="taste-series">
+			{tastes.series.map((title) => (
+				<span class="taste-series__chip">{title}</span>
+			))}
+		</div>
+	</section>
+
+	<section class="taste-section">
+		<h3 class="taste-section__head">music</h3>
+		{playlistEmbed ? (
+			<div class="taste-spotify">
+				<iframe
+					title="Spotify playlist"
+					src={playlistEmbed}
+					width="100%"
+					height="152"
+					allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+					loading="lazy"
+					referrerpolicy="strict-origin-when-cross-origin"
+				/>
+			</div>
+		) : (
+			<p class="taste-spotify__fallback">
+				<a href={tastes.spotify.profileUrl} target="_blank" rel="noreferrer">My Spotify profile</a>
+				<span class="taste-spotify__note">— playlist embed when a public playlist link is set.</span>
+			</p>
+		)}
+	</section>
 </div>

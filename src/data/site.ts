@@ -107,29 +107,49 @@ export const workPhilosophy = {
 };
 
 export const tastes = {
-	lead: 'A few things I come back to when I am not shipping features.',
-	items: [
+	lead: 'People, stories, and sound that stay with me outside of work.',
+	figures: [
 		{
-			title: 'figures',
-			text: 'Marcus Aurelius and Charlemagne — discipline, duty, and building something that outlives you.',
+			name: 'Marcus Aurelius',
+			text: 'His philosophy and writing — discipline, perspective, and how to act under pressure.',
 		},
 		{
-			title: 'reads',
-			text: 'Meditations, Clean Code, Designing Data-Intensive Applications.',
+			name: 'Charlemagne',
+			text: 'His history and figure — building something larger than yourself across time.',
 		},
 		{
-			title: 'screen',
-			text: 'Interstellar, The Social Network, Silo, The Bear.',
+			name: 'Cristiano Ronaldo',
+			text: 'A winning, competitive mindset — consistency, ambition, and refusing to coast.',
 		},
 		{
-			title: 'sound',
-			text: 'Film scores, lo-fi for focus, rock when I need a hard reset.',
-		},
-		{
-			title: 'field',
-			text: 'Football with friends, gym, and long walks to think.',
+			name: 'Linus Torvalds',
+			text: 'What he created and how he shares it — open systems, sharp opinions, real impact.',
 		},
 	] as const,
+	movies: [
+		{ rank: 1, title: 'Interstellar', year: 2014 },
+		{ rank: 2, title: '300', year: 2007 },
+		{ rank: 3, title: 'V for Vendetta', year: 2005 },
+		{ rank: 4, title: 'Dawn of the Dead', year: 2003 },
+		{ rank: 5, title: 'The Matrix', year: 1999 },
+		{ rank: 6, title: 'The Terminator', year: 1984 },
+		{ rank: 7, title: 'Parasite', year: 2019 },
+		{ rank: 8, title: 'The Dark Knight', year: 2008 },
+		{ rank: 9, title: 'Gladiator', year: 2000 },
+		{ rank: 10, title: 'The Truman Show', year: 1998 },
+	] as const,
+	series: [
+		'The Big Bang Theory',
+		'Vikings',
+		'Game of Thrones',
+		'Lost',
+		'The Walking Dead',
+	] as const,
+	spotify: {
+		profileUrl: 'https://open.spotify.com/user/12163431588',
+		/** Public playlist URL — embed appears when set, e.g. https://open.spotify.com/playlist/... */
+		playlistUrl: null as string | null,
+	},
 };
 
 export const persona = {
