@@ -131,26 +131,40 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	padding: 1.25rem 1.4rem 2.5rem;
 }
 
-/* Título consola — prompt en dos líneas */
+/* Título consola — prompt tipo oh-my-zsh (amuse) */
 .console-title {
-	font-size: 1.05rem;
-	font-weight: 600;
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
 	margin: 0 0 1.35rem;
-	line-height: 1.35;
+	font-weight: 500;
+	line-height: 1.4;
 	letter-spacing: -0.01em;
 }
-.console-title__line { display: block; }
-.console-title__line--path {
-	margin-top: 0.2rem;
+.console-title__prompt,
+.console-title__cmd {
+	display: block;
+	margin: 0;
+	font-size: 0.84rem;
+}
+.console-title__cmd {
 	font-size: 0.92rem;
-	font-weight: 500;
-	color: var(--ink);
+	padding-left: 0.1rem;
 }
 .console-title__user { color: var(--prompt); }
 .console-title__at,
 .console-title__sep { color: var(--muted); font-weight: 400; }
 .console-title__host { color: var(--host); }
 .console-title__cwd { color: var(--cmd); }
+.console-title__bin {
+	color: var(--prompt);
+	font-weight: 600;
+}
+.console-title__page {
+	color: var(--ink);
+	font-weight: 600;
+	margin-left: 0.35rem;
+}
 
 /* Bloque comando + salida */
 .cmd-block {
