@@ -12,6 +12,7 @@ interface Props {
 
 const { title, description, path = '/' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
+const segment = path === '/' ? '~' : `~${path}`;
 ---
 
 <!doctype html>
@@ -29,8 +30,8 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
     <a class="skip" href="#main">Saltar al contenido</a>
 
     <div class="desk">
-      <TerminalShell>
-        <div class="twin__body">
+      <TerminalShell segment={segment}>
+        <div class="term__screen">
           <nav class="nav" aria-label="Principal">
             {nav.map((item) => (
               <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
@@ -40,7 +41,7 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
           </nav>
 
           <details class="cmd-fold">
-            <summary>navegar por comandos (/help)</summary>
+            <summary>/help — navegar por comandos</summary>
             <CommandBar />
           </details>
 
@@ -51,16 +52,13 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
 
         <footer class="ftr">
           <span>© {new Date().getFullYear()} {site.domain}</span>
-          <div>
-            {site.links.map((l, i) => (
-              <>
-                {i > 0 && ' · '}
-                <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">{l.label}</a>
-              </>
-            ))}
-            {' · '}<a href="/notas">notas</a>
-            {' · '}<a href="/rss.xml">rss</a>
-          </div>
+          <span>
+            <a href={site.links[0].href}>github</a>
+            {' · '}
+            <a href={`mailto:${site.email}`}>email</a>
+            {' · '}
+            <a href="/rss.xml">rss</a>
+          </span>
         </footer>
       </TerminalShell>
     </div>

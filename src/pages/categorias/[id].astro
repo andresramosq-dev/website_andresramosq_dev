@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageHeader from '../../components/PageHeader.astro';
-import TermBlock from '../../components/TermBlock.astro';
+import TermLine from '../../components/TermLine.astro';
+import PromptCursor from '../../components/PromptCursor.astro';
 import FeedList from '../../components/FeedList.astro';
 import { categories } from '../../data/site';
 
@@ -18,9 +18,7 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { month: 'short', year: '
 ---
 
 <BaseLayout title={category.label} path="/categorias">
-  <PageHeader segment={`tags/${category.label}`} title={category.label} />
-
-  <TermBlock cmd={`ls blog/ --tag=${category.label}`}>
+  <TermLine cmd={`ls blog/ --tag=${category.label}`}>
     <FeedList
       items={posts.map((p) => ({
         href: `/blog/${p.id}`,
@@ -28,5 +26,6 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { month: 'short', year: '
         meta: fmt(p.data.pubDate),
       }))}
     />
-  </TermBlock>
+  </TermLine>
+  <PromptCursor />
 </BaseLayout>

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageHeader from '../../components/PageHeader.astro';
-import TermBlock from '../../components/TermBlock.astro';
+import TermLine from '../../components/TermLine.astro';
+import PromptCursor from '../../components/PromptCursor.astro';
 import { getCollection, render } from 'astro:content';
 import { categoryLabel } from '../../data/site';
 
@@ -10,47 +10,37 @@ export async function getStaticPaths() {
   const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
   return sorted.map((post, i) => ({
     params: { slug: post.id },
-    props: {
-      post,
-      prev: sorted[i + 1] ?? null,
-      next: sorted[i - 1] ?? null,
-    },
+    props: { post, prev: sorted[i + 1] ?? null, next: sorted[i - 1] ?? null },
   }));
 }
 
 const { post, prev, next } = Astro.props;
 const { Content } = await render(post);
-const date = post.data.pubDate.toLocaleDateString('es-ES', {
-  day: 'numeric', month: 'long', year: 'numeric',
-});
+const date = post.data.pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} path="/blog">
-  <PageHeader segment={`blog/${post.id}`} title={post.data.title} />
-
-  <TermBlock cmd={`cat ${post.id}.md`}>
-  <div class="article-wrap">
+  <TermLine cmd={`cat "${post.data.title}"`}>
+    <p class="out out--lg">{post.data.title}</p>
     <p class="article__meta">{date} · {categoryLabel[post.data.category]}</p>
-    <div class="article__body">
-      <Content />
-    </div>
+    <div class="article__body"><Content /></div>
 
     {(prev || next) && (
-      <nav class="post-nav" aria-label="Artículos">
+      <nav class="post-nav">
         {prev ? (
           <a href={`/blog/${prev.id}`}>
-            <span class="post-nav__label">← anterior</span>
-            <p class="post-nav__title">{prev.data.title}</p>
+            <div class="post-nav__l">← anterior</div>
+            <p class="post-nav__t">{prev.data.title}</p>
           </a>
         ) : <div />}
         {next ? (
-          <a class="post-nav__next" href={`/blog/${next.id}`}>
-            <span class="post-nav__label">siguiente →</span>
-            <p class="post-nav__title">{next.data.title}</p>
+          <a class="next" href={`/blog/${next.id}`}>
+            <div class="post-nav__l">siguiente →</div>
+            <p class="post-nav__t">{next.data.title}</p>
           </a>
         ) : <div />}
       </nav>
     )}
-    </div>
-  </TermBlock>
+  </TermLine>
+  <PromptCursor />
 </BaseLayout>

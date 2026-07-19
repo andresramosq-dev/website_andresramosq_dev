@@ -1,20 +1,24 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageHeader from '../../components/PageHeader.astro';
-import TermBlock from '../../components/TermBlock.astro';
+import TermLine from '../../components/TermLine.astro';
+import PromptCursor from '../../components/PromptCursor.astro';
 import { experience } from '../../data/site';
 ---
 
 <BaseLayout title="experiencia" path="/experiencia">
-  <PageHeader segment="experiencia" title="Experiencia" />
-
-  <TermBlock cmd="cat experiencia.log">
-    {experience.map((job) => (
-      <article class="exp">
-        <h2 class="exp__role">{job.role}</h2>
-        <p class="exp__meta">{job.company} · {job.period}</p>
-        <p class="exp__desc">{job.desc}</p>
-      </article>
-    ))}
-  </TermBlock>
+  <TermLine cmd="cat jobs.log">
+    <ul class="jobs">
+      {experience.map((job) => (
+        <li>
+          <div class="jobs__head">
+            <span class="jobs__role">{job.role}</span>
+            <span class="jobs__when">{job.period}</span>
+          </div>
+          <p class="jobs__sub">{job.company} — {job.desc}</p>
+          <p class="jobs__sub">{job.stack.join(' · ')}</p>
+        </li>
+      ))}
+    </ul>
+  </TermLine>
+  <PromptCursor />
 </BaseLayout>

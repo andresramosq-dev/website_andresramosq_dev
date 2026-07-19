@@ -1,97 +1,74 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
-import TermBlock from '../components/TermBlock.astro';
+import TermLine from '../components/TermLine.astro';
+import PromptCursor from '../components/PromptCursor.astro';
+import FeedList from '../components/FeedList.astro';
 import ProfilePhoto from '../components/ProfilePhoto.astro';
-import { site, skills, timeline, now, principles, experience } from '../data/site';
+import { site, skills, now, experience } from '../data/site';
 ---
 
 <BaseLayout title="sobre" path="/sobre">
-  <PageHeader segment="sobre" title="Sobre mí" />
-
-  <div class="about-layout">
-    <aside class="about-side">
-      <ProfilePhoto size="md" />
-      <dl class="about-meta">
-        <dt>name</dt>
-        <dd>{site.name}</dd>
-        <dt>role</dt>
-        <dd>{site.role}</dd>
-        <dt>location</dt>
-        <dd>{site.location}</dd>
-        <dt>since</dt>
-        <dd>{site.since}</dd>
-        <dt>email</dt>
-        <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
-        <dt>github</dt>
-        <dd><a href={site.links[0].href} target="_blank" rel="noreferrer">{site.handle}</a></dd>
-      </dl>
-    </aside>
-
-    <div class="about-main">
-      <TermBlock cmd="cat bio.txt">
-        <div class="about-text">
-          {site.about.map((p) => <p>{p}</p>)}
-        </div>
-      </TermBlock>
-
-      <TermBlock cmd="cat now.txt">
-        <dl class="now-grid">
-          <div class="now-item">
-            <dt>working_on</dt>
-            <dd>{now.working}</dd>
-          </div>
-          <div class="now-item">
-            <dt>learning</dt>
-            <dd>{now.learning}</dd>
-          </div>
-          <div class="now-item">
-            <dt>reading</dt>
-            <dd>{now.reading}</dd>
-          </div>
-        </dl>
-      </TermBlock>
-
-      <TermBlock cmd="ls skills/">
-        <p class="skills-line">
-          {skills.map((s) => <span>{s}</span>)}
-        </p>
-      </TermBlock>
-
-      <TermBlock cmd="cat principles.txt">
-        <div class="principles">
-          {principles.map((p) => (
-            <div class="principle">
-              <p class="principle__title">{p.title}</p>
-              <p class="principle__desc">{p.desc}</p>
-            </div>
-          ))}
-        </div>
-      </TermBlock>
-
-      <TermBlock cmd="cat experiencia.log">
-        {experience.map((job) => (
-          <article class="exp">
-            <h2 class="exp__role">{job.role}</h2>
-            <p class="exp__meta">{job.company} · {job.period}</p>
-            <p class="exp__desc">{job.desc}</p>
-          </article>
-        ))}
-      </TermBlock>
-
-      <TermBlock cmd="cat timeline.log">
-        <ul class="timeline">
-          {timeline.map((t) => (
-            <li>
-              <span class="timeline__year">{t.year}</span>
-              <div>
-                <p class="timeline__title">{t.title}</p>
-                <p class="timeline__desc">{t.desc}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </TermBlock>
+  <div class="hero">
+    <ProfilePhoto size="sm" />
+    <div>
+      <TermLine cmd="whoami">
+        <p class="out out--lg">{site.name}</p>
+        <p class="out out--sm">{site.role} · {site.location}</p>
+      </TermLine>
     </div>
   </div>
+
+  <TermLine cmd="cat me.json">
+    <pre class="pre">{`{
+  "name": "${site.name}",
+  "role": "${site.role}",
+  "since": ${site.since},
+  "email": "${site.email}",
+  "web": "${site.domain}"
+}`}</pre>
+  </TermLine>
+
+  <TermLine cmd="cat bio.txt">
+  {site.about.map((p) => <p class="out">{p}</p>)}
+  </TermLine>
+
+  <TermLine cmd="cat now.txt">
+    <dl class="now">
+      <div><dt>working_on</dt><dd>{now.working}</dd></div>
+      <div><dt>learning</dt><dd>{now.learning}</dd></div>
+      <div><dt>reading</dt><dd>{now.reading}</dd></div>
+    </dl>
+  </TermLine>
+
+  <TermLine cmd="ls skills/">
+    <p class="skills">{skills.join('  ')}</p>
+  </TermLine>
+
+  <TermLine cmd="cat jobs.log">
+    <ul class="jobs">
+      {experience.map((job) => (
+        <li>
+          <div class="jobs__head">
+            <span class="jobs__role">{job.role}</span>
+            <span class="jobs__when">{job.period}</span>
+          </div>
+          <p class="jobs__sub">{job.company} — {job.desc}</p>
+        </li>
+      ))}
+    </ul>
+  </TermLine>
+
+  <TermLine cmd="cat links.txt">
+    <p class="out">
+      <a href={site.links[0].href}>{site.handle}</a>
+      {' · '}
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      {' · '}
+      <a href="/blog">./blog</a>
+      {' · '}
+      <a href="/proyectos">./proyectos</a>
+    </p>
+  </TermLine>
+
+  <PromptCursor />
 </BaseLayout>

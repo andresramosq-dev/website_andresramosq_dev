@@ -1,15 +1,18 @@
 ---
 import { site } from '../data/site';
+
+interface Props {
+	segment?: string;
+}
+
+const { segment = '~' } = Astro.props;
 ---
 
-<div class="twin">
-	<div class="twin__bar">
-		<div class="twin__dots">
-			<span class="twin__dot twin__dot--r"></span>
-			<span class="twin__dot twin__dot--y"></span>
-			<span class="twin__dot twin__dot--g"></span>
-		</div>
-		<a class="twin__brand" href="/">{site.domain}</a>
+<div class="term">
+	<div class="term__bar">
+		<a href="/">{site.domain}</a>
+		{' — bash — '}
+		<span class="h">{site.user}@{site.domain}</span>:{segment}
 	</div>
 	<slot />
 </div>
