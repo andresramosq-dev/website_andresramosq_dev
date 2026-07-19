@@ -149,7 +149,7 @@ export const tastes = {
 		playlistUrl: 'https://open.spotify.com/playlist/6LLHq6QhG5QlEDSW3yUtOl',
 		playlistLabel: 'favorites',
 		playerHref: '/music',
-		playerLinkLabel: "andres' music",
+		playerLinkLabel: 'Andrés · music',
 		tracks: [] as readonly string[],
 	},
 };
