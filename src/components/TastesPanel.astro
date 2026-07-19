@@ -49,8 +49,7 @@ const hasTracks = tastes.spotify.tracks.length > 0;
 	<p class="tastes-console__section">series</p>
 	<div class="stack-groups stack-groups--tight">
 		<section class="stack-group">
-			<p class="stack-group__label">influential</p>
-			<div class="stack-group__chips">
+			<div class="stack-group__chips stack-group__chips--column">
 				{tastes.series.map((title) => (
 					<span class="stack-chip">
 						<span class="stack-chip__hash">#</span>
@@ -78,9 +77,21 @@ const hasTracks = tastes.spotify.tracks.length > 0;
 			/>
 		</div>
 	) : (
-		<p class="console-doc__line tastes-console__wait">
-			<span class="tastes-console__muted">waiting for a public playlist link to load the player.</span>
-		</p>
+		<>
+			<p class="console-doc__line tastes-console__cmd-line">
+				<span class="tastes-player__sig">$</span> spotify embed --playlist &lt;public-url&gt;
+			</p>
+			<p class="console-doc__line tastes-console__hint">
+				To play music here, create a public playlist on Spotify and send me the link (Share → Copy link).
+				Your profile alone cannot be embedded. Without a playlist, I can only show a plain song list.
+			</p>
+			<p class="console-doc__line">
+				profile:
+				<a class="tastes-console__link" href={tastes.spotify.profileUrl} target="_blank" rel="noreferrer">
+					{tastes.spotify.profileUrl.replace('https://', '')}
+				</a>
+			</p>
+		</>
 	)}
 
 	{hasTracks ? (
@@ -89,13 +100,5 @@ const hasTracks = tastes.spotify.tracks.length > 0;
 				<li>{track}</li>
 			))}
 		</ul>
-	) : !playlistEmbed ? (
-		<p class="console-doc__line">
-			Profile:
-			<a class="tastes-console__link" href={tastes.spotify.profileUrl} target="_blank" rel="noreferrer">
-				{tastes.spotify.profileUrl.replace('https://', '')}
-			</a>
-			— create a public playlist and share the link to embed playback here, or add a text track list in data (list only).
-		</p>
 	) : null}
 </div>

@@ -608,137 +608,121 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	font-size: inherit;
 	font-weight: 500;
 }
-/* tastes.txt — pane layout */
-.favorites {
-	display: grid;
-	gap: 0.55rem;
-	font-family: var(--mono);
-	font-size: 0.86rem;
-	line-height: 1.6;
+/* tastes.txt — console sections (no nested panes) */
+.tastes-console {
+	gap: 0.85rem;
 }
-.favorites__lead {
-	margin: 0 0 0.15rem;
-	color: var(--ink);
-}
-.fav-pane {
-	margin: 0;
-	padding: 0.65rem 0.75rem;
-	background: var(--panel2);
-	border: 1px solid var(--border2);
-	border-radius: 4px;
-}
-.fav-pane__title {
-	margin: 0 0 0.45rem;
+.tastes-console__section {
+	margin: 0.55rem 0 0.35rem;
+	color: var(--prompt);
 	font-size: 0.86rem;
 	font-weight: 400;
-	color: var(--prompt);
+	line-height: 1.5;
 }
-.fav-pane__title::before {
-	content: '> ';
+.tastes-console__section:first-of-type {
+	margin-top: 0;
+}
+.tastes-console__section::after {
+	content: ':';
 	color: var(--muted);
+	margin-left: 0.08rem;
 }
-.fav-pane__figures,
-.fav-pane__movies {
+.tastes-console__list {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 	display: grid;
 	gap: 0.35rem;
 }
-.fav-pane__figures li,
-.fav-pane__movies li {
+.tastes-console__list li {
 	color: var(--text);
 }
-.fav-pane__name {
-	color: var(--ink);
-}
-.fav-pane__sep {
+.tastes-console__list li::before {
+	content: '- ';
 	color: var(--muted);
 }
-.fav-pane__movies li {
-	display: grid;
-	grid-template-columns: 1.35rem 1fr auto;
-	gap: 0.45rem 0.65rem;
-	align-items: baseline;
+.tastes-console__name {
+	color: var(--ink);
 }
-.fav-pane__rank {
+.tastes-console__sep {
+	color: var(--muted);
+}
+.tastes-console__muted,
+.tastes-console__hint {
+	color: var(--muted);
+}
+.tastes-console__link {
+	color: var(--cmd);
+	text-decoration: none;
+}
+.tastes-console__link:hover {
+	text-decoration: underline;
+}
+.tastes-console__cmd-line {
+	color: var(--muted);
+}
+.term-table {
+	width: 100%;
+	max-width: 36rem;
+	border-collapse: collapse;
+	font-family: var(--mono);
+	font-size: 0.86rem;
+	margin: 0;
+}
+.term-table th {
+	text-align: left;
+	font-weight: 400;
+	color: var(--muted);
+	border-bottom: 1px solid var(--border2);
+	padding: 0.2rem 0.75rem 0.35rem 0;
+}
+.term-table td {
+	padding: 0.3rem 0.75rem 0.3rem 0;
+	color: var(--text);
+	border-bottom: 1px solid var(--border);
+	vertical-align: baseline;
+}
+.term-table tbody tr:last-child td {
+	border-bottom: none;
+}
+.term-table__rank {
 	color: var(--perm);
+	width: 2rem;
 }
-.fav-pane__movie {
-	color: var(--text);
-}
-.fav-pane__year {
+.term-table__muted {
 	color: var(--muted);
+	white-space: nowrap;
 }
-.fav-pane__chips {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.4rem;
+.stack-groups--tight {
+	gap: 0.2rem;
 }
-.fav-chip {
-	display: inline-block;
-	padding: 0.22rem 0.55rem;
-	border: 1px solid var(--border);
-	background: var(--bg);
-	color: var(--text);
-	font-size: 0.86rem;
-	line-height: 1.5;
-	border-radius: 3px;
+.stack-group__chips--column {
+	flex-direction: column;
+	align-items: flex-start;
 }
-.fav-pane--spotify {
-	border-left: 3px solid #1db954;
+.tastes-player {
+	margin: 0;
+	max-width: 100%;
 }
-.fav-pane__note {
-	margin: 0 0 0.5rem;
-	color: var(--text);
+.tastes-player__cmd {
+	margin: 0 0 0.45rem;
+	color: var(--muted);
 	font-size: 0.86rem;
 }
-.fav-pane__note strong {
-	color: var(--ink);
-	font-weight: 500;
+.tastes-player__sig {
+	color: var(--perm);
+	margin-right: 0.35rem;
 }
-.fav-pane__actions {
-	margin: 0 0 0.55rem;
-}
-.fav-pane__btn {
-	display: inline-block;
-	padding: 0.35rem 0.65rem;
+.tastes-player iframe {
+	display: block;
+	width: 100%;
+	max-width: 100%;
 	border: 1px solid var(--border2);
 	border-radius: 4px;
-	background: var(--bg);
-	color: var(--cmd);
-	font-size: 0.86rem;
-	font-weight: 500;
-	text-decoration: none;
+	background: var(--panel2);
 }
-.fav-pane__btn:hover {
-	border-color: #1db954;
-	color: #6ee7a0;
-	text-decoration: none;
-}
-.fav-pane__hint {
-	margin: 0;
-	color: var(--muted);
-	font-size: 0.86rem;
-	line-height: 1.55;
-}
-.fav-spotify-player {
-	margin: 0;
-	border-radius: 8px;
-	overflow: hidden;
-	border: 1px solid var(--border2);
-}
-.fav-spotify-player__label {
-	margin: 0;
-	padding: 0.35rem 0.55rem;
-	font-size: 0.72rem;
-	color: var(--muted);
-	background: var(--bg);
-	border-bottom: 1px solid var(--border2);
-}
-.fav-spotify-player iframe {
-	display: block;
-	border: 0;
+.tastes-console__tracks {
+	margin-top: 0.45rem;
 }
 .persona {
 	display: grid;
