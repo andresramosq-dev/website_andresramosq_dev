@@ -41,7 +41,7 @@ export const nav = [{ label: 'about', href: '/about' }] as const;
 
 export const now = {
 	focused_on:
-		'Playing with AI, learning software architecture, leading and growing products, and sharpening the skills that make those things stick.',
+		'Experimenting with AI, deepening architecture skills, leading product ideas, and strengthening my English.',
 	looking_for:
 		'Valuable projects or ideas where I can help organize and manage development. If you have a project or a proposal, get in touch.',
 	building:
