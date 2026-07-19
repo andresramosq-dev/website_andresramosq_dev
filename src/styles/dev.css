@@ -154,7 +154,10 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	color: var(--muted);
 	font-weight: 400;
 }
-.console-title__command,
+.console-title__path {
+	color: var(--cmd);
+	font-weight: 600;
+}
 .console-title__print,
 .console-title__quote {
 	color: var(--ink);
