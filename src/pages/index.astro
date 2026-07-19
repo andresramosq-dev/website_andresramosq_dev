@@ -1,9 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Icon from '../components/Icon.astro';
-import CategoryBadge from '../components/CategoryBadge.astro';
-import PostCard from '../components/PostCard.astro';
 import { site, categories } from '../data/site';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
@@ -11,128 +8,110 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 );
 
 const featured = posts.find((post) => post.data.featured) ?? posts[0];
-const latest = posts.filter((post) => post.id !== featured.id).slice(0, 4);
+const latest = posts.filter((post) => post.id !== featured.id).slice(0, 3);
 ---
 
-<BaseLayout title={site.name} description={site.tagline} currentPath="/">
-	<section class="hero">
-		<div>
-			<p class="hero__kicker">
-				<Icon name="pen" size={16} />
-				pizarra artística
-			</p>
-			<h1 class="hero__title">
-				{site.name}
-			</h1>
-			<p class="hero__text">
-				{site.tagline} Ideas dibujadas a mano: código, diseño y oficio sobre una pizarra creativa.
-			</p>
-			<div class="hero__actions">
-				<a class="btn btn--solid" href="/blog">
-					Ver escritos
-					<Icon name="arrow" size={17} />
-				</a>
-				<a class="btn btn--ghost" href="/sobre">Sobre mí</a>
-			</div>
-		</div>
-		<div class="hero__art">
-			<img
-				src="/images/hero-blog.svg"
-				alt="Ilustración de un cuaderno y una planta"
-				width="640"
-				height="420"
-			/>
-		</div>
-	</section>
+<BaseLayout title={site.name} description={site.tagline} currentPath="/" board>
+	<div class="board-page">
+		<div class="board" aria-label="Pizarra artística del blog">
+			<!-- chalk connector lines between frames -->
+			<svg class="board__canvas" viewBox="0 0 1000 980" preserveAspectRatio="none" aria-hidden="true">
+				<path d="M340 140 C420 160, 480 170, 560 180"></path>
+				<path d="M300 320 C360 360, 400 390, 430 430"></path>
+				<path d="M680 300 C700 380, 720 450, 760 520"></path>
+				<path d="M250 560 C320 620, 380 700, 420 760"></path>
+				<path d="M700 640 C640 700, 560 760, 500 800"></path>
+				<path d="M180 200 C160 280, 150 340, 170 400"></path>
+				<!-- arrow heads -->
+				<path class="board__arrowhead" d="M555 172 l18 4 -12 14 z"></path>
+				<path class="board__arrowhead" d="M425 425 l14 -10 4 18 z"></path>
+				<path class="board__arrowhead" d="M755 515 l8 16 -18 -2 z"></path>
+			</svg>
 
-	<section class="section" aria-labelledby="featured-title">
-		<div class="section__head">
-			<h2 class="section__title" id="featured-title">Destacado</h2>
-		</div>
-		<a class="featured" href={`/blog/${featured.id}`}>
-			<div>
-				<div class="featured__meta">
-					<CategoryBadge id={featured.data.category} />
-					<span>
-						{featured.data.pubDate.toLocaleDateString('es-ES', {
-							year: 'numeric',
-							month: 'short',
-							day: 'numeric',
-						})}
-					</span>
+			<img class="doodle doodle--star" src="/images/doodles/star.svg" alt="" width="48" height="48" />
+			<img class="doodle doodle--coffee" src="/images/doodles/coffee.svg" alt="" width="58" height="58" />
+			<img class="doodle doodle--leaf" src="/images/doodles/leaf.svg" alt="" width="70" height="70" />
+			<img class="doodle doodle--bulb" src="/images/doodles/bulb.svg" alt="" width="54" height="54" />
+			<img class="doodle doodle--arrow-1" src="/images/doodles/arrow-curve.svg" alt="" width="120" height="70" />
+			<img class="doodle doodle--arrow-2" src="/images/doodles/arrow-curve.svg" alt="" width="110" height="65" />
+
+			<section class="frame frame--title">
+				<p class="frame__label">pizarra artística</p>
+				<h1 class="frame__title">{site.name}</h1>
+				<p class="frame__text">{site.tagline}</p>
+				<p class="frame__cta">← empieza por cualquier recuadro</p>
+			</section>
+
+			<a class="frame frame--featured" href={`/blog/${featured.id}`}>
+				<p class="frame__label">destacado ★</p>
+				<h2 class="frame__title">{featured.data.title}</h2>
+				<p class="frame__text">{featured.data.description}</p>
+				<div class="frame__meta">
+					<span>{featured.data.category}</span>
 					<span>{featured.data.minutes} min</span>
 				</div>
-				<h3 class="featured__title">{featured.data.title}</h3>
-				<p class="featured__desc">{featured.data.description}</p>
-				<span class="featured__cta">
-					Leer artículo
-					<Icon name="arrow" size={16} />
-				</span>
-			</div>
-			<div class="featured__art">
-				<img src="/images/mark-featured.svg" alt="" width="220" height="160" />
-			</div>
-		</a>
-	</section>
-
-	<section class="section" aria-labelledby="latest-title">
-		<div class="section__head">
-			<h2 class="section__title" id="latest-title">Últimos escritos</h2>
-			<a class="section__link" href="/blog">
-				Archivo
-				<Icon name="arrow" size={15} />
+				<span class="frame__cta">leer esto →</span>
 			</a>
-		</div>
-		<div class="post-grid">
-			{latest.map((post) => <PostCard post={post} />)}
-		</div>
-	</section>
 
-	<section class="section" aria-labelledby="cats-title">
-		<div class="section__head">
-			<h2 class="section__title" id="cats-title">Temas</h2>
-			<a class="section__link" href="/categorias">
-				Ver todos
-				<Icon name="arrow" size={15} />
-			</a>
-		</div>
-		<div class="cat-grid">
+			<div class="frame frame--note" aria-hidden="true">
+				<p class="frame__label">nota</p>
+				<p class="frame__title" style="font-size: 1.5rem;">ideas sueltas</p>
+				<p class="frame__text">flechas · doodles · recuadros</p>
+			</div>
+
 			{
-				categories.map((category) => (
-					<a class="cat-card" href={`/categorias/${category.id}`}>
-						<div class="cat-card__icon">
-							<Icon name={category.icon} size={17} />
-						</div>
-						<h3 class="cat-card__title">{category.label}</h3>
-						<p class="cat-card__desc">{category.description}</p>
+				latest[0] && (
+					<a class="frame frame--post-1" href={`/blog/${latest[0].id}`}>
+						<p class="frame__label">escrito</p>
+						<h2 class="frame__title">{latest[0].data.title}</h2>
+						<p class="frame__text">{latest[0].data.description}</p>
 					</a>
-				))
+				)
 			}
-		</div>
-	</section>
 
-	<section class="about-band" aria-labelledby="about-band-title">
-		<div>
-			<h2 id="about-band-title">Sobre este blog</h2>
-			<p>{site.bio}</p>
-			<a class="btn btn--ghost" href="/sobre">
-				Más sobre mí
-				<Icon name="arrow" size={17} />
-			</a>
+			{
+				latest[1] && (
+					<a class="frame frame--post-2" href={`/blog/${latest[1].id}`}>
+						<p class="frame__label">escrito</p>
+						<h2 class="frame__title">{latest[1].data.title}</h2>
+						<p class="frame__text">{latest[1].data.description}</p>
+					</a>
+				)
+			}
+
+			{
+				latest[2] && (
+					<a class="frame frame--post-3" href={`/blog/${latest[2].id}`}>
+						<p class="frame__label">escrito</p>
+						<h2 class="frame__title">{latest[2].data.title}</h2>
+						<p class="frame__text">{latest[2].data.description}</p>
+					</a>
+				)
+			}
+
+			<section class="frame frame--topics">
+				<p class="frame__label">temas</p>
+				<h2 class="frame__title">categorías</h2>
+				<div class="topics">
+					{
+						categories.map((category) => (
+							<a href={`/categorias/${category.id}`}>{category.label}</a>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="frame frame--about">
+				<p class="frame__label">sobre</p>
+				<h2 class="frame__title">quién escribe</h2>
+				<p class="frame__text">{site.bio}</p>
+				<a class="frame__cta" href="/sobre">más sobre mí →</a>
+			</section>
 		</div>
-		<div class="about-band__stats">
-			<div class="stat">
-				<strong>{posts.length}</strong>
-				<span>artículos</span>
-			</div>
-			<div class="stat">
-				<strong>{categories.length}</strong>
-				<span>temas</span>
-			</div>
-			<div class="stat">
-				<strong>Astro</strong>
-				<span>publicado con</span>
-			</div>
-		</div>
-	</section>
+
+		<p class="board-legend">
+			<span>arrastra la mirada, no el scroll perfecto</span>
+			<a href="/blog">archivo completo →</a>
+		</p>
+	</div>
 </BaseLayout>

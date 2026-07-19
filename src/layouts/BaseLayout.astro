@@ -1,17 +1,20 @@
 ---
 import '../styles/global.css';
+import '../styles/board.css';
 import { site, nav } from '../data/site';
 
 interface Props {
 	title?: string;
 	description?: string;
 	currentPath?: string;
+	board?: boolean;
 }
 
 const {
 	title = site.name,
 	description = site.tagline,
 	currentPath = Astro.url.pathname,
+	board = false,
 } = Astro.props;
 
 const pageTitle = title === site.name ? `${site.name} · Blog` : `${title} · ${site.name}`;
@@ -34,7 +37,7 @@ const pageTitle = title === site.name ? `${site.name} · Blog` : `${title} · ${
 		/>
 		<title>{pageTitle}</title>
 	</head>
-	<body>
+	<body class:list={[{ 'is-board': board }]}>
 		<header class="topbar">
 			<div class="shell topbar__inner">
 				<a class="brand" href="/">
@@ -57,13 +60,13 @@ const pageTitle = title === site.name ? `${site.name} · Blog` : `${title} · ${
 			</div>
 		</header>
 
-		<main class="shell">
+		<main class:list={['shell', { 'shell--board': board }]}>
 			<slot />
 		</main>
 
 		<footer class="shell footer">
 			<span>{site.handle}</span>
-			<span>escrito con tiza</span>
+			<span>pizarra con recuadros</span>
 		</footer>
 	</body>
 </html>

@@ -92,6 +92,10 @@ h3 {
 	z-index: 1;
 }
 
+.shell--board {
+	width: min(100% - 1.25rem, 1180px);
+}
+
 /* Header */
 .topbar {
 	position: sticky;
