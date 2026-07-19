@@ -10,6 +10,18 @@ function joinItems(items: readonly string[]) {
 	}));
 }
 
+type Line =
+	| string
+	| {
+			before: string;
+			idea: string;
+			after: string;
+	  };
+
+function isIdeaLine(line: Line): line is { before: string; idea: string; after: string } {
+	return typeof line !== 'string';
+}
+
 const { aboutSite } = site;
 ---
 
@@ -17,26 +29,20 @@ const { aboutSite } = site;
 	<p class="site-about__lead">
 		<span class="site-about__lead-text">{aboutSite.leadBefore}</span>{' '}
 		<a class="site-about__domain" href="#profile">{site.domain}</a>
-		{aboutSite.leadAfter.map((part) =>
-			part.tone === 'kw' ? (
-				<BioKeyword label={part.text} />
-			) : (
-				<span class="site-about__lead-text">{part.text}</span>
-			)
-		)}
+		<span class="site-about__lead-text">{aboutSite.leadAfter}</span>
 	</p>
 
-	{aboutSite.body.map((line) => (
-		<p class="site-about__out">
-			{line.map((part) =>
-				part.tone === 'kw' ? (
-					<BioKeyword label={part.text} />
-				) : (
-					<span class="site-about__out-inline">{part.text}</span>
-				)
-			)}
-		</p>
-	))}
+	{aboutSite.body.map((line) =>
+		isIdeaLine(line) ? (
+			<p class="site-about__out">
+				<span class="site-about__out-inline">{line.before}</span>
+				<BioKeyword label={line.idea} />
+				<span class="site-about__out-inline">{line.after}</span>
+			</p>
+		) : (
+			<p class="site-about__out">{line}</p>
+		)
+	)}
 
 	<div class="tag-box tag-box--c site-about__build">
 		<div class="tag-box__key">build</div>
@@ -57,15 +63,15 @@ const { aboutSite } = site;
 		</div>
 	</div>
 
-	{aboutSite.closing.map((line) => (
-		<p class="site-about__lang">
-			{line.map((part) =>
-				part.tone === 'kw' ? (
-					<BioKeyword label={part.text} />
-				) : (
-					<span class="site-about__out-inline">{part.text}</span>
-				)
-			)}
-		</p>
-	))}
+	{aboutSite.closing.map((line) =>
+		isIdeaLine(line) ? (
+			<p class="site-about__lang">
+				<span class="site-about__out-inline">{line.before}</span>
+				<BioKeyword label={line.idea} />
+				<span class="site-about__out-inline">{line.after}</span>
+			</p>
+		) : (
+			<p class="site-about__lang">{line}</p>
+		)
+	)}
 </div>
