@@ -1,12 +1,13 @@
 ---
-import ProfilePhoto from './ProfilePhoto.astro';
 import Icon from './Icon.astro';
 import { site } from '../data/site';
 ---
 
 <div class="whoami">
 	<div class="whoami__main">
-		<ProfilePhoto size="md" caption={false} />
+		<div class="whoami__photo">
+			<img src={site.avatar} alt={`Photo of ${site.name}`} width="160" height="160" loading="eager" />
+		</div>
 		<div class="whoami__fields">
 			<div class="whoami__row">
 				<span class="whoami__key">name</span>
