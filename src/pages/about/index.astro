@@ -5,13 +5,7 @@ import CmdBlock from '../../components/CmdBlock.astro';
 import WhoamiPanel from '../../components/WhoamiPanel.astro';
 import BioPanel from '../../components/BioPanel.astro';
 import SitePanel from '../../components/SitePanel.astro';
-import { site, skills, now, principles } from '../../data/site';
-
-const skillGroups = [
-	{ dir: 'frontend', items: skills.frontend },
-	{ dir: 'backend', items: skills.backend },
-	{ dir: 'tools', items: skills.tools },
-];
+import { site, now } from '../../data/site';
 ---
 
 <BaseLayout title="about me" path="/about">
@@ -44,36 +38,6 @@ const skillGroups = [
 
   <CmdBlock cmd="cat site.txt" id="site">
     <SitePanel />
-  </CmdBlock>
-
-  <CmdBlock cmd="ls -la skills/" id="skills">
-    <ul class="ls-out">
-      {skillGroups.map((g) => (
-        <li class="ls-out__dir">
-          <span class="ls-out__perm">drwxr-xr-x</span>
-          <span class="ls-out__name">{g.dir}/</span>
-          <ul class="ls-out ls-out--nested">
-            {g.items.map((s) => (
-              <li>
-                <span class="ls-out__perm">-rw-r--r--</span>
-                <span class="ls-out__name">{s}</span>
-              </li>
-            ))}
-          </ul>
-        </li>
-      ))}
-    </ul>
-  </CmdBlock>
-
-  <CmdBlock cmd="cat principles.txt" id="principles">
-    <div class="principles">
-      {principles.map((p) => (
-        <div class="principle">
-          <p class="principle__title">{p.title}</p>
-          <p class="principle__desc">{p.desc}</p>
-        </div>
-      ))}
-    </div>
   </CmdBlock>
 
   <p class="cmd-block__line cmd-block__line--idle">
