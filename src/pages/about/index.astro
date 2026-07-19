@@ -5,8 +5,10 @@ import CmdBlock from '../../components/CmdBlock.astro';
 import WhoamiPanel from '../../components/WhoamiPanel.astro';
 import BioPanel from '../../components/BioPanel.astro';
 import SitePanel from '../../components/SitePanel.astro';
-import CraftPanel from '../../components/CraftPanel.astro';
-import PersonalPanel from '../../components/PersonalPanel.astro';
+import StackPanel from '../../components/StackPanel.astro';
+import PhilosophyPanel from '../../components/PhilosophyPanel.astro';
+import TastesPanel from '../../components/TastesPanel.astro';
+import PersonaPanel from '../../components/PersonaPanel.astro';
 import { site, now } from '../../data/site';
 ---
 
@@ -42,12 +44,20 @@ import { site, now } from '../../data/site';
     <SitePanel />
   </CmdBlock>
 
-  <CmdBlock cmd="ls ~/stack" id="craft">
-    <CraftPanel />
+  <CmdBlock cmd="cat stack.txt" id="stack">
+    <StackPanel />
   </CmdBlock>
 
-  <CmdBlock cmd="cat offline.txt" id="personal">
-    <PersonalPanel />
+  <CmdBlock cmd="cat philosophy.txt" id="philosophy">
+    <PhilosophyPanel />
+  </CmdBlock>
+
+  <CmdBlock cmd="cat tastes.txt" id="tastes">
+    <TastesPanel />
+  </CmdBlock>
+
+  <CmdBlock cmd="cat persona.txt" id="persona">
+    <PersonaPanel />
   </CmdBlock>
 
   <p class="cmd-block__line cmd-block__line--idle">

@@ -1,0 +1,9 @@
+---
+import { persona } from '../data/site';
+---
+
+<div class="persona">
+	{persona.paragraphs.map((paragraph) => (
+		<p>{paragraph}</p>
+	))}
+</div>

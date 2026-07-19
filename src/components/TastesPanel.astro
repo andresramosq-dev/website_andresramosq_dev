@@ -1,0 +1,15 @@
+---
+import { tastes } from '../data/site';
+---
+
+<div class="tastes">
+	<p class="tastes__lead">{tastes.lead}</p>
+	<div class="taste-grid">
+		{tastes.items.map((item) => (
+			<article class="taste-card">
+				<h3 class="taste-card__title">{item.title}</h3>
+				<p class="taste-card__body">{item.text}</p>
+			</article>
+		))}
+	</div>
+</div>

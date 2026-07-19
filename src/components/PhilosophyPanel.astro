@@ -1,0 +1,15 @@
+---
+import { workPhilosophy } from '../data/site';
+---
+
+<div class="philosophy">
+	<p class="philosophy__lead">{workPhilosophy.lead}</p>
+	<ul class="philosophy__rules">
+		{workPhilosophy.rules.map((rule) => (
+			<li>
+				<span class="philosophy__mark" aria-hidden="true">›</span>
+				<span>{rule}</span>
+			</li>
+		))}
+	</ul>
+</div>

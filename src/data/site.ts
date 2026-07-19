@@ -62,48 +62,61 @@ export const now = {
 		'I aim for simplicity: clear, clean, modular software — tied to the product.',
 };
 
-export const craft = {
-	lead:
-		'I work best when I slow down enough to understand the problem, then build in pieces that stay clear as the product evolves.',
-	mindset:
-		'Simple, modular, product-minded — I question assumptions, compare options, and adjust as I learn instead of locking into the first idea.',
-	stackDirs: [
+export const stack = {
+	groups: [
 		{
-			dir: 'backend',
+			label: 'backend',
 			items: ['Node.js', 'NestJS', 'Python', 'REST', 'GraphQL', 'PostgreSQL', 'MongoDB'],
 		},
 		{
-			dir: 'frontend',
+			label: 'frontend',
 			items: ['TypeScript', 'React', 'Next.js', 'HTML', 'CSS', 'Tailwind CSS'],
 		},
-		{ dir: 'cloud', items: ['AWS', 'Docker', 'Git', 'Linux', 'CI/CD'] },
+		{ label: 'cloud', items: ['AWS', 'Docker', 'Git', 'Linux', 'CI/CD'] },
 	] as const,
 };
 
-export const personal = {
+export const workPhilosophy = {
 	lead:
-		'Away from the editor I recharge with philosophy, sport, and stories that stay with me — same curiosity, different fuel.',
-	blocks: [
+		'I care about software that stays understandable after the first sprint — clear boundaries, honest trade-offs, and decisions that still make sense when the product moves.',
+	rules: [
+		'Understand the problem before touching the code.',
+		'Keep modules small enough to reason about and change safely.',
+		'Let product direction guide technical choices, not the other way around.',
+		'Question the first answer — observe, test, and adjust with criteria.',
+	] as const,
+};
+
+export const tastes = {
+	lead: 'A few things I come back to when I am not shipping features.',
+	items: [
 		{
-			key: 'figures',
-			text: 'Marcus Aurelius and Charlemagne — inner discipline on one side, building something larger than yourself on the other.',
+			title: 'figures',
+			text: 'Marcus Aurelius and Charlemagne — discipline, duty, and building something that outlives you.',
 		},
 		{
-			key: 'reads',
-			text: 'Meditations, Clean Code, and Designing Data-Intensive Applications — stoicism, craft, and systems that have to last.',
+			title: 'reads',
+			text: 'Meditations, Clean Code, Designing Data-Intensive Applications.',
 		},
 		{
-			key: 'screen',
-			text: 'Interstellar, The Social Network, Silo, and The Bear — scale, obsession, and people under real pressure.',
+			title: 'screen',
+			text: 'Interstellar, The Social Network, Silo, The Bear.',
 		},
 		{
-			key: 'sound',
-			text: 'Film scores and lo-fi while I think; louder rock when I need to reset after a long debug session.',
+			title: 'sound',
+			text: 'Film scores, lo-fi for focus, rock when I need a hard reset.',
 		},
 		{
-			key: 'field',
-			text: 'Football with friends, gym, and walks — movement keeps my head as clear as my code should be.',
+			title: 'field',
+			text: 'Football with friends, gym, and long walks to think.',
 		},
+	] as const,
+};
+
+export const persona = {
+	paragraphs: [
+		'I am analytical and direct — if something feels off, I would rather talk about the cause than patch around it. Philosophy keeps me grounded; sport keeps my energy honest.',
+		'I like people who think out loud, give real feedback, and care about the work without turning everything into noise. I am in Colombia, working remotely, still learning in public — in code and in English.',
 	] as const,
 };
 
