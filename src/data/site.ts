@@ -1,19 +1,12 @@
 export const site = {
 	domain: 'andresramosq.dev',
 	consoleUser: 'website',
-	user: 'andres',
 	name: 'Andrés Ramos Q',
 	handle: '@andresramosq-dev',
 	role: 'Senior Software Developer',
 	location: 'Colombia · remote',
-	email: 'andresramosdev.personal@gmail.com',
-	phone: '+57 317 211 6762',
-	since: 2020,
 	avatar: '/images/avatar.svg',
-	avatarPath: '~/about/avatar.jpg',
 	tagline: 'Responsible for balancing product growth with system stability.',
-	pillars: ['Clean', 'Solid', 'Scalable'] as const,
-	consoleSlug: 'andres-ramos-console',
 	description:
 		'Personal console of Andrés Ramos. Backend development, APIs, microservices, and notes on the craft.',
 	bioStack: ['JavaScript', 'TypeScript', 'Node.js', 'NestJS', 'Python', 'PostgreSQL', 'AWS', 'Docker'] as const,
@@ -30,7 +23,6 @@ export const site = {
 		'I am looking for my next challenge right now — not just writing code, but building software products or growing strong teams. If you have that kind of challenge or a proposal for me, get in touch.',
 		'This site is in English — not my strongest language, but I am working on getting better at it.',
 	],
-	about: [],
 	social: [
 		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/andresramos-dev', value: 'github.com/andresramos-dev' },
 		{ id: 'linkedin', icon: 'linkedin' as const, label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramos-dev/', value: 'linkedin.com/in/andresramos-dev' },
@@ -39,21 +31,11 @@ export const site = {
 		{ id: 'phone', icon: 'phone' as const, label: 'Phone', href: 'tel:+573172116762', value: '+57 317 211 6762' },
 	] as const,
 	links: [
-		{ label: 'GitHub', href: 'https://github.com/andresramos-dev', icon: 'github' as const },
-		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramos-dev/', icon: 'linkedin' as const },
-		{ label: 'Email', href: 'mailto:andresramosdev.personal@gmail.com', icon: 'mail' as const },
+		{ label: 'GitHub', href: 'https://github.com/andresramos-dev' },
+		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramos-dev/' },
+		{ label: 'Email', href: 'mailto:andresramosdev.personal@gmail.com' },
 	],
 };
-
-/** Page sections with sub-path anchors (not in the main nav) */
-export const aboutNav = [
-	{ id: 'profile', label: 'profile' },
-	{ id: 'bio', label: 'bio' },
-	{ id: 'notes', label: 'notes' },
-	{ id: 'now', label: 'now' },
-	{ id: 'skills', label: 'skills' },
-	{ id: 'principles', label: 'principles' },
-] as const;
 
 export const nav = [{ label: 'about', href: '/about' }] as const;
 
@@ -100,42 +82,15 @@ export const experience = [
 	},
 ];
 
-export const education = [
-	{
-		period: '2018 — 2022',
-		title: 'Systems Engineering',
-		place: 'University (placeholder)',
-		desc: 'Foundations in algorithms, databases, and software development.',
-	},
-];
-
-export const languages = [
-	{ lang: 'Spanish', level: 'native' },
-	{ lang: 'English', level: 'technical reading · intermediate conversation' },
-];
-
-export const interests = ['typography', 'CLI tools', 'coffee', 'hiking', 'electronic music'];
-
-// Legacy exports used by other pages (not linked for now)
-export const timeline = [
-	{ year: '2026', title: 'Personal console', desc: 'Terminal-style site with Astro 7.' },
-	{ year: '2025', title: 'Internal dashboard', desc: 'Operations panel.' },
-	{ year: '2024', title: 'Frontend', desc: 'Product work and freelance.' },
-];
-
 export const categories = [
-	{ id: 'diseno', label: 'design', description: '', icon: 'spark', color: '#4ade80' },
-	{ id: 'codigo', label: 'code', description: '', icon: 'code', color: '#38bdf8' },
-	{ id: 'oficio', label: 'craft', description: '', icon: 'compass', color: '#facc15' },
-	{ id: 'metodo', label: 'method', description: '', icon: 'pen', color: '#a78bfa' },
+	{ id: 'diseno', label: 'design', description: '', color: '#4ade80' },
+	{ id: 'codigo', label: 'code', description: '', color: '#38bdf8' },
+	{ id: 'oficio', label: 'craft', description: '', color: '#facc15' },
+	{ id: 'metodo', label: 'method', description: '', color: '#a78bfa' },
 ] as const;
 
 export type CategoryId = (typeof categories)[number]['id'];
 
 export const categoryLabel: Record<CategoryId, string> = Object.fromEntries(
 	categories.map((c) => [c.id, c.label])
-) as Record<CategoryId, string>;
-
-export const categoryColor: Record<CategoryId, string> = Object.fromEntries(
-	categories.map((c) => [c.id, c.color])
 ) as Record<CategoryId, string>;
