@@ -49,17 +49,10 @@ export const site = {
 		builtAlso: ['Cursor'] as const,
 		builtAfter:
 			' to move faster on the development side (I am not that great at web design 😉).',
-		closing: [
-			{
-				before: 'The ',
-				idea: 'terminal look',
-				after:
-					' comes from how much I like simple design — and because this is my workspace, I wanted it to feel a bit like my day to day: ',
-				idea2: 'consoles, tests, and errors',
-				after2: '.',
-			},
+		design:
+			'The terminal look comes from how much I like simple design — and because this is my workspace, I wanted it to feel a bit like my day to day: open consoles, test runs, and the next error to fix.',
+		language:
 			'I write everything in English. It is not my strongest language yet, but practicing here is part of the point: clearer thinking, shorter sentences, and the habit of writing in public.',
-		] as const,
 	},
 };
 

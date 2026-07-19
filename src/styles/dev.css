@@ -534,9 +534,9 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	letter-spacing: -0.01em;
 }
 .site-about__lead,
-.site-about__out,
+.site-about__desc,
+.site-about__idea,
 .site-about__lang,
-.site-about__lead-text,
 .site-about__out-inline,
 .site-about__domain {
 	margin: 0;
@@ -545,7 +545,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	line-height: 1.6;
 	letter-spacing: inherit;
 }
-.site-about__lead-text {
+.site-about__desc {
 	color: var(--ink);
 }
 .site-about__domain {
@@ -557,7 +557,9 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	text-decoration: underline;
 	text-underline-offset: 3px;
 }
-.site-about__out,
+.site-about__idea {
+	color: var(--term-amber);
+}
 .site-about__out-inline,
 .site-about__lang {
 	color: var(--text);
