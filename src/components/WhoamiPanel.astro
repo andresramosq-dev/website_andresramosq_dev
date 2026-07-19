@@ -3,8 +3,7 @@ import ProfilePhoto from './ProfilePhoto.astro';
 import Icon from './Icon.astro';
 import { site } from '../data/site';
 
-const printLead = site.tagline.charAt(0).toLowerCase() + site.tagline.slice(1);
-const printPillars = site.pillars.map((p) => `· ${p}`).join('  ');
+const printText = `${site.tagline} ${site.pillars.map((p) => `· ${p}`).join(' ')}`;
 ---
 
 <div class="whoami">
@@ -40,10 +39,7 @@ const printPillars = site.pillars.map((p) => `· ${p}`).join('  ');
 			<span class="whoami__sig">@</span><span class="whoami__cmd"> print \</span>
 		</p>
 		<p class="whoami__print-line whoami__print-line--cont">
-			<span class="whoami__prompt">&gt;</span> <span class="whoami__print-text">{printLead}</span>
-		</p>
-		<p class="whoami__print-line whoami__print-line--cont">
-			<span class="whoami__prompt">&gt;</span> <span class="whoami__print-text">{printPillars}</span>
+			<span class="whoami__prompt">&gt;</span> <span class="whoami__print-text">{printText}</span>
 		</p>
 	</div>
 </div>

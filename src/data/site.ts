@@ -11,7 +11,7 @@ export const site = {
 	since: 2020,
 	avatar: '/images/avatar.svg',
 	avatarPath: '~/about/avatar.jpg',
-	tagline: 'Te ayudo a construir el software que tu equipo amará mantener:',
+	tagline: 'Te ayudo a construir software que tu equipo amará mantener:',
 	pillars: ['Limpio', 'Sólido', 'Escalable'] as const,
 	consoleSlug: 'consola-de-andres-ramos',
 	description:
