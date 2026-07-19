@@ -4,7 +4,7 @@ export const site = {
 	user: 'andres',
 	name: 'Andrés Ramos',
 	handle: '@andresramos-dev',
-	role: 'Desarrollador de Software Backend',
+	role: 'Software Developer Senior',
 	location: 'Pitalito, Huila · remoto',
 	email: 'andfera201@gmail.com',
 	phone: '+57 317 211 6762',
@@ -16,8 +16,7 @@ export const site = {
 	consoleSlug: 'consola-de-andres-ramos',
 	description:
 		'Consola personal de Andrés Ramos. Backend, APIs, microservicios y notas sobre el oficio.',
-	bio: 'Soy de Pitalito, trabajo remoto y llevo unos 4 años en backend. He estado en pagos, integraciones con terceros y cosas que no pueden fallar un viernes a las 6pm. Antes de codear, quiero entender qué está pasando — si el problema no está claro, prefiero frenar un rato que parchar y seguir.',
-	bioTeaser: 'lo de ahora está en now.txt',
+	bio: 'Senior Software Developer with expertise in backend, TypeScript, Python, and cloud architectures. Open-source contributor and writer with a passion for sharing knowledge in public. I help teams build APIs, microservices, and integrations they can maintain in production.',
 	about: [],
 	social: [
 		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/aframos-dev', value: 'github.com/aframos-dev' },
