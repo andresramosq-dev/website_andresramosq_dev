@@ -526,28 +526,30 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	margin-right: 0.2rem;
 }
 
-/* notes.txt — primary note carries the CTA weight */
+/* notes.txt — same size; hierarchy by weight/color only */
 .bio-notes {
 	display: grid;
 	gap: 0.75rem;
 	font-family: var(--mono);
+	font-size: 0.88rem;
+	line-height: 1.65;
+	letter-spacing: -0.01em;
 }
 .bio-notes__line {
 	margin: 0;
 	padding: 0;
 	border: none;
 	background: none;
-	line-height: 1.7;
-	letter-spacing: -0.015em;
+	font-size: inherit;
+	line-height: inherit;
+	letter-spacing: inherit;
 }
 .bio-notes__line--primary {
 	color: var(--ink);
-	font-size: 0.9rem;
 	font-weight: 500;
 }
 .bio-notes__line--soft {
 	color: var(--text);
-	font-size: 0.84rem;
 	font-weight: 400;
 }
 
