@@ -1,4 +1,6 @@
 export const site = {
+	domain: 'andresramos.dev',
+	user: 'andres',
 	name: 'Andrés Ramos',
 	handle: '@andres_ramos_dev',
 	role: 'Desarrollador de software',
@@ -10,7 +12,7 @@ export const site = {
 	avatarPath: '~/avatar.jpg',
 	tagline: 'Interfaces, código y oficio — documentado en público.',
 	description:
-		'Blog de Andrés Ramos. Desarrollo de software, diseño de interfaces y reflexiones sobre el oficio.',
+		'Blog de Andrés Ramos en andresramos.dev. Desarrollo de software, diseño de interfaces y reflexiones sobre el oficio.',
 	bio: 'Construyo productos web y escribo para pensar mejor. Me interesa el frontend, la arquitectura de interfaces y cómo publicar ideas con claridad.',
 	about: [
 		'Llevo años entre código y diseño: no como disciplinas separadas, sino como el mismo problema visto desde ángulos distintos. Me gusta entender cómo se siente un producto antes de escribir la primera línea.',

@@ -20,7 +20,9 @@ import { site, skills, timeline } from '../data/site';
   </TermBlock>
 
   <TermBlock cmd="ls skills/">
-    <p class="skills-line">{skills.join('  ·  ')}</p>
+    <p class="skills-line">
+      {skills.map((s) => <span>{s}</span>)}
+    </p>
   </TermBlock>
 
   <TermBlock cmd="cat timeline.log">
@@ -35,6 +37,6 @@ import { site, skills, timeline } from '../data/site';
         </li>
       ))}
     </ul>
-    <a class="mt-link" href="/experiencia">ver experiencia →</a>
+    <a class="mt-link" href="/experiencia">cd experiencia/ →</a>
   </TermBlock>
 </BaseLayout>

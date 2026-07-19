@@ -5,8 +5,10 @@ const now = new Date();
 const time = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
 ---
 
-<p class="status">
-	<span class="status__host">{site.handle}@dev</span>
-	{' · '}{time}
-	{' · '}<span style="color:var(--prompt)">online</span>
-</p>
+<div class="status">
+	<span class="status__prompt">{site.user}@{site.domain}</span>
+	<span class="status__chip">linux</span>
+	<span class="status__chip">zsh</span>
+	<span class="status__time">{time}</span>
+	<span class="status__online"><span class="status__led"></span>online</span>
+</div>

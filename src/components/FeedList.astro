@@ -17,6 +17,7 @@ const { items } = Astro.props;
 		items.map((item) => (
 			<li>
 				<a href={item.href}>
+					<span class="feed__perm" aria-hidden="true">-rw-r--r--</span>
 					<span class="feed__title">{item.title}</span>
 					{item.meta && <span class="feed__meta">{item.meta}</span>}
 				</a>

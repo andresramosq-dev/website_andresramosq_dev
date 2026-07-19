@@ -14,11 +14,11 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { month: 'short', year: '
 <BaseLayout title="notas" path="/notas">
   <PageHeader segment="notas" title="Notas" />
 
-  <TermBlock cmd="ls notas/">
+  <TermBlock cmd="ls -la notas/">
     <FeedList
       items={notes.map((n) => ({
         href: `/notas/${n.id}`,
-        title: n.data.title,
+        title: `${n.id}.md`,
         meta: fmt(n.data.pubDate),
       }))}
     />

@@ -1,16 +1,21 @@
 ---
+import { site } from '../data/site';
+
 interface Props {
 	title?: string;
 }
 
-const { title = '~/andres — zsh' } = Astro.props;
+const { title = `${site.domain} — zsh` } = Astro.props;
 ---
 
 <div class="twin">
 	<div class="twin__bar">
-		<span class="twin__dot twin__dot--r"></span>
-		<span class="twin__dot twin__dot--y"></span>
-		<span class="twin__dot twin__dot--g"></span>
+		<div class="twin__dots">
+			<span class="twin__dot twin__dot--r"></span>
+			<span class="twin__dot twin__dot--y"></span>
+			<span class="twin__dot twin__dot--g"></span>
+		</div>
+		<a class="twin__brand" href="/">{site.domain}</a>
 		<span class="twin__title">{title}</span>
 	</div>
 	<div class="twin__body">

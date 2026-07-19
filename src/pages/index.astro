@@ -21,32 +21,33 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { month: 'short', year: '
   <section class="hero">
     <ProfilePhoto />
     <div>
+      <p class="hero__domain">{site.domain}</p>
       <h1 class="hero__name">{site.name}</h1>
       <p class="hero__role">{site.role}</p>
       <p class="hero__bio">{site.bio}</p>
-      <a class="hero__link" href="/sobre">sobre mí →</a>
+      <a class="hero__link" href="/sobre">cat sobre.md →</a>
     </div>
   </section>
 
-  <TermBlock cmd="ls blog/">
+  <TermBlock cmd="ls -la blog/">
     <FeedList
       items={recent.map((p) => ({
         href: `/blog/${p.id}`,
-        title: p.data.title,
+        title: `${p.id}.md`,
         meta: fmt(p.data.pubDate),
       }))}
     />
-    <a class="mt-link" href="/blog">ver todos los artículos →</a>
+    <a class="mt-link" href="/blog">cd blog/ →</a>
   </TermBlock>
 
-  <TermBlock cmd="ls proyectos/">
+  <TermBlock cmd="ls -la proyectos/">
     <FeedList
       items={projects.map((p) => ({
         href: `/proyectos/${p.id}`,
-        title: p.data.title,
+        title: p.id,
         meta: String(p.data.year),
       }))}
     />
-    <a class="mt-link" href="/proyectos">ver proyectos →</a>
+    <a class="mt-link" href="/proyectos">cd proyectos/ →</a>
   </TermBlock>
 </BaseLayout>

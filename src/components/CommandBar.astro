@@ -1,11 +1,11 @@
 ---
 import { commands } from '../data/commands';
+import { site } from '../data/site';
 ---
 
 <div class="cmd" id="cmd-root">
 	<form class="cmd__form" id="cmd-form" autocomplete="off">
-		<span class="cmd__path">~/andres</span>
-		<span class="cmd__prompt">$</span>
+		<span class="cmd__prompt">{site.user}@{site.domain}:~$</span>
 		<input
 			type="text"
 			id="cmd-input"

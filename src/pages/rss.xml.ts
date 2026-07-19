@@ -24,7 +24,7 @@ export const GET: APIRoute = async ({ site: astroSite }) => {
 	const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>${site.name}</title>
+    <title>${site.domain}</title>
     <description>${site.description}</description>
     <language>es</language>
 ${items}

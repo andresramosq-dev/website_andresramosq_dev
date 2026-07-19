@@ -1,6 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="18" fill="#F6F1E8"/>
-  <path d="M14 40c12-22 24-28 40-22" stroke="#1C1917" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="44" cy="22" r="7" fill="#C45C26"/>
-  <path d="M18 48c10-6 20-6 30 0" stroke="#3F5C4B" stroke-width="3" stroke-linecap="round"/>
+  <rect width="64" height="64" rx="14" fill="#0d1117"/>
+  <rect x="8" y="14" width="48" height="36" rx="4" stroke="#30363d" stroke-width="2"/>
+  <circle cx="16" cy="22" r="2.5" fill="#ff5f57"/>
+  <circle cx="24" cy="22" r="2.5" fill="#febc2e"/>
+  <circle cx="32" cy="22" r="2.5" fill="#28c840"/>
+  <text x="14" y="38" fill="#7ee787" font-family="monospace" font-size="10" font-weight="bold">$_</text>
 </svg>

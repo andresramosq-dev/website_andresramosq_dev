@@ -1,4 +1,6 @@
 ---
+import { site } from '../data/site';
+
 interface Props {
 	segment: string;
 	title: string;
@@ -8,6 +10,8 @@ const { segment, title } = Astro.props;
 ---
 
 <header class="page-hd">
-	<p class="page-hd__path">~/andres/{segment}</p>
+	<p class="page-hd__path">
+		<span class="page-hd__user">{site.user}</span>@<span class="page-hd__host">{site.domain}</span>:~/{segment}
+	</p>
 	<h1 class="page-hd__title">{title}</h1>
 </header>
