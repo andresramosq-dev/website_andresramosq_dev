@@ -3,38 +3,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
 ---
 
-<BaseLayout title="Sobre" description={site.bio} currentPath="/sobre">
-	<header class="page-head">
-		<h1>{site.name}</h1>
-		<p>{site.bio}</p>
-	</header>
+<BaseLayout title="Sobre" description="Sobre el autor del blog">
+  <div class="chalk-page">
+    <header class="chalk-page-head">
+      <p class="chalk-page-kicker">sobre</p>
+      <h1 class="chalk-page-title">Quién escribe</h1>
+    </header>
 
-	<div class="about-block">
-		<img src="/images/art-mark.svg" alt="" width="120" height="120" style="margin-bottom: 1rem;" />
-		<ul class="about-meta">
-			<li>
-				<span>Rol</span>
-				<strong>{site.role}</strong>
-			</li>
-			<li>
-				<span>Ubicación</span>
-				<strong>{site.location}</strong>
-			</li>
-			<li>
-				<span>Contacto</span>
-				<strong>
-					{
-						site.links.map((link, i) => (
-							<span>
-								{i > 0 ? ' · ' : ''}
-								<a class="link-plain" href={link.href}>
-									{link.label}
-								</a>
-							</span>
-						))
-					}
-				</strong>
-			</li>
-		</ul>
-	</div>
+    <div class="chalk-paper chalk-paper--about">
+      <div class="chalk-prose">
+        <p>
+          Soy <strong>{site.name}</strong>. Este sitio es un blog artístico: una pizarra donde dejo
+          notas sobre diseño, código y oficio — con tiza, dibujos y composición libre.
+        </p>
+        <p>
+          No es una plantilla de tarjetas ni un diario corporativo. Es un lienzo donde el contenido
+          importa tanto como la forma en que se presenta.
+        </p>
+        <p>
+          Si quieres leer, empieza por los <a href="/blog">escritos</a> o explora los{' '}
+          <a href="/proyectos">proyectos</a>.
+        </p>
+      </div>
+    </div>
+  </div>
 </BaseLayout>

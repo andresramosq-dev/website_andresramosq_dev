@@ -1,28 +1,43 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
 
-const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year);
+const projects = (await getCollection('projects')).sort(
+  (a, b) => b.data.year - a.data.year
+);
 ---
 
-<BaseLayout title="Proyectos" description="Trabajo seleccionado." currentPath="/proyectos">
-	<header class="page-head">
-		<h1>Proyectos</h1>
-		<p>Selección breve. El centro sigue siendo escribir.</p>
-	</header>
+<BaseLayout title="Proyectos" description="Proyectos personales">
+  <div class="chalk-page">
+    <header class="chalk-page-head">
+      <p class="chalk-page-kicker">proyectos</p>
+      <h1 class="chalk-page-title">Lo que construyo</h1>
+      <p class="chalk-page-lead">Herramientas, experimentos y cosas que dejo en la pizarra.</p>
+    </header>
 
-	<div class="project-list">
-		{
-			projects.map((project) => (
-				<article class="project-item" id={project.id}>
-					<p class="project-item__meta">
-						{project.data.year} · {project.data.status}
-					</p>
-					<h2>{project.data.title}</h2>
-					<p>{project.data.description}</p>
-					<p class="project-item__stack">{project.data.stack.join(' · ')}</p>
-				</article>
-			))
-		}
-	</div>
+    <div class="chalk-stream">
+      {
+        projects.map((project) => (
+          <article class="chalk-item">
+            <div class="chalk-item-meta">
+              <span>{project.data.year}</span>
+              {project.data.stack.map((tech) => (
+                <span>{tech}</span>
+              ))}
+            </div>
+            <h2 class="chalk-item-title">
+              {project.data.url ? (
+                <a href={project.data.url} target="_blank" rel="noreferrer">
+                  {project.data.title}
+                </a>
+              ) : (
+                project.data.title
+              )}
+            </h2>
+            <p class="chalk-item-desc">{project.data.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
 </BaseLayout>

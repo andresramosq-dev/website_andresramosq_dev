@@ -1,68 +1,45 @@
 ---
-import '../styles/global.css';
+import '../styles/chalk.css';
 import { site, nav } from '../data/site';
 
 interface Props {
-	title?: string;
-	description?: string;
-	currentPath?: string;
+  title?: string;
+  description?: string;
 }
 
-const {
-	title = site.name,
-	description = site.tagline,
-	currentPath = Astro.url.pathname,
-} = Astro.props;
-
-const pageTitle = title === site.name ? `${site.name}` : `${title} · ${site.name}`;
+const { title, description } = Astro.props;
+const pageTitle = title ? `${title} — ${site.name}` : site.name;
+const pageDescription = description ?? site.description;
 ---
 
 <!doctype html>
 <html lang="es">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content={description} />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,450;0,9..144,550;0,9..144,600;1,9..144,500&family=Outfit:wght@400;500;600;700&display=swap"
-			rel="stylesheet"
-		/>
-		<title>{pageTitle}</title>
-	</head>
-	<body>
-		<header class="topbar">
-			<div class="shell topbar__inner">
-				<a class="brand" href="/">{site.name}</a>
-				<nav class="nav" aria-label="Principal">
-					{
-						nav.map((item) => {
-							const current =
-								item.href === '/'
-									? currentPath === '/'
-									: currentPath === item.href || currentPath.startsWith(`${item.href}/`);
-							return (
-								<a href={item.href} aria-current={current ? 'page' : undefined}>
-									{item.label}
-								</a>
-							);
-						})
-					}
-				</nav>
-			</div>
-		</header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={pageDescription} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+  </head>
+  <body class="is-chalk">
+    <a class="skip" href="#main">Saltar al contenido</a>
 
-		<main class="shell">
-			<slot />
-		</main>
+    <header class="chalk-top">
+      <a class="chalk-brand" href="/">{site.name}</a>
+      <nav class="chalk-nav" aria-label="Principal">
+        {nav.map((item) => (
+          <a href={item.href}>{item.label}</a>
+        ))}
+      </nav>
+    </header>
 
-		<footer class="shell footer">
-			<span>{site.handle}</span>
-			<span>{new Date().getFullYear()}</span>
-		</footer>
-	</body>
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="chalk-foot">
+      <p>© {new Date().getFullYear()} {site.name}</p>
+      <p class="chalk-foot-note">Blog artístico · pizarra · tiza · dibujo</p>
+    </footer>
+  </body>
 </html>

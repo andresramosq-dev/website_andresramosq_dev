@@ -1,79 +1,51 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site, categories } from '../data/site';
+import { getCollection } from 'astro:content';
+import { site } from '../data/site';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
 ---
 
-<BaseLayout title={site.name} description={site.tagline} currentPath="/">
-	<section class="hero">
-		<div>
-			<p class="hero__eyebrow">cuaderno personal</p>
-			<h1 class="hero__title">
-				Andrés<br />
-				<span>Ramos</span>
-			</h1>
-			<p class="hero__lead">{site.bio}</p>
-			<div class="hero__actions">
-				<a class="link-plain" href="/blog">Leer escritos</a>
-				<a class="link-soft" href="/sobre">Sobre mí</a>
-			</div>
-		</div>
-		<div class="hero__art">
-			<img
-				src="/images/art-hero.svg"
-				alt="Ilustración artística abstracta con gestos de tinta, planta y lápiz"
-				width="800"
-				height="700"
-			/>
-		</div>
-	</section>
+<BaseLayout>
+  <section class="chalk-canvas" aria-label="Inicio artístico">
+    <img class="chalk-scene" src="/images/chalk-scene.svg" alt="" width="1200" height="900" />
 
-	<section class="writing" aria-labelledby="writing-title">
-		<div class="writing__head">
-			<h2 class="writing__title" id="writing-title">Escritos</h2>
-			<a class="link-soft" href="/blog">Ver todos</a>
-		</div>
+    <a class="chalk-write w-title" href="/">
+      <span class="chalk-write-main">{site.name}</span>
+      <span class="chalk-write-sub">{site.tagline}</span>
+    </a>
 
-		{
-			posts.slice(0, 5).map((post) => (
-				<a class="entry" href={`/blog/${post.id}`}>
-					<span class="entry__date">
-						{post.data.pubDate.toLocaleDateString('es-ES', {
-							year: 'numeric',
-							month: 'short',
-						})}
-					</span>
-					<span class="entry__title">{post.data.title}</span>
-					<span class="entry__cat">{post.data.category}</span>
-					<span class="entry__desc">{post.data.description}</span>
-				</a>
-			))
-		}
-	</section>
+    <a class="chalk-write w-about" href="/sobre">
+      <span class="chalk-write-main">Sobre mí</span>
+      <span class="chalk-write-sub">quién escribe aquí</span>
+    </a>
 
-	<section class="topics" aria-labelledby="topics-title">
-		<h2 class="topics__title" id="topics-title">Temas</h2>
-		<ul class="topics__list">
-			{
-				categories.map((category) => (
-					<li>
-						<a href={`/categorias/${category.id}`}>{category.label}</a>
-					</li>
-				))
-			}
-		</ul>
-	</section>
+    <a class="chalk-write w-blog" href="/blog">
+      <span class="chalk-write-main">Escritos</span>
+      <span class="chalk-write-sub">ideas, notas, reflexiones</span>
+    </a>
 
-	<section class="about-flow">
-		<img class="about-flow__mark" src="/images/art-mark.svg" alt="" width="120" height="120" />
-		<div>
-			<h2>Hecho a mano, pensado con calma</h2>
-			<p>{site.tagline} Sin ruido visual: tipografía, ilustración y lectura.</p>
-			<a class="link-plain" href="/sobre">Conocer al autor</a>
-		</div>
-	</section>
+    <a class="chalk-write w-cat" href="/categorias">
+      <span class="chalk-write-main">Temas</span>
+      <span class="chalk-write-sub">diseño · código · oficio</span>
+    </a>
+
+    <a class="chalk-write w-proj" href="/proyectos">
+      <span class="chalk-write-main">Proyectos</span>
+      <span class="chalk-write-sub">cosas que construyo</span>
+    </a>
+
+    {
+      posts.map((post, i) => (
+        <a class={`chalk-write w-post-${i + 1}`} href={`/blog/${post.id}`}>
+          <span class="chalk-write-main">{post.data.title}</span>
+          <span class="chalk-write-sub">
+            {post.data.pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}
+          </span>
+        </a>
+      ))
+    }
+  </section>
 </BaseLayout>

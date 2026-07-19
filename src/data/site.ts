@@ -5,6 +5,7 @@ export const site = {
 	location: 'Latinoamérica',
 	email: 'andfera201@gmail.com',
 	tagline: 'Escribo sobre código, diseño y oficio.',
+	description: 'Blog artístico de Andrés Ramos — pizarra, tiza y escritos sobre código, diseño y oficio.',
 	bio: 'Construyo interfaces y escribo para pensar mejor. Este espacio es mi cuaderno público: ideas claras, sin ruido.',
 	links: [
 		{ label: 'GitHub', href: 'https://github.com/ramos-andres-dev' },
@@ -47,3 +48,7 @@ export const categories = [
 ] as const;
 
 export type CategoryId = (typeof categories)[number]['id'];
+
+export const categoryLabel: Record<CategoryId, string> = Object.fromEntries(
+	categories.map((c) => [c.id, c.label])
+) as Record<CategoryId, string>;

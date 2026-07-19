@@ -1,0 +1,483 @@
+/* Pizarra artística: tiza suelta sobre lienzo, sin cajas ni recuadros UI */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Manrope:wght@400;500;600&display=swap');
+
+:root {
+	--board: #2c3138;
+	--chalk: #f4ebd9;
+	--chalk-dim: rgba(244, 235, 217, 0.68);
+	--chalk-faint: rgba(244, 235, 217, 0.35);
+	--accent: #f3ddb0;
+	--leaf: #b8c9b0;
+	--hand: 'Caveat', cursive;
+	--read: 'Fraunces', Georgia, serif;
+	--sans: 'Manrope', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+}
+
+body.is-chalk {
+	color: var(--chalk);
+	font-family: var(--sans);
+	background-color: var(--board);
+	background-image:
+		url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+	background-blend-mode: soft-light;
+}
+
+.skip {
+	position: absolute;
+	left: -9999px;
+	top: 0;
+	z-index: 100;
+	padding: 0.5rem 1rem;
+	background: var(--accent);
+	color: var(--board);
+}
+
+.skip:focus {
+	left: 0.5rem;
+	top: 0.5rem;
+}
+
+/* Header / footer */
+.chalk-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	flex-wrap: wrap;
+	width: min(100% - 1.5rem, 1200px);
+	margin: 0 auto;
+	padding: 0.9rem 0;
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	background: rgba(44, 49, 56, 0.88);
+	backdrop-filter: blur(8px);
+}
+
+.chalk-brand {
+	font-family: var(--hand);
+	font-size: 1.7rem;
+	font-weight: 700;
+	color: var(--chalk);
+	text-decoration: none;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.chalk-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.8rem 1.2rem;
+	font-family: var(--hand);
+	font-size: 1.25rem;
+}
+
+.chalk-nav a {
+	color: var(--chalk-dim);
+	text-decoration: none;
+}
+
+.chalk-nav a:hover,
+.chalk-nav a[aria-current='page'] {
+	color: var(--accent);
+	text-decoration: underline;
+	text-decoration-style: wavy;
+	text-underline-offset: 0.2em;
+}
+
+.chalk-foot {
+	width: min(100% - 1.5rem, 1200px);
+	margin: 0 auto;
+	padding: 1.2rem 0 2rem;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	font-family: var(--hand);
+	font-size: 1.2rem;
+	color: var(--chalk-dim);
+}
+
+.chalk-foot-note {
+	margin: 0;
+	opacity: 0.75;
+}
+
+/* ===== HOME: lienzo con escritura suelta ===== */
+.chalk-canvas {
+	position: relative;
+	width: min(100%, 1200px);
+	margin: 0 auto;
+	min-height: min(88vh, 820px);
+	overflow: hidden;
+}
+
+.chalk-scene {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	pointer-events: none;
+	opacity: 0.95;
+}
+
+.chalk-write {
+	position: absolute;
+	z-index: 3;
+	display: flex;
+	flex-direction: column;
+	gap: 0.1rem;
+	max-width: min(280px, 36vw);
+	color: var(--chalk);
+	text-decoration: none;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.45);
+	transition: color 160ms ease, transform 160ms ease;
+}
+
+.chalk-write:hover {
+	color: var(--accent);
+	transform: scale(1.03);
+}
+
+.chalk-write-main {
+	font-family: var(--hand);
+	font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+	font-weight: 700;
+	line-height: 0.95;
+	text-decoration: underline;
+	text-decoration-style: wavy;
+	text-decoration-color: var(--chalk-faint);
+	text-underline-offset: 0.12em;
+}
+
+.chalk-write-sub {
+	font-size: 0.8rem;
+	color: var(--chalk-dim);
+}
+
+.w-title {
+	top: 8%;
+	left: 8%;
+	max-width: min(320px, 38vw);
+	transform: rotate(-2deg);
+}
+
+.w-title .chalk-write-main {
+	font-size: clamp(2.8rem, 6vw, 4.2rem);
+	text-decoration: none;
+}
+
+.w-about {
+	bottom: 18%;
+	right: 22%;
+	transform: rotate(-1.2deg);
+}
+
+.w-blog {
+	bottom: 4%;
+	left: 42%;
+	transform: rotate(-0.5deg);
+}
+
+.w-blog .chalk-write-main {
+	font-size: clamp(1.3rem, 2vw, 1.7rem);
+}
+
+.w-cat {
+	bottom: 12%;
+	left: 22%;
+	max-width: min(360px, 42vw);
+	transform: rotate(0.8deg);
+}
+
+.w-proj {
+	top: 12%;
+	right: 8%;
+	transform: rotate(1.5deg);
+}
+
+.w-post-1 {
+	top: 38%;
+	left: 14%;
+	transform: rotate(-1deg);
+}
+
+.w-post-2 {
+	top: 42%;
+	left: 48%;
+	transform: rotate(2.5deg);
+}
+
+.w-post-3 {
+	top: 58%;
+	right: 10%;
+	transform: rotate(-2deg);
+}
+
+/* ===== Páginas internas ===== */
+.chalk-page {
+	width: min(100% - 1.5rem, 680px);
+	margin: 0 auto;
+	padding: 2rem 0 3rem;
+}
+
+.chalk-page-kicker {
+	font-family: var(--hand);
+	font-size: 1.2rem;
+	color: var(--leaf);
+	margin: 0 0 0.2rem;
+	text-transform: lowercase;
+}
+
+.chalk-page-title {
+	font-family: var(--hand);
+	font-size: clamp(2.8rem, 7vw, 4rem);
+	font-weight: 700;
+	margin: 0 0 0.3rem;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+.chalk-page-lead {
+	color: var(--chalk-dim);
+	margin: 0 0 2rem;
+	font-size: 0.95rem;
+	max-width: 36rem;
+}
+
+.chalk-stream {
+	display: flex;
+	flex-direction: column;
+}
+
+.chalk-item {
+	position: relative;
+	padding: 1.6rem 0 1.8rem;
+}
+
+.chalk-item::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 3px;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 8'%3E%3Cpath d='M0 4c40-6 80 6 120 0s80-6 120 0 80 6 120 0 80-6 120 0' stroke='%23f4ebd9' stroke-width='2' fill='none' opacity='.35'/%3E%3C/svg%3E")
+		repeat-x;
+	background-size: 200px 8px;
+}
+
+.chalk-item-meta {
+	font-family: var(--hand);
+	font-size: 1.1rem;
+	color: var(--leaf);
+	margin-bottom: 0.25rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem 1rem;
+}
+
+.chalk-item-title {
+	font-family: var(--hand);
+	font-size: clamp(1.8rem, 4vw, 2.5rem);
+	font-weight: 700;
+	line-height: 1;
+	margin: 0 0 0.35rem;
+}
+
+.chalk-item-title a {
+	color: inherit;
+	text-decoration: none;
+	transition: color 160ms ease;
+}
+
+.chalk-item-title a:hover {
+	color: var(--accent);
+}
+
+.chalk-item-desc {
+	color: var(--chalk-dim);
+	font-size: 0.95rem;
+	max-width: 36rem;
+	margin: 0;
+}
+
+.chalk-group {
+	margin-bottom: 2.5rem;
+}
+
+.chalk-group-title {
+	font-family: var(--hand);
+	font-size: 2rem;
+	color: var(--accent);
+	margin: 0 0 0.5rem;
+}
+
+.chalk-empty {
+	color: var(--chalk-dim);
+	font-family: var(--hand);
+	font-size: 1.2rem;
+	margin: 0;
+	padding: 1rem 0;
+}
+
+/* ===== Artículo ===== */
+.chalk-article {
+	width: min(100% - 1.5rem, 680px);
+	margin: 0 auto;
+	padding: 1.5rem 0 3rem;
+}
+
+.chalk-article-title {
+	font-family: var(--hand);
+	font-size: clamp(2.4rem, 6vw, 3.6rem);
+	font-weight: 700;
+	line-height: 0.95;
+	margin: 0.4rem 0 0.6rem;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+.chalk-article-meta {
+	font-family: var(--hand);
+	font-size: 1.15rem;
+	color: var(--leaf);
+	margin-bottom: 1.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 1.2rem;
+}
+
+.chalk-article-foot {
+	margin-top: 2rem;
+}
+
+.chalk-article-foot a {
+	font-family: var(--hand);
+	font-size: 1.2rem;
+	color: var(--chalk-dim);
+	text-decoration: none;
+}
+
+.chalk-article-foot a:hover {
+	color: var(--accent);
+}
+
+/* Nota de papel para lectura — forma orgánica, no card UI */
+.chalk-paper {
+	position: relative;
+	padding: 1.6rem 1.7rem;
+	background: #f7f2e8;
+	color: #2a2620;
+	border-radius: 3px 18px 6px 22px;
+	transform: rotate(-0.4deg);
+	box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.chalk-paper::before {
+	content: '';
+	position: absolute;
+	top: -8px;
+	left: 24px;
+	width: 64px;
+	height: 20px;
+	background: rgba(244, 235, 217, 0.25);
+	border: 1.5px solid rgba(244, 235, 217, 0.4);
+	transform: rotate(-4deg);
+}
+
+.chalk-paper--about {
+	margin-top: 0.5rem;
+}
+
+.chalk-prose {
+	font-family: var(--read);
+	font-size: 1.12rem;
+	line-height: 1.75;
+}
+
+.chalk-prose h2,
+.chalk-prose h3 {
+	font-family: var(--read);
+	margin: 1.4rem 0 0.5rem;
+	font-size: 1.3rem;
+}
+
+.chalk-prose p,
+.chalk-prose ul,
+.chalk-prose ol {
+	margin: 0 0 0.95rem;
+}
+
+.chalk-prose a {
+	color: #6b4f2a;
+}
+
+.chalk-prose code {
+	background: #ebe4d6;
+	padding: 0.1em 0.35em;
+	font-size: 0.86em;
+}
+
+.chalk-prose pre {
+	background: #2c3138;
+	color: var(--chalk);
+	padding: 1rem;
+	overflow-x: auto;
+	margin: 0 0 1rem;
+}
+
+.chalk-prose pre code {
+	background: transparent;
+	color: inherit;
+}
+
+@media (max-width: 860px) {
+	.chalk-canvas {
+		min-height: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+		padding: 1rem 0 0.5rem;
+	}
+
+	.chalk-scene {
+		position: relative;
+		height: 220px;
+	}
+
+	.chalk-write {
+		position: relative;
+		top: auto !important;
+		left: auto !important;
+		right: auto !important;
+		bottom: auto !important;
+		max-width: 100%;
+		transform: rotate(-0.5deg) !important;
+		padding: 0.2rem 0;
+	}
+
+	.w-title .chalk-write-main {
+		font-size: 2.6rem;
+	}
+
+	.w-blog {
+		order: 99;
+		text-align: center;
+		padding-top: 0.5rem;
+	}
+}

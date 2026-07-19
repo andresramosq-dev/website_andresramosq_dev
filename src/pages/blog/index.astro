@@ -1,37 +1,43 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { categories } from '../../data/site';
+import { getCollection } from 'astro:content';
+import { categoryLabel } from '../../data/site';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
-
-const label = (id: string) => categories.find((item) => item.id === id)?.label ?? id;
 ---
 
-<BaseLayout title="Escritos" description="Archivo del blog." currentPath="/blog">
-	<header class="page-head">
-		<h1>Escritos</h1>
-		<p>Notas ordenadas por fecha. Tipografía primero, sin tarjetas.</p>
-	</header>
+<BaseLayout title="Escritos" description="Artículos del blog">
+  <div class="chalk-page">
+    <header class="chalk-page-head">
+      <p class="chalk-page-kicker">pizarra</p>
+      <h1 class="chalk-page-title">Escritos</h1>
+      <p class="chalk-page-lead">Notas sueltas sobre diseño, código y oficio — como si estuvieran escritas a tiza.</p>
+    </header>
 
-	<section class="writing" style="border-top: 0; padding-top: 0;">
-		{
-			posts.map((post) => (
-				<a class="entry" href={`/blog/${post.id}`}>
-					<span class="entry__date">
-						{post.data.pubDate.toLocaleDateString('es-ES', {
-							year: 'numeric',
-							month: 'short',
-							day: 'numeric',
-						})}
-					</span>
-					<span class="entry__title">{post.data.title}</span>
-					<span class="entry__cat">{label(post.data.category)}</span>
-					<span class="entry__desc">{post.data.description}</span>
-				</a>
-			))
-		}
-	</section>
+    <div class="chalk-stream">
+      {
+        posts.map((post) => (
+          <article class="chalk-item">
+            <div class="chalk-item-meta">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString('es-ES', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })}
+              </time>
+              <span>{categoryLabel[post.data.category]}</span>
+              <span>{post.data.minutes} min</span>
+            </div>
+            <h2 class="chalk-item-title">
+              <a href={`/blog/${post.id}`}>{post.data.title}</a>
+            </h2>
+            <p class="chalk-item-desc">{post.data.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
 </BaseLayout>

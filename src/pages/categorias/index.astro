@@ -1,35 +1,46 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
 import { categories } from '../../data/site';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
+const grouped = categories.map((cat) => ({
+  key: cat.id,
+  label: cat.label,
+  posts: posts
+    .filter((p) => p.data.category === cat.id)
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+}));
 ---
 
-<BaseLayout title="Temas" description="Explora por tema." currentPath="/categorias">
-	<header class="page-head">
-		<h1>Temas</h1>
-		<p>Una lista simple. Elige y lee.</p>
-	</header>
+<BaseLayout title="Temas" description="Categorías del blog">
+  <div class="chalk-page">
+    <header class="chalk-page-head">
+      <p class="chalk-page-kicker">temas</p>
+      <h1 class="chalk-page-title">Por tema</h1>
+      <p class="chalk-page-lead">Rutas de lectura — sin cajas, solo tiza agrupada por asunto.</p>
+    </header>
 
-	<section class="topics" style="padding-top: 0.5rem;">
-		<ul class="topics__list">
-			{
-				categories.map((category) => {
-					const count = posts.filter((post) => post.data.category === category.id).length;
-					return (
-						<li>
-							<a href={`/categorias/${category.id}`}>
-								{category.label}
-								<span style="font-style: normal; color: var(--muted); font-family: var(--sans); font-size: 0.95rem;">
-									{' '}
-									({count})
-								</span>
-							</a>
-						</li>
-					);
-				})
-			}
-		</ul>
-	</section>
+    {
+      grouped.map((group) => (
+        <section class="chalk-group">
+          <h2 class="chalk-group-title">{group.label}</h2>
+          <div class="chalk-stream">
+            {group.posts.length === 0 ? (
+              <p class="chalk-empty">Aún no hay notas en este tema.</p>
+            ) : (
+              group.posts.map((post) => (
+                <article class="chalk-item">
+                  <h3 class="chalk-item-title">
+                    <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                  </h3>
+                  <p class="chalk-item-desc">{post.data.description}</p>
+                </article>
+              ))
+            )}
+          </div>
+        </section>
+      ))
+    }
+  </div>
 </BaseLayout>

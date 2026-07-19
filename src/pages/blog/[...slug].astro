@@ -1,38 +1,47 @@
 ---
-import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { categories } from '../../data/site';
+import { getCollection, render } from 'astro:content';
+import { categoryLabel } from '../../data/site';
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog', ({ data }) => !data.draft);
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: { post },
-	}));
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const cat = categories.find((item) => item.id === post.data.category)?.label;
-const date = post.data.pubDate.toLocaleDateString('es-ES', {
-	year: 'numeric',
-	month: 'long',
-	day: 'numeric',
-});
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description} currentPath="/blog">
-	<article class="article">
-		<a class="back" href="/blog">← Escritos</a>
-		<h1 class="article__title">{post.data.title}</h1>
-		<p class="article__desc">{post.data.description}</p>
-		<p class="article__meta">
-			<span>{cat}</span>
-			<span>{date}</span>
-			<span>{post.data.minutes} min</span>
-		</p>
-		<div class="prose">
-			<Content />
-		</div>
-	</article>
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article class="chalk-article">
+    <header class="chalk-article-head">
+      <p class="chalk-page-kicker">{categoryLabel[post.data.category]}</p>
+      <h1 class="chalk-article-title">{post.data.title}</h1>
+      <div class="chalk-article-meta">
+        <time datetime={post.data.pubDate.toISOString()}>
+          {
+            post.data.pubDate.toLocaleDateString('es-ES', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+            })
+          }
+        </time>
+        <span>{post.data.minutes} min de lectura</span>
+      </div>
+    </header>
+
+    <div class="chalk-paper">
+      <div class="chalk-prose">
+        <Content />
+      </div>
+    </div>
+
+    <footer class="chalk-article-foot">
+      <a href="/blog">← Volver a escritos</a>
+    </footer>
+  </article>
 </BaseLayout>
