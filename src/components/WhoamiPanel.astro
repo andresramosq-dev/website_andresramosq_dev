@@ -10,9 +10,25 @@ import { site } from '../data/site';
 		<div class="whoami__info">
 			<p class="whoami__name">{site.name}</p>
 			<p class="whoami__handle">
-				<a href={site.social[0].href} target="_blank" rel="noreferrer">{site.handle}</a>
+				<a href="/about">{site.handle}</a>
 			</p>
 			<p class="whoami__role">{site.role}</p>
+			<p class="whoami__links-line">
+				<span class="whoami__cmd">:links -all</span>
+				<span class="whoami__icons">
+					{site.social.map((s) => (
+						<a
+							href={s.href}
+							title={s.label}
+							aria-label={s.label}
+							target={s.href.startsWith('http') ? '_blank' : undefined}
+							rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
+						>
+							<Icon name={s.icon} size={15} />
+						</a>
+					))}
+				</span>
+			</p>
 		</div>
 	</div>
 
@@ -22,22 +38,4 @@ import { site } from '../data/site';
 			<span class="whoami__pillar">· {p}</span>
 		))}
 	</p>
-
-	<div class="whoami__links">
-		<span class="whoami__links-label">links</span>
-		<div class="whoami__icons">
-			{site.social.map((s) => (
-				<a
-					class="whoami__icon"
-					href={s.href}
-					title={s.label}
-					aria-label={s.label}
-					target={s.href.startsWith('http') ? '_blank' : undefined}
-					rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
-				>
-					<Icon name={s.icon} size={16} />
-				</a>
-			))}
-		</div>
-	</div>
 </div>

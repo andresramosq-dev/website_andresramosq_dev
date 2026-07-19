@@ -15,7 +15,7 @@ const skillGroups = [
 <BaseLayout title="sobre mí" path="/about">
   <ConsoleTitle />
 
-  <CmdBlock cmd="about -andresramos-dev" id="perfil">
+  <CmdBlock cmd='about -me "@andresramos-dev"' id="perfil">
     <WhoamiPanel />
   </CmdBlock>
 
@@ -75,7 +75,7 @@ const skillGroups = [
 
   <p class="cmd-block__line cmd-block__line--idle">
     <span class="cmd-block__path">
-      <span class="cmd-block__user">{site.consoleUser}</span>@<span class="cmd-block__host">{site.domain}</span>:<span class="cmd-block__cwd">~/about</span>
+      <span class="cmd-block__user">{site.consoleUser}</span>@<span class="cmd-block__host">{site.domain}</span><span class="cmd-block__sep">:</span>
     </span>
     <span class="cursor" aria-hidden="true"></span>
   </p>
