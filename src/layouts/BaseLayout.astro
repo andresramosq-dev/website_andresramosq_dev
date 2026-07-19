@@ -29,7 +29,7 @@ const pageTitle = title === site.name ? `${site.name} · ${site.tagline}` : `${t
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Sora:wght@400;500;600&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
 			rel="stylesheet"
 		/>
 		<title>{pageTitle}</title>
@@ -37,7 +37,7 @@ const pageTitle = title === site.name ? `${site.name} · ${site.tagline}` : `${t
 	<body>
 		<header class="topbar">
 			<div class="shell topbar__inner">
-				<a class="brand" href="/">{site.name.split(' ')[0]} <span>Ramos</span></a>
+				<a class="brand" href="/">{site.name.split(' ')[0]} <span>{site.name.split(' ')[1]}</span></a>
 				<nav class="nav" aria-label="Principal">
 					{
 						nav.map((item) => {
@@ -62,7 +62,7 @@ const pageTitle = title === site.name ? `${site.name} · ${site.tagline}` : `${t
 
 		<footer class="shell footer">
 			<span>{site.handle}</span>
-			<span>Hecho con Astro</span>
+			<span>Astro</span>
 		</footer>
 	</body>
 </html>

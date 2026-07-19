@@ -5,29 +5,26 @@ import { site } from '../data/site';
 
 <section class="hero" aria-label="Presentación">
 	<div>
-		<p class="hero__eyebrow">
-			<Icon name="pen" size={16} />
-			{site.handle}
-		</p>
+		<p class="hero__eyebrow">{site.handle}</p>
 		<h1 class="hero__title">{site.name}</h1>
-		<p class="hero__text">{site.tagline} {site.bio}</p>
+		<p class="hero__text">{site.tagline}</p>
 		<div class="hero__actions">
 			<a class="btn btn--solid" href="/#proyectos">
-				Ver proyectos
+				Proyectos
 				<Icon name="arrow" size={18} />
 			</a>
 			<a class="btn btn--ghost" href="/blog">
-				Leer blog
+				Blog
 				<Icon name="book" size={18} />
 			</a>
 		</div>
 	</div>
 	<div class="hero__art">
 		<img
-			src="/images/chalk-hero.svg"
-			alt="Ilustración artística de pizarra con ventana de código y notas"
-			width="640"
-			height="420"
+			src="/images/hero-art.svg"
+			alt="Ilustración plana de escritorio y notas"
+			width="720"
+			height="520"
 		/>
 	</div>
 </section>
