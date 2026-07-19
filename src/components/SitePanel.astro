@@ -19,6 +19,10 @@ const { aboutSite } = site;
 		<span class="site-about__lead-text">{aboutSite.leadAfter}</span>
 	</p>
 
+	{aboutSite.body.map((line) => (
+		<p class="site-about__out">{line}</p>
+	))}
+
 	<p class="site-about__built">
 		<span class="site-about__out-inline">{aboutSite.builtBefore}</span>{' '}
 		{joinItems(aboutSite.builtWith).map(({ item, sep }) => (
@@ -35,5 +39,7 @@ const { aboutSite } = site;
 		<span class="site-about__out-inline">{aboutSite.builtAfter}</span>
 	</p>
 
-	<p class="site-about__lang">{aboutSite.language}</p>
+	{aboutSite.closing.map((line) => (
+		<p class="site-about__lang">{line}</p>
+	))}
 </div>

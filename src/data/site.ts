@@ -38,15 +38,21 @@ export const site = {
 	aboutSite: {
 		leadBefore: 'This is',
 		leadAfter:
-			' — my space to share ideas, projects, what I am learning, and where development is taking me. Over time it will grow with notes, a blog, and work worth keeping public.',
+			' — my space to share ideas, projects, and what I am learning as a developer.',
+		body: [
+			'Here I write about software, technology, product thinking, and the day-to-day of building systems. You will find notes, experiments, lessons from real work, and a blog where I publish what I am exploring right now.',
+			'It is also a place to leave a trail of my process: architecture decisions, tools I am trying, mistakes worth documenting, and the skills I am sharpening over time.',
+		] as const,
 		builtBefore: 'I built it with',
 		builtWith: ['Astro'] as const,
 		builtMid: ', with help from',
 		builtAlso: ['Cursor'] as const,
 		builtAfter:
 			' to move faster on the development side (I am not that great at web design 😉).',
-		language:
-			'I write everything in English. It is not my strongest language yet, but practicing here is part of the point.',
+		closing: [
+			'The terminal look is intentional: I wanted something simple, direct, and close to how I already think when I work.',
+			'I write everything in English. It is not my strongest language yet, but practicing here is part of the point — clearer thinking, cleaner sentences, and a habit of writing in public.',
+		] as const,
 	},
 };
 
