@@ -260,15 +260,17 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	letter-spacing: -0.01em;
 }
 .whoami__main {
-	display: grid;
-	grid-template-columns: 96px minmax(0, 1fr);
+	display: flex;
+	align-items: stretch;
 	gap: 1rem;
-	align-items: start;
 	min-width: 0;
 }
 .whoami__photo {
-	width: 96px;
-	height: 96px;
+	flex: 0 0 auto;
+	align-self: stretch;
+	aspect-ratio: 1 / 1;
+	height: auto;
+	width: auto;
 	border: 1px solid var(--border);
 	background: var(--panel2);
 	overflow: hidden;
@@ -276,8 +278,8 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .whoami__photo img {
 	display: block;
-	width: 96px;
-	height: 96px;
+	width: 100%;
+	height: 100%;
 	object-fit: cover;
 	object-position: center top;
 }
@@ -285,6 +287,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	display: grid;
 	gap: 0.2rem;
 	min-width: 0;
+	flex: 1 1 auto;
 	padding: 0;
 }
 .whoami__row {
