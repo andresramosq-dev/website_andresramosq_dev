@@ -1,5 +1,6 @@
 ---
 import ArtIcon from './ArtIcon.astro';
+import Icon from './Icon.astro';
 import { categoryLabel, categoryColor, type CategoryId } from '../data/site';
 
 interface Props {
@@ -17,7 +18,10 @@ const color = categoryColor[category];
 ---
 
 <a class="post-card" href={href} style={`--card-color: ${color}`}>
-	<div class="post-card__top">
+	<div class="post-card__visual">
+		{icon && <Icon name={icon} size={36} class="post-card__icon" />}
+	</div>
+	<div class="post-card__body">
 		<div class="post-card__meta">
 			<span class="post-card__cat">{categoryLabel[category]}</span>
 			<time datetime={date.toISOString()}>
@@ -25,8 +29,7 @@ const color = categoryColor[category];
 			</time>
 			<span>{minutes} min</span>
 		</div>
-		{icon && <ArtIcon name={icon} color={color} size="sm" />}
+		<h2 class="post-card__title">{title}</h2>
+		<p class="post-card__desc">{description}</p>
 	</div>
-	<h2 class="post-card__title">{title}</h2>
-	<p class="post-card__desc">{description}</p>
 </a>

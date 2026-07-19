@@ -16,43 +16,38 @@ const latest = posts.slice(0, 3);
 <BaseLayout>
   <div class="wrap">
     <section class="hero">
-      <div class="hero__text">
+      <div class="hero__content">
+        <p class="hero__label">Blog personal</p>
         <h1>{site.name}</h1>
-        <p>{site.tagline}</p>
+        <p class="hero__tagline">{site.tagline}</p>
         <div class="hero__actions">
           <a class="btn btn--primary" href="/blog">
             <Icon name="book" size={18} />
-            Ver blog
+            Leer el blog
           </a>
-          <a class="btn btn--ghost" href="/sobre">
-            <Icon name="user" size={18} />
-            Sobre mí
+          <a class="btn btn--outline" href="/proyectos">
+            <Icon name="folder" size={18} />
+            Proyectos
           </a>
         </div>
       </div>
 
-      <div class="hero__art" aria-hidden="true">
-        <div class="hero__blob hero__blob--1"></div>
-        <div class="hero__blob hero__blob--2"></div>
-        <div class="hero__blob hero__blob--3"></div>
-        <div class="hero__icons">
-          <span class="art-icon art-icon--lg" style="background:#fff;color:var(--c-diseno)">
-            <Icon name="spark" size={36} />
-          </span>
-          <span class="art-icon art-icon--lg" style="background:#fff;color:var(--c-codigo)">
-            <Icon name="code" size={36} />
-          </span>
-          <span class="art-icon art-icon--md" style="background:#fff;color:var(--c-metodo)">
-            <Icon name="pen" size={28} />
-          </span>
+      <div class="hero__visual">
+        <img class="hero-art" src="/images/hero-art.svg" alt="" width="480" height="400" />
+        <div class="hero__float">
+          <ArtIcon name="spark" color={categories[0].color} />
+          <ArtIcon name="code" color={categories[1].color} />
+          <ArtIcon name="pen" color={categories[3].color} />
         </div>
       </div>
     </section>
+  </div>
 
-    <section class="section">
+  <section class="section section--soft">
+    <div class="wrap">
       <div class="section-head">
         <h2 class="section-title">Últimos artículos</h2>
-        <a class="section-link" href="/blog">Ver todos</a>
+        <a class="section-link" href="/blog">Ver todos →</a>
       </div>
       <div class="card-grid">
         {
@@ -72,26 +67,26 @@ const latest = posts.slice(0, 3);
           })
         }
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section">
+  <section class="section">
+    <div class="wrap">
       <div class="section-head">
         <h2 class="section-title">Categorías</h2>
-        <a class="section-link" href="/categorias">Ver todas</a>
+        <a class="section-link" href="/categorias">Ver todas →</a>
       </div>
       <div class="cat-grid">
         {
           categories.map((cat) => (
             <a class="cat-card" href={`/categorias/${cat.id}`} style={`--cat-color: ${cat.color}`}>
-              <ArtIcon name={cat.icon} color={cat.color} />
-              <div>
-                <p class="cat-card__label">{cat.label}</p>
-                <p class="cat-card__desc">{cat.description}</p>
-              </div>
+              <ArtIcon name={cat.icon} color={cat.color} size="lg" />
+              <p class="cat-card__label">{cat.label}</p>
+              <p class="cat-card__desc">{cat.description}</p>
             </a>
           ))
         }
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </BaseLayout>
