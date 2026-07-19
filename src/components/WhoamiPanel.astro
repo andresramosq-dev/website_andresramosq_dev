@@ -28,26 +28,27 @@ import { site } from '../data/site';
 			</div>
 			<div class="whoami__row whoami__row--links">
 				<span class="whoami__key">social</span>
-				<span class="whoami__icons">
-					{site.social.map((s) => (
-						<a
-							href={s.href}
-							title={s.label}
-							aria-label={s.label}
-							target={s.href.startsWith('http') ? '_blank' : undefined}
-							rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
-						>
-							<Icon name={s.icon} size={18} />
-						</a>
-					))}
+				<span class="whoami__val">
+					<span class="whoami__icons">
+						{site.social.map((s) => (
+							<a
+								href={s.href}
+								title={s.label}
+								aria-label={s.label}
+								target={s.href.startsWith('http') ? '_blank' : undefined}
+								rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
+							>
+								<Icon name={s.icon} size={18} />
+							</a>
+						))}
+					</span>
 				</span>
 			</div>
 		</div>
 	</div>
 
-	<p class="whoami__tagline">
-		<span class="whoami__tagline-chrome">[</span>
+	<div class="whoami__tagline" role="note">
+		<span class="whoami__tagline-key">promise</span>
 		<span class="whoami__tagline-text">{site.tagline}</span>
-		<span class="whoami__tagline-chrome">]</span>
-	</p>
+	</div>
 </div>

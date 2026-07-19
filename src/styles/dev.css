@@ -261,22 +261,27 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .whoami__main {
 	display: grid;
-	grid-template-columns: auto 1fr;
+	grid-template-columns: 156px 1fr;
 	gap: 1.15rem;
-	align-items: stretch;
+	align-items: start;
 }
 .whoami__main .avatar {
-	height: 100%;
-	aspect-ratio: 1 / 1;
-	width: auto;
-	align-self: stretch;
+	width: 156px;
+	height: 156px;
+	margin: 0;
 }
 .whoami__main .avatar__frame {
-	width: 100%;
-	height: 100%;
-	min-height: 100%;
+	width: 156px !important;
+	height: 156px !important;
+	min-height: 156px;
 	aspect-ratio: 1 / 1;
 	flex: none;
+}
+.whoami__main .avatar__frame img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
 }
 .whoami__fields {
 	display: grid;
@@ -313,7 +318,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .whoami__val {
 	margin: 0;
-	padding: 0.5rem 0.75rem;
+	padding: 0.55rem 0.85rem 0.55rem 1rem;
 	color: var(--text);
 	font-size: inherit;
 	font-weight: 400;
@@ -321,10 +326,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	overflow-wrap: anywhere;
 }
 .whoami__row--links .whoami__val {
-	padding: 0.75rem 0.9rem 0.75rem 1.15rem;
-}
-.whoami__row--links .whoami__icons {
-	padding-left: 0.15rem;
+	padding: 0.75rem 1rem 0.75rem 1.25rem;
 }
 .whoami__val--name {
 	color: var(--ink);
@@ -364,24 +366,35 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	text-decoration: none;
 }
 .whoami__tagline {
-	display: flex;
-	align-items: baseline;
-	gap: 0.45rem;
-	margin: 0.15rem 0 0;
+	display: grid;
+	grid-template-columns: 5.5rem 1fr;
+	align-items: center;
+	margin: 0;
 	padding: 0;
-	border: none;
+	border: 1px solid var(--border);
 	background: none;
 	font-family: var(--mono);
 	font-size: inherit;
 	line-height: inherit;
 	letter-spacing: -0.01em;
 }
-.whoami__tagline-chrome {
-	flex-shrink: 0;
+.whoami__tagline-key {
+	color: var(--prompt);
+	font-weight: 500;
+	font-size: 0.72rem;
+	padding: 0.55rem 0.7rem;
+	border-right: 1px solid var(--border);
+	align-self: stretch;
+	display: flex;
+	align-items: center;
+}
+.whoami__tagline-key::after {
+	content: ':';
 	color: var(--muted);
-	font-weight: 400;
+	margin-left: 0.08rem;
 }
 .whoami__tagline-text {
+	padding: 0.55rem 0.85rem 0.55rem 1rem;
 	color: var(--ink);
 	font-weight: 500;
 }
