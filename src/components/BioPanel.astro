@@ -12,22 +12,28 @@ function joinItems(items: readonly string[]) {
 ---
 
 <div class="bio">
-	<p class="bio__out">
-		Senior software developer with 4+ years in backend work —
-		{' '}
-		{joinItems(site.bioStack).map(({ item, sep }) => (
-			<>
-				{sep}<BioTag label={item} />
-			</>
-		))}.
+	<p class="bio__lead">
+		<span class="bio__lead-text">Senior software developer with 4+ years in backend work</span>
+		<span class="bio__sep"> — </span>
+		<span class="bio__stack">
+			{joinItems(site.bioStack).map(({ item, sep }) => (
+				<>
+					{sep}<BioTag label={item} />
+				</>
+			))}
+		</span>.
 	</p>
-	<p class="bio__out">
-		I have built software at an insurance fintech: payment gateways, SOAT product sales, and keeping codebases healthy over time.
-	</p>
-	<p class="bio__out">
-		I have also built systems from scratch — including a VCC platform with IAM, call handling, CRM, and more.
-	</p>
-	<p class="bio__out">
+
+	<div class="bio__body">
+		<p class="bio__out">
+			I have built software at an insurance fintech: payment gateways, SOAT product sales, and keeping codebases healthy over time.
+		</p>
+		<p class="bio__out">
+			I have also built systems from scratch — including a VCC platform with IAM, call handling, CRM, and more.
+		</p>
+	</div>
+
+	<p class="bio__close">
 		Passionate about{' '}
 		{joinItems(site.bioValues).map(({ item, sep }) => (
 			<>
