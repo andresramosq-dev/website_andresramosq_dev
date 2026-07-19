@@ -50,8 +50,8 @@ export const site = {
 		builtAfter:
 			' to move faster on the development side (I am not that great at web design 😉).',
 		closing: [
-			'The terminal look is intentional: I wanted something simple, direct, and close to how I already think when I work.',
-			'I write everything in English. It is not my strongest language yet, but practicing here is part of the point — clearer thinking, cleaner sentences, and a habit of writing in public.',
+			'The terminal look comes from how much I like simple design — and because this is my workspace, I wanted it to feel a bit like my day to day: consoles, tests, and errors.',
+			'I write everything in English. It is not my strongest language yet, but practicing here is part of the point: clearer thinking, shorter sentences, and the habit of writing in public.',
 		] as const,
 	},
 };
