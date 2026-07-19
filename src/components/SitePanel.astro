@@ -19,6 +19,8 @@ const { aboutSite } = site;
 		<span class="site-about__lead-text">{aboutSite.leadAfter}</span>
 	</p>
 
+	<p class="site-about__out">{aboutSite.purpose}</p>
+
 	<p class="site-about__built">
 		<span class="site-about__out-inline">{aboutSite.builtBefore}</span>{' '}
 		{joinItems(aboutSite.builtWith).map(({ item, sep }) => (

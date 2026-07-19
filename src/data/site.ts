@@ -36,13 +36,15 @@ export const site = {
 		{ label: 'Email', href: 'mailto:andresramosq.dev@gmail.com' },
 	],
 	aboutSite: {
-		leadBefore: 'This is the personal site of',
-		leadAfter: ' — a place to publish things about software, technology, my work, and more.',
-		builtBefore: 'Built with',
+		leadBefore: 'This is the personal website of',
+		leadAfter: '.',
+		purpose:
+			'A small public console to share ideas about software, technology, my work, and the craft behind it — notes, experiments, and things worth keeping visible.',
+		builtBefore: 'It is built with',
 		builtWith: ['Astro', 'Cursor'] as const,
-		builtAfter: '.',
+		builtAfter: ' — the stack for the site, and the tool that helped me shape it.',
 		language:
-			'Written in English — not my strongest language, but I am practicing.',
+			'The writing lives in English on purpose. It is not my strongest language yet, but this space is also how I practice.',
 	},
 };
 

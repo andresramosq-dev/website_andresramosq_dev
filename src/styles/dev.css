@@ -534,6 +534,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	letter-spacing: -0.01em;
 }
 .site-about__lead,
+.site-about__out,
 .site-about__built,
 .site-about__lang,
 .site-about__lead-text,
@@ -551,14 +552,13 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .site-about__handle {
 	color: #7a9a7a;
 }
-.site-about__out-inline {
+.site-about__out,
+.site-about__out-inline,
+.site-about__lang {
 	color: var(--text);
 }
 .site-about__built .bio__tag {
 	color: var(--term-cyan);
-}
-.site-about__lang {
-	color: var(--text);
 }
 
 .principles { display: grid; gap: 0; }
