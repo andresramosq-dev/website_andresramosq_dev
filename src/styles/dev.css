@@ -319,14 +319,17 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .whoami__val--name {
 	color: var(--ink);
+	font-size: inherit;
 	font-weight: 700;
 }
 .whoami__val--role {
 	color: var(--ink);
+	font-size: inherit;
 	font-weight: 600;
 }
 .whoami__handle {
 	color: #7a9a7a;
+	font-size: inherit;
 	font-weight: 400;
 	text-decoration: none;
 }
@@ -354,32 +357,36 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	opacity: 1;
 	text-decoration: none;
 }
-/* C · two-column row */
+/* C · two-column row — same size as whoami, weight only */
 .tag-box__text {
 	color: var(--ink);
 	font-size: inherit;
 	font-weight: 500;
-	line-height: 1.55;
+	line-height: inherit;
 }
 .tag-box__key {
 	color: var(--muted);
-	font-weight: 400;
+	font-size: inherit;
+	font-weight: 500;
 }
 .tag-box--c {
 	display: grid;
 	grid-template-columns: auto 1fr;
 	border: 1px solid var(--border);
+	font-size: 0.88rem;
+	line-height: 1.65;
 }
 .tag-box--c .tag-box__key {
 	padding: 0.55rem 0.7rem;
 	border-right: 1px solid var(--border);
-	font-size: 0.72rem;
+	font-size: inherit;
 	align-self: stretch;
 	display: flex;
 	align-items: center;
 }
 .tag-box--c .tag-box__text {
 	padding: 0.55rem 0.7rem;
+	font-size: inherit;
 }
 .whoami__sig {
 	color: var(--muted);
@@ -486,15 +493,18 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	letter-spacing: inherit;
 }
 .bio__tag {
+	font-size: inherit;
 	font-weight: 600;
 	color: var(--term-cyan);
 	white-space: nowrap;
 }
 .bio__hash {
 	color: #5a8aa0;
+	font-size: inherit;
 	font-weight: 500;
 }
 .bio__kw {
+	font-size: inherit;
 	font-weight: 600;
 	color: var(--term-amber);
 }
