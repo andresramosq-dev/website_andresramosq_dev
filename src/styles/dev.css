@@ -92,12 +92,8 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	text-decoration: underline;
 	text-underline-offset: 3px;
 }
-.twin__handle {
+.twin__identity {
 	color: var(--ink);
-	margin-left: 0.55rem;
-}
-.twin__name {
-	color: var(--muted);
 	margin-left: 0.55rem;
 }
 .twin__body {
