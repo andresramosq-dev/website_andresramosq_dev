@@ -1,0 +1,19 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+	name: 'spark' | 'code' | 'compass' | 'pen' | 'arrow' | 'book' | 'user' | 'folder' | 'mail' | 'tag' | 'clock' | 'home';
+	color?: string;
+	size?: 'sm' | 'md' | 'lg';
+	class?: string;
+}
+
+const { name, color = '#3d9aad', size = 'md', class: className } = Astro.props;
+---
+
+<span
+	class:list={['art-icon', `art-icon--${size}`, className]}
+	style={`background: color-mix(in srgb, ${color} 16%, white); color: ${color}`}
+>
+	<Icon name={name} size={size === 'lg' ? 36 : size === 'sm' ? 22 : 28} />
+</span>

@@ -1,8 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import IdeaNode from '../components/IdeaNode.astro';
 import BlogCard from '../components/BlogCard.astro';
-import BoardLines from '../components/BoardLines.astro';
+import ArtIcon from '../components/ArtIcon.astro';
 import Icon from '../components/Icon.astro';
 import { getCollection } from 'astro:content';
 import { site, categories } from '../data/site';
@@ -12,100 +11,50 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 );
 
 const latest = posts.slice(0, 3);
-
-const connections = [
-  { d: 'M50 42 C35 30, 18 22, 14 18' },
-  { d: 'M50 42 C62 28, 78 16, 88 14' },
-  { d: 'M50 42 C58 58, 72 72, 88 82' },
-  { d: 'M50 42 C38 58, 22 68, 12 78' },
-  { d: 'M50 42 C42 52, 35 58, 30 62' },
-  { d: 'M50 42 C55 32, 48 26, 46 24' },
-  { d: 'M50 42 C62 48, 78 50, 88 48' },
-];
 ---
 
 <BaseLayout>
-  <section class="idea-board" aria-label="Inicio">
-    <img class="board-art" src="/images/dev-art.svg" alt="" width="1200" height="500" />
-    <BoardLines lines={connections} />
-
-    <IdeaNode
-      class="idea--hub"
-      href="/"
-      title={site.name}
-      subtitle={site.tagline}
-      icon="code"
-      color="#e6edf3"
-      size="lg"
-    />
-
-    <IdeaNode
-      class="idea--escritos"
-      href="/blog"
-      title="Blog"
-      subtitle="artículos"
-      icon="book"
-      color="#56d4dd"
-    />
-
-    <IdeaNode
-      class="idea--proyectos"
-      href="/proyectos"
-      title="Proyectos"
-      subtitle="trabajo"
-      icon="folder"
-      color="#bc8cff"
-    />
-
-    <IdeaNode
-      class="idea--temas"
-      href="/categorias"
-      title="Categorías"
-      subtitle="temas"
-      icon="tag"
-      color="#e3b341"
-    />
-
-    <IdeaNode
-      class="idea--sobre"
-      href="/sobre"
-      title="Sobre"
-      subtitle="autor"
-      icon="user"
-      color="#ff7b72"
-    />
-
-    {
-      latest.map((post, i) => {
-        const cat = categories.find((c) => c.id === post.data.category)!;
-        return (
-          <IdeaNode
-            class={`idea--post-${i + 1}`}
-            href={`/blog/${post.id}`}
-            title={post.data.title}
-            subtitle={post.data.pubDate.toLocaleDateString('es-ES', {
-              day: 'numeric',
-              month: 'short',
-            })}
-            icon={cat.icon}
-            color={cat.color}
-            size="sm"
-          />
-        );
-      })
-    }
-  </section>
-
-  <div class="blog-wrap">
-    <section class="blog-section">
-      <div class="blog-section__head">
-        <div>
-          <h2 class="blog-section__title">Últimos artículos</h2>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero__text">
+        <h1>{site.name}</h1>
+        <p>{site.tagline}</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="/blog">
+            <Icon name="book" size={18} />
+            Ver blog
+          </a>
+          <a class="btn btn--ghost" href="/sobre">
+            <Icon name="user" size={18} />
+            Sobre mí
+          </a>
         </div>
-        <a class="blog-section__link" href="/blog">Ver todos</a>
       </div>
 
-      <div class="blog-grid">
+      <div class="hero__art" aria-hidden="true">
+        <div class="hero__blob hero__blob--1"></div>
+        <div class="hero__blob hero__blob--2"></div>
+        <div class="hero__blob hero__blob--3"></div>
+        <div class="hero__icons">
+          <span class="art-icon art-icon--lg" style="background:#fff;color:var(--c-diseno)">
+            <Icon name="spark" size={36} />
+          </span>
+          <span class="art-icon art-icon--lg" style="background:#fff;color:var(--c-codigo)">
+            <Icon name="code" size={36} />
+          </span>
+          <span class="art-icon art-icon--md" style="background:#fff;color:var(--c-metodo)">
+            <Icon name="pen" size={28} />
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Últimos artículos</h2>
+        <a class="section-link" href="/blog">Ver todos</a>
+      </div>
+      <div class="card-grid">
         {
           latest.map((post) => {
             const cat = categories.find((c) => c.id === post.data.category)!;
@@ -125,28 +74,19 @@ const connections = [
       </div>
     </section>
 
-    <section class="blog-section">
-      <div class="blog-section__head">
-        <div>
-          <h2 class="blog-section__title">Categorías</h2>
-        </div>
-        <a class="blog-section__link" href="/categorias">Ver todas</a>
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Categorías</h2>
+        <a class="section-link" href="/categorias">Ver todas</a>
       </div>
-
-      <div class="topic-grid">
+      <div class="cat-grid">
         {
           categories.map((cat) => (
-            <a
-              class="topic-tile"
-              href={`/categorias/${cat.id}`}
-              style={`--tile-color: ${cat.color}`}
-            >
-              <span class="topic-tile__icon">
-                <Icon name={cat.icon} size={20} />
-              </span>
+            <a class="cat-card" href={`/categorias/${cat.id}`} style={`--cat-color: ${cat.color}`}>
+              <ArtIcon name={cat.icon} color={cat.color} />
               <div>
-                <p class="topic-tile__label">{cat.label}</p>
-                <p class="topic-tile__desc">{cat.description}</p>
+                <p class="cat-card__label">{cat.label}</p>
+                <p class="cat-card__desc">{cat.description}</p>
               </div>
             </a>
           ))

@@ -1,5 +1,5 @@
 ---
-import '../styles/board.css';
+import '../styles/site.css';
 import { site, nav } from '../data/site';
 
 interface Props {
@@ -21,12 +21,12 @@ const pageDescription = description ?? site.description;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{pageTitle}</title>
   </head>
-  <body class="is-board">
+  <body class="site">
     <a class="skip" href="#main">Saltar al contenido</a>
 
-    <header class="board-top">
-      <a class="board-brand" href="/">{site.name}</a>
-      <nav class="board-nav" aria-label="Principal">
+    <header class="site-header">
+      <a class="site-logo" href="/">{site.name}</a>
+      <nav class="site-nav" aria-label="Principal">
         {nav.map((item) => (
           <a href={item.href}>{item.label}</a>
         ))}
@@ -37,7 +37,7 @@ const pageDescription = description ?? site.description;
       <slot />
     </main>
 
-    <footer class="board-foot">
+    <footer class="site-footer">
       <p>© {new Date().getFullYear()} {site.name}</p>
     </footer>
   </body>

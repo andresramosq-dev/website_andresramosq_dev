@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogCard from '../../components/BlogCard.astro';
-import Icon from '../../components/Icon.astro';
+import ArtIcon from '../../components/ArtIcon.astro';
 import { getCollection } from 'astro:content';
 import { categories } from '../../data/site';
 
@@ -15,23 +15,23 @@ const grouped = categories.map((cat) => ({
 ---
 
 <BaseLayout title="Categorías" description="Categorías del blog">
-  <header class="page-head">
-    <h1 class="page-head__title">Categorías</h1>
-    <p class="page-head__sub">Artículos organizados por tema.</p>
-  </header>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Categorías</h1>
+      <p>Artículos organizados por tema.</p>
+    </header>
 
-  <div class="blog-wrap">
     {
       grouped.map((group) => (
-        <section class="blog-section">
-          <h2 class="cluster-title" style={`--tile-color: ${group.color}`}>
-            <Icon name={group.icon} size={18} />
+        <section class="cluster">
+          <h2 style={`--cluster-color: ${group.color}`}>
+            <ArtIcon name={group.icon} color={group.color} size="sm" />
             {group.label}
           </h2>
           {group.posts.length === 0 ? (
-            <p class="empty-note">No hay artículos en esta categoría.</p>
+            <p class="empty">No hay artículos en esta categoría.</p>
           ) : (
-            <div class="blog-grid">
+            <div class="card-grid">
               {group.posts.map((post) => (
                 <BlogCard
                   href={`/blog/${post.id}`}

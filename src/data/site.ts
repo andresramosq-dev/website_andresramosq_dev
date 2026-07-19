@@ -26,28 +26,28 @@ export const categories = [
 		label: 'Diseño',
 		description: 'Interfaces, jerarquía y criterio visual.',
 		icon: 'spark',
-		color: '#ff7b72',
+		color: '#e07a5f',
 	},
 	{
 		id: 'codigo',
 		label: 'Código',
 		description: 'Frontend, arquitectura y herramientas.',
 		icon: 'code',
-		color: '#56d4dd',
+		color: '#3d9aad',
 	},
 	{
 		id: 'oficio',
 		label: 'Oficio',
 		description: 'Carrera, hábitos y aprendizaje continuo.',
 		icon: 'compass',
-		color: '#e3b341',
+		color: '#d4a017',
 	},
 	{
 		id: 'metodo',
 		label: 'Método',
 		description: 'Cómo escribo, publico y organizo ideas.',
 		icon: 'pen',
-		color: '#bc8cff',
+		color: '#9b8afb',
 	},
 ] as const;
 

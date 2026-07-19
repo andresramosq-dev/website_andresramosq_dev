@@ -1,8 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Icon from '../../components/Icon.astro';
 import { getCollection, render } from 'astro:content';
-import { categoryLabel, categoryColor, categories } from '../../data/site';
+import { categoryLabel, categoryColor } from '../../data/site';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -14,15 +13,13 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const cat = categories.find((c) => c.id === post.data.category)!;
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
   <article class="article">
-    <a class="article__back" href="/blog">← Volver al blog</a>
+    <a class="back" href="/blog">← Volver al blog</a>
 
     <span class="article__badge" style={`--badge-color: ${categoryColor[post.data.category]}`}>
-      <Icon name={cat.icon} size={14} />
       {categoryLabel[post.data.category]}
     </span>
 
@@ -38,7 +35,7 @@ const cat = categories.find((c) => c.id === post.data.category)!;
           })
         }
       </time>
-      <span>{post.data.minutes} min de lectura</span>
+      · {post.data.minutes} min de lectura
     </div>
 
     <div class="article__body">

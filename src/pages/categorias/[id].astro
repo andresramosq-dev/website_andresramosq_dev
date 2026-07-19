@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogCard from '../../components/BlogCard.astro';
-import Icon from '../../components/Icon.astro';
+import ArtIcon from '../../components/ArtIcon.astro';
 import { categories } from '../../data/site';
 
 export function getStaticPaths() {
@@ -19,18 +19,14 @@ const posts = (
 ---
 
 <BaseLayout title={category.label} description={category.description}>
-	<header class="page-head">
-		<a class="article__back" href="/categorias">← Categorías</a>
-		<span class="article__badge" style={`--badge-color: ${category.color}`}>
-			<Icon name={category.icon} size={14} />
-			{category.label}
-		</span>
-		<h1 class="page-head__title">{category.label}</h1>
-		<p class="page-head__sub">{category.description}</p>
-	</header>
+	<div class="wrap">
+		<header class="page-head">
+			<a class="back" href="/categorias">← Categorías</a>
+			<h1>{category.label}</h1>
+			<p>{category.description}</p>
+		</header>
 
-	<div class="blog-wrap">
-		<div class="blog-grid">
+		<div class="card-grid">
 			{
 				posts.map((post) => (
 					<BlogCard

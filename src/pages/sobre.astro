@@ -1,38 +1,31 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Icon from '../components/Icon.astro';
+import ArtIcon from '../components/ArtIcon.astro';
 import { site } from '../data/site';
 ---
 
 <BaseLayout title="Sobre" description="Sobre el autor del blog">
-  <header class="page-head">
-    <h1 class="page-head__title">Sobre mí</h1>
-  </header>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Sobre mí</h1>
+    </header>
 
-  <div class="blog-wrap" style="max-width: var(--read);">
-    <div class="about-panel">
+    <div class="about-box">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
+        <ArtIcon name="user" color="#e07a5f" size="lg" />
+        <div>
+          <p style="margin:0;font-weight:700;font-size:1.1rem;">{site.name}</p>
+          <p style="margin:0;color:var(--muted);font-size:0.9rem;">{site.role}</p>
+        </div>
+      </div>
+      <p>{site.bio}</p>
       <p>
-        <strong>{site.name}</strong> — {site.role}. {site.bio}
+        {
+          site.links.map((link) => (
+            <a href={link.href} style="margin-right:1rem;">{link.label}</a>
+          ))
+        }
       </p>
-      <p>
-        Puedes leer el <a href="/blog">blog</a> o ver mis <a href="/proyectos">proyectos</a>.
-      </p>
-    </div>
-
-    <div class="topic-grid" style="margin-top: 1.5rem;">
-      {
-        site.links.map((link) => (
-          <a class="topic-tile" href={link.href} style="--tile-color: var(--cyan)">
-            <span class="topic-tile__icon">
-              <Icon name={link.label === 'GitHub' ? 'code' : 'mail'} size={20} />
-            </span>
-            <div>
-              <p class="topic-tile__label">{link.label}</p>
-              <p class="topic-tile__desc">{link.href.replace('mailto:', '')}</p>
-            </div>
-          </a>
-        ))
-      }
     </div>
   </div>
 </BaseLayout>

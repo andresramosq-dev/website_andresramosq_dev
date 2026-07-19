@@ -12,15 +12,13 @@ const iconByCategory = Object.fromEntries(categories.map((c) => [c.id, c.icon]))
 ---
 
 <BaseLayout title="Blog" description="Artículos del blog">
-  <header class="page-head">
-    <h1 class="page-head__title">Blog</h1>
-    <p class="page-head__sub">
-      Artículos sobre diseño, código y oficio.
-    </p>
-  </header>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Blog</h1>
+      <p>Artículos sobre diseño, código y oficio.</p>
+    </header>
 
-  <div class="blog-wrap">
-    <div class="blog-grid">
+    <div class="card-grid">
       {
         posts.map((post) => (
           <BlogCard

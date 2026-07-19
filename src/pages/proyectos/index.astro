@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Icon from '../../components/Icon.astro';
+import ArtIcon from '../../components/ArtIcon.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects')).sort(
@@ -9,25 +9,23 @@ const projects = (await getCollection('projects')).sort(
 ---
 
 <BaseLayout title="Proyectos" description="Proyectos personales">
-  <header class="page-head">
-    <h1 class="page-head__title">Proyectos</h1>
-    <p class="page-head__sub">Herramientas, experimentos y trabajo personal.</p>
-  </header>
+  <div class="wrap">
+    <header class="page-head">
+      <h1>Proyectos</h1>
+      <p>Herramientas, experimentos y trabajo personal.</p>
+    </header>
 
-  <div class="blog-wrap">
-    <div class="project-grid">
+    <div class="project-list">
       {
         projects.map((project) => (
-          <a class="project-card" href={project.data.url ?? '#'}>
-            <span class="project-card__icon">
-              <Icon name="folder" size={22} />
-            </span>
+          <a class="project-item" href={project.data.url ?? '#'}>
+            <ArtIcon name="folder" color="#9b8afb" />
             <div>
-              <p class="project-card__meta">
+              <p class="project-item__meta">
                 {project.data.year} · {project.data.stack.join(' · ')}
               </p>
-              <h2 class="project-card__title">{project.data.title}</h2>
-              <p class="project-card__desc">{project.data.description}</p>
+              <h2 class="project-item__title">{project.data.title}</h2>
+              <p class="project-item__desc">{project.data.description}</p>
             </div>
           </a>
         ))
