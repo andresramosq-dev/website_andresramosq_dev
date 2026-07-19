@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={project.data.title} description={project.data.description} path="/proyectos">
+  <article class="article">
+    <p class="crumb">
+      <a href="/">~</a> / <a href="/proyectos">proyectos</a> / {project.id}
+    </p>
+    <h1 class="pg-title">{project.data.title}</h1>
+    <p class="article__meta">
+      {project.data.year} · {project.data.status} · {project.data.stack.join(', ')}
+    </p>
+    <p class="pg-desc" style="margin-top:-1rem">{project.data.description}</p>
+
+    {project.data.url && (
+      <p style="margin-bottom:1.5rem">
+        <a href={project.data.url} target="_blank" rel="noreferrer" style="display:inline-flex;align-items:center;gap:0.35rem">
+          <Icon name="external" size={14} />
+          ver repositorio
+        </a>
+      </p>
+    )}
+
+    <div class="article__body">
+      <Content />
+    </div>
+
+    <p style="margin-top:2rem">
+      <a href="/proyectos">← volver a proyectos</a>
+    </p>
+  </article>
+</BaseLayout>

@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const notes = (await getCollection('notes', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="notas" description="Notas cortas" path="/notas">
+  <p class="crumb"><a href="/">~</a> / notas</p>
+  <h1 class="pg-title">Notas</h1>
+  <p class="pg-desc">
+    Ideas breves, pensamientos rápidos y enlaces. Más cortas que los artículos del blog.
+  </p>
+
+  <ul class="notes">
+    {
+      notes.map((note) => (
+        <li>
+          <a href={`/notas/${note.id}`}>
+            <span class="notes__title">{note.data.title}</span>
+            <span class="notes__date">
+              {note.data.pubDate.toLocaleDateString('es-ES', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+              })}
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

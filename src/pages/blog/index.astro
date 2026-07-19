@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryDot from '../../components/CategoryDot.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -9,7 +10,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
 <BaseLayout title="blog" description="Artículos" path="/blog">
   <p class="crumb"><a href="/">~</a> / blog</p>
   <h1 class="pg-title">Blog</h1>
-  <p class="pg-desc">{posts.length} artículos sobre diseño, código y oficio.</p>
+  <p class="pg-desc">{posts.length} artículos sobre diseño, código, oficio y método.</p>
 
   <ul class="posts">
     {
@@ -23,8 +24,11 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
                 year: 'numeric',
               })}
             </span>
-            <span class="posts__title">{post.data.title}</span>
-            <span class="posts__tag">{post.data.category}</span>
+            <span class="posts__title">
+              <CategoryDot category={post.data.category} />
+              {post.data.title}
+            </span>
+            <span class="posts__tag">{post.data.minutes} min</span>
           </a>
         </li>
       ))

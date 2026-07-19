@@ -1,18 +1,41 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Terminal from '../components/Terminal.astro';
+import AsciiLogo from '../components/AsciiLogo.astro';
+import CategoryDot from '../components/CategoryDot.astro';
 import { getCollection } from 'astro:content';
 import { site, now, skills, categories } from '../data/site';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
+const notes = (await getCollection('notes', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
 const pinned = posts.filter((p) => p.data.featured);
-const recent = posts.filter((p) => !p.data.featured).slice(0, 5);
+const recent = posts.filter((p) => !p.data.featured).slice(0, 4);
+const recentNotes = notes.slice(0, 3);
 const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year).slice(0, 3);
 ---
 
 <BaseLayout path="/">
+  <AsciiLogo />
+
+  <div class="stats">
+    <div class="stat">
+      <span class="stat__num">{posts.length}</span>
+      <span class="stat__label">artículos</span>
+    </div>
+    <div class="stat">
+      <span class="stat__num">{projects.length}</span>
+      <span class="stat__label">proyectos</span>
+    </div>
+    <div class="stat">
+      <span class="stat__num">{notes.length}</span>
+      <span class="stat__label">notas</span>
+    </div>
+  </div>
+
   <Terminal title="~/andres — zsh">
     <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">whoami</span></p>
     <p class="term__out">{site.name} — {site.role}</p>
@@ -67,7 +90,10 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.year - 
               <span class="posts__date">
                 {post.data.pubDate.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
               </span>
-              <span class="posts__title">{post.data.title}</span>
+              <span class="posts__title">
+                <CategoryDot category={post.data.category} />
+                {post.data.title}
+              </span>
               <span class="posts__tag">{post.data.category}</span>
             </a>
           </li>
@@ -88,8 +114,30 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.year - 
             <span class="posts__date">
               {post.data.pubDate.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
             </span>
-            <span class="posts__title">{post.data.title}</span>
+            <span class="posts__title">
+              <CategoryDot category={post.data.category} />
+              {post.data.title}
+            </span>
             <span class="posts__tag">{post.data.category}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="sec">
+    <div class="sec__head">
+      <h2 class="sec__title">notas</h2>
+      <a class="sec__link" href="/notas">ver todas →</a>
+    </div>
+    <ul class="notes">
+      {recentNotes.map((note) => (
+        <li>
+          <a href={`/notas/${note.id}`}>
+            <span class="notes__title">{note.data.title}</span>
+            <span class="notes__date">
+              {note.data.pubDate.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })}
+            </span>
           </a>
         </li>
       ))}
@@ -102,7 +150,7 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.year - 
       <a class="sec__link" href="/proyectos">ver todos →</a>
     </div>
     {projects.map((p) => (
-      <a class="proj" href={p.data.url ?? '/proyectos'}>
+      <a class="proj" href={`/proyectos/${p.id}`}>
         <span class="proj__year">{p.data.year}</span>
         <div>
           <p class="proj__title">{p.data.title}</p>
@@ -126,7 +174,9 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.year - 
         </a>
       ))}
       {categories.map((c) => (
-        <a class="tag" href={`/categorias/${c.id}`}>#{c.label}</a>
+        <a class="tag tag--cat" href={`/categorias/${c.id}`} style={`--cat: ${c.color}`}>
+          #{c.label}
+        </a>
       ))}
     </div>
   </section>

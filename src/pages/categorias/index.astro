@@ -20,7 +20,10 @@ const counts = Object.fromEntries(
         <li>
           <a href={`/categorias/${cat.id}`}>
             <span class="posts__date">{counts[cat.id]} posts</span>
-            <span class="posts__title">#{cat.label}</span>
+            <span class="posts__title">
+              <span class="cat-dot" style={`--cat: ${cat.color}`}></span>
+              #{cat.label}
+            </span>
             <span class="posts__tag">{cat.description}</span>
           </a>
         </li>

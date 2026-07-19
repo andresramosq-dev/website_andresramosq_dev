@@ -1,5 +1,7 @@
 ---
 import '../styles/dev.css';
+import StatusBar from '../components/StatusBar.astro';
+import Icon from '../components/Icon.astro';
 import { site, nav } from '../data/site';
 
 interface Props {
@@ -18,21 +20,25 @@ const pageTitle = title ? `${title} — ${site.name}` : site.name;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description ?? site.description} />
+    <meta name="author" content={site.name} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} — RSS`} href="/rss.xml" />
     <title>{pageTitle}</title>
   </head>
   <body>
     <a class="skip" href="#main">Saltar al contenido</a>
 
     <div class="shell">
+      <StatusBar />
+
       <header class="hdr">
         <div class="hdr__top">
           <a class="hdr__logo" href="/">{site.handle}<span> ~ dev</span></a>
-          <span class="hdr__status"><span class="dot"></span>disponible</span>
         </div>
         <nav class="hdr__nav" aria-label="Principal">
           {nav.map((item) => (
             <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
+              <Icon name={item.icon} size={14} />
               {item.label}
             </a>
           ))}
@@ -45,7 +51,15 @@ const pageTitle = title ? `${title} — ${site.name}` : site.name;
 
       <footer class="ftr">
         <span><span class="ftr__prompt">$</span> echo "© {new Date().getFullYear()} {site.name}"</span>
-        <span>{site.location}</span>
+        <div class="ftr__links">
+          {site.links.map((l) => (
+            <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
+              <Icon name={l.icon} size={13} />
+              {l.label}
+            </a>
+          ))}
+          <a href="/rss.xml"><Icon name="rss" size={13} /> rss</a>
+        </div>
       </footer>
     </div>
   </body>

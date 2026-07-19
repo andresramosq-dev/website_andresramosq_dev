@@ -1,0 +1,12 @@
+---
+import type { CategoryId } from '../data/site';
+import { categoryColor } from '../data/site';
+
+interface Props {
+	category: CategoryId;
+}
+
+const { category } = Astro.props;
+---
+
+<span class="cat-dot" style={`--cat: ${categoryColor[category]}`} aria-hidden="true"></span>

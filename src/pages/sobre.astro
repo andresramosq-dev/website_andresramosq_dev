@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Terminal from '../components/Terminal.astro';
-import { site, skills, timeline, now } from '../data/site';
+import { site, skills, timeline, now, principles } from '../data/site';
 ---
 
 <BaseLayout title="sobre" path="/sobre">
@@ -17,36 +17,48 @@ import { site, skills, timeline, now } from '../data/site';
       &nbsp;&nbsp;"name": "{site.name}",<br />
       &nbsp;&nbsp;"role": "{site.role}",<br />
       &nbsp;&nbsp;"location": "{site.location}",<br />
+      &nbsp;&nbsp;"since": {site.since},<br />
       &nbsp;&nbsp;"email": "{site.email}"<br />
       {'}'}
     </p>
   </Terminal>
 
-  <div class="about-grid">
-    <section class="sec" style="margin:0">
-      <h2 class="sec__title">bio</h2>
-      <p style="margin:0.75rem 0 0;line-height:1.75">{site.bio}</p>
-      <p style="margin:1rem 0 0;line-height:1.75;color:var(--muted);font-size:0.85rem">
-        Escribo sobre lo que aprendo construyendo software: interfaces, herramientas, hábitos y
-        decisiones de producto. Este sitio es mi cuaderno público — código abierto en ideas.
-      </p>
-    </section>
+  <section class="sec">
+    <h2 class="sec__title">bio</h2>
+    {site.about.map((p) => (
+      <p style="margin:0.75rem 0 0;line-height:1.75;color:var(--text)">{p}</p>
+    ))}
+  </section>
 
+  <div class="about-grid">
     <section class="sec" style="margin:0">
       <h2 class="sec__title">now</h2>
       <div class="now" style="margin-top:0.75rem">
         <dl>
           <div><dt>working_on</dt><dd>{now.working}</dd></div>
           <div><dt>learning</dt><dd>{now.learning}</dd></div>
+          <div><dt>reading</dt><dd>{now.reading}</dd></div>
         </dl>
+      </div>
+    </section>
+
+    <section class="sec" style="margin:0">
+      <h2 class="sec__title">skills</h2>
+      <div class="tags" style="margin-top:0.75rem">
+        {skills.map((s) => <span class="tag tag--skill">{s}</span>)}
       </div>
     </section>
   </div>
 
   <section class="sec">
-    <h2 class="sec__title">skills</h2>
-    <div class="tags" style="margin-top:0.75rem">
-      {skills.map((s) => <span class="tag tag--skill">{s}</span>)}
+    <h2 class="sec__title">principios</h2>
+    <div class="principles" style="margin-top:0.75rem">
+      {principles.map((p) => (
+        <div class="principle">
+          <p class="principle__title">{p.title}</p>
+          <p class="principle__desc">{p.desc}</p>
+        </div>
+      ))}
     </div>
   </section>
 
@@ -72,6 +84,7 @@ import { site, skills, timeline, now } from '../data/site';
         <a class="tag" href={l.href}>{l.label}</a>
       ))}
       <a class="tag" href="/blog">blog</a>
+      <a class="tag" href="/notas">notas</a>
       <a class="tag" href="/proyectos">proyectos</a>
     </div>
   </section>

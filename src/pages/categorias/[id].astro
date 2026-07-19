@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryDot from '../../components/CategoryDot.astro';
 import { categories } from '../../data/site';
 
 export function getStaticPaths() {
@@ -31,7 +32,10 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft && data.cat
                 year: 'numeric',
               })}
             </span>
-            <span class="posts__title">{post.data.title}</span>
+            <span class="posts__title">
+              <CategoryDot category={post.data.category} />
+              {post.data.title}
+            </span>
             <span class="posts__tag">{post.data.minutes} min</span>
           </a>
         </li>
