@@ -15,7 +15,7 @@ const { aboutSite } = site;
 <div class="site-about">
 	<p class="site-about__lead">
 		<span class="site-about__lead-text">{aboutSite.leadBefore}</span>{' '}
-		<a class="site-about__handle" href="#profile">{site.domain}</a>
+		<a class="site-about__domain" href="#profile">{site.domain}</a>
 		<span class="site-about__lead-text">{aboutSite.leadAfter}</span>
 	</p>
 
@@ -23,21 +23,24 @@ const { aboutSite } = site;
 		<p class="site-about__out">{line}</p>
 	))}
 
-	<p class="site-about__built">
-		<span class="site-about__out-inline">{aboutSite.builtBefore}</span>{' '}
-		{joinItems(aboutSite.builtWith).map(({ item, sep }) => (
-			<>
-				{sep}<BioTag label={item} />
-			</>
-		))}
-		<span class="site-about__out-inline">{aboutSite.builtMid}</span>{' '}
-		{joinItems(aboutSite.builtAlso).map(({ item, sep }) => (
-			<>
-				{sep}<BioTag label={item} />
-			</>
-		))}
-		<span class="site-about__out-inline">{aboutSite.builtAfter}</span>
-	</p>
+	<div class="tag-box tag-box--c site-about__build">
+		<div class="tag-box__key">build</div>
+		<div class="tag-box__text">
+			<span class="site-about__out-inline">{aboutSite.builtBefore}</span>{' '}
+			{joinItems(aboutSite.builtWith).map(({ item, sep }) => (
+				<>
+					{sep}<BioTag label={item} />
+				</>
+			))}
+			<span class="site-about__out-inline">{aboutSite.builtMid}</span>{' '}
+			{joinItems(aboutSite.builtAlso).map(({ item, sep }) => (
+				<>
+					{sep}<BioTag label={item} />
+				</>
+			))}
+			<span class="site-about__out-inline">{aboutSite.builtAfter}</span>
+		</div>
+	</div>
 
 	{aboutSite.closing.map((line) => (
 		<p class="site-about__lang">{line}</p>
