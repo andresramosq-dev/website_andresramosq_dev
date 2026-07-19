@@ -1,0 +1,29 @@
+---
+import { tastes } from '../data/site';
+import { spotifyPlaylistId } from '../lib/spotify';
+
+const playlistId = spotifyPlaylistId(tastes.spotify.playlistUrl);
+const label = tastes.spotify.playlistLabel ?? 'playlist';
+---
+
+{playlistId ? (
+	<div
+		class="now-bar"
+		data-spotify-header
+		data-playlist-id={playlistId}
+		data-default-label={label}
+		aria-label="Now playing"
+	>
+		<p class="now-bar__track" data-now-track title={label}>
+			{label}
+		</p>
+		<div class="now-bar__actions">
+			<button type="button" class="now-bar__btn" data-now-play aria-label="Play">
+				▶
+			</button>
+			<div class="now-bar__native" data-spotify-embed-host />
+		</div>
+	</div>
+) : null}
+
+<script src="../scripts/spotify-header.ts"></script>

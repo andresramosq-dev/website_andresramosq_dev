@@ -161,14 +161,6 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	width: 100%;
 	border: 0;
 }
-.spotify-embed--mini {
-	flex: 0 0 auto;
-	width: min(300px, 38vw);
-	border-radius: 6px;
-}
-.spotify-embed--mini .spotify-embed__frame {
-	height: 80px;
-}
 .spotify-embed--panel {
 	margin-top: 0.25rem;
 	max-width: 100%;
@@ -179,6 +171,70 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .tastes__music-line {
 	margin: 0 0 0.35rem;
+}
+
+/* Header: song title + play + clipped Spotify prev/next */
+.now-bar {
+	display: flex;
+	align-items: center;
+	gap: 0.45rem;
+	flex: 0 1 min(19rem, 46vw);
+	min-width: 10.5rem;
+	padding: 0.28rem 0.4rem 0.28rem 0.55rem;
+	border: 1px solid var(--border2);
+	border-radius: 6px;
+	background: var(--panel2);
+}
+.now-bar__track {
+	flex: 1 1 auto;
+	min-width: 0;
+	margin: 0;
+	font-size: 0.68rem;
+	line-height: 1.35;
+	color: var(--text);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.now-bar__actions {
+	display: flex;
+	align-items: center;
+	gap: 0.2rem;
+	flex-shrink: 0;
+}
+.now-bar__btn {
+	font-family: var(--mono);
+	font-size: 0.62rem;
+	line-height: 1;
+	width: 1.55rem;
+	height: 1.55rem;
+	padding: 0;
+	border: 1px solid var(--border2);
+	border-radius: 4px;
+	background: var(--panel);
+	color: var(--ink);
+	cursor: pointer;
+}
+.now-bar__btn:hover {
+	border-color: var(--prompt);
+	color: var(--prompt);
+}
+.now-bar__native {
+	width: 4.6rem;
+	height: 1.55rem;
+	overflow: hidden;
+	position: relative;
+	flex-shrink: 0;
+	border-radius: 3px;
+	opacity: 0.92;
+}
+.now-bar__native iframe {
+	position: absolute;
+	top: -2.35rem;
+	right: -4.5rem;
+	width: 18rem !important;
+	height: 5rem !important;
+	border: 0;
 }
 .tastes {
 	gap: 0.75rem;
@@ -761,9 +817,13 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 		white-space: normal;
 		flex: 1 1 100%;
 	}
-	.spotify-embed--mini {
-		width: 100%;
+	.spotify-embed--panel .spotify-embed__frame {
+		min-height: 280px;
+	}
+	.now-bar {
 		flex: 1 1 100%;
+		max-width: none;
+		min-width: 0;
 	}
 	.twin__handle { margin-left: 0.35rem; }
 	.nav a { padding: 0.5rem 0.85rem; font-size: 0.8rem; }
