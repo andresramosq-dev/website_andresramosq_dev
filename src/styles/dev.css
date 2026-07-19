@@ -96,6 +96,10 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	color: var(--ink);
 	margin-left: 0.55rem;
 }
+.twin__name {
+	color: var(--muted);
+	margin-left: 0.55rem;
+}
 .twin__body {
 	flex: 1;
 	display: flex;

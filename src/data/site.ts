@@ -1,9 +1,9 @@
 export const site = {
-	domain: 'andresramos.dev',
-	consoleUser: 'blog',
+	domain: 'andresramosq.dev',
+	consoleUser: 'website',
 	user: 'andres',
-	name: 'Andrés Ramos',
-	handle: '@andresramos-dev',
+	name: 'Andrés Ramos Q Dev',
+	handle: '@andresramosq-dev',
 	role: 'Senior Software Developer',
 	location: 'Pitalito, Huila · remote',
 	email: 'andresramosdev.personal@gmail.com',
