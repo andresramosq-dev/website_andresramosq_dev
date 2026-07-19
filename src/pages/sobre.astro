@@ -1,43 +1,70 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Icon from '../components/Icon.astro';
+import IdeaNode from '../components/IdeaNode.astro';
+import BoardLines from '../components/BoardLines.astro';
 import { site } from '../data/site';
+
+const lines = [
+  { d: 'M50 30 C35 45, 25 55, 20 70' },
+  { d: 'M50 30 C65 42, 75 55, 78 72' },
+  { d: 'M20 70 C35 75, 50 78, 65 75' },
+];
 ---
 
 <BaseLayout title="Sobre" description="Sobre el autor del blog">
-  <header class="page-head">
-    <p class="page-head__kicker">// about</p>
-    <h1 class="page-head__title">Sobre mí</h1>
-  </header>
+  <section class="idea-wall" style="min-height: 340px;">
+    <img class="board-canvas" src="/images/board-canvas.svg" alt="" width="1400" height="900" />
+    <BoardLines lines={lines} />
 
-  <div class="blog-wrap" style="max-width: var(--read);">
-    <div class="about-panel">
-      <p>
-        <strong>{site.name}</strong> — {site.role}. {site.bio}
-      </p>
-      <p>
-        Este blog combina un mapa de ideas artístico en la portada con escritos sobre diseño, código y
-        oficio. Tipografía de desarrollador, colores planos, iconos y SVG.
-      </p>
-      <p>
-        Lee los <a href="/blog">escritos</a> o explora los <a href="/proyectos">proyectos</a>.
-      </p>
-    </div>
+    <IdeaNode
+      class="wall--title"
+      title={site.name}
+      subtitle={site.role}
+      icon="user"
+      color="#ff7b72"
+      size="lg"
+      frame={2}
+    />
 
-    <div class="topic-grid" style="margin-top: 1.5rem;">
-      {
-        site.links.map((link) => (
-          <a class="topic-tile" href={link.href} style="--tile-color: var(--cyan)">
-            <span class="topic-tile__icon">
-              <Icon name={link.label === 'GitHub' ? 'code' : 'mail'} size={20} />
-            </span>
-            <div>
-              <p class="topic-tile__label">{link.label}</p>
-              <p class="topic-tile__desc">{link.href.replace('mailto:', '')}</p>
-            </div>
-          </a>
-        ))
-      }
+    <IdeaNode
+      class="wall--p3"
+      title="escritos"
+      subtitle="lee el blog"
+      icon="book"
+      color="#56d4dd"
+      href="/blog"
+      frame={4}
+    />
+
+    <IdeaNode
+      class="wall--p4"
+      title="proyectos"
+      subtitle="mi trabajo"
+      icon="folder"
+      color="#bc8cff"
+      href="/proyectos"
+      frame={5}
+    />
+  </section>
+
+  <article class="art-article">
+    <div class="art-paper">
+      <div class="art-prose">
+        <p>{site.bio}</p>
+        <p>
+          Este sitio es una pizarra de ideas conectadas — notas sueltas con colores planos, iconos SVG
+          y tipografía de desarrollador. No una plantilla de blog.
+        </p>
+        <p>
+          {
+            site.links.map((link) => (
+              <a href={link.href} style="margin-right: 1rem;">
+                {link.label}
+              </a>
+            ))
+          }
+        </p>
+      </div>
     </div>
-  </div>
+  </article>
 </BaseLayout>

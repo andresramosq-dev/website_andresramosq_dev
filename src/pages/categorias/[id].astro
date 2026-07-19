@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogCard from '../../components/BlogCard.astro';
-import Icon from '../../components/Icon.astro';
+import IdeaNode from '../../components/IdeaNode.astro';
+import BoardLines from '../../components/BoardLines.astro';
 import { categories } from '../../data/site';
 
 export function getStaticPaths() {
@@ -16,35 +16,47 @@ const { category } = Astro.props;
 const posts = (
 	await getCollection('blog', ({ data }) => !data.draft && data.category === category.id)
 ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const positions = ['wall--p1', 'wall--p2', 'wall--p3', 'wall--p4', 'wall--p5'];
+const lines = [
+	{ d: 'M50 15 C35 25, 20 35, 14 42' },
+	{ d: 'M50 15 C65 22, 80 32, 86 40' },
+	{ d: 'M14 42 C28 48, 42 52, 50 55' },
+	{ d: 'M86 40 C72 48, 58 52, 50 55' },
+	{ d: 'M50 55 C42 68, 38 78, 35 85' },
+];
 ---
 
 <BaseLayout title={category.label} description={category.description}>
-	<header class="page-head">
-		<a class="article__back" href="/categorias">← temas</a>
-		<span class="article__badge" style={`--badge-color: ${category.color}`}>
-			<Icon name={category.icon} size={14} />
-			{category.label}
-		</span>
-		<h1 class="page-head__title">{category.label}</h1>
-		<p class="page-head__sub">{category.description}</p>
-	</header>
+	<section class="idea-wall">
+		<img class="board-canvas" src="/images/board-canvas.svg" alt="" width="1400" height="900" />
+		<BoardLines lines={lines} />
 
-	<div class="blog-wrap">
-		<div class="blog-grid">
-			{
-				posts.map((post, i) => (
-					<BlogCard
-						href={`/blog/${post.id}`}
-						title={post.data.title}
-						description={post.data.description}
-						date={post.data.pubDate}
-						minutes={post.data.minutes}
-						category={post.data.category}
-						icon={category.icon}
-						tilt={i % 2 === 0 ? -0.5 : 0.5}
-					/>
-				))
-			}
-		</div>
-	</div>
+		<IdeaNode
+			class="wall--title"
+			href="/categorias"
+			title={category.label}
+			subtitle={category.description}
+			icon={category.icon}
+			color={category.color}
+			size="lg"
+			frame={1}
+		/>
+
+		{
+			posts.map((post, i) => (
+				<IdeaNode
+					class={positions[i % positions.length]}
+					href={`/blog/${post.id}`}
+					title={post.data.title}
+					subtitle={`${post.data.minutes}min`}
+					desc={post.data.description}
+					icon={category.icon}
+					color={category.color}
+					size="sm"
+					frame={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5}
+				/>
+			))
+		}
+	</section>
 </BaseLayout>

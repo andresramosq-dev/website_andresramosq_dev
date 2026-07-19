@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogCard from '../../components/BlogCard.astro';
+import IdeaNode from '../../components/IdeaNode.astro';
+import BoardLines from '../../components/BoardLines.astro';
 import { getCollection } from 'astro:content';
 import { categories } from '../../data/site';
 
@@ -8,34 +9,57 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
-const iconByCategory = Object.fromEntries(categories.map((c) => [c.id, c.icon]));
+const wallLines = [
+  { d: 'M50 12 C30 20, 20 30, 14 38' },
+  { d: 'M50 12 C70 18, 82 28, 88 36' },
+  { d: 'M14 38 C22 42, 32 46, 38 48' },
+  { d: 'M88 36 C80 42, 68 46, 58 50' },
+  { d: 'M38 48 C42 58, 46 68, 50 78' },
+  { d: 'M58 50 C54 62, 52 72, 50 78' },
+  { d: 'M50 78 C36 82, 22 86, 16 90' },
+  { d: 'M50 78 C64 84, 78 88, 86 92' },
+  { d: 'M38 48 C48 52, 52 54, 58 50', dashed: true },
+  { d: 'M16 90 C28 86, 40 82, 50 78', dashed: true },
+];
+
+const positions = ['wall--p1', 'wall--p2', 'wall--p3', 'wall--p4', 'wall--p5', 'wall--p6'];
 ---
 
 <BaseLayout title="Escritos" description="Artículos del blog">
-  <header class="page-head">
-    <p class="page-head__kicker">// escritos</p>
-    <h1 class="page-head__title">Blog</h1>
-    <p class="page-head__sub">
-      Notas sobre diseño, código y oficio — publicadas como un blog de desarrollador, con mapa de ideas en la portada.
-    </p>
-  </header>
+  <section class="idea-wall" aria-label="Muro de escritos">
+    <img class="board-canvas" src="/images/board-canvas.svg" alt="" width="1400" height="900" />
+    <BoardLines lines={wallLines} />
 
-  <div class="blog-wrap">
-    <div class="blog-grid">
-      {
-        posts.map((post, i) => (
-          <BlogCard
+    <IdeaNode
+      class="wall--title"
+      href="/blog"
+      title="escritos"
+      subtitle="muro de ideas"
+      icon="book"
+      color="#e8e4dc"
+      size="lg"
+      frame={1}
+    />
+
+    {
+      posts.map((post, i) => {
+        const cat = categories.find((c) => c.id === post.data.category)!;
+        return (
+          <IdeaNode
+            class={positions[i % positions.length]}
             href={`/blog/${post.id}`}
             title={post.data.title}
-            description={post.data.description}
-            date={post.data.pubDate}
-            minutes={post.data.minutes}
-            category={post.data.category}
-            icon={iconByCategory[post.data.category]}
-            tilt={i % 3 === 0 ? -0.5 : i % 3 === 1 ? 0.5 : 0}
+            subtitle={`${post.data.minutes}min · ${post.data.pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}`}
+            desc={post.data.description}
+            icon={cat.icon}
+            color={cat.color}
+            size="sm"
+            frame={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5}
           />
-        ))
-      }
-    </div>
-  </div>
+        );
+      })
+    }
+
+    <p class="board-label">{posts.length} notas en la pizarra</p>
+  </section>
 </BaseLayout>

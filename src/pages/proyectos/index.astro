@@ -1,38 +1,51 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Icon from '../../components/Icon.astro';
+import IdeaNode from '../../components/IdeaNode.astro';
+import BoardLines from '../../components/BoardLines.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects')).sort(
   (a, b) => b.data.year - a.data.year
 );
+
+const colors = ['#bc8cff', '#56d4dd', '#ff7b72'];
+const positions = ['proj--p1', 'proj--p2', 'proj--p3'];
+const lines = [
+  { d: 'M30 40 C50 30, 70 35, 50 55' },
+  { d: 'M70 35 C80 50, 75 65, 60 70' },
+  { d: 'M50 55 C40 65, 30 70, 25 75', dashed: true },
+];
 ---
 
 <BaseLayout title="Proyectos" description="Proyectos personales">
-  <header class="page-head">
-    <p class="page-head__kicker">// proyectos</p>
-    <h1 class="page-head__title">Lo que construyo</h1>
-    <p class="page-head__sub">Herramientas, experimentos y side projects.</p>
-  </header>
+  <section class="proj-wall idea-wall">
+    <img class="board-canvas" src="/images/board-canvas.svg" alt="" width="1400" height="900" />
+    <BoardLines lines={lines} />
 
-  <div class="blog-wrap">
-    <div class="project-grid">
-      {
-        projects.map((project) => (
-          <a class="project-card" href={project.data.url ?? '#'}>
-            <span class="project-card__icon">
-              <Icon name="folder" size={22} />
-            </span>
-            <div>
-              <p class="project-card__meta">
-                {project.data.year} · {project.data.stack.join(' · ')}
-              </p>
-              <h2 class="project-card__title">{project.data.title}</h2>
-              <p class="project-card__desc">{project.data.description}</p>
-            </div>
-          </a>
-        ))
-      }
-    </div>
-  </div>
+    <IdeaNode
+      class="wall--title"
+      title="proyectos"
+      subtitle="lo que construyo"
+      icon="folder"
+      color="#e8e4dc"
+      size="lg"
+      frame={3}
+    />
+
+    {
+      projects.map((project, i) => (
+        <IdeaNode
+          class={positions[i % positions.length]}
+          href={project.data.url}
+          title={project.data.title}
+          subtitle={`${project.data.year} · ${project.data.stack.join(' · ')}`}
+          desc={project.data.description}
+          icon="folder"
+          color={colors[i % colors.length]}
+          size="sm"
+          frame={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5}
+        />
+      ))
+    }
+  </section>
 </BaseLayout>

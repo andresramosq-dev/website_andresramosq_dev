@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" fill="none" aria-hidden="true">
+  <rect width="1400" height="900" fill="#14171c"/>
+
+  <!-- polvo / textura -->
+  <g fill="#e8e4dc" fill-opacity=".05">
+    <circle cx="120" cy="80" r="1.5"/><circle cx="400" cy="200" r="1"/><circle cx="900" cy="100" r="1.3"/>
+    <circle cx="1300" cy="300" r="1.1"/><circle cx="200" cy="700" r="1.2"/><circle cx="1100" cy="800" r="1"/>
+  </g>
+
+  <!-- formas planas decorativas -->
+  <circle cx="200" cy="150" r="70" fill="#ff7b72" opacity=".12"/>
+  <circle cx="1180" cy="700" r="90" fill="#56d4dd" opacity=".1"/>
+  <rect x="1050" y="80" width="100" height="100" rx="6" fill="#bc8cff" opacity=".12" transform="rotate(15 1100 130)"/>
+  <rect x="80" y="650" width="80" height="80" rx="4" fill="#e3b341" opacity=".14" transform="rotate(-12 120 690)"/>
+
+  <!-- doodles línea -->
+  <g stroke="#e8e4dc" stroke-width="2.5" stroke-linecap="round" opacity=".2">
+    <path d="M350 100c60 40 120 30 180 80"/>
+    <path d="M900 400c-40 60-80 100-140 120"/>
+    <path d="M500 750c80-40 160-50 240-30"/>
+    <path d="M700 200c30 80 20 160-20 220"/>
+  </g>
+
+  <!-- iconos svg sueltos -->
+  <g stroke="#56d4dd" stroke-width="2.5" opacity=".35" fill="none">
+    <path d="M600 80h50M625 55v50"/>
+    <circle cx="1000" cy="450" r="22"/>
+    <path d="M988 450h24M1000 438v24"/>
+  </g>
+  <path d="M150 400l20-12 12 20-20 12z" fill="#bc8cff" opacity=".2"/>
+  <path d="M1250 200l-14 10 6 16-14-10-14 10 6-16-14-10h18z" fill="#e3b341" opacity=".25"/>
+
+  <!-- marco suelto (no UI box) -->
+  <path d="M30 40c8-12 1340-16 1348 8 6 18 4 820-10 848-14 26-1334 30-1354-4-8-14-6-830 10-854Z"
+        stroke="#e8e4dc" stroke-opacity=".15" stroke-width="2" stroke-dasharray="10 8"/>
+</svg>

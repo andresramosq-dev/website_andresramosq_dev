@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Icon from '../../components/Icon.astro';
+import IdeaNode from '../../components/IdeaNode.astro';
 import { getCollection, render } from 'astro:content';
-import { categoryLabel, categoryColor, categories, site } from '../../data/site';
+import { categoryLabel, categoryColor, categories } from '../../data/site';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -18,30 +18,32 @@ const cat = categories.find((c) => c.id === post.data.category)!;
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
-  <article class="article">
-    <a class="article__back" href="/blog">← escritos</a>
+  <article class="art-article">
+    <a class="art-back" href="/blog">← muro de escritos</a>
 
-    <span class="article__badge" style={`--badge-color: ${categoryColor[post.data.category]}`}>
-      <Icon name={cat.icon} size={14} />
-      {categoryLabel[post.data.category]}
-    </span>
+    <IdeaNode
+      title={post.data.title}
+      subtitle={categoryLabel[post.data.category]}
+      desc={post.data.description}
+      icon={cat.icon}
+      color={categoryColor[post.data.category]}
+      size="md"
+      frame={3}
+    />
 
-    <h1 class="article__title">{post.data.title}</h1>
+    <p class="art-meta">
+      {post.data.pubDate.toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })}{' '}
+      · {post.data.minutes} min
+    </p>
 
-    <div class="article__meta">
-      <time datetime={post.data.pubDate.toISOString()}>
-        {post.data.pubDate.toLocaleDateString('es-ES', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric',
-        })}
-      </time>
-      <span>{post.data.minutes} min read</span>
-      <span>{site.handle}</span>
-    </div>
-
-    <div class="article__body">
-      <Content />
+    <div class="art-paper">
+      <div class="art-prose">
+        <Content />
+      </div>
     </div>
   </article>
 </BaseLayout>
