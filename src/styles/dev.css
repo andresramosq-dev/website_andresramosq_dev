@@ -29,7 +29,10 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html, body { min-height: 100%; }
-html { scroll-behavior: smooth; }
+html {
+	scroll-behavior: smooth;
+	overflow-x: clip;
+}
 
 body {
 	margin: 0;
@@ -40,6 +43,7 @@ body {
 	background: var(--bg);
 	-webkit-font-smoothing: antialiased;
 	overflow-wrap: break-word;
+	overflow-x: clip;
 }
 
 a { color: var(--link); text-decoration: none; }
@@ -579,9 +583,111 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .ftr a:hover { color: var(--prompt); text-decoration: none; }
 
 @media (max-width: 640px) {
-	.main { padding: 1rem 1rem 2rem; }
-	.console-title__line { white-space: normal; }
-	.whoami__main { flex-direction: column; }
-	.twin__title { font-size: 0.74rem; word-break: break-all; }
+	body { font-size: 0.9rem; }
+	.twin {
+		border-left: none;
+		border-right: none;
+		box-shadow: none;
+	}
+	.twin__bar { padding: 0.5rem 0.85rem; }
+	.twin__title {
+		display: block;
+		font-size: 0.72rem;
+		line-height: 1.45;
+		overflow-wrap: anywhere;
+		word-break: break-word;
+	}
+	.twin__handle { margin-left: 0.35rem; }
+	.nav a { padding: 0.5rem 0.85rem; font-size: 0.8rem; }
+	.main { padding: 1rem 0.85rem 2rem; }
+	.console-title {
+		margin-bottom: 1.15rem;
+		font-size: 0.9rem;
+	}
+	.console-title__line {
+		white-space: normal;
+		overflow-wrap: anywhere;
+	}
+	.cmd-block { margin-bottom: 1.25rem; }
+	.cmd-block__line {
+		font-size: 0.78rem;
+		gap: 0.2rem 0.3rem;
+	}
+	.cmd-block__path {
+		white-space: normal;
+		overflow-wrap: anywhere;
+	}
+	.cmd-block__out {
+		padding: 0.7rem 0.7rem;
+		overflow-wrap: anywhere;
+	}
+	.whoami__main {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0.9rem;
+	}
+	.whoami__photo {
+		width: min(8rem, 42vw);
+		aspect-ratio: 1 / 1;
+		align-self: flex-start;
+	}
+	.whoami__row {
+		grid-template-columns: 4.75rem 1fr;
+		gap: 0.55rem;
+	}
+	.whoami__key,
+	.whoami__val,
+	.whoami__val--name,
+	.whoami__val--role,
+	.whoami__handle {
+		font-size: 0.82rem;
+	}
+	.whoami__icons { gap: 0.6rem; }
+	.tag-box--c {
+		grid-template-columns: 1fr;
+	}
+	.tag-box--c .tag-box__key {
+		border-right: none;
+		border-bottom: 1px solid var(--border);
+		padding: 0.35rem 0.65rem;
+	}
+	.tag-box--c .tag-box__text {
+		padding: 0.5rem 0.65rem;
+	}
+	.bio,
+	.site-about {
+		font-size: 0.82rem;
+	}
+	.bio__lead,
+	.bio__out,
+	.bio__close,
+	.bio__lead-text,
+	.bio__tag,
+	.bio__hash,
+	.bio__kw,
+	.site-about__lead,
+	.site-about__desc,
+	.site-about__out,
+	.site-about__idea,
+	.site-about__lang,
+	.site-about__out-inline,
+	.site-about__domain {
+		font-size: 0.82rem;
+	}
+	.bio__tag { white-space: normal; }
 	.now-grid { grid-template-columns: 1fr; }
+	.now-item { padding: 0.65rem 0.7rem; }
+	.now-item dd { font-size: 0.82rem; }
+	.ls-out { font-size: 0.78rem; }
+	.ls-out--nested { padding-left: 0.85rem; }
+	.ls-out__perm {
+		min-width: 0;
+		font-size: 0.65rem;
+	}
+	.ftr {
+		padding: 0.55rem 0.85rem;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.35rem;
+	}
 }
