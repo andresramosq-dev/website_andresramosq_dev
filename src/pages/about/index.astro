@@ -25,10 +25,6 @@ const skillGroups = [
     <BioPanel />
   </CmdBlock>
 
-  <CmdBlock cmd="cat notes.txt" id="notes">
-    <BioNotesPanel />
-  </CmdBlock>
-
   <CmdBlock cmd="cat now.txt" id="now">
     <dl class="now-grid">
       <div class="now-item">
@@ -44,6 +40,10 @@ const skillGroups = [
         <dd>{now.into}</dd>
       </div>
     </dl>
+  </CmdBlock>
+
+  <CmdBlock cmd="cat notes.txt" id="notes">
+    <BioNotesPanel />
   </CmdBlock>
 
   <CmdBlock cmd="ls -la skills/" id="skills">
