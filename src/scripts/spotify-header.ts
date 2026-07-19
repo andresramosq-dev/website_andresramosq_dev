@@ -11,38 +11,25 @@ type SpotifyIFrameAPI = {
 	) => void;
 };
 
+type PlayerState = 'paused' | 'playing' | 'loading';
+
 declare global {
 	interface Window {
 		onSpotifyIframeApiReady?: (api: SpotifyIFrameAPI) => void;
-		__spotifyHdrQueue?: Array<(api: SpotifyIFrameAPI) => void>;
+		__spotifyIframeApi?: SpotifyIFrameAPI;
+		__spotifyHdrBoot?: Array<(api: SpotifyIFrameAPI) => void>;
 	}
 }
 
-function loadSpotifyIframeApi(): Promise<SpotifyIFrameAPI> {
+function whenSpotifyApi(): Promise<SpotifyIFrameAPI> {
+	if (window.__spotifyIframeApi) {
+		return Promise.resolve(window.__spotifyIframeApi);
+	}
+
 	return new Promise((resolve) => {
-		const run = (api: SpotifyIFrameAPI) => resolve(api);
-
-		if (window.__spotifyHdrQueue) {
-			window.__spotifyHdrQueue.push(run);
-		} else {
-			window.__spotifyHdrQueue = [run];
-		}
-
-		const prev = window.onSpotifyIframeApiReady;
-		window.onSpotifyIframeApiReady = (api) => {
-			prev?.(api);
-			const queue = window.__spotifyHdrQueue ?? [];
-			window.__spotifyHdrQueue = [];
-			for (const fn of queue) fn(api);
-		};
-
-		if (document.querySelector('script[data-spotify-iframe-api]')) return;
-
-		const script = document.createElement('script');
-		script.src = 'https://open.spotify.com/embed/iframe-api/v1';
-		script.async = true;
-		script.dataset.spotifyIframeApi = 'true';
-		document.head.appendChild(script);
+		(window.__spotifyHdrBoot = window.__spotifyHdrBoot || []).push((api) => {
+			resolve(api);
+		});
 	});
 }
 
@@ -60,36 +47,56 @@ function init() {
 	if (!host || !playBtn || !uri) return;
 
 	let controller: SpotifyEmbedController | null = null;
+	let pendingPlay = false;
 
-	const syncUi = (paused: boolean) => {
-		playBtn.setAttribute('aria-label', paused ? 'Play' : 'Pause');
-		setEqActive(eq, !paused);
+	const setState = (state: PlayerState) => {
+		playBtn.dataset.state = state;
+		const label =
+			state === 'playing' ? 'Pause' : state === 'loading' ? 'Connecting to Spotify' : 'Play';
+		playBtn.setAttribute('aria-label', label);
+		playBtn.setAttribute('aria-busy', state === 'loading' ? 'true' : 'false');
+		setEqActive(eq, state === 'playing');
+	};
+
+	const syncFromPlayer = (paused: boolean) => {
+		pendingPlay = false;
+		setState(paused ? 'paused' : 'playing');
+	};
+
+	const tryStartPlayback = () => {
+		if (!controller) return;
+		controller.togglePlay();
 	};
 
 	playBtn.addEventListener('click', () => {
-		if (!controller) return;
-		controller.togglePlay();
+		if (!controller) {
+			pendingPlay = true;
+			setState('loading');
+			return;
+		}
+
+		const playing = playBtn.dataset.state === 'playing';
+		setState(playing ? 'paused' : 'playing');
+		tryStartPlayback();
 	});
 
-	void loadSpotifyIframeApi().then((api) => {
+	setState('paused');
+
+	void whenSpotifyApi().then((api) => {
 		api.createController(host, { uri, width: 300, height: 80 }, (ctrl) => {
 			controller = ctrl;
-			playBtn.disabled = false;
 
 			ctrl.addListener('ready', () => {
-				syncUi(true);
+				if (pendingPlay) tryStartPlayback();
+				else syncFromPlayer(true);
 			});
 
 			ctrl.addListener('playback_update', (e) => {
 				const paused = e.data?.is_paused ?? true;
-				syncUi(paused);
+				syncFromPlayer(paused);
 			});
 		});
 	});
 }
 
-if (document.readyState === 'loading') {
-	document.addEventListener('DOMContentLoaded', init);
-} else {
-	init();
-}
+init();

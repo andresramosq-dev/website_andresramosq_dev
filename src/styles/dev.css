@@ -183,6 +183,7 @@ a.twin__name:hover {
 	flex-shrink: 0;
 	font-size: 0.72rem;
 	line-height: 1;
+	min-height: 1.4rem;
 }
 .hdr-music__link {
 	color: var(--prompt);
@@ -196,7 +197,7 @@ a.twin__name:hover {
 }
 .hdr-music__btn {
 	position: relative;
-	flex-shrink: 0;
+	flex: 0 0 1.4rem;
 	width: 1.4rem;
 	height: 1.4rem;
 	padding: 0;
@@ -204,25 +205,68 @@ a.twin__name:hover {
 	border-radius: 50%;
 	background: var(--panel2);
 	cursor: pointer;
+	transition: background 0.12s ease;
 }
-.hdr-music__btn:hover:not(:disabled) {
+.hdr-music__btn:hover {
 	background: #142016;
 }
-.hdr-music__btn:disabled {
-	opacity: 0.45;
-	cursor: not-allowed;
+.hdr-music__btn:focus-visible {
+	outline: 2px solid var(--link-hover);
+	outline-offset: 2px;
 }
-.hdr-music__btn .hdr-music__icon {
+.hdr-music__btn[data-state='loading'] {
+	cursor: wait;
+}
+.hdr-music__btn[data-state='loading'] .hdr-music__icon--play {
+	opacity: 0.55;
+	animation: hdr-music-pulse 0.9s ease-in-out infinite;
+}
+.hdr-music__icon {
 	position: absolute;
 	inset: 0;
 	margin: auto;
+	pointer-events: none;
+}
+.hdr-music__icon--play {
 	width: 0;
 	height: 0;
 	border-style: solid;
 	border-color: transparent transparent transparent var(--prompt);
 	border-width: 0.26rem 0 0.26rem 0.44rem;
 	margin-left: 0.58rem;
-	pointer-events: none;
+}
+.hdr-music__icon--pause {
+	width: 0.44rem;
+	height: 0.5rem;
+	background:
+		linear-gradient(
+			to right,
+			var(--prompt) 0,
+			var(--prompt) 38%,
+			transparent 38%,
+			transparent 62%,
+			var(--prompt) 62%,
+			var(--prompt) 100%
+		);
+	display: none;
+}
+.hdr-music__btn[data-state='playing'] .hdr-music__icon--play {
+	display: none;
+}
+.hdr-music__btn[data-state='playing'] .hdr-music__icon--pause {
+	display: block;
+}
+.hdr-music__btn[data-state='loading'] .hdr-music__icon--pause {
+	display: none;
+}
+@keyframes hdr-music-pulse {
+	0%,
+	100% {
+		opacity: 0.45;
+	}
+	50% {
+		opacity: 1;
+	}
 }
 .spotify-header-sink {
 	position: fixed;
@@ -241,6 +285,8 @@ a.twin__name:hover {
 	display: inline-flex;
 	align-items: flex-end;
 	gap: 2px;
+	width: 0.86rem;
+	flex: 0 0 0.86rem;
 	height: 0.9rem;
 	padding-bottom: 0.05rem;
 }

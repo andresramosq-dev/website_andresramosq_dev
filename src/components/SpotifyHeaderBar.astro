@@ -9,8 +9,15 @@ const linkLabel = tastes.spotify.playerLinkLabel;
 	<a class="hdr-music__link" href={playerHref}>
 		{linkLabel}
 	</a>
-	<button type="button" class="hdr-music__btn" data-hdr-play disabled aria-label="Play">
-		<span class="hdr-music__icon" aria-hidden="true" />
+	<button
+		type="button"
+		class="hdr-music__btn"
+		data-hdr-play
+		data-state="paused"
+		aria-label="Play"
+	>
+		<span class="hdr-music__icon hdr-music__icon--play" aria-hidden="true" />
+		<span class="hdr-music__icon hdr-music__icon--pause" aria-hidden="true" />
 	</button>
 	<div class="hdr-eq" data-eq aria-hidden="true">
 		<span /><span /><span /><span /><span />

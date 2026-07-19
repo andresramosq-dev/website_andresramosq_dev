@@ -24,6 +24,23 @@ const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
     <meta name="author" content={site.name} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{pageTitle}</title>
+    {spotifyUri ? (
+      <>
+        <link rel="preconnect" href="https://open.spotify.com" />
+        <link rel="dns-prefetch" href="https://open.spotify.com" />
+        <script is:inline>
+          window.__spotifyHdrBoot = window.__spotifyHdrBoot || [];
+          if (!window.onSpotifyIframeApiReady) {
+            window.onSpotifyIframeApiReady = function (api) {
+              window.__spotifyIframeApi = api;
+              (window.__spotifyHdrBoot || []).forEach(function (fn) { fn(api); });
+              window.__spotifyHdrBoot = [];
+            };
+          }
+        </script>
+        <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+      </>
+    ) : null}
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
