@@ -15,7 +15,7 @@ const projects = (await getCollection('projects'))
   .sort((a, b) => b.data.year - a.data.year)
   .slice(0, 3);
 
-const recent = posts.slice(0, 3);
+const recent = posts.slice(0, 4);
 const fmt = (d: Date) => d.toLocaleDateString('es-ES', { month: 'short', year: 'numeric' });
 ---
 
@@ -29,6 +29,7 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { month: 'short', year: '
         <p class="hero-compact__name">{site.name}</p>
         <p class="hero-compact__role">{site.role}</p>
         <p class="hero-compact__bio">{site.bio}</p>
+        <a class="mt-link" href="/andres">~/sobre →</a>
       </div>
     </div>
   </TermPanel>
@@ -40,6 +41,7 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { month: 'short', year: '
   <div class="home-grid">
     <TermPanel label="blog/">
       <FeedList
+        compact
         items={recent.map((p) => ({
           href: `/blog/${p.id}`,
           title: p.data.title,
@@ -51,12 +53,12 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { month: 'short', year: '
 
     <TermPanel label="proyectos/">
       <FeedList
+        compact
         items={projects.map((p) => ({
           href: `/proyectos/${p.id}`,
           title: p.data.title,
           meta: String(p.data.year),
         }))}
-        dir
       />
       <a class="mt-link" href="/proyectos">~/proyectos →</a>
     </TermPanel>

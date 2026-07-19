@@ -1,7 +1,6 @@
 ---
 import '../styles/dev.css';
 import TerminalShell from '../components/TerminalShell.astro';
-import CommandBar from '../components/CommandBar.astro';
 import { site, nav } from '../data/site';
 import { pathToSegment } from '../utils/segment';
 
@@ -40,13 +39,6 @@ const segment = pathToSegment(path);
               </a>
             ))}
           </nav>
-
-          <details class="term-hd__cmd">
-            <summary>navega por terminal</summary>
-            <div class="term-hd__cmd-body">
-              <CommandBar />
-            </div>
-          </details>
         </header>
 
         <main id="main" class="main">

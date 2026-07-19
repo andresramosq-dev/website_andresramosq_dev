@@ -27,7 +27,7 @@ export const site = {
 
 export const nav = [
 	{ label: '~', href: '/' },
-	{ label: 'andres', href: '/andres' },
+	{ label: 'sobre', href: '/andres' },
 	{ label: 'blog', href: '/blog' },
 	{ label: 'experiencia', href: '/experiencia' },
 	{ label: 'proyectos', href: '/proyectos' },

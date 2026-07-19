@@ -8,17 +8,18 @@ export interface FeedItem {
 interface Props {
 	items: FeedItem[];
 	dir?: boolean;
+	compact?: boolean;
 }
 
-const { items, dir = false } = Astro.props;
+const { items, dir = false, compact = false } = Astro.props;
 ---
 
-<ul class="feed">
+<ul class:list={['feed', compact && 'feed--compact']}>
 	{
 		items.map((item) => (
 			<li>
 				<a href={item.href}>
-					<span class="feed__perm">{dir ? 'drwxr-xr-x' : '-rw-r--r--'}</span>
+					{!compact && <span class="feed__perm">{dir ? 'drwxr-xr-x' : '-rw-r--r--'}</span>}
 					<span class="feed__title">{item.title}</span>
 					{item.meta && <span class="feed__meta">{item.meta}</span>}
 				</a>
