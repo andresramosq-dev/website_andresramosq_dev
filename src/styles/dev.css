@@ -249,20 +249,20 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .ls-out__perm { color: var(--perm); font-size: 0.72rem; min-width: 5.5rem; }
 .ls-out__name { color: var(--cmd); font-weight: 500; }
 
-/* Perfil whoami — tight text; photo follows fields height (no row stretching) */
+/* Perfil whoami — original spacing; photo matches fields height only */
 .whoami {
 	display: grid;
-	gap: 0.5rem;
+	gap: 1.15rem;
 	font-family: var(--mono);
 	font-size: 0.86rem;
 	font-weight: 400;
-	line-height: 1.2;
+	line-height: 1.5;
 	letter-spacing: -0.01em;
 }
 .whoami__main {
 	display: flex;
 	align-items: stretch;
-	gap: 0.75rem;
+	gap: 1.15rem;
 	min-width: 0;
 }
 .whoami__photo {
@@ -289,18 +289,18 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .whoami__fields {
 	display: grid;
-	gap: 0;
+	gap: 0.35rem;
 	align-content: start;
 	min-width: 0;
 	flex: 1 1 auto;
-	padding: 0;
+	padding: 0.1rem 0;
 	margin: 0;
 }
 .whoami__row {
 	display: grid;
 	grid-template-columns: 5.5rem 1fr;
-	gap: 0.65rem;
-	align-items: center;
+	gap: 0.85rem;
+	align-items: baseline;
 	margin: 0;
 	padding: 0;
 	min-height: 0;
@@ -315,7 +315,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .whoami__handle {
 	font-size: 0.86rem;
 	font-weight: 400;
-	line-height: 1.2;
+	line-height: 1.5;
 }
 .whoami__key {
 	color: var(--prompt);
@@ -350,13 +350,11 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	display: inline-flex;
 	align-items: center;
 	flex-wrap: wrap;
-	gap: 0.5rem;
-	line-height: 1;
+	gap: 0.7rem;
 }
 .whoami__icons a {
 	display: inline-flex;
 	align-items: center;
-	line-height: 1;
 	color: var(--text);
 	text-decoration: none;
 	opacity: 0.9;
@@ -387,7 +385,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	line-height: 1.5;
 }
 .tag-box--c .tag-box__key {
-	padding: 0.35rem 0.65rem;
+	padding: 0.45rem 0.7rem;
 	border-right: 1px solid var(--border);
 	font-size: 0.86rem;
 	align-self: stretch;
@@ -395,7 +393,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	align-items: center;
 }
 .tag-box--c .tag-box__text {
-	padding: 0.35rem 0.65rem;
+	padding: 0.45rem 0.7rem;
 	font-size: 0.86rem;
 }
 .whoami__sig {
