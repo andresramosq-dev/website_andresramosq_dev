@@ -21,41 +21,50 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { month: 'short', year: '
   <section class="session">
     <div class="session__hero">
       <ProfilePhoto />
-      <div>
-        <p class="session__line"><span class="prompt">$</span> <span class="cmd">whoami</span></p>
-        <p class="session__out session__out--name">{site.name}</p>
-        <p class="session__out session__out--role">{site.role}</p>
-
-        <p class="session__line"><span class="prompt">$</span> <span class="cmd">cat about.txt</span></p>
-        <p class="session__out session__out--bio">{site.bio}</p>
-
-        <p class="session__line"><span class="prompt">$</span> <span class="cmd">ls skills/</span></p>
-        <p class="session__skills">{skills.join('  ·  ')}</p>
-
+      <div class="session__cmds">
+        <div class="session__block">
+          <p class="session__line"><span class="prompt">$</span> <span class="cmd">whoami</span></p>
+          <p class="session__out session__out--name">{site.name}</p>
+          <p class="session__out session__out--role">{site.role}</p>
+        </div>
+        <div class="session__block">
+          <p class="session__line"><span class="prompt">$</span> <span class="cmd">cat about.txt</span></p>
+          <p class="session__out session__out--bio">{site.bio}</p>
+        </div>
+        <div class="session__block">
+          <p class="session__line"><span class="prompt">$</span> <span class="cmd">ls skills/</span></p>
+          <p class="skills-line">
+            {skills.map((s) => <span>{s}</span>)}
+          </p>
+        </div>
         <p class="session__line"><span class="prompt">$</span> <span class="session__cursor"></span></p>
       </div>
     </div>
   </section>
 
-  <TermBlock cmd="ls blog/">
-    <FeedList
-      items={recent.map((p) => ({
-        href: `/blog/${p.id}`,
-        title: p.data.title,
-        meta: fmt(p.data.pubDate),
-      }))}
-    />
-    <a class="mt-link" href="/blog">ver todos →</a>
-  </TermBlock>
+  <div class="home-grid">
+    <TermBlock cmd="ls blog/">
+      <FeedList
+        items={recent.map((p) => ({
+          href: `/blog/${p.id}`,
+          title: p.data.title,
+          meta: fmt(p.data.pubDate),
+        }))}
+        dir
+      />
+      <a class="mt-link" href="/blog">./blog →</a>
+    </TermBlock>
 
-  <TermBlock cmd="ls proyectos/">
-    <FeedList
-      items={projects.map((p) => ({
-        href: `/proyectos/${p.id}`,
-        title: p.data.title,
-        meta: String(p.data.year),
-      }))}
-    />
-    <a class="mt-link" href="/proyectos">ver todos →</a>
-  </TermBlock>
+    <TermBlock cmd="ls proyectos/">
+      <FeedList
+        items={projects.map((p) => ({
+          href: `/proyectos/${p.id}`,
+          title: p.data.title,
+          meta: String(p.data.year),
+        }))}
+        dir
+      />
+      <a class="mt-link" href="/proyectos">./proyectos →</a>
+    </TermBlock>
+  </div>
 </BaseLayout>

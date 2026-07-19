@@ -9,13 +9,15 @@ const { segment = '~' } = Astro.props;
 ---
 
 <div class="twin">
-	<div class="twin__bar">
+	<header class="twin__bar">
+		<span class="twin__icon" aria-hidden="true">▮</span>
 		<a class="twin__brand" href="/">{site.domain}</a>
-		<span class="twin__sep"> — bash — </span>
+		<span class="twin__sep">—</span>
+		<span class="twin__app">bash</span>
 		<span class="twin__path">
-			<span class="user">{site.user}</span>@<span class="host">{site.domain}</span>:{segment}
+			<span class="user">{site.user}</span>@<span class="host">{site.domain}</span>:<span class="twin__cwd">{segment}</span>
 		</span>
-	</div>
+	</header>
 	<div class="twin__body">
 		<slot />
 	</div>

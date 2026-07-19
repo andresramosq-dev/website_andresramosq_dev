@@ -1,4 +1,6 @@
 ---
+import { site } from '../data/site';
+
 interface Props {
 	cmd: string;
 }
@@ -7,6 +9,11 @@ const { cmd } = Astro.props;
 ---
 
 <section class="tblock">
-	<p class="tblock__cmd"><span class="prompt">$</span> <span class="cmd">{cmd}</span></p>
-	<slot />
+	<p class="tblock__cmd">
+		<span class="user">{site.user}</span>@<span class="host">{site.domain}</span>:~$
+		<span class="cmd"> {cmd}</span>
+	</p>
+	<div class="tblock__out">
+		<slot />
+	</div>
 </section>
