@@ -43,7 +43,7 @@ export const now = {
 	focused_on:
 		'Experimenting with AI, deepening architecture skills, leading product ideas, and strengthening my English.',
 	looking_for:
-		'Valuable projects or ideas where I can help organize and manage development. If you have a project or a proposal, get in touch.',
+		'Projects or ideas where I can contribute and help take them to production. If you have a project or a proposal, get in touch.',
 	building:
 		'New systems and products I will publish over time — and maybe an MVP that ships when it is ready.',
 };
