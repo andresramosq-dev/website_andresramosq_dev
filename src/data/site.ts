@@ -2,7 +2,7 @@ export const site = {
 	domain: 'andresramosq.dev',
 	consoleUser: 'website',
 	user: 'andres',
-	name: 'Andrés Ramos',
+	name: 'Andrés Ramos Q',
 	handle: '@andresramosq-dev',
 	role: 'Senior Software Developer',
 	location: 'Pitalito, Huila · remote',
@@ -11,7 +11,7 @@ export const site = {
 	since: 2020,
 	avatar: '/images/avatar.svg',
 	avatarPath: '~/about/avatar.jpg',
-	tagline: 'I help teams build software they will actually enjoy maintaining:',
+	tagline: 'I build backends that stay clear when the product starts to grow.',
 	pillars: ['Clean', 'Solid', 'Scalable'] as const,
 	consoleSlug: 'andres-ramos-console',
 	description:
