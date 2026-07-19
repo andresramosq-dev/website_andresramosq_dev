@@ -2,18 +2,11 @@
 import { stack } from '../data/site';
 ---
 
-<div class="stack-lanes">
+<div class="console-doc console-doc--stack">
 	{stack.groups.map((group) => (
-		<div class="stack-lane">
-			<span class="stack-lane__label">{group.label}</span>
-			<div class="stack-lane__chips">
-				{group.items.map((item) => (
-					<span class="term-chip">
-						<span class="term-chip__hash">#</span>
-						{item}
-					</span>
-				))}
-			</div>
-		</div>
+		<p class="stack-line">
+			<span class="stack-line__key">{group.label}</span>
+			<span class="stack-line__val">{group.items.join(', ')}</span>
+		</p>
 	))}
 </div>

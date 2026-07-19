@@ -72,7 +72,7 @@ export const stack = {
 				'Node.js',
 				'NestJS',
 				'Python',
-				'REST APIs',
+				'REST API',
 				'GraphQL',
 				'Microservices',
 			],
@@ -83,7 +83,11 @@ export const stack = {
 		},
 		{
 			label: 'architecture',
-			items: ['Clean Code', 'Modular Architecture', 'API Design', 'Microtasks'],
+			items: ['Clean Code', 'Modular Architecture', 'API Design'],
+		},
+		{
+			label: 'methodology',
+			items: ['Agile', 'Scrum', 'Kanban', 'Sprint Planning', 'Code Review'],
 		},
 		{ label: 'cloud', items: ['AWS', 'Docker', 'Git', 'Linux', 'CI/CD'] },
 	] as const,

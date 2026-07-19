@@ -550,43 +550,6 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 
 /* stack · philosophy · tastes · persona */
-.term-chip {
-	display: inline-block;
-	padding: 0.18rem 0.5rem;
-	border: 1px solid var(--border);
-	background: rgba(5, 6, 5, 0.55);
-	color: var(--term-cyan);
-	font-size: 0.78rem;
-	line-height: 1.35;
-}
-.term-chip__hash {
-	color: #5a8aa0;
-}
-.stack-lanes {
-	display: grid;
-	gap: 0.5rem;
-	font-family: var(--mono);
-}
-.stack-lane {
-	display: grid;
-	grid-template-columns: 5.25rem 1fr;
-	gap: 0.65rem;
-	align-items: start;
-	padding: 0.55rem 0.65rem;
-	background: var(--panel2);
-	border: 1px solid var(--border2);
-	border-radius: 4px;
-}
-.stack-lane__label {
-	color: var(--prompt);
-	font-size: 0.78rem;
-	padding-top: 0.12rem;
-}
-.stack-lane__chips {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.35rem;
-}
 .console-doc {
 	display: grid;
 	gap: 0.5rem;
@@ -601,6 +564,34 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .console-doc__line--open {
 	color: var(--ink);
+}
+.console-doc--stack {
+	gap: 0.45rem;
+}
+.stack-line {
+	margin: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.35rem 0.5rem;
+	line-height: 1.65;
+}
+.stack-line__key {
+	flex: 0 0 auto;
+	min-width: 6.5rem;
+	color: var(--prompt);
+	font-size: 0.86rem;
+}
+.stack-line__key::after {
+	content: ':';
+	color: var(--muted);
+	margin-left: 0.08rem;
+}
+.stack-line__val {
+	flex: 1 1 12rem;
+	min-width: 0;
+	color: var(--text);
+	font-size: 0.86rem;
 }
 .tastes {
 	display: grid;
@@ -770,12 +761,15 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	.now-grid { grid-template-columns: 1fr; }
 	.now-item { padding: 0.65rem 0.7rem; }
 	.now-item dd { font-size: 0.82rem; }
-	.stack-lane {
-		grid-template-columns: 1fr;
-		gap: 0.4rem;
-	}
 	.console-doc,
 	.console-doc__line {
+		font-size: 0.82rem;
+	}
+	.stack-line__key {
+		min-width: 5.5rem;
+		font-size: 0.82rem;
+	}
+	.stack-line__val {
 		font-size: 0.82rem;
 	}
 	.tastes__lead,
