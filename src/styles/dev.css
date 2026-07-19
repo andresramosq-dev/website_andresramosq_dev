@@ -578,8 +578,9 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .stack-group__label {
 	margin: 0 0 0.4rem;
 	color: var(--prompt);
-	font-size: 0.72rem;
-	font-weight: 500;
+	font-size: 0.86rem;
+	font-weight: 400;
+	line-height: 1.5;
 }
 .stack-group__label::after {
 	content: ':';
