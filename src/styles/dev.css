@@ -349,7 +349,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	padding: 0;
 	border: none;
 	background: none;
-	color: #f0f3f0;
+	color: var(--term-amber);
 	font-family: var(--mono);
 	font-size: 0.95rem;
 	font-weight: 500;
