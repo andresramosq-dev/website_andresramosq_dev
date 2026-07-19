@@ -3,17 +3,18 @@ import { site } from '../data/site';
 
 interface Props {
 	cmd: string;
+	cwd?: string;
 	id?: string;
 	plain?: boolean;
 }
 
-const { cmd, id, plain = false } = Astro.props;
+const { cmd, cwd = '~/about', id, plain = false } = Astro.props;
 ---
 
 <section class="cmd-block" id={id}>
 	<p class="cmd-block__line">
 		<span class="cmd-block__path">
-			<span class="cmd-block__user">{site.consoleUser}</span>@<span class="cmd-block__host">{site.domain}</span>
+			<span class="cmd-block__user">{site.consoleUser}</span>@<span class="cmd-block__host">{site.domain}</span><span class="cmd-block__colon">:</span><span class="cmd-block__cwd">{cwd}</span>
 		</span>
 		<span class="cmd-block__sig"> @</span>
 		<span class="cmd-block__cmd">{cmd}</span>
