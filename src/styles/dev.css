@@ -19,6 +19,9 @@
 	--host: #56d364;
 	--slug: #e3b341;
 	--perm: #4a5a4a;
+	--term-cyan: #7dcfff;
+	--term-amber: #e3b341;
+	--term-magenta: #d2a8ff;
 	--mono: 'JetBrains Mono', ui-monospace, monospace;
 	--wide: 860px;
 }
@@ -406,40 +409,52 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 
 .skills { display: grid; gap: 0; }
 
-/* bio.txt */
+/* bio.txt — stdout / syntax tones (no brand green) */
 .bio {
 	display: grid;
-	gap: 0.85rem;
+	gap: 0.7rem;
 	font-family: var(--mono);
+	padding: 0.15rem 0 0.1rem;
 }
 .bio__out {
 	margin: 0;
-	color: var(--ink);
+	color: #f0f3f0;
 	font-family: var(--mono);
 	font-size: 0.86rem;
 	font-weight: 400;
-	line-height: 1.7;
-	letter-spacing: -0.01em;
+	line-height: 1.75;
+	letter-spacing: -0.015em;
 }
-.bio__tag,
+.bio__tag {
+	font-weight: 600;
+	color: var(--term-cyan);
+	white-space: nowrap;
+}
+.bio__hash {
+	color: #5a8aa0;
+	font-weight: 500;
+}
 .bio__kw {
-	font-weight: 700;
-	color: var(--host);
+	font-weight: 600;
+	color: var(--term-amber);
 }
 
 /* notes.txt */
 .bio-notes {
 	display: grid;
-	gap: 0.75rem;
+	gap: 0.65rem;
 	font-family: var(--mono);
 }
 .bio-notes__line {
 	margin: 0;
-	color: var(--ink);
-	font-size: 0.86rem;
+	padding: 0.55rem 0.7rem;
+	border-left: 2px solid #3a4550;
+	background: rgba(255, 255, 255, 0.02);
+	color: #e8ece8;
+	font-size: 0.84rem;
 	font-weight: 400;
 	line-height: 1.7;
-	letter-spacing: -0.01em;
+	letter-spacing: -0.015em;
 }
 
 .prose p {
