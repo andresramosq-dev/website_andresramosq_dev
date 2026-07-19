@@ -44,8 +44,8 @@ export const now = {
 		'Experimenting with AI, deepening architecture skills, leading product ideas, and strengthening my English.',
 	looking_for:
 		'Projects or ideas where I can contribute and help take them to production. If you have a project or a proposal, get in touch.',
-	building:
-		'New systems and products I will publish over time — and maybe an MVP that ships when it is ready.',
+	philosophy:
+		'I aim for simplicity: clear, clean, modular software — always with product criteria.',
 };
 
 export const principles = [
