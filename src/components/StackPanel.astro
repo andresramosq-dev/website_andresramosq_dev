@@ -1,6 +1,5 @@
 ---
 import { stack } from '../data/site';
-import BioTag from './BioTag.astro';
 ---
 
 <div class="stack-lanes">
@@ -9,7 +8,10 @@ import BioTag from './BioTag.astro';
 			<span class="stack-lane__label">{group.label}</span>
 			<div class="stack-lane__chips">
 				{group.items.map((item) => (
-					<BioTag label={item} />
+					<span class="term-chip">
+						<span class="term-chip__hash">#</span>
+						{item}
+					</span>
 				))}
 			</div>
 		</div>

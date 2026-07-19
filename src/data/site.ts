@@ -95,14 +95,14 @@ export const stack = {
 
 export const workPhilosophy = {
 	lead:
-		'I build clear, useful software with simplicity and quality. First I understand the problem; then I write code.',
+		'I build clear, useful software with simplicity and quality. First I understand the problem; then I write the code.',
 	rules: [
-		'When something fails, I go to the root before excuses or a fix that only hides the symptom.',
-		'If something is off, I say it plainly and we look at real options — I do not pretend it is fine.',
-		'I do not keep the first idea just because it is fast: I try, check, and change when the evidence says so.',
-		'I split the work into modules so complexity stays manageable and the system can grow without improvising every call.',
-		'I want to help shape the product, not only close tasks in the backlog.',
-		'I move in short cycles: ship, review what happened, learn, and make the next version sturdier.',
+		'I consider myself critical, analytical, and direct. When I identify a problem, I prefer to understand its cause and discuss possible solutions rather than ignore it or let it pass.',
+		'I usually question assumptions, compare alternatives, and choose the path that makes the most sense for the context. I do not like sticking with the first answer; I prefer to observe, try, and adjust until I find a solution that really works.',
+		'I like taking part in defining and evolving projects, not only in technical implementation. I enjoy analyzing needs, proposing improvements, and thinking about solutions that can hold up over time.',
+		'I believe in continuous improvement, in learning during the process, and in building step by step. For me, the value is in moving forward with criteria, reviewing what we are doing, and strengthening the solution as we gain more information.',
+		'I work with a modular mindset, breaking problems into smaller, manageable parts. That helps me build more maintainable solutions, reduce complexity, and collaborate better with other teams, with a clear base that is easy to evolve and does not depend on improvised decisions.',
+		'I value teams with open communication, respect, and honest feedback. I like contributing to technical discussions, reviewing ideas with criteria, and looking for a better way to solve problems.',
 	] as const,
 };
 

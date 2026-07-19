@@ -559,6 +559,9 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	font-size: 0.78rem;
 	line-height: 1.35;
 }
+.term-chip__hash {
+	color: #5a8aa0;
+}
 .stack-lanes {
 	display: grid;
 	gap: 0.5rem;
@@ -582,10 +585,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .stack-lane__chips {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.35rem 0.45rem;
-}
-.stack-lane__chips .bio__tag {
-	white-space: nowrap;
+	gap: 0.35rem;
 }
 .philosophy {
 	display: grid;
