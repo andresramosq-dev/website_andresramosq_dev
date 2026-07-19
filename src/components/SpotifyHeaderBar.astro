@@ -1,18 +1,35 @@
 ---
 import { tastes } from '../data/site';
+import { spotifyPlaylistId } from '../lib/spotify';
 
 const playerHref = tastes.spotify.playerHref;
 const linkLabel = tastes.spotify.playerLinkLabel;
+const playlistId = spotifyPlaylistId(tastes.spotify.playlistUrl);
 ---
 
-<div class="hdr-music" aria-label="Music">
-	<a class="hdr-music__link" href={playerHref}>
-		{linkLabel}
-	</a>
-	<a class="hdr-music__btn" href={playerHref} aria-label="Open music player" title="Play on music page">
-		<span class="hdr-music__icon" aria-hidden="true" />
-	</a>
-	<div class="hdr-eq" aria-hidden="true">
-		<span /><span /><span /><span /><span />
+{playlistId ? (
+	<>
+		<div class="hdr-music" data-spotify-header data-playlist-id={playlistId} aria-label="Music">
+			<a class="hdr-music__link" href={playerHref}>
+				{linkLabel}
+			</a>
+			<button type="button" class="hdr-music__btn" data-now-play aria-pressed="false" aria-label="Play">
+				<span class="hdr-music__icon" aria-hidden="true" />
+			</button>
+			<div class="hdr-eq" data-eq aria-hidden="true">
+				<span /><span /><span /><span /><span />
+			</div>
+		</div>
+		<div class="spotify-sink" data-spotify-sink aria-hidden="true">
+			<div data-spotify-embed-host />
+		</div>
+	</>
+) : (
+	<div class="hdr-music">
+		<a class="hdr-music__link" href={playerHref}>
+			{linkLabel}
+		</a>
 	</div>
-</div>
+)}
+
+<script src="../scripts/spotify-header.ts"></script>

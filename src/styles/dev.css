@@ -207,12 +207,17 @@ a.twin__name:hover {
 	border: 1px solid var(--border2);
 	border-radius: 50%;
 	background: var(--panel);
+	cursor: pointer;
 	text-decoration: none;
 	transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .hdr-music__btn:hover {
 	border-color: var(--prompt);
 	box-shadow: 0 0 0 1px rgba(63, 185, 80, 0.25);
+}
+.hdr-music__btn[aria-pressed='true'] {
+	border-color: var(--prompt);
+	background: #142016;
 }
 .hdr-music__icon {
 	display: block;
@@ -238,30 +243,44 @@ a.twin__name:hover {
 	height: 0.26rem;
 	opacity: 0.35;
 }
-.hdr-music:hover .hdr-eq span,
-.hdr-music:focus-within .hdr-eq span {
-	opacity: 0.85;
+.hdr-eq--active span {
+	opacity: 0.9;
 	animation: hdr-eq-bar 0.75s ease-in-out infinite;
 }
-.hdr-music:hover .hdr-eq span:nth-child(1),
-.hdr-music:focus-within .hdr-eq span:nth-child(1) {
+.hdr-eq--active span:nth-child(1) {
 	animation-delay: 0s;
 }
-.hdr-music:hover .hdr-eq span:nth-child(2),
-.hdr-music:focus-within .hdr-eq span:nth-child(2) {
+.hdr-eq--active span:nth-child(2) {
 	animation-delay: 0.11s;
 }
-.hdr-music:hover .hdr-eq span:nth-child(3),
-.hdr-music:focus-within .hdr-eq span:nth-child(3) {
+.hdr-eq--active span:nth-child(3) {
 	animation-delay: 0.22s;
 }
-.hdr-music:hover .hdr-eq span:nth-child(4),
-.hdr-music:focus-within .hdr-eq span:nth-child(4) {
+.hdr-eq--active span:nth-child(4) {
 	animation-delay: 0.14s;
 }
-.hdr-music:hover .hdr-eq span:nth-child(5),
-.hdr-music:focus-within .hdr-eq span:nth-child(5) {
+.hdr-eq--active span:nth-child(5) {
 	animation-delay: 0.07s;
+}
+.spotify-sink {
+	position: fixed;
+	left: -10000px;
+	top: 0;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	pointer-events: none;
+	visibility: hidden;
+}
+.spotify-sink iframe {
+	position: absolute;
+	left: 0;
+	top: 0;
 }
 @keyframes hdr-eq-bar {
 	0%,
