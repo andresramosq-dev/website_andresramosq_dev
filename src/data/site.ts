@@ -6,7 +6,7 @@ export const site = {
 	handle: '@andresramos-dev',
 	role: 'Senior Software Developer',
 	location: 'Pitalito, Huila · remote',
-	email: 'andfera201@gmail.com',
+	email: 'andresramosdev.personal@gmail.com',
 	phone: '+57 317 211 6762',
 	since: 2020,
 	avatar: '/images/avatar.svg',
@@ -24,16 +24,16 @@ export const site = {
 	],
 	about: [],
 	social: [
-		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/aframos-dev', value: 'github.com/aframos-dev' },
-		{ id: 'linkedin', icon: 'linkedin' as const, label: 'LinkedIn', href: 'https://linkedin.com/in/andresramos-developer', value: 'linkedin.com/in/andresramos-developer' },
-		{ id: 'gmail', icon: 'mail' as const, label: 'Gmail', href: 'mailto:andfera201@gmail.com', value: 'andfera201@gmail.com' },
-		{ id: 'spotify', icon: 'spotify' as const, label: 'Spotify', href: 'https://open.spotify.com/user/andresramos', value: 'open.spotify.com/andresramos' },
+		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/andresramos-dev', value: 'github.com/andresramos-dev' },
+		{ id: 'linkedin', icon: 'linkedin' as const, label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramos-dev/', value: 'linkedin.com/in/andresramos-dev' },
+		{ id: 'gmail', icon: 'mail' as const, label: 'Gmail', href: 'mailto:andresramosdev.personal@gmail.com', value: 'andresramosdev.personal@gmail.com' },
+		{ id: 'spotify', icon: 'spotify' as const, label: 'Spotify', href: 'https://open.spotify.com/user/12163431588', value: 'open.spotify.com/user/12163431588' },
 		{ id: 'phone', icon: 'phone' as const, label: 'Phone', href: 'tel:+573172116762', value: '+57 317 211 6762' },
 	] as const,
 	links: [
-		{ label: 'GitHub', href: 'https://github.com/ramos-andres-dev', icon: 'github' as const },
-		{ label: 'LinkedIn', href: 'https://linkedin.com/in/andresramos', icon: 'linkedin' as const },
-		{ label: 'Email', href: 'mailto:andfera201@gmail.com', icon: 'mail' as const },
+		{ label: 'GitHub', href: 'https://github.com/andresramos-dev', icon: 'github' as const },
+		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramos-dev/', icon: 'linkedin' as const },
+		{ label: 'Email', href: 'mailto:andresramosdev.personal@gmail.com', icon: 'mail' as const },
 	],
 };
 
