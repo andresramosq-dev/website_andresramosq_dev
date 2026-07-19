@@ -8,108 +8,83 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 );
 
 const featured = posts.find((post) => post.data.featured) ?? posts[0];
-const latest = posts.filter((post) => post.id !== featured.id).slice(0, 3);
+const rest = posts.filter((post) => post.id !== featured.id);
 ---
 
-<BaseLayout title={site.name} description={site.tagline} currentPath="/" board>
-	<div class="board-page">
-		<div class="board" aria-label="Pizarra artística del blog">
-			<!-- chalk connector lines between frames -->
-			<svg class="board__canvas" viewBox="0 0 1200 900" preserveAspectRatio="none" aria-hidden="true">
-				<path d="M470 120 C560 150, 620 170, 700 190"></path>
-				<path d="M420 280 C500 330, 560 380, 620 420"></path>
-				<path d="M900 320 C940 400, 980 480, 1020 540"></path>
-				<path d="M280 620 C380 680, 480 740, 560 780"></path>
-				<path d="M980 700 C880 740, 780 780, 700 800"></path>
-				<path class="board__arrowhead" d="M692 182 l20 6 -14 14 z"></path>
-				<path class="board__arrowhead" d="M615 415 l16 -8 2 18 z"></path>
-				<path class="board__arrowhead" d="M1015 535 l10 16 -20 0 z"></path>
-			</svg>
+<BaseLayout title={site.name} description={site.tagline} currentPath="/" mural>
+	<div class="mural-page">
+		<div class="mural" role="region" aria-label="Pizarra artística del blog">
+			<img
+				class="mural__art"
+				src="/images/chalk-mural.svg"
+				alt="Mural de pizarra artística con dibujos de tiza: planta, café, libro, bombilla y flechas"
+				width="1600"
+				height="1100"
+			/>
 
-			<img class="doodle doodle--star" src="/images/doodles/star.svg" alt="" width="48" height="48" />
-			<img class="doodle doodle--coffee" src="/images/doodles/coffee.svg" alt="" width="58" height="58" />
-			<img class="doodle doodle--leaf" src="/images/doodles/leaf.svg" alt="" width="70" height="70" />
-			<img class="doodle doodle--bulb" src="/images/doodles/bulb.svg" alt="" width="54" height="54" />
-			<img class="doodle doodle--arrow-1" src="/images/doodles/arrow-curve.svg" alt="" width="120" height="70" />
-			<img class="doodle doodle--arrow-2" src="/images/doodles/arrow-curve.svg" alt="" width="110" height="65" />
-
-			<section class="frame frame--title">
-				<p class="frame__label">pizarra artística</p>
-				<h1 class="frame__title">{site.name}</h1>
-				<p class="frame__text">{site.tagline}</p>
-				<p class="frame__cta">← empieza por cualquier recuadro</p>
-			</section>
-
-			<a class="frame frame--featured" href={`/blog/${featured.id}`}>
-				<p class="frame__label">destacado ★</p>
-				<h2 class="frame__title">{featured.data.title}</h2>
-				<p class="frame__text">{featured.data.description}</p>
-				<div class="frame__meta">
-					<span>{featured.data.category}</span>
-					<span>{featured.data.minutes} min</span>
+			<div class="mural__hotspots">
+				<div class="chalk-write chalk-write--brand">
+					<span class="chalk-write__label">pizarra artística</span>
+					<span class="chalk-write__title">{site.name}</span>
+					<span class="chalk-write__hint">{site.tagline}</span>
 				</div>
-				<span class="frame__cta">leer esto →</span>
-			</a>
 
-			<div class="frame frame--note" aria-hidden="true">
-				<p class="frame__label">nota</p>
-				<p class="frame__title" style="font-size: 1.5rem;">ideas sueltas</p>
-				<p class="frame__text">flechas · doodles · recuadros</p>
+				<a class="chalk-write chalk-write--feat" href={`/blog/${featured.id}`}>
+					<span class="chalk-write__label">★ empieza aquí</span>
+					<span class="chalk-write__title">{featured.data.title}</span>
+					<span class="chalk-write__hint">{featured.data.minutes} min</span>
+				</a>
+
+				{
+					rest[0] && (
+						<a class="chalk-write chalk-write--p1" href={`/blog/${rest[0].id}`}>
+							<span class="chalk-write__label">nota</span>
+							<span class="chalk-write__title">{rest[0].data.title}</span>
+						</a>
+					)
+				}
+
+				{
+					rest[1] && (
+						<a class="chalk-write chalk-write--p2" href={`/blog/${rest[1].id}`}>
+							<span class="chalk-write__label">nota</span>
+							<span class="chalk-write__title">{rest[1].data.title}</span>
+						</a>
+					)
+				}
+
+				{
+					rest[2] && (
+						<a class="chalk-write chalk-write--p3" href={`/blog/${rest[2].id}`}>
+							<span class="chalk-write__label">nota</span>
+							<span class="chalk-write__title">{rest[2].data.title}</span>
+						</a>
+					)
+				}
+
+				<a class="chalk-write chalk-write--about" href="/sobre">
+					<span class="chalk-write__label">sobre</span>
+					<span class="chalk-write__title">quién escribe</span>
+					<span class="chalk-write__hint">bio + contacto</span>
+				</a>
+
+				<div class="chalk-write chalk-write--topics">
+					<span class="chalk-write__label">temas en la pizarra</span>
+					<span class="chalk-write__title">categorías</span>
+					<div class="topic-row">
+						{
+							categories.map((category) => (
+								<a href={`/categorias/${category.id}`}>{category.label}</a>
+							))
+						}
+					</div>
+				</div>
 			</div>
-
-			{
-				latest[0] && (
-					<a class="frame frame--post-1" href={`/blog/${latest[0].id}`}>
-						<p class="frame__label">escrito</p>
-						<h2 class="frame__title">{latest[0].data.title}</h2>
-						<p class="frame__text">{latest[0].data.description}</p>
-					</a>
-				)
-			}
-
-			{
-				latest[1] && (
-					<a class="frame frame--post-2" href={`/blog/${latest[1].id}`}>
-						<p class="frame__label">escrito</p>
-						<h2 class="frame__title">{latest[1].data.title}</h2>
-						<p class="frame__text">{latest[1].data.description}</p>
-					</a>
-				)
-			}
-
-			{
-				latest[2] && (
-					<a class="frame frame--post-3" href={`/blog/${latest[2].id}`}>
-						<p class="frame__label">escrito</p>
-						<h2 class="frame__title">{latest[2].data.title}</h2>
-						<p class="frame__text">{latest[2].data.description}</p>
-					</a>
-				)
-			}
-
-			<section class="frame frame--topics">
-				<p class="frame__label">temas</p>
-				<h2 class="frame__title">categorías</h2>
-				<div class="topics">
-					{
-						categories.map((category) => (
-							<a href={`/categorias/${category.id}`}>{category.label}</a>
-						))
-					}
-				</div>
-			</section>
-
-			<section class="frame frame--about">
-				<p class="frame__label">sobre</p>
-				<h2 class="frame__title">quién escribe</h2>
-				<p class="frame__text">{site.bio}</p>
-				<a class="frame__cta" href="/sobre">más sobre mí →</a>
-			</section>
 		</div>
 
-		<p class="board-legend">
-			<span>arrastra la mirada, no el scroll perfecto</span>
-			<a href="/blog">archivo completo →</a>
+		<p class="mural-caption">
+			<span>el dibujo es la navegación — toca lo que está escrito con tiza</span>
+			<a href="/blog">ver muro de escritos →</a>
 		</p>
 	</div>
 </BaseLayout>

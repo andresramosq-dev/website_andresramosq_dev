@@ -1,20 +1,20 @@
 ---
 import '../styles/global.css';
-import '../styles/board.css';
+import '../styles/mural.css';
 import { site, nav } from '../data/site';
 
 interface Props {
 	title?: string;
 	description?: string;
 	currentPath?: string;
-	board?: boolean;
+	mural?: boolean;
 }
 
 const {
 	title = site.name,
 	description = site.tagline,
 	currentPath = Astro.url.pathname,
-	board = false,
+	mural = false,
 } = Astro.props;
 
 const pageTitle = title === site.name ? `${site.name} · Blog` : `${title} · ${site.name}`;
@@ -37,7 +37,7 @@ const pageTitle = title === site.name ? `${site.name} · Blog` : `${title} · ${
 		/>
 		<title>{pageTitle}</title>
 	</head>
-	<body class:list={[{ 'is-board': board }]}>
+	<body>
 		<header class="topbar">
 			<div class="shell topbar__inner">
 				<a class="brand" href="/">
@@ -46,9 +46,14 @@ const pageTitle = title === site.name ? `${site.name} · Blog` : `${title} · ${
 				</a>
 				<nav class="nav" aria-label="Principal">
 					{
-						nav.map((item) => {
+						[
+							{ label: 'Pizarra', href: '/' },
+							...nav,
+						].map((item) => {
 							const current =
-								currentPath === item.href || currentPath.startsWith(`${item.href}/`);
+								item.href === '/'
+									? currentPath === '/'
+									: currentPath === item.href || currentPath.startsWith(`${item.href}/`);
 							return (
 								<a href={item.href} aria-current={current ? 'page' : undefined}>
 									{item.label}
@@ -60,13 +65,13 @@ const pageTitle = title === site.name ? `${site.name} · Blog` : `${title} · ${
 			</div>
 		</header>
 
-		<main class:list={['shell', { 'shell--board': board }]}>
+		<main class:list={['shell', { 'shell--mural': mural }]}>
 			<slot />
 		</main>
 
 		<footer class="shell footer">
 			<span>{site.handle}</span>
-			<span>collage de recuadros</span>
+			<span>chalk art blog</span>
 		</footer>
 	</body>
 </html>

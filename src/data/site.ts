@@ -13,7 +13,7 @@ export const site = {
 };
 
 export const nav = [
-	{ label: 'Escritos', href: '/blog' },
+	{ label: 'Blog', href: '/blog' },
 	{ label: 'Temas', href: '/categorias' },
 	{ label: 'Proyectos', href: '/proyectos' },
 	{ label: 'Sobre', href: '/sobre' },

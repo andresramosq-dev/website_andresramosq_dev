@@ -61,8 +61,13 @@ h3 {
 	margin: 0 auto;
 }
 
-.shell--board {
-	width: min(100% - 1rem, 1200px);
+.shell--mural {
+	width: min(100% - 1rem, 1220px);
+}
+
+.page-head h1,
+.hero__kicker {
+	color: #171512;
 }
 
 .topbar {
