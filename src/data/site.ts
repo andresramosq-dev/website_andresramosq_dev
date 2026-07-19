@@ -66,11 +66,26 @@ export const stack = {
 	groups: [
 		{
 			label: 'backend',
-			items: ['Node.js', 'NestJS', 'Python', 'REST', 'GraphQL', 'PostgreSQL', 'MongoDB'],
+			items: [
+				'Node.js',
+				'NestJS',
+				'Python',
+				'REST APIs',
+				'GraphQL',
+				'microservices',
+			],
+		},
+		{
+			label: 'data',
+			items: ['PostgreSQL', 'MongoDB', 'SQL', 'NoSQL'],
 		},
 		{
 			label: 'frontend',
-			items: ['TypeScript', 'React', 'Next.js', 'HTML', 'CSS', 'Tailwind CSS'],
+			items: ['TypeScript', 'React', 'Next.js'],
+		},
+		{
+			label: 'craft',
+			items: ['clean code', 'modular architecture', 'API design', 'refactoring'],
 		},
 		{ label: 'cloud', items: ['AWS', 'Docker', 'Git', 'Linux', 'CI/CD'] },
 	] as const,
@@ -78,12 +93,14 @@ export const stack = {
 
 export const workPhilosophy = {
 	lead:
-		'I care about software that stays understandable after the first sprint — clear boundaries, honest trade-offs, and decisions that still make sense when the product moves.',
+		'I like building clear, useful software with simplicity and quality. For me, understanding the problem comes before writing code.',
 	rules: [
-		'Understand the problem before touching the code.',
-		'Keep modules small enough to reason about and change safely.',
-		'Let product direction guide technical choices, not the other way around.',
-		'Question the first answer — observe, test, and adjust with criteria.',
+		'When something breaks, I look for the cause and talk about solutions — I do not like to ignore it or let it slide.',
+		'I question assumptions, compare options, and choose what makes sense in context.',
+		'I do not stay with the first answer: I observe, try, and adjust until the solution really works.',
+		'I work in a modular way — smaller parts, less complexity, and code that is easier to maintain and evolve.',
+		'I care about taking part in how a project is defined and improved, not only in implementation.',
+		'I build step by step, review what we are doing, and improve as we learn.',
 	] as const,
 };
 
