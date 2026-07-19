@@ -250,14 +250,13 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .ls-out__name { color: var(--cmd); font-weight: 500; }
 
 /* Perfil whoami — stdout
-   Green stays on keys + icon hover (brand chrome).
-   Content hierarchy: name > role > tagline > handle > location */
+   One body size; hierarchy by weight/color only. */
 .whoami {
 	display: grid;
 	gap: 1.15rem;
 	font-family: var(--mono);
-	font-size: 0.84rem;
-	line-height: 1.55;
+	font-size: 0.88rem;
+	line-height: 1.65;
 	letter-spacing: -0.01em;
 }
 .whoami__main {
@@ -279,7 +278,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .whoami__fields {
 	display: grid;
-	gap: 0.42rem;
+	gap: 0.4rem;
 	min-width: 0;
 	padding: 0.1rem 0;
 }
@@ -296,7 +295,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .whoami__key {
 	color: var(--prompt);
 	font-weight: 500;
-	font-size: 0.75rem;
+	font-size: inherit;
 }
 .whoami__key::after {
 	content: ':';
@@ -306,25 +305,22 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .whoami__val {
 	margin: 0;
 	color: var(--text);
+	font-size: inherit;
 	font-weight: 400;
 	min-width: 0;
 	overflow-wrap: anywhere;
 }
 .whoami__val--name {
 	color: var(--ink);
-	font-size: 1.14rem;
 	font-weight: 700;
-	line-height: 1.25;
 }
 .whoami__val--role {
 	color: var(--ink);
-	font-size: 1.02rem;
 	font-weight: 600;
-	line-height: 1.3;
 }
 .whoami__handle {
 	color: #7a9a7a;
-	font-weight: 500;
+	font-weight: 400;
 	text-decoration: none;
 }
 .whoami__handle:hover {
@@ -358,10 +354,10 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	background: none;
 	color: var(--ink);
 	font-family: var(--mono);
-	font-size: 0.92rem;
+	font-size: inherit;
 	font-weight: 500;
-	line-height: 1.65;
-	letter-spacing: -0.015em;
+	line-height: inherit;
+	letter-spacing: -0.01em;
 }
 .whoami__tagline-prefix {
 	color: var(--muted);
@@ -422,23 +418,26 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 
 .skills { display: grid; gap: 0; }
 
-/* bio.txt — hierarchy: lead > stack > body > close */
+/* bio.txt — same body size as whoami; hierarchy by weight/color */
 .bio {
 	display: grid;
-	gap: 1rem;
+	gap: 0.85rem;
 	font-family: var(--mono);
+	font-size: 0.88rem;
+	line-height: 1.65;
+	letter-spacing: -0.01em;
 	padding: 0.1rem 0;
 }
 .bio__lead {
 	margin: 0;
 	font-family: var(--mono);
-	font-size: 0.95rem;
-	line-height: 1.7;
-	letter-spacing: -0.015em;
+	font-size: inherit;
+	line-height: inherit;
+	letter-spacing: inherit;
 }
 .bio__lead-text {
 	color: var(--ink);
-	font-weight: 700;
+	font-weight: 600;
 }
 .bio__sep {
 	color: var(--muted);
@@ -455,19 +454,19 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	margin: 0;
 	color: var(--text);
 	font-family: var(--mono);
-	font-size: 0.86rem;
+	font-size: inherit;
 	font-weight: 400;
-	line-height: 1.75;
-	letter-spacing: -0.015em;
+	line-height: inherit;
+	letter-spacing: inherit;
 }
 .bio__close {
 	margin: 0;
 	color: var(--text);
 	font-family: var(--mono);
-	font-size: 0.86rem;
+	font-size: inherit;
 	font-weight: 400;
-	line-height: 1.7;
-	letter-spacing: -0.015em;
+	line-height: inherit;
+	letter-spacing: inherit;
 }
 .bio__tag {
 	font-weight: 600;
@@ -489,10 +488,10 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	background: none;
 	color: var(--ink);
 	font-family: var(--mono);
-	font-size: 0.92rem;
+	font-size: inherit;
 	font-weight: 500;
-	line-height: 1.65;
-	letter-spacing: -0.015em;
+	line-height: inherit;
+	letter-spacing: inherit;
 }
 .bio__quote-prefix {
 	color: var(--muted);
