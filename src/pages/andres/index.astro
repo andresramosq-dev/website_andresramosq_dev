@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PathTitle from '../../components/PathTitle.astro';
+import TermPath from '../../components/TermPath.astro';
 import SectionPath from '../../components/SectionPath.astro';
 import TermPanel from '../../components/TermPanel.astro';
 import ProfilePhoto from '../../components/ProfilePhoto.astro';
@@ -10,7 +10,7 @@ const allSkills = [...skills.frontend, ...skills.backend, ...skills.tools];
 ---
 
 <BaseLayout title="sobre mí" path="/andres">
-  <PathTitle path="/andres" />
+  <TermPath path="/andres" />
 
   <section class="about-section">
     <SectionPath id="perfil" />

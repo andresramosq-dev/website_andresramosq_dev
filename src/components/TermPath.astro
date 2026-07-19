@@ -4,8 +4,10 @@ interface Props {
 }
 
 const { path } = Astro.props;
+const segment = path === '/' ? '~' : `~${path}`;
 ---
 
-<h1 class="path-title">
-	<span class="path-title__slash">/</span>{path.replace(/^\//, '')}
-</h1>
+<div class="tpath" aria-label="Ruta actual">
+	<span class="tpath__prompt">path</span>
+	<span class="tpath__cwd">{segment}</span>
+</div>

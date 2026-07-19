@@ -4,11 +4,9 @@ import { site } from '../data/site';
 
 <div class="twin">
 	<header class="twin__bar">
-		<span class="twin__led" aria-hidden="true"></span>
-		<span class="twin__prompt">bash</span>
-		<a class="twin__brand" href="/andres">{site.domain}</a>
-		<span class="twin__sep">—</span>
-		<span class="twin__session">{site.consoleTitle}</span>
+		<code class="twin__title">
+			<span class="twin__bash">bash</span><span class="twin__at">@</span><span class="twin__host">{site.domain}</span><span class="twin__slash">/</span><span class="twin__slug">{site.consoleSlug}</span>
+		</code>
 	</header>
 	<div class="twin__body">
 		<slot />

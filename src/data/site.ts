@@ -10,7 +10,7 @@ export const site = {
 	avatar: '/images/avatar.svg',
 	avatarPath: '~/andres/avatar.jpg',
 	tagline: 'Interfaces, código y oficio — documentado en público.',
-	consoleTitle: 'consola de Andrés Ramos',
+	consoleSlug: 'consola-de-andres-ramos',
 	description:
 		'Consola personal de Andrés Ramos. Desarrollo de software, diseño de interfaces y notas sobre el oficio.',
 	bio: 'Construyo productos web con criterio. Me mueven las interfaces bien pensadas, el código legible y publicar lo que aprendo en el camino.',
