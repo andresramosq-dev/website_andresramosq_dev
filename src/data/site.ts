@@ -95,14 +95,13 @@ export const stack = {
 
 export const workPhilosophy = {
 	paragraphs: [
-		'I build clear, useful software.',
-		'I work with simplicity and quality.',
+		'I build modular software and split the work into small tasks so development does not turn into overload.',
+		'I care about what is simple and easy to maintain, without losing practicality or leaving weak parts behind.',
 		'I understand the problem before I write code.',
 		'I am critical, analytical, and direct. When I see a problem, I go to the cause and work through solutions with the team.',
-		'I question assumptions, compare options, and do not keep the first answer. I observe, try, and adjust until something works.',
-		'I take part in defining and evolving the product, not only in implementation.',
-		'I improve step by step: I review, learn, and strengthen what we build.',
-		'I think in modules so the system stays maintainable and can grow without improvised decisions.',
+		'I question assumptions and compare options. I do not keep the first answer — I try, adjust, and keep going until it works.',
+		'I take part in defining and evolving the product, not only in writing code.',
+		'I improve step by step: review, learn, and strengthen what we already built.',
 		'I value open communication and honest feedback in the team.',
 	] as const,
 };
