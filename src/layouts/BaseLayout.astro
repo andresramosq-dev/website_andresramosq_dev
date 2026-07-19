@@ -30,22 +30,24 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
 
     <div class="desk">
       <TerminalShell>
-        <nav class="nav" aria-label="Principal">
-          {nav.map((item) => (
-            <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
+        <div class="twin__body">
+          <nav class="nav" aria-label="Principal">
+            {nav.map((item) => (
+              <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
 
-        <details class="cmd-fold">
-          <summary>navegar por comandos (/help)</summary>
-          <CommandBar />
-        </details>
+          <details class="cmd-fold">
+            <summary>navegar por comandos (/help)</summary>
+            <CommandBar />
+          </details>
 
-        <main id="main" class="main">
-          <slot />
-        </main>
+          <main id="main" class="main">
+            <slot />
+          </main>
+        </div>
 
         <footer class="ftr">
           <span>© {new Date().getFullYear()} {site.domain}</span>

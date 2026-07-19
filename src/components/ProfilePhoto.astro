@@ -8,7 +8,7 @@ interface Props {
 const { size = 'md' } = Astro.props;
 ---
 
-<figure class:list={['avatar', size === 'sm' && 'avatar--sm']}>
+<figure class:list={['avatar', size === 'sm' && 'avatar--sm', size === 'md' && 'avatar--md']}>
 	<div class="avatar__frame">
 		<img
 			src={site.avatar}

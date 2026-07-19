@@ -29,6 +29,7 @@ const date = post.data.pubDate.toLocaleDateString('es-ES', {
   <PageHeader segment={`blog/${post.id}`} title={post.data.title} />
 
   <TermBlock cmd={`cat ${post.id}.md`}>
+  <div class="article-wrap">
     <p class="article__meta">{date} · {categoryLabel[post.data.category]}</p>
     <div class="article__body">
       <Content />
@@ -50,5 +51,6 @@ const date = post.data.pubDate.toLocaleDateString('es-ES', {
         ) : <div />}
       </nav>
     )}
+    </div>
   </TermBlock>
 </BaseLayout>

@@ -5,7 +5,7 @@ import { site } from '../data/site';
 
 <div class="cmd" id="cmd-root">
 	<form class="cmd__form" id="cmd-form" autocomplete="off">
-		<span class="cmd__prompt">{site.user}@{site.domain}:~$</span>
+		<span class="cmd__prompt"><span class="user">{site.user}</span>@<span class="host">{site.domain}</span>:~$</span>
 		<input
 			type="text"
 			id="cmd-input"
