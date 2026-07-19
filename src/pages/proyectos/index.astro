@@ -11,11 +11,11 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.year - 
 <BaseLayout title="proyectos" path="/proyectos">
   <PageHeader segment="proyectos" title="Proyectos" />
 
-  <TermBlock cmd="ls -la proyectos/">
+  <TermBlock cmd="ls proyectos/">
     <FeedList
       items={projects.map((p) => ({
         href: `/proyectos/${p.id}`,
-        title: p.id,
+        title: p.data.title,
         meta: String(p.data.year),
       }))}
     />

@@ -10,9 +10,9 @@ import { site } from '../data/site';
 			type="text"
 			id="cmd-input"
 			class="cmd__input"
-			placeholder="escribe /help para navegar..."
+			placeholder="/help"
 			spellcheck="false"
-			aria-label="Terminal de comandos"
+			aria-label="Comandos de navegación"
 		/>
 	</form>
 	<pre class="cmd__out" id="cmd-output" hidden></pre>
@@ -24,10 +24,7 @@ import { site } from '../data/site';
 	const output = document.getElementById('cmd-output');
 
 	const helpText = commands
-		.map((c) => {
-			const alias = c.aliases?.length ? ` (${c.aliases.join(', ')})` : '';
-			return `  /${c.cmd}${alias} — ${c.desc}`;
-		})
+		.map((c) => `  /${c.cmd} — ${c.desc}`)
 		.join('\n');
 
 	function show(text) {
@@ -56,13 +53,13 @@ import { site } from '../data/site';
 		const match = find(value);
 
 		if (!match) {
-			show(`command not found: ${value}\nEscribe /help para ver opciones.`);
+			show(`comando no encontrado. Escribe /help`);
 			input.value = '';
 			return;
 		}
 
 		if (match.action === 'help') {
-			show(`Comandos disponibles:\n${helpText}`);
+			show(helpText);
 			input.value = '';
 			return;
 		}
@@ -73,15 +70,10 @@ import { site } from '../data/site';
 			return;
 		}
 
-		if (match.path) {
-			window.location.href = match.path;
-		}
+		if (match.path) window.location.href = match.path;
 	});
 
 	input?.addEventListener('keydown', (e) => {
-		if (e.key === 'Escape') {
-			hide();
-			input.value = '';
-		}
+		if (e.key === 'Escape') { hide(); input.value = ''; }
 	});
 </script>

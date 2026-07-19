@@ -24,7 +24,7 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { month: 'short', year: '
     <FeedList
       items={posts.map((p) => ({
         href: `/blog/${p.id}`,
-        title: `${p.id}.md`,
+        title: p.data.title,
         meta: fmt(p.data.pubDate),
       }))}
     />

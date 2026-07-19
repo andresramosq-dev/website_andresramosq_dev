@@ -1,6 +1,5 @@
 ---
 import '../styles/dev.css';
-import StatusBar from '../components/StatusBar.astro';
 import TerminalShell from '../components/TerminalShell.astro';
 import CommandBar from '../components/CommandBar.astro';
 import { site, nav } from '../data/site';
@@ -13,7 +12,6 @@ interface Props {
 
 const { title, description, path = '/' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
-const shellTitle = path === '/' ? 'zsh' : path.replace(/^\//, '') || 'zsh';
 ---
 
 <!doctype html>
@@ -31,25 +29,26 @@ const shellTitle = path === '/' ? 'zsh' : path.replace(/^\//, '') || 'zsh';
     <a class="skip" href="#main">Saltar al contenido</a>
 
     <div class="desk">
-      <TerminalShell title={shellTitle}>
-        <StatusBar />
-
-        <nav class="tabs" aria-label="Principal">
+      <TerminalShell>
+        <nav class="nav" aria-label="Principal">
           {nav.map((item) => (
             <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
-              ~/{item.label}
+              {item.label}
             </a>
           ))}
         </nav>
 
-        <CommandBar />
+        <details class="cmd-fold">
+          <summary>navegar por comandos (/help)</summary>
+          <CommandBar />
+        </details>
 
         <main id="main" class="main">
           <slot />
         </main>
 
         <footer class="ftr">
-          <span>© {new Date().getFullYear()} <strong>{site.domain}</strong></span>
+          <span>© {new Date().getFullYear()} {site.domain}</span>
           <div>
             {site.links.map((l, i) => (
               <>
@@ -57,6 +56,7 @@ const shellTitle = path === '/' ? 'zsh' : path.replace(/^\//, '') || 'zsh';
                 <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">{l.label}</a>
               </>
             ))}
+            {' · '}<a href="/notas">notas</a>
             {' · '}<a href="/rss.xml">rss</a>
           </div>
         </footer>

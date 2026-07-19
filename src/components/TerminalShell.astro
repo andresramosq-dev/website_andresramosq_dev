@@ -1,11 +1,5 @@
 ---
 import { site } from '../data/site';
-
-interface Props {
-	title?: string;
-}
-
-const { title = `${site.domain} — zsh` } = Astro.props;
 ---
 
 <div class="twin">
@@ -16,7 +10,6 @@ const { title = `${site.domain} — zsh` } = Astro.props;
 			<span class="twin__dot twin__dot--g"></span>
 		</div>
 		<a class="twin__brand" href="/">{site.domain}</a>
-		<span class="twin__title">{title}</span>
 	</div>
 	<div class="twin__body">
 		<slot />

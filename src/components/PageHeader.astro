@@ -10,8 +10,8 @@ const { segment, title } = Astro.props;
 ---
 
 <header class="page-hd">
-	<p class="page-hd__path">
-		<span class="page-hd__user">{site.user}</span>@<span class="page-hd__host">{site.domain}</span>:~/{segment}
-	</p>
 	<h1 class="page-hd__title">{title}</h1>
+	<p class="page-hd__path">
+		<span class="prompt">{site.user}</span>@<span class="host">{site.domain}</span>:~/{segment}
+	</p>
 </header>
