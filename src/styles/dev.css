@@ -147,16 +147,11 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	align-items: baseline;
 	gap: 0.45rem;
 	margin: 0;
+	font-size: 1rem;
 }
 .console-title__path,
 .console-title__line {
 	white-space: nowrap;
-}
-.console-title__prompt {
-	font-size: 0.95rem;
-}
-.console-title__cmd {
-	font-size: 1.1rem;
 }
 .console-title__conn {
 	color: var(--muted);
@@ -166,14 +161,8 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .console-title__sig {
 	color: var(--muted);
 }
-.console-title__command {
-	color: var(--ink);
-	font-weight: 600;
-}
-.console-title__flag {
-	color: var(--muted);
-	font-weight: 500;
-}
+.console-title__command,
+.console-title__flag,
 .console-title__quote {
 	color: var(--ink);
 	font-weight: 600;
