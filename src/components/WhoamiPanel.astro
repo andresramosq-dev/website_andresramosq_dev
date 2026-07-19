@@ -31,17 +31,23 @@ import { site } from '../data/site';
 				<span class="whoami__key">social</span>
 				<span class="whoami__val">
 					<span class="whoami__icons">
-						{site.social.map((s) => (
-							<a
-								href={s.href}
-								title={s.label}
-								aria-label={s.label}
-								target={s.href.startsWith('http') ? '_blank' : undefined}
-								rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
-							>
-								<Icon name={s.icon} size={18} />
-							</a>
-						))}
+						{site.social.map((s) =>
+							s.href ? (
+								<a
+									href={s.href}
+									title={s.label}
+									aria-label={s.label}
+									target={s.href.startsWith('http') ? '_blank' : undefined}
+									rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
+								>
+									<Icon name={s.icon} size={18} />
+								</a>
+							) : (
+								<span class="whoami__icons-idle" title={s.label} aria-label={s.label} role="img">
+									<Icon name={s.icon} size={18} />
+								</span>
+							)
+						)}
 					</span>
 				</span>
 			</div>
