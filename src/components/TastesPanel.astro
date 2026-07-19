@@ -9,74 +9,93 @@ function spotifyPlaylistEmbed(url: string | null) {
 }
 
 const playlistEmbed = spotifyPlaylistEmbed(tastes.spotify.playlistUrl);
-const { spotify } = tastes;
+const hasTracks = tastes.spotify.tracks.length > 0;
 ---
 
-<div class="favorites">
-	<p class="favorites__lead">{tastes.lead}</p>
+<div class="console-doc tastes-console">
+	<p class="console-doc__line console-doc__line--open">{tastes.lead}</p>
 
-	<section class="fav-pane">
-		<h3 class="fav-pane__title">influential figures</h3>
-		<ul class="fav-pane__figures">
-			{tastes.figures.map((figure) => (
-				<li>
-					<span class="fav-pane__name">{figure.name}</span>
-					<span class="fav-pane__sep"> — </span>
-					<span>{figure.text}</span>
-				</li>
-			))}
-		</ul>
-	</section>
+	<p class="tastes-console__section">figures</p>
+	<ul class="tastes-console__list">
+		{tastes.figures.map((figure) => (
+			<li>
+				<span class="tastes-console__name">{figure.name}</span>
+				<span class="tastes-console__sep"> — </span>
+				{figure.text}
+			</li>
+		))}
+	</ul>
 
-	<section class="fav-pane">
-		<h3 class="fav-pane__title">top movies</h3>
-		<ul class="fav-pane__movies">
+	<p class="tastes-console__section">top movies</p>
+	<table class="term-table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>title</th>
+				<th>year</th>
+			</tr>
+		</thead>
+		<tbody>
 			{tastes.movies.map((movie) => (
-				<li>
-					<span class="fav-pane__rank">{movie.rank}</span>
-					<span class="fav-pane__movie">{movie.title}</span>
-					<span class="fav-pane__year">{movie.year}</span>
-				</li>
+				<tr>
+					<td class="term-table__rank">{movie.rank}</td>
+					<td>{movie.title}</td>
+					<td class="term-table__muted">{movie.year}</td>
+				</tr>
+			))}
+		</tbody>
+	</table>
+
+	<p class="tastes-console__section">series</p>
+	<div class="stack-groups stack-groups--tight">
+		<section class="stack-group">
+			<p class="stack-group__label">influential</p>
+			<div class="stack-group__chips">
+				{tastes.series.map((title) => (
+					<span class="stack-chip">
+						<span class="stack-chip__hash">#</span>
+						{title}
+					</span>
+				))}
+			</div>
+		</section>
+	</div>
+
+	<p class="tastes-console__section">music</p>
+	{playlistEmbed ? (
+		<div class="tastes-player" aria-label="Spotify playlist player">
+			<p class="tastes-player__cmd">
+				<span class="tastes-player__sig">$</span> spotify play --playlist
+			</p>
+			<iframe
+				title="Spotify playlist"
+				src={playlistEmbed}
+				width="100%"
+				height="352"
+				allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+				loading="lazy"
+				referrerpolicy="strict-origin-when-cross-origin"
+			/>
+		</div>
+	) : (
+		<p class="console-doc__line tastes-console__wait">
+			<span class="tastes-console__muted">waiting for a public playlist link to load the player.</span>
+		</p>
+	)}
+
+	{hasTracks ? (
+		<ul class="tastes-console__list tastes-console__tracks">
+			{tastes.spotify.tracks.map((track) => (
+				<li>{track}</li>
 			))}
 		</ul>
-	</section>
-
-	<section class="fav-pane">
-		<h3 class="fav-pane__title">influential series</h3>
-		<div class="fav-pane__chips">
-			{tastes.series.map((title) => (
-				<span class="fav-chip">{title}</span>
-			))}
-		</div>
-	</section>
-
-	<section class="fav-pane fav-pane--spotify">
-		<h3 class="fav-pane__title">music</h3>
-		<p class="fav-pane__note">
-			Spotify does not allow playing a whole public profile inside a website — only a <strong>public playlist</strong> with its own link.
-		</p>
-		<p class="fav-pane__actions">
-			<a class="fav-pane__btn" href={spotify.profileUrl} target="_blank" rel="noreferrer">
-				Open my Spotify profile
+	) : !playlistEmbed ? (
+		<p class="console-doc__line">
+			Profile:
+			<a class="tastes-console__link" href={tastes.spotify.profileUrl} target="_blank" rel="noreferrer">
+				{tastes.spotify.profileUrl.replace('https://', '')}
 			</a>
+			— create a public playlist and share the link to embed playback here, or add a text track list in data (list only).
 		</p>
-		{playlistEmbed ? (
-			<div class="fav-spotify-player">
-				<p class="fav-spotify-player__label">playlist</p>
-				<iframe
-					title="Spotify playlist"
-					src={playlistEmbed}
-					width="100%"
-					height="352"
-					allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-					loading="lazy"
-					referrerpolicy="strict-origin-when-cross-origin"
-				/>
-			</div>
-		) : (
-			<p class="fav-pane__hint">
-				To play music here: open a playlist on your profile → Share → Copy link → send it to me and I embed the player on this page.
-			</p>
-		)}
-	</section>
+	) : null}
 </div>

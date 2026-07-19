@@ -875,17 +875,13 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	.stack-groups {
 		font-size: 0.82rem;
 	}
-	.favorites,
-	.favorites__lead,
-	.fav-pane__title,
-	.fav-chip,
-	.fav-pane__note,
-	.fav-pane__hint,
-	.fav-pane__btn {
+	.term-table,
+	.term-table th,
+	.term-table td,
+	.tastes-console__list li,
+	.tastes-console__section,
+	.tastes-player__cmd {
 		font-size: 0.82rem;
-	}
-	.fav-pane__movies li {
-		grid-template-columns: 1.25rem 1fr auto;
 	}
 	.persona,
 	.persona p {

@@ -147,8 +147,10 @@ export const tastes = {
 	] as const,
 	spotify: {
 		profileUrl: 'https://open.spotify.com/user/12163431588',
-		/** Public playlist URL — embed appears when set, e.g. https://open.spotify.com/playlist/... */
+		/** Public playlist URL → Spotify embed player (Share → Copy link) */
 		playlistUrl: null as string | null,
+		/** Optional text list only — does not play audio without a playlist embed */
+		tracks: [] as readonly string[],
 	},
 };
 
