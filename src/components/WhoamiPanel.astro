@@ -47,8 +47,46 @@ import { site } from '../data/site';
 		</div>
 	</div>
 
-	<div class="whoami__promise">
-		<span class="whoami__promise-key">promise</span>
-		<span class="whoami__promise-text">{site.tagline}</span>
+	<div class="tag-ideas" aria-label="Tagline style options">
+		<div class="tag-ideas__item">
+			<p class="tag-ideas__label">A · single box</p>
+			<div class="tag-box tag-box--a">
+				<span class="tag-box__text">{site.tagline}</span>
+			</div>
+		</div>
+
+		<div class="tag-ideas__item">
+			<p class="tag-ideas__label">B · labeled table</p>
+			<div class="tag-box tag-box--b">
+				<div class="tag-box__head">promise</div>
+				<div class="tag-box__text">{site.tagline}</div>
+			</div>
+		</div>
+
+		<div class="tag-ideas__item">
+			<p class="tag-ideas__label">C · two-column row</p>
+			<div class="tag-box tag-box--c">
+				<div class="tag-box__key">focus</div>
+				<div class="tag-box__text">{site.tagline}</div>
+			</div>
+		</div>
+
+		<div class="tag-ideas__item">
+			<p class="tag-ideas__label">D · rules</p>
+			<div class="tag-box tag-box--d">
+				<div class="tag-box__rule" aria-hidden="true"></div>
+				<div class="tag-box__text">{site.tagline}</div>
+				<div class="tag-box__rule" aria-hidden="true"></div>
+			</div>
+		</div>
+
+		<div class="tag-ideas__item">
+			<p class="tag-ideas__label">E · brackets</p>
+			<div class="tag-box tag-box--e">
+				<span class="tag-box__chrome">[</span>
+				<span class="tag-box__text">{site.tagline}</span>
+				<span class="tag-box__chrome">]</span>
+			</div>
+		</div>
 	</div>
 </div>
