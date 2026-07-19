@@ -107,24 +107,12 @@ export const workPhilosophy = {
 };
 
 export const tastes = {
-	lead: 'People, stories, and sound that stay with me outside of work.',
+	lead: 'Favorites — printed like stdout.',
 	figures: [
-		{
-			name: 'Marcus Aurelius',
-			text: 'His philosophy and writing — discipline, perspective, and how to act under pressure.',
-		},
-		{
-			name: 'Charlemagne',
-			text: 'His history and figure — building something larger than yourself across time.',
-		},
-		{
-			name: 'Cristiano Ronaldo',
-			text: 'A winning, competitive mindset — consistency, ambition, and refusing to coast.',
-		},
-		{
-			name: 'Linus Torvalds',
-			text: 'What he created and how he shares it — open systems, sharp opinions, real impact.',
-		},
+		{ name: 'Marcus Aurelius', text: 'Stoicism and calm under pressure.' },
+		{ name: 'Charlemagne', text: 'Building something that outlives you.' },
+		{ name: 'Cristiano Ronaldo', text: 'Discipline, ambition, no excuses.' },
+		{ name: 'Linus Torvalds', text: 'Open systems and blunt honesty.' },
 	] as const,
 	movies: [
 		{ rank: 1, title: 'Interstellar', year: 2014 },
@@ -147,9 +135,8 @@ export const tastes = {
 	] as const,
 	spotify: {
 		profileUrl: 'https://open.spotify.com/user/12163431588',
-		/** Public playlist URL → Spotify embed player (Share → Copy link) */
-		playlistUrl: null as string | null,
-		/** Optional text list only — does not play audio without a playlist embed */
+		playlistUrl: 'https://open.spotify.com/playlist/6LLHq6QhG5QlEDSW3yUtOl',
+		playlistLabel: 'favorites',
 		tracks: [] as readonly string[],
 	},
 };

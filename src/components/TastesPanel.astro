@@ -9,96 +9,90 @@ function spotifyPlaylistEmbed(url: string | null) {
 }
 
 const playlistEmbed = spotifyPlaylistEmbed(tastes.spotify.playlistUrl);
-const hasTracks = tastes.spotify.tracks.length > 0;
+const playlistLabel = tastes.spotify.playlistLabel ?? 'playlist';
 ---
 
-<div class="console-doc tastes-console">
-	<p class="console-doc__line console-doc__line--open">{tastes.lead}</p>
+<div class="tastes-out">
+	<p class="tastes-out__banner">{tastes.lead}</p>
 
-	<p class="tastes-console__section">figures</p>
-	<ul class="tastes-console__list">
-		{tastes.figures.map((figure) => (
-			<li>
-				<span class="tastes-console__name">{figure.name}</span>
-				<span class="tastes-console__sep"> — </span>
-				{figure.text}
-			</li>
-		))}
-	</ul>
-
-	<p class="tastes-console__section">top movies</p>
-	<table class="term-table">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>title</th>
-				<th>year</th>
-			</tr>
-		</thead>
-		<tbody>
-			{tastes.movies.map((movie) => (
-				<tr>
-					<td class="term-table__rank">{movie.rank}</td>
-					<td>{movie.title}</td>
-					<td class="term-table__muted">{movie.year}</td>
-				</tr>
-			))}
-		</tbody>
-	</table>
-
-	<p class="tastes-console__section">series</p>
-	<div class="stack-groups stack-groups--tight">
-		<section class="stack-group">
-			<div class="stack-group__chips stack-group__chips--column">
-				{tastes.series.map((title) => (
-					<span class="stack-chip">
-						<span class="stack-chip__hash">#</span>
-						{title}
-					</span>
-				))}
-			</div>
-		</section>
-	</div>
-
-	<p class="tastes-console__section">music</p>
-	{playlistEmbed ? (
-		<div class="tastes-player" aria-label="Spotify playlist player">
-			<p class="tastes-player__cmd">
-				<span class="tastes-player__sig">$</span> spotify play --playlist
-			</p>
-			<iframe
-				title="Spotify playlist"
-				src={playlistEmbed}
-				width="100%"
-				height="352"
-				allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-				loading="lazy"
-				referrerpolicy="strict-origin-when-cross-origin"
-			/>
-		</div>
-	) : (
-		<>
-			<p class="console-doc__line tastes-console__cmd-line">
-				<span class="tastes-player__sig">$</span> spotify embed --playlist &lt;public-url&gt;
-			</p>
-			<p class="console-doc__line tastes-console__hint">
-				To play music here, create a public playlist on Spotify and send me the link (Share → Copy link).
-				Your profile alone cannot be embedded. Without a playlist, I can only show a plain song list.
-			</p>
-			<p class="console-doc__line">
-				profile:
-				<a class="tastes-console__link" href={tastes.spotify.profileUrl} target="_blank" rel="noreferrer">
-					{tastes.spotify.profileUrl.replace('https://', '')}
-				</a>
-			</p>
-		</>
-	)}
-
-	{hasTracks ? (
-		<ul class="tastes-console__list tastes-console__tracks">
-			{tastes.spotify.tracks.map((track) => (
-				<li>{track}</li>
+	<section class="tastes-out__block" aria-labelledby="tastes-figures">
+		<h3 class="tastes-out__head" id="tastes-figures">figures</h3>
+		<ul class="tastes-out__list">
+			{tastes.figures.map((figure) => (
+				<li>
+					<span class="tastes-out__strong">{figure.name}</span>
+					<span class="tastes-out__dim"> — {figure.text}</span>
+				</li>
 			))}
 		</ul>
-	) : null}
+	</section>
+
+	<section class="tastes-out__block" aria-labelledby="tastes-movies">
+		<h3 class="tastes-out__head" id="tastes-movies">movies</h3>
+		<table class="term-table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">title</th>
+					<th scope="col">year</th>
+				</tr>
+			</thead>
+			<tbody>
+				{tastes.movies.map((movie) => (
+					<tr>
+						<td class="term-table__rank">{String(movie.rank).padStart(2, '0')}</td>
+						<td>{movie.title}</td>
+						<td class="term-table__muted">{movie.year}</td>
+					</tr>
+				))}
+			</tbody>
+		</table>
+	</section>
+
+	<section class="tastes-out__block" aria-labelledby="tastes-series">
+		<h3 class="tastes-out__head" id="tastes-series">series</h3>
+		<div class="stack-group__chips stack-group__chips--column">
+			{tastes.series.map((title) => (
+				<span class="stack-chip">
+					<span class="stack-chip__hash">#</span>
+					{title}
+				</span>
+			))}
+		</div>
+	</section>
+
+	<section class="tastes-out__block tastes-out__block--music" aria-labelledby="tastes-music">
+		<h3 class="tastes-out__head" id="tastes-music">music</h3>
+		{playlistEmbed ? (
+			<>
+				<p class="tastes-out__stream">
+					<span class="tastes-out__prompt">stream</span>
+					<span class="tastes-out__eq">=</span>
+					<span class="tastes-out__strong">{playlistLabel}</span>
+				</p>
+				<div class="spotify-console" aria-label="Spotify playlist player">
+					<div class="spotify-console__titlebar">
+						<span class="spotify-console__lights" aria-hidden="true">
+							<span class="spotify-console__light spotify-console__light--on" />
+						</span>
+						<span class="spotify-console__title">spotify — {playlistLabel}</span>
+						<span class="spotify-console__badge">live</span>
+					</div>
+					<div class="spotify-console__body">
+						<iframe
+							title={`Spotify playlist: ${playlistLabel}`}
+							src={playlistEmbed}
+							width="100%"
+							height="380"
+							allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+							loading="lazy"
+							referrerpolicy="strict-origin-when-cross-origin"
+						/>
+					</div>
+				</div>
+			</>
+		) : (
+			<p class="tastes-out__dim">playlist not configured.</p>
+		)}
+	</section>
 </div>
