@@ -5,6 +5,8 @@ import CmdBlock from '../../components/CmdBlock.astro';
 import WhoamiPanel from '../../components/WhoamiPanel.astro';
 import BioPanel from '../../components/BioPanel.astro';
 import SitePanel from '../../components/SitePanel.astro';
+import CraftPanel from '../../components/CraftPanel.astro';
+import PersonalPanel from '../../components/PersonalPanel.astro';
 import { site, now } from '../../data/site';
 ---
 
@@ -34,6 +36,14 @@ import { site, now } from '../../data/site';
         <dd>{now.philosophy}</dd>
       </div>
     </dl>
+  </CmdBlock>
+
+  <CmdBlock cmd="cat craft.txt" id="craft">
+    <CraftPanel />
+  </CmdBlock>
+
+  <CmdBlock cmd="cat personal.txt" id="personal">
+    <PersonalPanel />
   </CmdBlock>
 
   <CmdBlock cmd="cat site.txt" id="site">

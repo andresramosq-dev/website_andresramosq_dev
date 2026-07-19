@@ -62,12 +62,30 @@ export const now = {
 		'I aim for simplicity: clear, clean, modular software — tied to the product.',
 };
 
-export const principles = [
-	{ title: 'clarity', desc: 'If it is not clear in one read, it is not ready.' },
-	{ title: 'craft', desc: 'Details are not decoration — they signal respect for the people using what you build.' },
-	{ title: 'document', desc: 'Writing forces you to think. Notes are part of the work, not an afterthought.' },
-	{ title: 'iterate', desc: 'Ship, learn, and tighten in short cycles — not in silence.' },
-];
+export const craft = {
+	principles: [
+		{ key: 'analyze', value: 'Understand the problem before writing a line.' },
+		{ key: 'simplicity', value: 'Prefer clear, clean, modular software.' },
+		{ key: 'product', value: 'Keep technical choices tied to the product.' },
+		{ key: 'iterate', value: 'Observe, try, adjust — do not settle for the first answer.' },
+	] as const,
+	skills: [
+		{ area: 'backend', items: 'Node.js, NestJS, Python, REST, GraphQL, PostgreSQL, MongoDB' },
+		{ area: 'frontend', items: 'TypeScript, React, Next.js, HTML, CSS, Tailwind CSS' },
+		{ area: 'cloud', items: 'AWS, Docker, Git, Linux, CI/CD' },
+	] as const,
+};
+
+export const personal = [
+	{ key: 'likes', value: 'philosophy, sports, music, series, movies, books' },
+	{ key: 'figures', value: 'Marcus Aurelius, Charlemagne' },
+	{ key: 'music', value: 'playlists on rotation' },
+	{ key: 'series', value: 'still picking favorites' },
+	{ key: 'movies', value: 'still picking favorites' },
+	{ key: 'books', value: 'still picking favorites' },
+	{ key: 'dev_books', value: 'still picking favorites' },
+	{ key: 'sports', value: 'yes — staying active matters' },
+] as const;
 
 export const skills = {
 	frontend: ['TypeScript', 'React', 'Next.js', 'HTML', 'CSS', 'Tailwind CSS'],

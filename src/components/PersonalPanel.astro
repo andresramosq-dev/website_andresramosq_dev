@@ -1,0 +1,22 @@
+---
+import { personal } from '../data/site';
+---
+
+<div class="personal">
+	<table class="term-table">
+		<thead>
+			<tr>
+				<th>field</th>
+				<th>value</th>
+			</tr>
+		</thead>
+		<tbody>
+			{personal.map((row) => (
+				<tr>
+					<td class="term-table__key">{row.key}</td>
+					<td>{row.value}</td>
+				</tr>
+			))}
+		</tbody>
+	</table>
+</div>

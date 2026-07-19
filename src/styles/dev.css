@@ -549,21 +549,45 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	color: inherit;
 }
 
-.principles { display: grid; gap: 0; }
-.principle {
-	padding: 0.65rem 0;
-	border-bottom: 1px dashed var(--border2);
+/* craft / personal — terminal tables */
+.craft,
+.personal {
+	display: grid;
+	gap: 0.85rem;
+	font-family: var(--mono);
+	font-size: 0.86rem;
+	line-height: 1.5;
 }
-.principle:first-child { padding-top: 0; }
-.principle:last-child { border-bottom: none; padding-bottom: 0; }
-.principle__title {
-	font-size: 0.88rem;
-	font-weight: 600;
+.term-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.84rem;
+	line-height: 1.5;
+}
+.term-table th,
+.term-table td {
+	padding: 0.4rem 0.65rem;
+	text-align: left;
+	vertical-align: top;
+	border: 1px solid var(--border2);
+}
+.term-table th {
 	color: var(--prompt);
-	margin: 0 0 0.2rem;
+	font-weight: 500;
+	background: var(--panel2);
+	font-size: 0.72rem;
 }
-.principle__title::before { content: '› '; color: var(--perm); }
-.principle__desc { font-size: 0.84rem; color: var(--muted); margin: 0; line-height: 1.55; }
+.term-table td {
+	color: var(--text);
+}
+.term-table__key {
+	color: var(--ink);
+	white-space: nowrap;
+	width: 7.5rem;
+}
+.term-table__stack {
+	color: var(--term-cyan);
+}
 
 .ftr {
 	margin-top: auto;
@@ -683,6 +707,13 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	.ls-out__perm {
 		min-width: 0;
 		font-size: 0.65rem;
+	}
+	.term-table { font-size: 0.78rem; }
+	.term-table th,
+	.term-table td { padding: 0.35rem 0.5rem; }
+	.term-table__key {
+		white-space: normal;
+		width: 5.5rem;
 	}
 	.ftr {
 		padding: 0.55rem 0.85rem;

@@ -1,0 +1,39 @@
+---
+import { craft } from '../data/site';
+---
+
+<div class="craft">
+	<table class="term-table">
+		<thead>
+			<tr>
+				<th>principle</th>
+				<th>meaning</th>
+			</tr>
+		</thead>
+		<tbody>
+			{craft.principles.map((row) => (
+				<tr>
+					<td class="term-table__key">{row.key}</td>
+					<td>{row.value}</td>
+				</tr>
+			))}
+		</tbody>
+	</table>
+
+	<table class="term-table">
+		<thead>
+			<tr>
+				<th>area</th>
+				<th>stack</th>
+			</tr>
+		</thead>
+		<tbody>
+			{craft.skills.map((row) => (
+				<tr>
+					<td class="term-table__key">{row.area}</td>
+					<td class="term-table__stack">{row.items}</td>
+				</tr>
+			))}
+		</tbody>
+	</table>
+</div>
