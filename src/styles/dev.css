@@ -549,67 +549,92 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	color: inherit;
 }
 
-/* craft / personal — key/value sheets (whoami-style) */
-.kv-sheet {
+/* craft — prose + mindset box + ls stack/ */
+.craft-view {
 	display: grid;
-	gap: 1rem;
+	gap: 0.75rem;
 	font-family: var(--mono);
 	font-size: 0.86rem;
-	font-weight: 400;
-	line-height: 1.5;
-	letter-spacing: -0.01em;
+	line-height: 1.6;
 }
-.kv-sheet__block {
-	display: grid;
-	gap: 0.45rem;
-	padding-top: 0.15rem;
-}
-.kv-sheet__block + .kv-sheet__block {
-	padding-top: 0.85rem;
-	border-top: 1px dashed var(--border2);
-}
-.kv-sheet__heading {
+.craft-view__lead {
 	margin: 0;
-	font-size: 0.68rem;
-	font-weight: 500;
-	color: var(--prompt);
-	letter-spacing: 0.02em;
+	color: var(--ink);
+	font-size: 0.86rem;
+	line-height: 1.6;
 }
-.kv-sheet__list {
+.craft-view__tree {
+	padding: 0.65rem 0.75rem;
+	background: var(--panel2);
+	border: 1px dashed var(--border2);
+	border-radius: 0 4px 4px 0;
+}
+.craft-view__prompt {
+	margin: 0 0 0.55rem;
+	font-size: 0.8rem;
+	color: var(--muted);
+}
+.craft-view__sig {
+	color: var(--prompt);
+	margin-right: 0.35rem;
+}
+.craft-view__path {
+	color: var(--cmd);
+}
+.craft-view__dirs {
+	list-style: none;
 	margin: 0;
 	padding: 0;
 	display: grid;
-	gap: 0.35rem;
+	gap: 0.65rem;
 }
-.kv-sheet__row {
+.craft-view__dir {
 	display: grid;
-	grid-template-columns: 6.25rem 1fr;
-	gap: 0.75rem;
+	gap: 0.35rem;
+	padding-left: 0.35rem;
+	border-left: 1px solid var(--border2);
+}
+.craft-view__dirhead {
+	display: flex;
+	flex-wrap: wrap;
 	align-items: baseline;
-	margin: 0;
+	gap: 0.5rem 0.65rem;
 }
-.kv-sheet__row dt {
-	margin: 0;
-	color: var(--prompt);
-	font-size: 0.86rem;
-	font-weight: 400;
+.craft-view__perm {
+	color: var(--perm);
+	font-size: 0.72rem;
 }
-.kv-sheet__row dt::after {
-	content: ':';
-	color: var(--muted);
-	margin-left: 0.08rem;
-}
-.kv-sheet__row dd {
-	margin: 0;
-	color: var(--text);
-	min-width: 0;
-	overflow-wrap: anywhere;
-	font-size: 0.86rem;
-	font-weight: 400;
-	line-height: 1.55;
-}
-.kv-sheet__stack {
+.craft-view__dirname {
 	color: var(--cmd);
+	font-weight: 500;
+}
+.craft-view__tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem 0.45rem;
+	padding-left: 0.15rem;
+}
+.craft-view__tags .bio__tag {
+	white-space: nowrap;
+}
+
+/* personal — lead + stacked story cards */
+.life-view {
+	display: grid;
+	gap: 0.75rem;
+	font-family: var(--mono);
+	font-size: 0.86rem;
+	line-height: 1.6;
+}
+.life-view__lead {
+	margin: 0;
+	color: var(--ink);
+	font-size: 0.86rem;
+	line-height: 1.6;
+}
+.life-view__cards {
+	display: grid;
+	gap: 0.55rem;
 }
 
 .ftr {
@@ -725,14 +750,16 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	.now-grid { grid-template-columns: 1fr; }
 	.now-item { padding: 0.65rem 0.7rem; }
 	.now-item dd { font-size: 0.82rem; }
-	.kv-sheet { font-size: 0.82rem; }
-	.kv-sheet__row {
-		grid-template-columns: 5.25rem 1fr;
-		gap: 0.55rem;
-	}
-	.kv-sheet__row dt,
-	.kv-sheet__row dd {
+	.craft-view,
+	.life-view {
 		font-size: 0.82rem;
+	}
+	.craft-view__lead,
+	.life-view__lead {
+		font-size: 0.82rem;
+	}
+	.craft-view__tags .bio__tag {
+		white-space: normal;
 	}
 	.ls-out { font-size: 0.78rem; }
 	.ls-out--nested { padding-left: 0.85rem; }

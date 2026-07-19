@@ -1,21 +1,15 @@
 ---
 import { personal } from '../data/site';
-
-function label(key: string) {
-	return key.replace(/_/g, ' ');
-}
 ---
 
-<div class="kv-sheet">
-	<section class="kv-sheet__block">
-		<h3 class="kv-sheet__heading">about me</h3>
-		<dl class="kv-sheet__list">
-			{personal.map((row) => (
-				<div class="kv-sheet__row">
-					<dt>{label(row.key)}</dt>
-					<dd>{row.value}</dd>
-				</div>
-			))}
-		</dl>
-	</section>
+<div class="life-view">
+	<p class="life-view__lead">{personal.lead}</p>
+	<div class="life-view__cards">
+		{personal.blocks.map((block) => (
+			<div class="tag-box tag-box--c">
+				<div class="tag-box__key">{block.key}</div>
+				<div class="tag-box__text">{block.text}</div>
+			</div>
+		))}
+	</div>
 </div>

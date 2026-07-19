@@ -63,29 +63,49 @@ export const now = {
 };
 
 export const craft = {
-	principles: [
-		{ key: 'analyze', value: 'Understand the problem before writing a line.' },
-		{ key: 'simplicity', value: 'Prefer clear, clean, modular software.' },
-		{ key: 'product', value: 'Keep technical choices tied to the product.' },
-		{ key: 'iterate', value: 'Observe, try, adjust — do not settle for the first answer.' },
-	] as const,
-	skills: [
-		{ area: 'backend', items: 'Node.js, NestJS, Python, REST, GraphQL, PostgreSQL, MongoDB' },
-		{ area: 'frontend', items: 'TypeScript, React, Next.js, HTML, CSS, Tailwind CSS' },
-		{ area: 'cloud', items: 'AWS, Docker, Git, Linux, CI/CD' },
+	lead:
+		'I work best when I slow down enough to understand the problem, then build in pieces that stay clear as the product evolves.',
+	mindset:
+		'Simple, modular, product-minded — I question assumptions, compare options, and adjust as I learn instead of locking into the first idea.',
+	stackDirs: [
+		{
+			dir: 'backend',
+			items: ['Node.js', 'NestJS', 'Python', 'REST', 'GraphQL', 'PostgreSQL', 'MongoDB'],
+		},
+		{
+			dir: 'frontend',
+			items: ['TypeScript', 'React', 'Next.js', 'HTML', 'CSS', 'Tailwind CSS'],
+		},
+		{ dir: 'cloud', items: ['AWS', 'Docker', 'Git', 'Linux', 'CI/CD'] },
 	] as const,
 };
 
-export const personal = [
-	{ key: 'likes', value: 'philosophy, sports, music, series, movies, books' },
-	{ key: 'figures', value: 'Marcus Aurelius, Charlemagne' },
-	{ key: 'music', value: 'playlists on rotation' },
-	{ key: 'series', value: 'still picking favorites' },
-	{ key: 'movies', value: 'still picking favorites' },
-	{ key: 'books', value: 'still picking favorites' },
-	{ key: 'dev_books', value: 'still picking favorites' },
-	{ key: 'sports', value: 'yes — staying active matters' },
-] as const;
+export const personal = {
+	lead:
+		'Away from the editor I recharge with philosophy, sport, and stories that stay with me — same curiosity, different fuel.',
+	blocks: [
+		{
+			key: 'figures',
+			text: 'Marcus Aurelius and Charlemagne — inner discipline on one side, building something larger than yourself on the other.',
+		},
+		{
+			key: 'reads',
+			text: 'Meditations, Clean Code, and Designing Data-Intensive Applications — stoicism, craft, and systems that have to last.',
+		},
+		{
+			key: 'screen',
+			text: 'Interstellar, The Social Network, Silo, and The Bear — scale, obsession, and people under real pressure.',
+		},
+		{
+			key: 'sound',
+			text: 'Film scores and lo-fi while I think; louder rock when I need to reset after a long debug session.',
+		},
+		{
+			key: 'field',
+			text: 'Football with friends, gym, and walks — movement keeps my head as clear as my code should be.',
+		},
+	] as const,
+};
 
 export const skills = {
 	frontend: ['TypeScript', 'React', 'Next.js', 'HTML', 'CSS', 'Tailwind CSS'],

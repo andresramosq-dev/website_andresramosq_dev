@@ -1,29 +1,34 @@
 ---
 import { craft } from '../data/site';
+import BioTag from './BioTag.astro';
 ---
 
-<div class="kv-sheet">
-	<section class="kv-sheet__block">
-		<h3 class="kv-sheet__heading">philosophy</h3>
-		<dl class="kv-sheet__list">
-			{craft.principles.map((row) => (
-				<div class="kv-sheet__row">
-					<dt>{row.key}</dt>
-					<dd>{row.value}</dd>
-				</div>
-			))}
-		</dl>
-	</section>
+<div class="craft-view">
+	<p class="craft-view__lead">{craft.lead}</p>
 
-	<section class="kv-sheet__block">
-		<h3 class="kv-sheet__heading">stack</h3>
-		<dl class="kv-sheet__list">
-			{craft.skills.map((row) => (
-				<div class="kv-sheet__row">
-					<dt>{row.area}</dt>
-					<dd class="kv-sheet__stack">{row.items}</dd>
-				</div>
+	<div class="tag-box tag-box--c">
+		<div class="tag-box__key">mindset</div>
+		<div class="tag-box__text">{craft.mindset}</div>
+	</div>
+
+	<div class="craft-view__tree">
+		<p class="craft-view__prompt">
+			<span class="craft-view__sig">$</span> ls <span class="craft-view__path">~/stack</span>
+		</p>
+		<ul class="craft-view__dirs">
+			{craft.stackDirs.map((group) => (
+				<li class="craft-view__dir">
+					<div class="craft-view__dirhead">
+						<span class="craft-view__perm">drwxr-xr-x</span>
+						<span class="craft-view__dirname">{group.dir}/</span>
+					</div>
+					<div class="craft-view__tags">
+						{group.items.map((item) => (
+							<BioTag label={item} />
+						))}
+					</div>
+				</li>
 			))}
-		</dl>
-	</section>
+		</ul>
+	</div>
 </div>
