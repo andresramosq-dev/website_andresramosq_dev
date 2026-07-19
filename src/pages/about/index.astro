@@ -8,7 +8,6 @@ import SitePanel from '../../components/SitePanel.astro';
 import StackPanel from '../../components/StackPanel.astro';
 import PhilosophyPanel from '../../components/PhilosophyPanel.astro';
 import TastesPanel from '../../components/TastesPanel.astro';
-import PersonaPanel from '../../components/PersonaPanel.astro';
 import { site, now } from '../../data/site';
 ---
 
@@ -54,10 +53,6 @@ import { site, now } from '../../data/site';
 
   <CmdBlock cmd="tastes" id="tastes">
     <TastesPanel />
-  </CmdBlock>
-
-  <CmdBlock cmd="cat persona.txt" id="persona">
-    <PersonaPanel />
   </CmdBlock>
 
   <p class="cmd-block__line cmd-block__line--idle">

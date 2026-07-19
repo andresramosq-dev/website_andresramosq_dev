@@ -1,16 +1,15 @@
 ---
 import { tastes } from '../data/site';
 
-const label = tastes.spotify.playlistLabel ?? 'playlist';
 const playerHref = tastes.spotify.playerHref;
+const linkLabel = tastes.spotify.playerLinkLabel;
 ---
 
 <div class="hdr-music" aria-label="Music">
-	<span class="hdr-music__label">{label}</span>
-	<a class="hdr-music__btn" href={playerHref} title="Open player" aria-label="Open music player">
-		▶
-	</a>
 	<a class="hdr-music__link" href={playerHref}>
-		player
+		{linkLabel}
+	</a>
+	<a class="hdr-music__btn" href={playerHref} title="Open player" aria-label="Play music">
+		▶
 	</a>
 </div>

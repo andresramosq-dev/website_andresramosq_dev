@@ -51,10 +51,7 @@ export const site = {
 	},
 };
 
-export const nav = [
-	{ label: 'about', href: '/about' },
-	{ label: 'music', href: '/music' },
-] as const;
+export const nav = [{ label: 'about', href: '/about' }] as const;
 
 export const now = {
 	focused_on:
@@ -152,6 +149,7 @@ export const tastes = {
 		playlistUrl: 'https://open.spotify.com/playlist/6LLHq6QhG5QlEDSW3yUtOl',
 		playlistLabel: 'favorites',
 		playerHref: '/music',
+		playerLinkLabel: 'musica de andres',
 		tracks: [] as readonly string[],
 	},
 };
