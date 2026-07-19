@@ -348,22 +348,21 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	text-decoration: none;
 }
 .whoami__tagline {
-	margin: 0;
-	padding: 0.65rem 0.8rem;
-	border: 1px solid var(--border2);
-	border-left: 3px solid var(--term-amber);
-	background: var(--panel2);
+	margin: 0.15rem 0 0;
+	padding: 0;
+	border: none;
+	background: none;
 	color: var(--ink);
 	font-family: var(--mono);
 	font-size: inherit;
 	font-weight: 500;
-	line-height: 1.6;
+	line-height: inherit;
 	letter-spacing: -0.01em;
 }
 .whoami__tagline-prefix {
-	color: var(--term-amber);
-	font-weight: 500;
-	margin-right: 0.35rem;
+	color: var(--muted);
+	font-weight: 400;
+	margin-right: 0.25rem;
 }
 .whoami__sig {
 	color: var(--muted);
