@@ -23,12 +23,38 @@ type SpotifyIFrameAPI = {
 
 type PlayerState = 'paused' | 'playing' | 'loading';
 
+type SpotifyGlobal = {
+	controller: SpotifyEmbedController | null;
+	embedReady: boolean;
+	booting: boolean;
+	pendingPlay: boolean;
+	lastPaused: boolean;
+	lastState: PlayerState;
+	uiAbort: AbortController | null;
+};
+
 declare global {
 	interface Window {
 		onSpotifyIframeApiReady?: (api: SpotifyIFrameAPI) => void;
 		__spotifyIframeApi?: SpotifyIFrameAPI;
 		__spotifyHdrBoot?: Array<(api: SpotifyIFrameAPI) => void>;
+		__spotifyGlobal?: SpotifyGlobal;
 	}
+}
+
+function globalState(): SpotifyGlobal {
+	if (!window.__spotifyGlobal) {
+		window.__spotifyGlobal = {
+			controller: null,
+			embedReady: false,
+			booting: false,
+			pendingPlay: false,
+			lastPaused: true,
+			lastState: 'loading',
+			uiAbort: null,
+		};
+	}
+	return window.__spotifyGlobal;
 }
 
 function whenSpotifyApi(): Promise<SpotifyIFrameAPI> {
@@ -55,101 +81,132 @@ function setEqActive(eq: HTMLElement | null, active: boolean) {
 	eq.classList.toggle('hdr-eq--active', active);
 }
 
-function init() {
-	const host = document.getElementById('spotify-header-embed-host');
-	const playBtn = document.querySelector<HTMLButtonElement>('[data-hdr-play]');
-	const eq = document.querySelector<HTMLElement>('[data-eq]');
-	const uri = host?.dataset.spotifyUri;
-	const playlistUrl = host?.dataset.spotifyUrl;
+function currentUi() {
+	return {
+		playBtn: document.querySelector<HTMLButtonElement>('[data-hdr-play]'),
+		eq: document.querySelector<HTMLElement>('[data-eq]'),
+	};
+}
 
-	if (!host || !playBtn || (!uri && !playlistUrl)) return;
+function setUiState(state: PlayerState, g: SpotifyGlobal) {
+	g.lastState = state;
+	const { playBtn, eq } = currentUi();
+	if (!playBtn) return;
 
-	const musicMount = document.querySelector<HTMLElement>('[data-spotify-page-player]');
-	const onMusicPage = Boolean(musicMount);
-	if (musicMount) {
-		musicMount.appendChild(host);
-		host.classList.add('spotify-header-sink--page');
+	playBtn.dataset.state = state;
+	const label =
+		state === 'playing' ? 'Pause' : state === 'loading' ? 'Connecting to Spotify' : 'Play';
+	playBtn.setAttribute('aria-label', label);
+	playBtn.setAttribute('aria-busy', state === 'loading' ? 'true' : 'false');
+	setEqActive(eq, state === 'playing');
+}
+
+function applyPaused(paused: boolean, g: SpotifyGlobal) {
+	g.lastPaused = paused;
+	g.pendingPlay = false;
+	setUiState(paused ? 'paused' : 'playing', g);
+}
+
+function onPlaybackData(data: PlaybackData | undefined, g: SpotifyGlobal) {
+	if (data?.isBuffering) {
+		setUiState('loading', g);
+		return;
 	}
+	const paused = pausedFromData(data);
+	if (paused !== null) applyPaused(paused, g);
+}
 
-	let controller: SpotifyEmbedController | null = null;
-	let embedReady = false;
-	let pendingPlay = false;
-	let lastPaused = true;
+function wireController(ctrl: SpotifyEmbedController, host: HTMLElement, g: SpotifyGlobal) {
+	g.controller = ctrl;
 
-	const setState = (state: PlayerState) => {
-		playBtn.dataset.state = state;
-		const label =
-			state === 'playing' ? 'Pause' : state === 'loading' ? 'Connecting to Spotify' : 'Play';
-		playBtn.setAttribute('aria-label', label);
-		playBtn.setAttribute('aria-busy', state === 'loading' ? 'true' : 'false');
-		setEqActive(eq, state === 'playing');
-	};
-
-	const applyPaused = (paused: boolean) => {
-		lastPaused = paused;
-		pendingPlay = false;
-		setState(paused ? 'paused' : 'playing');
-	};
-
-	const onPlaybackData = (data?: PlaybackData) => {
-		if (data?.isBuffering) {
-			setState('loading');
-			return;
-		}
-		const paused = pausedFromData(data);
-		if (paused !== null) applyPaused(paused);
-	};
-
-	const wireController = (ctrl: SpotifyEmbedController) => {
-		controller = ctrl;
-
-		ctrl.addListener('ready', () => {
-			embedReady = true;
-			host.dataset.spotifyReady = 'true';
-			if (pendingPlay) {
-				setState('loading');
-				ctrl.resume();
-			} else {
-				applyPaused(true);
-			}
-		});
-
-		ctrl.addListener('playback_started', () => {
-			applyPaused(false);
-		});
-
-		ctrl.addListener('playback_update', (e) => {
-			onPlaybackData(e.data);
-		});
-	};
-
-	playBtn.addEventListener('click', () => {
-		if (!controller || !embedReady) {
-			pendingPlay = true;
-			setState('loading');
-			return;
-		}
-
-		if (lastPaused) {
-			setState('loading');
-			controller.resume();
+	ctrl.addListener('ready', () => {
+		g.embedReady = true;
+		host.dataset.spotifyReady = 'true';
+		if (g.pendingPlay) {
+			setUiState('loading', g);
+			ctrl.resume();
 		} else {
-			controller.pause();
+			applyPaused(g.lastPaused, g);
 		}
 	});
 
-	setState('loading');
+	ctrl.addListener('playback_started', () => {
+		applyPaused(false, g);
+	});
+
+	ctrl.addListener('playback_update', (e) => {
+		onPlaybackData(e.data, g);
+	});
+}
+
+function ensureEmbed(host: HTMLElement, playlistUrl: string | undefined, uri: string | undefined) {
+	const g = globalState();
+	if (g.controller || g.booting) return;
+
+	g.booting = true;
+	setUiState('loading', g);
 
 	const options: { width: number; height: number; uri?: string; url?: string } = {
-		width: onMusicPage ? 860 : 300,
-		height: onMusicPage ? 380 : 80,
+		width: 300,
+		height: 80,
 	};
 	if (playlistUrl) options.url = playlistUrl;
 	else if (uri) options.uri = uri;
 
 	void whenSpotifyApi().then((api) => {
-		api.createController(host, options, wireController);
+		api.createController(host, options, (ctrl) => {
+			wireController(ctrl, host, g);
+		});
 	});
 }
 
+function bindUi() {
+	const g = globalState();
+	const { playBtn } = currentUi();
+	if (!playBtn) return;
+
+	g.uiAbort?.abort();
+	g.uiAbort = new AbortController();
+	const { signal } = g.uiAbort;
+
+	playBtn.addEventListener(
+		'click',
+		() => {
+			if (!g.controller || !g.embedReady) {
+				g.pendingPlay = true;
+				setUiState('loading', g);
+				return;
+			}
+
+			if (g.lastPaused) {
+				setUiState('loading', g);
+				g.controller.resume();
+			} else {
+				g.controller.pause();
+			}
+		},
+		{ signal },
+	);
+
+	if (g.embedReady) {
+		setUiState(g.lastPaused ? 'paused' : 'playing', g);
+	} else if (!g.booting) {
+		setUiState('loading', g);
+	} else {
+		setUiState(g.lastState, g);
+	}
+}
+
+function init() {
+	const host = document.getElementById('spotify-header-embed-host');
+	const uri = host?.dataset.spotifyUri;
+	const playlistUrl = host?.dataset.spotifyUrl;
+
+	if (!host || (!uri && !playlistUrl)) return;
+
+	bindUi();
+	ensureEmbed(host, playlistUrl, uri);
+}
+
 init();
+document.addEventListener('astro:page-load', init);

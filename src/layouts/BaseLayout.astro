@@ -1,5 +1,6 @@
 ---
 import '../styles/dev.css';
+import { ClientRouter } from 'astro:transitions';
 import TerminalShell from '../components/TerminalShell.astro';
 import { site, nav, tastes } from '../data/site';
 import { spotifyPlaylistUri } from '../lib/spotify';
@@ -24,6 +25,7 @@ const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
     <meta name="author" content={site.name} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{pageTitle}</title>
+    <ClientRouter />
     {spotifyUri ? (
       <>
         <link rel="preconnect" href="https://open.spotify.com" />
@@ -50,6 +52,7 @@ const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
         class="spotify-header-sink"
         data-spotify-uri={spotifyUri}
         data-spotify-url={tastes.spotify.playlistUrl}
+        transition:persist="spotify-global-player"
         aria-hidden="true"
       ></div>
     ) : null}
