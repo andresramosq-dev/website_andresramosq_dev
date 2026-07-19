@@ -34,8 +34,9 @@ import { site } from '../data/site';
 						{site.social.map((s) =>
 							s.href ? (
 								<a
+									class="whoami__icon"
 									href={s.href}
-									title={s.label}
+									data-label={s.label}
 									aria-label={s.label}
 									target={s.href.startsWith('http') ? '_blank' : undefined}
 									rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
@@ -43,7 +44,7 @@ import { site } from '../data/site';
 									<Icon name={s.icon} size={18} />
 								</a>
 							) : (
-								<span class="whoami__icons-idle" title={s.label} aria-label={s.label} role="img">
+								<span class="whoami__icon whoami__icon--idle" data-label={s.label} aria-label={s.label} role="img">
 									<Icon name={s.icon} size={18} />
 								</span>
 							)
