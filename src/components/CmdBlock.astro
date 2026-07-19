@@ -14,7 +14,7 @@ const { cmd, id } = Astro.props;
 		<span class="cmd-block__path">
 			<span class="cmd-block__user">{site.consoleUser}</span>@<span class="cmd-block__host">{site.domain}</span>:<span class="cmd-block__cwd">~/about</span>
 		</span>
-		<span class="cmd-block__cmd">{cmd}</span>
+		<span class="cmd-block__cmd"> {cmd}</span>
 	</p>
 	<div class="cmd-block__out">
 		<slot />

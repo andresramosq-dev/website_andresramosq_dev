@@ -3,9 +3,10 @@ import { site } from '../data/site';
 
 interface Props {
 	size?: 'sm' | 'md';
+	caption?: boolean;
 }
 
-const { size = 'md' } = Astro.props;
+const { size = 'md', caption = true } = Astro.props;
 ---
 
 <figure class:list={['avatar', size === 'sm' && 'avatar--sm', size === 'md' && 'avatar--md']}>
@@ -18,5 +19,5 @@ const { size = 'md' } = Astro.props;
 			loading="eager"
 		/>
 	</div>
-	<figcaption class="avatar__path">{site.avatarPath}</figcaption>
+	{caption && <figcaption class="avatar__path">{site.avatarPath}</figcaption>}
 </figure>

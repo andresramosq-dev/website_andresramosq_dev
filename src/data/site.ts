@@ -23,11 +23,11 @@ export const site = {
 		'Fuera del editor: leo sobre sistemas de diseño, pruebo stacks nuevos en side projects y escribo notas cortas sobre lo que voy aprendiendo. Este sitio es ese cuaderno, en formato terminal.',
 	],
 	social: [
-		{ id: 'github', label: 'github', href: 'https://github.com/ramos-andres-dev', value: 'github.com/ramos-andres-dev' },
-		{ id: 'linkedin', label: 'linkedin', href: 'https://linkedin.com/in/andresramos', value: 'linkedin.com/in/andresramos' },
-		{ id: 'gmail', label: 'gmail', href: 'mailto:andfera201@gmail.com', value: 'andfera201@gmail.com' },
-		{ id: 'spotify', label: 'spotify', href: 'https://open.spotify.com/user/andresramos', value: 'open.spotify.com/andresramos' },
-		{ id: 'phone', label: 'phone', href: 'tel:+573001234567', value: '+57 300 123 4567' },
+		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/ramos-andres-dev', value: 'github.com/ramos-andres-dev' },
+		{ id: 'linkedin', icon: 'linkedin' as const, label: 'LinkedIn', href: 'https://linkedin.com/in/andresramos', value: 'linkedin.com/in/andresramos' },
+		{ id: 'gmail', icon: 'mail' as const, label: 'Gmail', href: 'mailto:andfera201@gmail.com', value: 'andfera201@gmail.com' },
+		{ id: 'spotify', icon: 'spotify' as const, label: 'Spotify', href: 'https://open.spotify.com/user/andresramos', value: 'open.spotify.com/andresramos' },
+		{ id: 'phone', icon: 'phone' as const, label: 'Teléfono', href: 'tel:+573001234567', value: '+57 300 123 4567' },
 	] as const,
 	links: [
 		{ label: 'GitHub', href: 'https://github.com/ramos-andres-dev', icon: 'github' as const },

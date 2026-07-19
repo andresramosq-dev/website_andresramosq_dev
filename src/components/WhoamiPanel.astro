@@ -1,52 +1,43 @@
 ---
 import ProfilePhoto from './ProfilePhoto.astro';
+import Icon from './Icon.astro';
 import { site } from '../data/site';
 ---
 
 <div class="whoami">
-	<div class="whoami__head">
-		<ProfilePhoto size="md" />
-		<dl class="whoami__meta">
-			<div>
-				<dt>name</dt>
-				<dd class="whoami__name">{site.name}</dd>
-			</div>
-			<div>
-				<dt>handle</dt>
-				<dd><a href={site.social[0].href} target="_blank" rel="noreferrer">{site.handle}</a></dd>
-			</div>
-			<div>
-				<dt>role</dt>
-				<dd>{site.role}</dd>
-			</div>
-		</dl>
+	<div class="whoami__main">
+		<ProfilePhoto size="md" caption={false} />
+		<div class="whoami__info">
+			<p class="whoami__name">{site.name}</p>
+			<p class="whoami__handle">
+				<a href={site.social[0].href} target="_blank" rel="noreferrer">{site.handle}</a>
+			</p>
+			<p class="whoami__role">{site.role}</p>
+		</div>
 	</div>
 
 	<p class="whoami__tagline">
-		<span class="whoami__prompt">&gt;</span> {site.tagline}
-		<span class="whoami__pillars">
-			{site.pillars.map((p) => (
-				<span class="whoami__pillar">• {p}</span>
-			))}
-		</span>
+		<span class="whoami__sig">$</span> {site.tagline}
+		{site.pillars.map((p) => (
+			<span class="whoami__pillar">· {p}</span>
+		))}
 	</p>
 
 	<div class="whoami__links">
-		<p class="whoami__links-hd">contact/</p>
-		<ul class="whoami__links-list">
+		<span class="whoami__links-label">links</span>
+		<div class="whoami__icons">
 			{site.social.map((s) => (
-				<li>
-					<span class="whoami__link-key">{s.label}</span>
-					<span class="whoami__link-sep">→</span>
-					<a
-						href={s.href}
-						target={s.href.startsWith('http') ? '_blank' : undefined}
-						rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
-					>
-						{s.value}
-					</a>
-				</li>
+				<a
+					class="whoami__icon"
+					href={s.href}
+					title={s.label}
+					aria-label={s.label}
+					target={s.href.startsWith('http') ? '_blank' : undefined}
+					rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
+				>
+					<Icon name={s.icon} size={16} />
+				</a>
 			))}
-		</ul>
+		</div>
 	</div>
 </div>
