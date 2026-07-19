@@ -36,16 +36,17 @@ export const site = {
 		{ label: 'Email', href: 'mailto:andresramosq.dev@gmail.com' },
 	],
 	aboutSite: {
+		leadBefore: 'This is',
 		leadAfter:
-			' — a public console to publish ideas about software, technology, product work, and the craft behind building systems. Notes, experiments, lessons from real projects, and whatever else is worth leaving visible.',
-		builtBefore: 'The site runs on',
+			' — my space to share ideas, projects, what I am learning, and where development is taking me. Over time it will grow with notes, a blog, and work worth keeping public.',
+		builtBefore: 'I built it with',
 		builtWith: ['Astro'] as const,
-		builtMid: ', shaped with help from',
+		builtMid: ', with help from',
 		builtAlso: ['Cursor'] as const,
 		builtAfter:
-			' — useful for structure, writing, and iterating on the interface without pretending I design every detail alone.',
+			' to move faster on the development side (I am not that great at web design 😉).',
 		language:
-			'Everything here is written in English. It is not my strongest language yet, so this space is also practice: clearer thinking, cleaner sentences, and a habit of writing in public.',
+			'I write everything in English. It is not my strongest language yet, but practicing here is part of the point.',
 	},
 };
 

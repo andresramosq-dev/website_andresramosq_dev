@@ -14,7 +14,8 @@ const { aboutSite } = site;
 
 <div class="site-about">
 	<p class="site-about__lead">
-		<a class="site-about__handle" href="#profile">{site.handle}</a>
+		<span class="site-about__lead-text">{aboutSite.leadBefore}</span>{' '}
+		<a class="site-about__handle" href="#profile">{site.domain}</a>
 		<span class="site-about__lead-text">{aboutSite.leadAfter}</span>
 	</p>
 
