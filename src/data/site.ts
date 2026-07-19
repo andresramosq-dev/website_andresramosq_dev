@@ -4,22 +4,21 @@ export const site = {
 	user: 'andres',
 	name: 'Andrés Ramos',
 	handle: '@andresramos-dev',
-	role: 'Senior Software Developer',
-	location: 'Pitalito, Huila · remote',
+	role: 'Desarrollador de Software Senior',
+	location: 'Pitalito, Huila · remoto',
 	email: 'andfera201@gmail.com',
 	phone: '+57 317 211 6762',
 	since: 2020,
 	avatar: '/images/avatar.svg',
 	avatarPath: '~/about/avatar.jpg',
-	tagline: 'I help you build software your team will love maintaining:',
-	pillars: ['Clean', 'Solid', 'Scalable'] as const,
+	tagline: 'Te ayudo a construir software que tu equipo amará mantener:',
+	pillars: ['Limpio', 'Sólido', 'Escalable'] as const,
 	consoleSlug: 'consola-de-andres-ramos',
 	description:
-		'Personal console of Andrés Ramos. Backend development, APIs, microservices, and notes on the craft.',
-	bio: `Backend developer with 4+ years of experience across R5 Colombia and Nova Dynamics.
-Built insurer and payment gateway integrations for SOAT sales platforms, IAM and microservice
-orchestration, and production backends with Python, TypeScript, Node.js, NestJS, GraphQL,
-PostgreSQL, MongoDB, Docker, and AWS.`,
+		'Consola personal de Andrés Ramos. Backend, APIs, microservicios y notas sobre el oficio.',
+	bio: `Desarrollador de software senior con más de 4 años de experiencia en desarrollo backend, principalmente con JavaScript, TypeScript, Node.js, Python, PostgreSQL, AWS, Docker y Git. Apasionado por el código limpio, arquitectura modular y sistemas que el equipo pueda mantener.`,
+	bioPersonal:
+		'actualmente estoy jugando mucho con la IA (esta web fue construida en gran parte gracias a ella —no soy muy bueno con diseños web— 😉) y construir sistemas desde cero; estoy buscando ese reto de productos a mejorar y construir',
 	about: [],
 	social: [
 		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/aframos-dev', value: 'github.com/aframos-dev' },

@@ -2,4 +2,14 @@
 import { site } from '../data/site';
 ---
 
-<pre class="bio__out">{site.bio}</pre>
+<div class="bio">
+	<pre class="bio__out">{site.bio}</pre>
+	<div class="term-print">
+		<p class="term-print__line">
+			<span class="term-print__sig">@</span><span class="term-print__cmd"> print \</span>
+		</p>
+		<p class="term-print__line term-print__line--cont">
+			<span class="term-print__sig">&gt;</span> <span class="term-print__cmd">"{site.bioPersonal}"</span>
+		</p>
+	</div>
+</div>
