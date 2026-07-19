@@ -3,11 +3,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 :root {
-	--bg: #f9f8f5;
+	--bg: #ffffff;
 	--surface: #ffffff;
-	--text: #1c1917;
-	--muted: #78716c;
-	--line: #e7e5e0;
+	--text: #111827;
+	--muted: #6b7280;
+	--line: #e5e7eb;
 	--max: 1080px;
 	--read: 680px;
 	--sans: 'Plus Jakarta Sans', system-ui, sans-serif;
