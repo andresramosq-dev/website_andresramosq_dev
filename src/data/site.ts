@@ -24,7 +24,7 @@ export const site = {
 		'I have also built a Virtual Contact Center from scratch — IAM, module registration, inbound/outbound calls, and more — leading the systems team and balancing product with engineering.',
 	] as const,
 	bioQuote:
-		'No trabajo para construir el viejo que quiero ser, trabajo para no perder el joven que un día quise ser.',
+		"I don't work to become the old man I want to be — I work so I don't lose the young man I once wanted to become.",
 	bioPersonal: [
 		'Lately I have been playing a lot with AI — this site was built with it (I am not great at web design 😉).',
 		'I am looking for my next challenge right now — not just writing code, but building software products or growing strong teams. If you have that kind of challenge or a proposal for me, get in touch.',
