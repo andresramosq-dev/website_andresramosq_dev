@@ -328,7 +328,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	text-decoration: none;
 }
 .whoami__handle:hover {
-	color: var(--host);
+	color: var(--cmd);
 	text-decoration: underline;
 	text-underline-offset: 3px;
 }
