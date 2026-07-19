@@ -24,16 +24,16 @@ export const site = {
 		'This site is in English — not my strongest language, but I am working on getting better at it.',
 	],
 	social: [
-		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/andresramos-dev', value: 'github.com/andresramos-dev' },
-		{ id: 'linkedin', icon: 'linkedin' as const, label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramos-dev/', value: 'linkedin.com/in/andresramos-dev' },
-		{ id: 'gmail', icon: 'mail' as const, label: 'Gmail', href: 'mailto:andresramosdev.personal@gmail.com', value: 'andresramosdev.personal@gmail.com' },
+		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/andresramosq-dev', value: 'github.com/andresramosq-dev' },
+		{ id: 'linkedin', icon: 'linkedin' as const, label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramosq-dev', value: 'linkedin.com/in/andresramosq-dev' },
+		{ id: 'gmail', icon: 'mail' as const, label: 'Gmail', href: 'mailto:andresramosq.dev@gmail.com', value: 'andresramosq.dev@gmail.com' },
 		{ id: 'spotify', icon: 'spotify' as const, label: 'Spotify', href: 'https://open.spotify.com/user/12163431588', value: 'open.spotify.com/user/12163431588' },
 		{ id: 'cv', icon: 'cv' as const, label: 'CV', href: '/about', value: 'cv' },
 	] as const,
 	links: [
-		{ label: 'GitHub', href: 'https://github.com/andresramos-dev' },
-		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramos-dev/' },
-		{ label: 'Email', href: 'mailto:andresramosdev.personal@gmail.com' },
+		{ label: 'GitHub', href: 'https://github.com/andresramosq-dev' },
+		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramosq-dev' },
+		{ label: 'Email', href: 'mailto:andresramosq.dev@gmail.com' },
 	],
 };
 
