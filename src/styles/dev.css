@@ -590,8 +590,20 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .stack-line__val {
 	flex: 1 1 12rem;
 	min-width: 0;
-	color: var(--text);
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem 0.5rem;
+	align-items: baseline;
 	font-size: 0.86rem;
+}
+.stack-tag {
+	color: var(--cmd);
+	font-weight: 500;
+	white-space: nowrap;
+}
+.stack-tag__hash {
+	color: var(--cmd);
+	font-weight: 500;
 }
 .tastes {
 	display: grid;
@@ -771,6 +783,9 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	}
 	.stack-line__val {
 		font-size: 0.82rem;
+	}
+	.stack-tag {
+		white-space: normal;
 	}
 	.tastes__lead,
 	.persona,

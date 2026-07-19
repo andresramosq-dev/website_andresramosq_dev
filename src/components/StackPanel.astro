@@ -6,7 +6,14 @@ import { stack } from '../data/site';
 	{stack.groups.map((group) => (
 		<p class="stack-line">
 			<span class="stack-line__key">{group.label}</span>
-			<span class="stack-line__val">{group.items.join(', ')}</span>
+			<span class="stack-line__val">
+				{group.items.map((item) => (
+					<span class="stack-tag">
+						<span class="stack-tag__hash">#</span>
+						{item}
+					</span>
+				))}
+			</span>
 		</p>
 	))}
 </div>

@@ -72,14 +72,14 @@ export const stack = {
 				'Node.js',
 				'NestJS',
 				'Python',
-				'REST API',
+				'REST APIs',
 				'GraphQL',
 				'Microservices',
 			],
 		},
 		{
 			label: 'data',
-			items: ['PostgreSQL', 'MongoDB', 'SQL', 'NoSQL', 'DynamoDB'],
+			items: ['PostgreSQL', 'MongoDB', 'SQL', 'NoSQL'],
 		},
 		{
 			label: 'architecture',
@@ -87,9 +87,9 @@ export const stack = {
 		},
 		{
 			label: 'methodology',
-			items: ['Agile', 'Scrum', 'Kanban', 'Sprint Planning', 'Code Review'],
+			items: ['Agile', 'Scrum', 'Kanban', 'Code Review'],
 		},
-		{ label: 'cloud', items: ['AWS', 'Docker', 'Git', 'Linux', 'CI/CD'] },
+		{ label: 'cloud', items: ['AWS', 'Docker', 'Git', 'Linux', 'Bash', 'CI/CD'] },
 	] as const,
 };
 
