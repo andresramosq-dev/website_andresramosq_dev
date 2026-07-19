@@ -778,12 +778,11 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	.console-doc__line {
 		font-size: 0.82rem;
 	}
-	.stack-line__key {
-		min-width: 5.5rem;
-		font-size: 0.82rem;
+	.stack-block {
+		padding: 0.5rem 0.6rem;
 	}
-	.stack-line__val {
-		font-size: 0.82rem;
+	.stack-block__key {
+		font-size: 0.68rem;
 	}
 	.stack-tag {
 		white-space: normal;
