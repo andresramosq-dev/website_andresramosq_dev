@@ -1,25 +1,14 @@
 ---
 import { site } from '../data/site';
-
-interface Props {
-	segment?: string;
-}
-
-const { segment = '~/andres' } = Astro.props;
 ---
 
 <div class="twin">
 	<header class="twin__bar">
-		<div class="twin__title-row">
-			<span class="twin__led" aria-hidden="true"></span>
-			<span class="twin__prompt">bash</span>
-			<a class="twin__brand" href="/andres">{site.domain}</a>
-			<span class="twin__sep">—</span>
-			<span class="twin__session">{site.consoleTitle}</span>
-		</div>
-		<div class="twin__cwd-row">
-			<span class="user">{site.user}</span>@<span class="host">{site.domain}</span>:<span class="twin__path">{segment}</span>
-		</div>
+		<span class="twin__led" aria-hidden="true"></span>
+		<span class="twin__prompt">bash</span>
+		<a class="twin__brand" href="/andres">{site.domain}</a>
+		<span class="twin__sep">—</span>
+		<span class="twin__session">{site.consoleTitle}</span>
 	</header>
 	<div class="twin__body">
 		<slot />

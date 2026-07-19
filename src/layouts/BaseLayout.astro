@@ -1,9 +1,7 @@
 ---
 import '../styles/dev.css';
 import TerminalShell from '../components/TerminalShell.astro';
-import AboutNav from '../components/AboutNav.astro';
-import { site } from '../data/site';
-import { pathToSegment } from '../utils/segment';
+import { site, nav } from '../data/site';
 
 interface Props {
 	title?: string;
@@ -13,8 +11,6 @@ interface Props {
 
 const { title, description, path = '/andres' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
-const segment = pathToSegment(path);
-const isAbout = path.startsWith('/andres');
 ---
 
 <!doctype html>
@@ -31,21 +27,24 @@ const isAbout = path.startsWith('/andres');
     <a class="skip" href="#main">Saltar al contenido</a>
 
     <div class="desk">
-      <TerminalShell segment={segment}>
-        {isAbout && (
-          <header class="term-hd">
-            <AboutNav />
-          </header>
-        )}
+      <TerminalShell>
+        <header class="term-hd">
+          <nav class="nav" aria-label="Rutas">
+            {nav.map((item) => (
+              <a href={item.href} aria-current={path === item.href || path.startsWith(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </header>
 
         <main id="main" class="main">
           <slot />
         </main>
 
         <footer class="ftr" role="contentinfo">
-          <span class="ftr__status">[exit 0]</span>
           <span>© {new Date().getFullYear()} {site.domain}</span>
-          <div class="ftr__links">
+          <div>
             {site.links.map((l, i) => (
               <>
                 {i > 0 && ' · '}

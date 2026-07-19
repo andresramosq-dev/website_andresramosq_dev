@@ -4,35 +4,34 @@ import PathTitle from '../../components/PathTitle.astro';
 import SectionPath from '../../components/SectionPath.astro';
 import TermPanel from '../../components/TermPanel.astro';
 import ProfilePhoto from '../../components/ProfilePhoto.astro';
-import {
-	site, skills, now, principles, experience, education, languages, interests,
-} from '../../data/site';
+import { site, skills, now, principles } from '../../data/site';
+
+const allSkills = [...skills.frontend, ...skills.backend, ...skills.tools];
 ---
 
 <BaseLayout title="sobre mí" path="/andres">
   <PathTitle path="/andres" />
 
-  <section class="about-section" aria-labelledby="perfil">
+  <section class="about-section">
     <SectionPath id="perfil" />
-    <TermPanel label="perfil.json">
+    <TermPanel label="perfil">
       <div class="about-hero">
         <ProfilePhoto size="md" />
         <div class="about-hero__info">
           <p class="about-hero__name">{site.name}</p>
-          <p class="about-hero__role">{site.role}</p>
-          <p class="about-hero__tag">{site.tagline}</p>
+          <p class="about-hero__role">{site.role} · {site.location}</p>
           <dl class="kv kv--grid">
-            <div><dt>ubicación</dt><dd>{site.location}</dd></div>
-            <div><dt>desde</dt><dd>{site.since}</dd></div>
             <div><dt>email</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd></div>
             <div><dt>github</dt><dd><a href={site.links[0].href} target="_blank" rel="noreferrer">{site.handle}</a></dd></div>
+            <div><dt>desde</dt><dd>{site.since}</dd></div>
+            <div><dt>web</dt><dd>{site.domain}</dd></div>
           </dl>
         </div>
       </div>
     </TermPanel>
   </section>
 
-  <section class="about-section" aria-labelledby="bio">
+  <section class="about-section">
     <SectionPath id="bio" />
     <TermPanel label="bio.txt">
       <div class="prose">
@@ -42,7 +41,7 @@ import {
     </TermPanel>
   </section>
 
-  <section class="about-section" aria-labelledby="now">
+  <section class="about-section">
     <SectionPath id="now" />
     <TermPanel label="now.txt">
       <dl class="now-grid">
@@ -62,62 +61,16 @@ import {
     </TermPanel>
   </section>
 
-  <section class="about-section" aria-labelledby="skills">
+  <section class="about-section">
     <SectionPath id="skills" />
     <TermPanel label="skills/">
-      <div class="skill-groups">
-        <div class="skill-group">
-          <p class="skill-group__label">frontend/</p>
-          <p class="skills-line">
-            {skills.frontend.map((s) => <span>{s}</span>)}
-          </p>
-        </div>
-        <div class="skill-group">
-          <p class="skill-group__label">backend/</p>
-          <p class="skills-line">
-            {skills.backend.map((s) => <span>{s}</span>)}
-          </p>
-        </div>
-        <div class="skill-group">
-          <p class="skill-group__label">tools/</p>
-          <p class="skills-line">
-            {skills.tools.map((s) => <span>{s}</span>)}
-          </p>
-        </div>
-      </div>
+      <p class="skills-line">
+        {allSkills.map((s) => <span>{s}</span>)}
+      </p>
     </TermPanel>
   </section>
 
-  <section class="about-section" aria-labelledby="experiencia">
-    <SectionPath id="experiencia" />
-    <TermPanel label="experiencia.log">
-      <div class="exp-list">
-        {experience.map((job) => (
-          <article class="exp">
-            <div class="exp__head">
-              <p class="exp__role">{job.role}</p>
-              <p class="exp__when">{job.period}</p>
-            </div>
-            <p class="exp__company">{job.company}</p>
-            <p class="exp__desc">{job.desc}</p>
-            <p class="exp__stack">{job.stack.join(' · ')}</p>
-          </article>
-        ))}
-      </div>
-      <div class="edu-block">
-        <p class="edu-block__label">formación/</p>
-        {education.map((e) => (
-          <div class="edu">
-            <p class="edu__title">{e.title}</p>
-            <p class="edu__meta">{e.place} · {e.period}</p>
-            <p class="edu__desc">{e.desc}</p>
-          </div>
-        ))}
-      </div>
-    </TermPanel>
-  </section>
-
-  <section class="about-section" aria-labelledby="principles">
+  <section class="about-section">
     <SectionPath id="principles" />
     <TermPanel label="principles.txt">
       <div class="principles">
@@ -128,37 +81,6 @@ import {
           </div>
         ))}
       </div>
-      <div class="extras">
-        <div class="extras__block">
-          <p class="extras__label">idiomas/</p>
-          <ul class="extras__list">
-            {languages.map((l) => (
-              <li><span class="extras__key">{l.lang}</span> — {l.level}</li>
-            ))}
-          </ul>
-        </div>
-        <div class="extras__block">
-          <p class="extras__label">intereses/</p>
-          <p class="skills-line">
-            {interests.map((i) => <span>{i}</span>)}
-          </p>
-        </div>
-      </div>
-    </TermPanel>
-  </section>
-
-  <section class="about-section" aria-labelledby="contacto">
-    <SectionPath id="contacto" />
-    <TermPanel label="contact.sh">
-      <p class="contact-intro">Puedes escribirme o ver más trabajo en:</p>
-      <ul class="contact-list">
-        {site.links.map((l) => (
-          <li>
-            <span class="contact-list__cmd">$ open {l.label.toLowerCase()}</span>
-            <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">{l.href.replace('mailto:', '')}</a>
-          </li>
-        ))}
-      </ul>
     </TermPanel>
   </section>
 </BaseLayout>

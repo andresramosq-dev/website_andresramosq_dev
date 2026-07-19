@@ -26,15 +26,13 @@ export const site = {
 	],
 };
 
-/** Secciones navegables bajo /andres */
+/** Secciones con sub-path en la página (no en el menú) */
 export const aboutNav = [
 	{ id: 'perfil', label: 'perfil' },
 	{ id: 'bio', label: 'bio' },
 	{ id: 'now', label: 'now' },
 	{ id: 'skills', label: 'skills' },
-	{ id: 'experiencia', label: 'experiencia' },
 	{ id: 'principles', label: 'principles' },
-	{ id: 'contacto', label: 'contacto' },
 ] as const;
 
 export const nav = [{ label: 'andres', href: '/andres' }] as const;
