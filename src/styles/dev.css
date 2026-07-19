@@ -151,7 +151,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	font-weight: 400;
 }
 .console-title__command,
-.console-title__echo,
+.console-title__print,
 .console-title__quote {
 	color: var(--ink);
 	font-weight: 600;
@@ -304,7 +304,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	opacity: 1;
 	text-decoration: none;
 }
-.whoami__echo {
+.whoami__print {
 	margin: 0;
 	padding: 0.65rem 0.75rem;
 	background: var(--panel2);
@@ -312,22 +312,26 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	font-size: 0.82rem;
 	line-height: 1.55;
 }
-.whoami__echo-line {
+.whoami__print-line {
 	margin: 0;
 }
-.whoami__echo-line--cont {
-	padding-left: 1.45rem;
+.whoami__print-line--cont {
+	padding-left: 0.15rem;
 	margin-top: 0.1rem;
 }
-.whoami__echo-text {
+.whoami__prompt {
+	color: var(--prompt);
+	font-weight: 600;
+}
+.whoami__print-text {
 	color: var(--text);
 	font-weight: 400;
 }
-.whoami__echo .whoami__sig {
+.whoami__print .whoami__sig {
 	color: var(--muted);
 	font-weight: 400;
 }
-.whoami__echo .whoami__cmd {
+.whoami__print .whoami__cmd {
 	color: var(--ink);
 	font-weight: 600;
 }
