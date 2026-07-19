@@ -22,6 +22,19 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
     <meta name="author" content={site.name} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{pageTitle}</title>
+    <script is:inline>
+      window.__spotifyApiQueue = window.__spotifyApiQueue || [];
+      if (!window.__spotifyIframeApi) {
+        const prev = window.onSpotifyIframeApiReady;
+        window.onSpotifyIframeApiReady = function (api) {
+          window.__spotifyIframeApi = api;
+          if (prev) prev(api);
+          (window.__spotifyApiQueue || []).forEach(function (fn) { fn(api); });
+          window.__spotifyApiQueue = [];
+        };
+      }
+    </script>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>

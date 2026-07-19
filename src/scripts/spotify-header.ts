@@ -1,7 +1,7 @@
 type SpotifyIframeApi = {
 	createController: (
 		element: HTMLElement,
-		options: { uri?: string; width?: string | number; height?: string | number },
+		options: { uri?: string; url?: string; width?: string | number; height?: string | number },
 		callback: (controller: SpotifyEmbedController) => void,
 	) => void;
 };
@@ -9,14 +9,13 @@ type SpotifyIframeApi = {
 type SpotifyEmbedController = {
 	addListener: (event: string, handler: (payload: { data: Record<string, unknown> }) => void) => void;
 	togglePlay: () => void;
-	play: () => void;
-	resume: () => void;
 };
 
 declare global {
 	interface Window {
 		onSpotifyIframeApiReady?: (api: SpotifyIframeApi) => void;
 		__spotifyIframeApi?: SpotifyIframeApi;
+		__spotifyApiQueue?: Array<(api: SpotifyIframeApi) => void>;
 		__spotifyHeaderBooted?: boolean;
 	}
 }
@@ -29,57 +28,48 @@ function setPlaying(root: HTMLElement, playing: boolean) {
 	btn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
 }
 
-function whenSpotifyApiReady(run: (api: SpotifyIframeApi) => void) {
+function ensureSpotifyApi(onReady: (api: SpotifyIframeApi) => void) {
 	if (window.__spotifyIframeApi) {
-		run(window.__spotifyIframeApi);
+		onReady(window.__spotifyIframeApi);
 		return;
 	}
-	const prev = window.onSpotifyIframeApiReady;
-	window.onSpotifyIframeApiReady = (api) => {
-		window.__spotifyIframeApi = api;
-		prev?.(api);
-		run(api);
-	};
+	window.__spotifyApiQueue = window.__spotifyApiQueue || [];
+	window.__spotifyApiQueue.push(onReady);
+}
 
-	if (document.querySelector('script[data-spotify-iframe-api]')) return;
-
-	const script = document.createElement('script');
-	script.src = 'https://open.spotify.com/embed/iframe-api/v1';
-	script.async = true;
-	script.dataset.spotifyIframeApi = 'true';
-	document.body.appendChild(script);
+function ensureEmbedHost(): HTMLElement {
+	let sink = document.querySelector<HTMLElement>('[data-spotify-sink]');
+	if (!sink) {
+		sink = document.createElement('div');
+		sink.className = 'spotify-sink';
+		sink.dataset.spotifySink = '';
+		sink.setAttribute('aria-hidden', 'true');
+		const host = document.createElement('div');
+		host.dataset.spotifyEmbedHost = '';
+		sink.appendChild(host);
+		document.body.appendChild(sink);
+	}
+	return sink.querySelector('[data-spotify-embed-host]') as HTMLElement;
 }
 
 function bootSpotifyHeader() {
 	if (window.__spotifyHeaderBooted) return;
 	const root = document.querySelector<HTMLElement>('[data-spotify-header]');
-	const sink = document.querySelector<HTMLElement>('[data-spotify-sink]');
-	const host = sink?.querySelector<HTMLElement>('[data-spotify-embed-host]');
 	const playBtn = root?.querySelector<HTMLButtonElement>('[data-now-play]');
-	const playlistId = root?.dataset.playlistId;
-	if (!root || !host || !playBtn || !playlistId) return;
+	const playlistUrl = root?.dataset.playlistUrl;
+	if (!root || !playBtn || !playlistUrl) return;
 
 	window.__spotifyHeaderBooted = true;
 
 	let controller: SpotifyEmbedController | null = null;
-	let embedReady = false;
-	let wantPlay = false;
+	const host = ensureEmbedHost();
 
-	whenSpotifyApiReady((IFrameAPI) => {
+	ensureSpotifyApi((IFrameAPI) => {
 		IFrameAPI.createController(
 			host,
-			{ uri: `spotify:playlist:${playlistId}`, width: 300, height: 80 },
+			{ url: playlistUrl, width: 300, height: 80 },
 			(embedController) => {
 				controller = embedController;
-
-				embedController.addListener('ready', () => {
-					embedReady = true;
-					if (wantPlay) {
-						wantPlay = false;
-						embedController.resume();
-					}
-				});
-
 				embedController.addListener('playback_started', () => setPlaying(root, true));
 				embedController.addListener('playback_update', (event) => {
 					setPlaying(root, !Boolean(event.data.isPaused));
@@ -91,14 +81,7 @@ function bootSpotifyHeader() {
 	playBtn.addEventListener('click', (e) => {
 		e.preventDefault();
 		e.stopPropagation();
-		if (!controller) {
-			wantPlay = true;
-			return;
-		}
-		if (!embedReady) {
-			wantPlay = true;
-			return;
-		}
+		if (!controller) return;
 		controller.togglePlay();
 	});
 }
