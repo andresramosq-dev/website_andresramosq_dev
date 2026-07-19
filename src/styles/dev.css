@@ -191,21 +191,28 @@ a.twin__name:hover {
 }
 .hdr-music__link:hover {
 	color: var(--link-hover);
+	text-decoration: underline;
+	text-underline-offset: 3px;
 }
-.hdr-music__play-wrap {
+.hdr-music__btn {
 	position: relative;
 	flex-shrink: 0;
 	width: 1.4rem;
 	height: 1.4rem;
+	padding: 0;
 	border: 1px solid var(--prompt);
 	border-radius: 50%;
 	background: var(--panel2);
-	overflow: hidden;
+	cursor: pointer;
 }
-.hdr-music__play-wrap:hover {
+.hdr-music__btn:hover:not(:disabled) {
 	background: #142016;
 }
-.hdr-music__play-wrap .hdr-music__icon {
+.hdr-music__btn:disabled {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+.hdr-music__btn .hdr-music__icon {
 	position: absolute;
 	inset: 0;
 	margin: auto;
@@ -216,19 +223,19 @@ a.twin__name:hover {
 	border-width: 0.26rem 0 0.26rem 0.44rem;
 	margin-left: 0.58rem;
 	pointer-events: none;
-	z-index: 1;
 }
-.hdr-music__iframe {
-	position: absolute;
-	left: -252px;
-	top: -30px;
+.spotify-header-sink {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 300px;
+	height: 80px;
+	overflow: hidden;
+	pointer-events: none;
+	z-index: -1;
+}
+.spotify-header-sink iframe {
 	border: 0;
-	z-index: 2;
-	opacity: 0;
-	cursor: pointer;
-}
-.hdr-music__btn {
-	display: none;
 }
 .hdr-eq {
 	display: inline-flex;

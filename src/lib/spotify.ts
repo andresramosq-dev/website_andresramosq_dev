@@ -14,3 +14,8 @@ export function spotifyPlaylistEmbedSrc(
 	const theme = opts?.theme === 'light' ? '1' : '0';
 	return `https://open.spotify.com/embed/playlist/${id}?utm_source=generator&theme=${theme}`;
 }
+
+export function spotifyPlaylistUri(playlistUrl: string | null | undefined): string | null {
+	const id = spotifyPlaylistId(playlistUrl);
+	return id ? `spotify:playlist:${id}` : null;
+}
