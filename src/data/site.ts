@@ -18,11 +18,6 @@ export const site = {
 	] as const,
 	bioQuote:
 		"I don't work to become the old man I want to be — I work so I don't lose the young man I once wanted to become.",
-	bioPersonal: [
-		'Lately I have been playing a lot with AI — this site was built with it (I am not great at web design 😉).',
-		'I am looking for my next challenge right now — not just writing code, but building software products or growing strong teams. If you have that kind of challenge or a proposal for me, get in touch.',
-		'This site is in English — not my strongest language, but I am working on getting better at it.',
-	],
 	social: [
 		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/andresramosq-dev', value: 'github.com/andresramosq-dev' },
 		{ id: 'linkedin', icon: 'linkedin' as const, label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramosq-dev', value: 'linkedin.com/in/andresramosq-dev' },

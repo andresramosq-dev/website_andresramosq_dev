@@ -481,33 +481,6 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	margin-top: 0.15rem;
 }
 
-/* notes.txt — one size; hierarchy by color only */
-.bio-notes {
-	display: grid;
-	gap: 0.65rem;
-	font-family: var(--mono);
-	font-size: 0.86rem;
-	font-weight: 400;
-	line-height: 1.6;
-	letter-spacing: -0.01em;
-}
-.bio-notes__line {
-	margin: 0;
-	padding: 0;
-	border: none;
-	background: none;
-	font-size: 0.86rem;
-	font-weight: 400;
-	line-height: 1.6;
-	letter-spacing: inherit;
-}
-.bio-notes__line--primary {
-	color: var(--ink);
-}
-.bio-notes__line--soft {
-	color: var(--text);
-}
-
 .now-grid {
 	display: grid;
 	gap: 0.65rem;

@@ -4,7 +4,6 @@ import ConsoleTitle from '../../components/ConsoleTitle.astro';
 import CmdBlock from '../../components/CmdBlock.astro';
 import WhoamiPanel from '../../components/WhoamiPanel.astro';
 import BioPanel from '../../components/BioPanel.astro';
-import BioNotesPanel from '../../components/BioNotesPanel.astro';
 import SitePanel from '../../components/SitePanel.astro';
 import { site, skills, now, principles } from '../../data/site';
 
@@ -45,10 +44,6 @@ const skillGroups = [
 
   <CmdBlock cmd="cat site.txt" id="site">
     <SitePanel />
-  </CmdBlock>
-
-  <CmdBlock cmd="cat notes.txt" id="notes">
-    <BioNotesPanel />
   </CmdBlock>
 
   <CmdBlock cmd="ls -la skills/" id="skills">
