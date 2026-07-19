@@ -16,8 +16,8 @@ export const site = {
 	consoleSlug: 'consola-de-andres-ramos',
 	description:
 		'Consola personal de Andrés Ramos. Backend, APIs, microservicios y notas sobre el oficio.',
-	bio: 'Llevo más de 4 años construyendo backend que aguanta producción: APIs, microservicios, pagos, IAM y cloud en AWS. Me quedo cuando hay que entender el problema de verdad — no solo cerrar el ticket.',
-	bioTeaser: 'sigue con now.txt y skills/ si quieres saber en qué estoy y con qué trabajo.',
+	bio: 'Soy de Pitalito, trabajo remoto y llevo unos 4 años en backend. He estado en pagos, integraciones con terceros y cosas que no pueden fallar un viernes a las 6pm. Antes de codear, quiero entender qué está pasando — si el problema no está claro, prefiero frenar un rato que parchar y seguir.',
+	bioTeaser: 'lo de ahora está en now.txt',
 	about: [],
 	social: [
 		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/aframos-dev', value: 'github.com/aframos-dev' },

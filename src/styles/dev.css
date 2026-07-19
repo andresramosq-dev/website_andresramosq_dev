@@ -353,18 +353,9 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 /* bio.txt */
 .bio {
 	display: grid;
-	gap: 0.55rem;
+	gap: 0.5rem;
 	font-size: 0.88rem;
 	line-height: 1.65;
-}
-.bio__file {
-	margin: 0;
-	font-size: 0.72rem;
-	color: var(--muted);
-}
-.bio__comment {
-	color: var(--prompt);
-	margin-right: 0.25rem;
 }
 .bio__hook {
 	margin: 0;
