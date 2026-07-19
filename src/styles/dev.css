@@ -177,7 +177,6 @@ a.twin__name:hover {
 }
 
 .hdr-music {
-	position: relative;
 	display: inline-flex;
 	align-items: center;
 	gap: 0.45rem;
@@ -208,16 +207,12 @@ a.twin__name:hover {
 	border: 1px solid var(--border2);
 	border-radius: 50%;
 	background: var(--panel);
-	cursor: pointer;
+	text-decoration: none;
 	transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .hdr-music__btn:hover {
 	border-color: var(--prompt);
 	box-shadow: 0 0 0 1px rgba(63, 185, 80, 0.25);
-}
-.hdr-music__btn[aria-pressed='true'] {
-	border-color: var(--prompt);
-	background: #142016;
 }
 .hdr-music__icon {
 	display: block;
@@ -227,21 +222,6 @@ a.twin__name:hover {
 	border-color: transparent transparent transparent var(--prompt);
 	border-width: 0.28rem 0 0.28rem 0.48rem;
 	margin-left: 0.12rem;
-}
-.hdr-music__btn[aria-pressed='true'] .hdr-music__icon--play {
-	width: 0.32rem;
-	height: 0.42rem;
-	margin-left: 0;
-	border: none;
-	background: linear-gradient(
-		to right,
-		var(--prompt) 0,
-		var(--prompt) 38%,
-		transparent 38%,
-		transparent 62%,
-		var(--prompt) 62%,
-		var(--prompt) 100%
-	);
 }
 .hdr-eq {
 	display: inline-flex;
@@ -258,23 +238,29 @@ a.twin__name:hover {
 	height: 0.26rem;
 	opacity: 0.35;
 }
-.hdr-eq--active span {
-	opacity: 0.9;
+.hdr-music:hover .hdr-eq span,
+.hdr-music:focus-within .hdr-eq span {
+	opacity: 0.85;
 	animation: hdr-eq-bar 0.75s ease-in-out infinite;
 }
-.hdr-eq--active span:nth-child(1) {
+.hdr-music:hover .hdr-eq span:nth-child(1),
+.hdr-music:focus-within .hdr-eq span:nth-child(1) {
 	animation-delay: 0s;
 }
-.hdr-eq--active span:nth-child(2) {
+.hdr-music:hover .hdr-eq span:nth-child(2),
+.hdr-music:focus-within .hdr-eq span:nth-child(2) {
 	animation-delay: 0.11s;
 }
-.hdr-eq--active span:nth-child(3) {
+.hdr-music:hover .hdr-eq span:nth-child(3),
+.hdr-music:focus-within .hdr-eq span:nth-child(3) {
 	animation-delay: 0.22s;
 }
-.hdr-eq--active span:nth-child(4) {
+.hdr-music:hover .hdr-eq span:nth-child(4),
+.hdr-music:focus-within .hdr-eq span:nth-child(4) {
 	animation-delay: 0.14s;
 }
-.hdr-eq--active span:nth-child(5) {
+.hdr-music:hover .hdr-eq span:nth-child(5),
+.hdr-music:focus-within .hdr-eq span:nth-child(5) {
 	animation-delay: 0.07s;
 }
 @keyframes hdr-eq-bar {
@@ -285,17 +271,6 @@ a.twin__name:hover {
 	50% {
 		height: 0.85rem;
 	}
-}
-.hdr-music__embed {
-	position: fixed;
-	left: -10000px;
-	top: 0;
-	width: 300px;
-	height: 80px;
-	overflow: hidden;
-	opacity: 0;
-	pointer-events: none;
-	visibility: hidden;
 }
 
 .music-page {
