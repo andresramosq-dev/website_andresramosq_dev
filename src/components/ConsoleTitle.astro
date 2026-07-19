@@ -13,7 +13,7 @@ const { command = 'about', title = site.name } = Astro.props;
 	<span class="console-title__prompt">
 		<span class="console-title__conn" aria-hidden="true">╭─</span>
 		<span class="console-title__path">
-			<span class="console-title__user">blog</span><span class="console-title__at">@</span><span class="console-title__host">{site.domain}</span><span class="console-title__sep">:</span><span class="console-title__cwd">~/about</span>
+			<span class="console-title__user">{site.consoleUser}</span><span class="console-title__at">@</span><span class="console-title__host">{site.domain}</span><span class="console-title__sep">:</span><span class="console-title__cwd">~/about</span>
 		</span>
 	</span>
 	<span class="console-title__cmd">

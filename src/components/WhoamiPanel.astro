@@ -1,0 +1,52 @@
+---
+import ProfilePhoto from './ProfilePhoto.astro';
+import { site } from '../data/site';
+---
+
+<div class="whoami">
+	<div class="whoami__head">
+		<ProfilePhoto size="md" />
+		<dl class="whoami__meta">
+			<div>
+				<dt>name</dt>
+				<dd class="whoami__name">{site.name}</dd>
+			</div>
+			<div>
+				<dt>handle</dt>
+				<dd><a href={site.social[0].href} target="_blank" rel="noreferrer">{site.handle}</a></dd>
+			</div>
+			<div>
+				<dt>role</dt>
+				<dd>{site.role}</dd>
+			</div>
+		</dl>
+	</div>
+
+	<p class="whoami__tagline">
+		<span class="whoami__prompt">&gt;</span> {site.tagline}
+		<span class="whoami__pillars">
+			{site.pillars.map((p) => (
+				<span class="whoami__pillar">• {p}</span>
+			))}
+		</span>
+	</p>
+
+	<div class="whoami__links">
+		<p class="whoami__links-hd">contact/</p>
+		<ul class="whoami__links-list">
+			{site.social.map((s) => (
+				<li>
+					<span class="whoami__link-key">{s.label}</span>
+					<span class="whoami__link-sep">→</span>
+					<a
+						href={s.href}
+						target={s.href.startsWith('http') ? '_blank' : undefined}
+						rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
+					>
+						{s.value}
+					</a>
+				</li>
+			))}
+		</ul>
+	</div>
+</div>

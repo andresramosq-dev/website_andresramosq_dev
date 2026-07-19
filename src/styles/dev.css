@@ -92,6 +92,10 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	text-decoration: underline;
 	text-underline-offset: 3px;
 }
+.twin__handle {
+	color: var(--ink);
+	margin-left: 0.55rem;
+}
 .twin__body {
 	flex: 1;
 	display: flex;
@@ -178,11 +182,16 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	margin-bottom: 1.5rem;
 }
 .cmd-block__line {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.35rem;
 	margin: 0 0 0.5rem;
-	font-size: 0.84rem;
+	font-size: 1rem;
 	line-height: 1.5;
 	color: var(--muted);
 }
+.cmd-block__path { white-space: nowrap; }
 .cmd-block__line--idle { margin-top: 0.5rem; margin-bottom: 0; }
 .cmd-block__user { color: var(--prompt); }
 .cmd-block__host { color: var(--host); }
@@ -235,7 +244,114 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .ls-out__perm { color: var(--perm); font-size: 0.72rem; min-width: 5.5rem; }
 .ls-out__name { color: var(--cmd); font-weight: 500; }
 
-/* Perfil */
+/* Perfil whoami */
+.whoami {
+	display: grid;
+	gap: 1.1rem;
+}
+.whoami__head {
+	display: grid;
+	grid-template-columns: 140px 1fr;
+	gap: 1.25rem;
+	align-items: start;
+}
+.whoami__meta {
+	margin: 0;
+	display: grid;
+	gap: 0.55rem;
+}
+.whoami__meta > div {
+	display: grid;
+	grid-template-columns: 4.5rem 1fr;
+	gap: 0.65rem;
+	align-items: baseline;
+	padding-bottom: 0.45rem;
+	border-bottom: 1px dashed var(--border2);
+}
+.whoami__meta > div:last-child { border-bottom: none; padding-bottom: 0; }
+.whoami__meta dt {
+	margin: 0;
+	font-size: 0.72rem;
+	color: var(--prompt);
+	text-transform: lowercase;
+}
+.whoami__meta dd {
+	margin: 0;
+	font-size: 0.88rem;
+	color: var(--text);
+	line-height: 1.5;
+}
+.whoami__name {
+	font-size: 1rem !important;
+	font-weight: 600;
+	color: var(--ink) !important;
+}
+.whoami__tagline {
+	margin: 0;
+	padding: 0.75rem 0.85rem;
+	background: var(--panel2);
+	border: 1px solid var(--border2);
+	border-left: 3px solid var(--cmd);
+	font-size: 0.88rem;
+	line-height: 1.65;
+	color: var(--text);
+}
+.whoami__prompt {
+	color: var(--prompt);
+	font-weight: 600;
+	margin-right: 0.25rem;
+}
+.whoami__pillars {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem 0.85rem;
+	margin-top: 0.45rem;
+}
+.whoami__pillar {
+	color: var(--ink);
+	font-weight: 600;
+	font-size: 0.82rem;
+}
+.whoami__links-hd {
+	margin: 0 0 0.45rem;
+	font-size: 0.72rem;
+	color: var(--prompt);
+}
+.whoami__links-hd::before { content: './'; color: var(--perm); }
+.whoami__links-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.35rem;
+}
+.whoami__links-list li {
+	display: grid;
+	grid-template-columns: 5.5rem auto 1fr;
+	gap: 0.5rem;
+	align-items: baseline;
+	font-size: 0.84rem;
+	padding: 0.3rem 0;
+	border-bottom: 1px dashed var(--border2);
+}
+.whoami__links-list li:last-child { border-bottom: none; }
+.whoami__link-key {
+	color: var(--prompt);
+	font-size: 0.78rem;
+}
+.whoami__link-sep {
+	color: var(--perm);
+}
+.whoami__links-list a {
+	color: var(--link);
+	text-decoration: none;
+	word-break: break-all;
+}
+.whoami__links-list a:hover {
+	color: var(--link-hover);
+	text-decoration: underline;
+}
+
 .about-hero {
 	display: grid;
 	grid-template-columns: 130px 1fr;
@@ -331,8 +447,10 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 
 @media (max-width: 640px) {
 	.main { padding: 1rem 1rem 2rem; }
-	.about-hero { grid-template-columns: 1fr; }
-	.kv > div { grid-template-columns: 1fr; gap: 0.15rem; }
+	.about-hero,
+	.whoami__head { grid-template-columns: 1fr; }
+	.whoami__meta > div { grid-template-columns: 1fr; gap: 0.15rem; }
+	.whoami__links-list li { grid-template-columns: 4.5rem auto 1fr; }
 	.twin__title { font-size: 0.74rem; word-break: break-all; }
 	.now-grid { grid-template-columns: 1fr; }
 }
