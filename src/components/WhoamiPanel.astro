@@ -2,6 +2,8 @@
 import ProfilePhoto from './ProfilePhoto.astro';
 import Icon from './Icon.astro';
 import { site } from '../data/site';
+
+const t = site.tagline;
 ---
 
 <div class="whoami">
@@ -45,5 +47,46 @@ import { site } from '../data/site';
 		</div>
 	</div>
 
-	<p class="whoami__tagline"><span class="whoami__tagline-prefix">&gt;</span> {site.tagline}</p>
+	<div class="tag-ideas" aria-label="Tagline style options">
+		<div class="tag-ideas__item">
+			<p class="tag-ideas__label">A · single box</p>
+			<div class="tag-box tag-box--a">
+				<span class="tag-box__text">{t}</span>
+			</div>
+		</div>
+
+		<div class="tag-ideas__item">
+			<p class="tag-ideas__label">B · labeled table</p>
+			<div class="tag-box tag-box--b">
+				<div class="tag-box__head">promise</div>
+				<div class="tag-box__text">{t}</div>
+			</div>
+		</div>
+
+		<div class="tag-ideas__item">
+			<p class="tag-ideas__label">C · two-column row</p>
+			<div class="tag-box tag-box--c">
+				<div class="tag-box__key">focus</div>
+				<div class="tag-box__text">{t}</div>
+			</div>
+		</div>
+
+		<div class="tag-ideas__item">
+			<p class="tag-ideas__label">D · rules</p>
+			<div class="tag-box tag-box--d">
+				<div class="tag-box__rule" aria-hidden="true"></div>
+				<div class="tag-box__text">{t}</div>
+				<div class="tag-box__rule" aria-hidden="true"></div>
+			</div>
+		</div>
+
+		<div class="tag-ideas__item">
+			<p class="tag-ideas__label">E · brackets</p>
+			<div class="tag-box tag-box--e">
+				<span class="tag-box__chrome">[</span>
+				<span class="tag-box__text">{t}</span>
+				<span class="tag-box__chrome">]</span>
+			</div>
+		</div>
+	</div>
 </div>
