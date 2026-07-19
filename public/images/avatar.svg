@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" fill="none">
   <rect width="160" height="160" fill="#0f1410"/>
-  <rect x="1" y="1" width="158" height="158" stroke="#1e2a22" stroke-width="2"/>
-  <circle cx="80" cy="62" r="22" stroke="#4ade80" stroke-width="1.5" opacity="0.5"/>
-  <path d="M40 128c8-20 24-30 40-30s32 10 40 30" stroke="#4ade80" stroke-width="1.5" opacity="0.35" stroke-linecap="round"/>
-  <text x="80" y="148" text-anchor="middle" fill="#6b7f70" font-family="monospace" font-size="9">tu foto aquí</text>
+  <rect x="1" y="1" width="158" height="158" stroke="#2d3b2d" stroke-width="2"/>
+  <circle cx="80" cy="64" r="24" stroke="#3fb950" stroke-width="1.5" opacity="0.45"/>
+  <path d="M38 126c10-22 26-34 42-34s32 12 42 34" stroke="#3fb950" stroke-width="1.5" opacity="0.3" stroke-linecap="round"/>
 </svg>
