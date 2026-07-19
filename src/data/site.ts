@@ -5,7 +5,7 @@ export const site = {
 	handle: '@andresramosq-dev',
 	role: 'Senior Software Developer',
 	location: 'Colombia · remote',
-	avatar: '/images/avatar.svg',
+	avatar: '/images/me.jpg',
 	tagline: 'Responsible for balancing product growth with system stability.',
 	description:
 		'Personal console of Andrés Ramos. Backend development, APIs, microservices, and notes on the craft.',
