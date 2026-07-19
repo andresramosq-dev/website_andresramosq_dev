@@ -121,6 +121,12 @@ a.twin__handle:hover {
 }
 .twin__name {
 	color: var(--ink);
+	text-decoration: none;
+}
+a.twin__name:hover {
+	color: var(--link-hover);
+	text-decoration: underline;
+	text-underline-offset: 3px;
 }
 .twin__body {
 	flex: 1;
