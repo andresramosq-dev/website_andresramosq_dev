@@ -1,19 +1,39 @@
 ---
-import MuralLayout from '../../layouts/MuralLayout.astro';
-import BlogMural from '../../components/murals/BlogMural.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
 import { getCollection } from 'astro:content';
+import { categories } from '../../data/site';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .map((p) => ({
-    id: p.id,
-    title: p.data.title,
-    category: p.data.category,
-  }));
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const iconByCategory = Object.fromEntries(categories.map((c) => [c.id, c.icon]));
 ---
 
-<MuralLayout title="escritos">
-  <div class="mural-scroll">
-    <BlogMural posts={posts} />
+<BaseLayout title="Blog" description="Artículos del blog">
+  <header class="page-head">
+    <h1 class="page-head__title">Blog</h1>
+    <p class="page-head__sub">
+      Artículos sobre diseño, código y oficio.
+    </p>
+  </header>
+
+  <div class="blog-wrap">
+    <div class="blog-grid">
+      {
+        posts.map((post) => (
+          <BlogCard
+            href={`/blog/${post.id}`}
+            title={post.data.title}
+            description={post.data.description}
+            date={post.data.pubDate}
+            minutes={post.data.minutes}
+            category={post.data.category}
+            icon={iconByCategory[post.data.category]}
+          />
+        ))
+      }
+    </div>
   </div>
-</MuralLayout>
+</BaseLayout>

@@ -1,52 +1,37 @@
 ---
-import MuralLayout from '../../layouts/MuralLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
 import { getCollection } from 'astro:content';
-import { site } from '../../data/site';
 
 const projects = (await getCollection('projects')).sort(
   (a, b) => b.data.year - a.data.year
 );
-
-const colors = ['#bc8cff', '#56d4dd', '#ff7b72'];
-const spots = [
-  { x: 180, y: 250 },
-  { x: 620, y: 200 },
-  { x: 400, y: 500 },
-];
 ---
 
-<MuralLayout title="proyectos">
-  <div class="mural-scroll">
-    <svg class="mural-svg" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Proyectos dibujados">
-      <rect width="1200" height="700" fill="#2a2f36" />
-      <text x="600" y="80" text-anchor="middle" font-family="Caveat, cursive" font-size="48" font-weight="700" fill="#ebe6dc">proyectos</text>
-      <g stroke="#ebe6dc" stroke-width="2.5" fill="none" opacity="0.3">
-        <path d="M150 400c200-20 400 0 600-10s350-20 450 10" />
-        <path d="M300 200c80 120 60 240 40 340" />
-        <path d="M800 180c-60 100-40 200-20 300" />
-      </g>
+<BaseLayout title="Proyectos" description="Proyectos personales">
+  <header class="page-head">
+    <h1 class="page-head__title">Proyectos</h1>
+    <p class="page-head__sub">Herramientas, experimentos y trabajo personal.</p>
+  </header>
+
+  <div class="blog-wrap">
+    <div class="project-grid">
       {
-        projects.map((project, i) => {
-          const s = spots[i % spots.length];
-          const c = colors[i % colors.length];
-          const title = project.data.title.length > 24 ? `${project.data.title.slice(0, 22)}…` : project.data.title;
-          const href = project.data.url ?? '#';
-          return (
-            <a href={href}>
-              <g transform={`translate(${s.x} ${s.y}) rotate(${i % 2 === 0 ? -3 : 2})`}>
-                <rect fill="transparent" x="-20" y="-20" width="320" height="160" />
-                <ellipse cx="130" cy="55" rx="140" ry="65" fill={c} opacity="0.22" />
-                <path stroke="#ebe6dc" stroke-width="3" fill="none" d="M20 30a10 10 0 0 1 10-10h55l18 18h82a10 10 0 0 1 10 10v75a10 10 0 0 1-10 10H30a10 10 0 0 1-10-10V30Z" />
-                <text x="30" y="55" font-family="Caveat, cursive" font-size="30" font-weight="700" fill="#ebe6dc">{title}</text>
-                <text x="30" y="80" font-family="JetBrains Mono, monospace" font-size="11" fill="rgba(235,230,220,0.5)">{project.data.year} · {project.data.stack[0]}</text>
-              </g>
-            </a>
-          );
-        })
+        projects.map((project) => (
+          <a class="project-card" href={project.data.url ?? '#'}>
+            <span class="project-card__icon">
+              <Icon name="folder" size={22} />
+            </span>
+            <div>
+              <p class="project-card__meta">
+                {project.data.year} · {project.data.stack.join(' · ')}
+              </p>
+              <h2 class="project-card__title">{project.data.title}</h2>
+              <p class="project-card__desc">{project.data.description}</p>
+            </div>
+          </a>
+        ))
       }
-      <a href="/">
-        <text x="60" y="50" font-family="Caveat, cursive" font-size="24" fill="rgba(235,230,220,0.5)">← mapa</text>
-      </a>
-    </svg>
+    </div>
   </div>
-</MuralLayout>
+</BaseLayout>

@@ -1,46 +1,38 @@
 ---
-import MuralLayout from '../layouts/MuralLayout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 import { site } from '../data/site';
 ---
 
-<MuralLayout title="sobre">
-  <div class="mural-stage" style="min-height: 420px;">
-    <svg class="mural-svg" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sobre mí">
-      <rect width="900" height="420" fill="#2a2f36" />
-      <circle cx="200" cy="200" r="100" fill="#ff7b72" opacity="0.15" />
-      <!-- persona dibujada -->
-      <g stroke="#ebe6dc" stroke-width="3" fill="none" transform="translate(160 120)">
-        <circle cx="60" cy="40" r="32" />
-        <path d="M20 130c12-28 32-42 60-42s48 14 60 42" />
-      </g>
-      <!-- café pequeño -->
-      <g stroke="#ebe6dc" stroke-width="2.5" fill="none" transform="translate(320 260)" opacity="0.6">
-        <path d="M10 20h50c6 0 10 4 10 10v35c0 18-14 32-32 32h-8c-18 0-32-14-32-32V30c0-6 4-10 10-10h22Z" />
-        <path d="M70 35h15c8 0 14 6 14 14s-6 14-14 14h-10" />
-      </g>
-      <text x="300" y="100" font-family="Caveat, cursive" font-size="48" font-weight="700" fill="#ebe6dc">{site.name}</text>
-      <text x="300" y="140" font-family="JetBrains Mono, monospace" font-size="13" fill="rgba(235,230,220,0.55)">{site.role}</text>
-      <a href="/blog">
-        <text x="300" y="200" font-family="Caveat, cursive" font-size="28" fill="#56d4dd">→ escritos</text>
-      </a>
-      <a href="/proyectos">
-        <text x="300" y="240" font-family="Caveat, cursive" font-size="28" fill="#bc8cff">→ proyectos</text>
-      </a>
-      <a href="/">
-        <text x="60" y="50" font-family="Caveat, cursive" font-size="24" fill="rgba(235,230,220,0.5)">← mapa</text>
-      </a>
-    </svg>
-  </div>
-  <article class="chalk-read">
-    <div class="chalk-read__paper">
-      <p>{site.bio}</p>
+<BaseLayout title="Sobre" description="Sobre el autor del blog">
+  <header class="page-head">
+    <h1 class="page-head__title">Sobre mí</h1>
+  </header>
+
+  <div class="blog-wrap" style="max-width: var(--read);">
+    <div class="about-panel">
       <p>
-        {
-          site.links.map((l) => (
-            <a href={l.href} style="margin-right: 1rem;">{l.label}</a>
-          ))
-        }
+        <strong>{site.name}</strong> — {site.role}. {site.bio}
+      </p>
+      <p>
+        Puedes leer el <a href="/blog">blog</a> o ver mis <a href="/proyectos">proyectos</a>.
       </p>
     </div>
-  </article>
-</MuralLayout>
+
+    <div class="topic-grid" style="margin-top: 1.5rem;">
+      {
+        site.links.map((link) => (
+          <a class="topic-tile" href={link.href} style="--tile-color: var(--cyan)">
+            <span class="topic-tile__icon">
+              <Icon name={link.label === 'GitHub' ? 'code' : 'mail'} size={20} />
+            </span>
+            <div>
+              <p class="topic-tile__label">{link.label}</p>
+              <p class="topic-tile__desc">{link.href.replace('mailto:', '')}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

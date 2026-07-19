@@ -5,7 +5,7 @@ export const site = {
 	location: 'Latinoamérica',
 	email: 'andfera201@gmail.com',
 	tagline: 'Escribo sobre código, diseño y oficio.',
-	description: 'Blog artístico de Andrés Ramos — pizarra, tiza y escritos sobre código, diseño y oficio.',
+	description: 'Blog personal de Andrés Ramos sobre desarrollo, diseño y oficio.',
 	bio: 'Construyo interfaces y escribo para pensar mejor. Este espacio es mi cuaderno público: ideas claras, sin ruido.',
 	links: [
 		{ label: 'GitHub', href: 'https://github.com/ramos-andres-dev' },
@@ -14,8 +14,8 @@ export const site = {
 };
 
 export const nav = [
-	{ label: 'Escritos', href: '/blog' },
-	{ label: 'Temas', href: '/categorias' },
+	{ label: 'Blog', href: '/blog' },
+	{ label: 'Categorías', href: '/categorias' },
 	{ label: 'Proyectos', href: '/proyectos' },
 	{ label: 'Sobre', href: '/sobre' },
 ];

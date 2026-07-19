@@ -1,7 +1,8 @@
 ---
-import MuralLayout from '../../layouts/MuralLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
 import { getCollection, render } from 'astro:content';
-import { categoryLabel, categoryColor } from '../../data/site';
+import { categoryLabel, categoryColor, categories } from '../../data/site';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -13,50 +14,35 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const color = categoryColor[post.data.category];
+const cat = categories.find((c) => c.id === post.data.category)!;
 ---
 
-<MuralLayout title={post.data.title} description={post.data.description}>
-  <div class="mural-stage" style="min-height: 280px; padding-top: 2rem;">
-    <svg class="mural-svg" viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect width="800" height="220" fill="#2a2f36" rx="0" />
-      <circle cx="120" cy="110" r="70" fill={color} class="flat-blob" opacity="0.2" />
-      <path
-        class="chalk-stroke"
-        stroke="#ebe6dc"
-        stroke-width="2.5"
-        fill="none"
-        opacity="0.35"
-        d="M30 30c200-10 400 10 600 0 120-6 140 40 130 80-10 50-500 60-620 40-20-4-30-30-10-50Z"
-      />
-      <text
-        x="400"
-        y="100"
-        text-anchor="middle"
-        font-family="Caveat, cursive"
-        font-size="42"
-        font-weight="700"
-        fill="#ebe6dc"
-      >
-        {post.data.title}
-      </text>
-      <text
-        x="400"
-        y="135"
-        text-anchor="middle"
-        font-family="JetBrains Mono, monospace"
-        font-size="12"
-        fill="rgba(235,230,220,0.55)"
-      >
-        {categoryLabel[post.data.category]} · {post.data.minutes} min
-      </text>
-    </svg>
-  </div>
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article class="article">
+    <a class="article__back" href="/blog">← Volver al blog</a>
 
-  <article class="chalk-read">
-    <a class="chalk-read__back" href="/blog">← muro de escritos</a>
-    <div class="chalk-read__paper">
+    <span class="article__badge" style={`--badge-color: ${categoryColor[post.data.category]}`}>
+      <Icon name={cat.icon} size={14} />
+      {categoryLabel[post.data.category]}
+    </span>
+
+    <h1 class="article__title">{post.data.title}</h1>
+
+    <div class="article__meta">
+      <time datetime={post.data.pubDate.toISOString()}>
+        {
+          post.data.pubDate.toLocaleDateString('es-ES', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })
+        }
+      </time>
+      <span>{post.data.minutes} min de lectura</span>
+    </div>
+
+    <div class="article__body">
       <Content />
     </div>
   </article>
-</MuralLayout>
+</BaseLayout>

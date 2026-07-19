@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
-import MuralLayout from '../../layouts/MuralLayout.astro';
-import BlogMural from '../../components/murals/BlogMural.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Icon from '../../components/Icon.astro';
 import { categories } from '../../data/site';
 
 export function getStaticPaths() {
@@ -14,22 +15,35 @@ export function getStaticPaths() {
 const { category } = Astro.props;
 const posts = (
 	await getCollection('blog', ({ data }) => !data.draft && data.category === category.id)
-)
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.map((p) => ({ id: p.id, title: p.data.title, category: category.label }));
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<MuralLayout title={category.label}>
-  <div class="mural-scroll">
-    <svg class="mural-svg" viewBox="0 0 1200 180" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: -1rem;">
-      <rect width="1200" height="180" fill="#2a2f36" />
-      <ellipse cx="200" cy="90" rx="120" ry="70" fill={category.color} opacity="0.2" />
-      <text x="600" y="90" text-anchor="middle" font-family="Caveat, cursive" font-size="44" font-weight="700" fill="#ebe6dc">{category.label}</text>
-      <text x="600" y="125" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(235,230,220,0.5)">{category.description}</text>
-      <a href="/categorias">
-        <text x="60" y="50" font-family="Caveat, cursive" font-size="22" fill="rgba(235,230,220,0.5)">← temas</text>
-      </a>
-    </svg>
-    <BlogMural posts={posts} />
-  </div>
-</MuralLayout>
+<BaseLayout title={category.label} description={category.description}>
+	<header class="page-head">
+		<a class="article__back" href="/categorias">← Categorías</a>
+		<span class="article__badge" style={`--badge-color: ${category.color}`}>
+			<Icon name={category.icon} size={14} />
+			{category.label}
+		</span>
+		<h1 class="page-head__title">{category.label}</h1>
+		<p class="page-head__sub">{category.description}</p>
+	</header>
+
+	<div class="blog-wrap">
+		<div class="blog-grid">
+			{
+				posts.map((post) => (
+					<BlogCard
+						href={`/blog/${post.id}`}
+						title={post.data.title}
+						description={post.data.description}
+						date={post.data.pubDate}
+						minutes={post.data.minutes}
+						category={post.data.category}
+						icon={category.icon}
+					/>
+				))
+			}
+		</div>
+	</div>
+</BaseLayout>

@@ -1,61 +1,52 @@
 ---
-import MuralLayout from '../../layouts/MuralLayout.astro';
-import { categories } from '../../data/site';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Icon from '../../components/Icon.astro';
 import { getCollection } from 'astro:content';
+import { categories } from '../../data/site';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
-const counts = Object.fromEntries(
-  categories.map((c) => [c.id, posts.filter((p) => p.data.category === c.id).length])
-);
-
-const spots = [
-  { x: 200, y: 280, icon: 'spark' },
-  { x: 600, y: 220, icon: 'code' },
-  { x: 350, y: 520, icon: 'compass' },
-  { x: 900, y: 480, icon: 'pen' },
-];
+const grouped = categories.map((cat) => ({
+  ...cat,
+  posts: posts
+    .filter((p) => p.data.category === cat.id)
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+}));
 ---
 
-<MuralLayout title="temas">
-  <div class="mural-scroll">
-    <svg class="mural-svg" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Temas dibujados">
-      <rect width="1200" height="750" fill="#2a2f36" />
-      <g fill="#ebe6dc" opacity="0.06">
-        <circle cx="100" cy="100" r="1.2" /><circle cx="1000" cy="600" r="1" />
-      </g>
-      <text x="600" y="80" text-anchor="middle" font-family="Caveat, cursive" font-size="48" font-weight="700" fill="#ebe6dc">temas</text>
-      <g class="chalk-stroke" stroke="#ebe6dc" stroke-width="2.5" fill="none" opacity="0.3">
-        <path d="M200 400c150-60 300-40 450 20" />
-        <path d="M600 300c100 80 80 180 60 260" />
-        <path d="M900 350c-120 80-200 140-280 200" />
-      </g>
-      {
-        categories.map((cat, i) => {
-          const s = spots[i];
-          return (
-            <a href={`/categorias/${cat.id}`}>
-              <g transform={`translate(${s.x} ${s.y})`}>
-                <rect fill="transparent" x="-60" y="-60" width="280" height="200" />
-                <ellipse cx="80" cy="50" rx="110" ry="70" fill={cat.color} opacity="0.22" />
-                <path
-                  stroke="#ebe6dc"
-                  stroke-width="3"
-                  fill="none"
-                  d="M10 20c40-8 140-12 160 8 6 6 8 16 6 30l-4 50c-2 12-12 16-24 14l-140-2c-12-2-16-10-14-22l6-52c2-10 8-14 18-12Z"
+<BaseLayout title="Categorías" description="Categorías del blog">
+  <header class="page-head">
+    <h1 class="page-head__title">Categorías</h1>
+    <p class="page-head__sub">Artículos organizados por tema.</p>
+  </header>
+
+  <div class="blog-wrap">
+    {
+      grouped.map((group) => (
+        <section class="blog-section">
+          <h2 class="cluster-title" style={`--tile-color: ${group.color}`}>
+            <Icon name={group.icon} size={18} />
+            {group.label}
+          </h2>
+          {group.posts.length === 0 ? (
+            <p class="empty-note">No hay artículos en esta categoría.</p>
+          ) : (
+            <div class="blog-grid">
+              {group.posts.map((post) => (
+                <BlogCard
+                  href={`/blog/${post.id}`}
+                  title={post.data.title}
+                  description={post.data.description}
+                  date={post.data.pubDate}
+                  minutes={post.data.minutes}
+                  category={post.data.category}
+                  icon={group.icon}
                 />
-                <text x="24" y="48" font-family="Caveat, cursive" font-size="34" font-weight="700" fill="#ebe6dc">{cat.label}</text>
-                <text x="24" y="72" font-family="JetBrains Mono, monospace" font-size="11" fill="rgba(235,230,220,0.5)">{counts[cat.id]} notas</text>
-              </g>
-            </a>
-          );
-        })
-      }
-      <a href="/">
-        <g transform="translate(60 60)">
-          <rect fill="transparent" x="-10" y="-25" width="100" height="50" />
-          <text font-family="Caveat, cursive" font-size="24" fill="#ebe6dc" x="0" y="0">← mapa</text>
-        </g>
-      </a>
-    </svg>
+              ))}
+            </div>
+          )}
+        </section>
+      ))
+    }
   </div>
-</MuralLayout>
+</BaseLayout>
