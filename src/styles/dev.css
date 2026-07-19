@@ -81,7 +81,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	font-weight: 400;
 	color: var(--muted);
 }
-.twin__bash { color: var(--prompt); font-weight: 600; }
+.twin__blog { color: var(--prompt); font-weight: 600; }
 .twin__at { color: var(--muted); }
 .twin__host { color: var(--host); }
 .twin__body {
