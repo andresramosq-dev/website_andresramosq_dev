@@ -16,7 +16,6 @@ declare global {
 		onSpotifyIframeApiReady?: (api: SpotifyIframeApi) => void;
 		__spotifyIframeApi?: SpotifyIframeApi;
 		__spotifyApiQueue?: Array<(api: SpotifyIframeApi) => void>;
-		__spotifyHeaderBooted?: boolean;
 	}
 }
 
@@ -28,48 +27,31 @@ function setPlaying(root: HTMLElement, playing: boolean) {
 	btn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
 }
 
-function ensureSpotifyApi(onReady: (api: SpotifyIframeApi) => void) {
+function whenApiReady(run: (api: SpotifyIframeApi) => void) {
 	if (window.__spotifyIframeApi) {
-		onReady(window.__spotifyIframeApi);
+		run(window.__spotifyIframeApi);
 		return;
 	}
 	window.__spotifyApiQueue = window.__spotifyApiQueue || [];
-	window.__spotifyApiQueue.push(onReady);
+	window.__spotifyApiQueue.push(run);
 }
 
-function ensureEmbedHost(): HTMLElement {
-	let sink = document.querySelector<HTMLElement>('[data-spotify-sink]');
-	if (!sink) {
-		sink = document.createElement('div');
-		sink.className = 'spotify-sink';
-		sink.dataset.spotifySink = '';
-		sink.setAttribute('aria-hidden', 'true');
-		const host = document.createElement('div');
-		host.dataset.spotifyEmbedHost = '';
-		sink.appendChild(host);
-		document.body.appendChild(sink);
-	}
-	return sink.querySelector('[data-spotify-embed-host]') as HTMLElement;
-}
-
-function bootSpotifyHeader() {
-	if (window.__spotifyHeaderBooted) return;
-	const root = document.querySelector<HTMLElement>('[data-spotify-header]');
-	const playBtn = root?.querySelector<HTMLButtonElement>('[data-now-play]');
-	const playlistUrl = root?.dataset.playlistUrl;
-	if (!root || !playBtn || !playlistUrl) return;
-
-	window.__spotifyHeaderBooted = true;
+function initHeader(root: HTMLElement) {
+	const playlistId = root.dataset.playlistId;
+	const host = document.querySelector<HTMLElement>('[data-spotify-embed-host]');
+	const playBtn = root.querySelector<HTMLButtonElement>('[data-now-play]');
+	if (!playlistId || !host || !playBtn) return;
 
 	let controller: SpotifyEmbedController | null = null;
-	const host = ensureEmbedHost();
 
-	ensureSpotifyApi((IFrameAPI) => {
+	whenApiReady((IFrameAPI) => {
 		IFrameAPI.createController(
 			host,
-			{ url: playlistUrl, width: 300, height: 80 },
+			{ uri: `spotify:playlist:${playlistId}`, width: 300, height: 80 },
 			(embedController) => {
 				controller = embedController;
+				playBtn.disabled = false;
+
 				embedController.addListener('playback_started', () => setPlaying(root, true));
 				embedController.addListener('playback_update', (event) => {
 					setPlaying(root, !Boolean(event.data.isPaused));
@@ -78,16 +60,18 @@ function bootSpotifyHeader() {
 		);
 	});
 
-	playBtn.addEventListener('click', (e) => {
-		e.preventDefault();
-		e.stopPropagation();
+	playBtn.addEventListener('click', () => {
 		if (!controller) return;
 		controller.togglePlay();
 	});
 }
 
+function boot() {
+	document.querySelectorAll<HTMLElement>('[data-spotify-header]').forEach(initHeader);
+}
+
 if (document.readyState === 'loading') {
-	document.addEventListener('DOMContentLoaded', bootSpotifyHeader, { once: true });
+	document.addEventListener('DOMContentLoaded', boot, { once: true });
 } else {
-	bootSpotifyHeader();
+	boot();
 }
