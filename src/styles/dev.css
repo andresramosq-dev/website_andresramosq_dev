@@ -148,23 +148,29 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	gap: 0.45rem;
 	margin: 0;
 }
+.console-title__path,
+.console-title__line {
+	white-space: nowrap;
+}
 .console-title__prompt {
 	font-size: 0.95rem;
 }
 .console-title__cmd {
 	font-size: 1.1rem;
-	color: var(--text);
 }
 .console-title__conn {
 	color: var(--muted);
 	flex-shrink: 0;
 	user-select: none;
 }
-.console-title__arrow {
+.console-title__sig {
 	color: var(--muted);
-	flex-shrink: 0;
 }
-.console-title__text {
+.console-title__command {
+	color: var(--prompt);
+	font-weight: 600;
+}
+.console-title__page {
 	color: var(--ink);
 	font-weight: 600;
 }

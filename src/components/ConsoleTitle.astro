@@ -3,20 +3,23 @@ import { site } from '../data/site';
 
 interface Props {
 	command?: string;
-	slug?: string;
+	title?: string;
 }
 
-const { command = 'about', slug = 'andres-ramos' } = Astro.props;
+const { command = 'about', title = site.name } = Astro.props;
 ---
 
 <h1 class="console-title">
 	<span class="console-title__prompt">
 		<span class="console-title__conn" aria-hidden="true">╭─</span>
-		<span class="console-title__user">{site.user}</span><span class="console-title__at">@</span><span class="console-title__host">{site.domain}</span><span class="console-title__sep">:</span><span class="console-title__cwd">~/about</span>
+		<span class="console-title__path">
+			<span class="console-title__user">blog</span><span class="console-title__at">@</span><span class="console-title__host">{site.domain}</span><span class="console-title__sep">:</span><span class="console-title__cwd">~/about</span>
+		</span>
 	</span>
 	<span class="console-title__cmd">
 		<span class="console-title__conn" aria-hidden="true">╰─</span>
-		<span class="console-title__arrow">-></span>
-		<span class="console-title__text">{command} {slug}</span>
+		<span class="console-title__line">
+			<span class="console-title__sig">@</span> <span class="console-title__command">{command}</span> <span class="console-title__page">{title}</span>
+		</span>
 	</span>
 </h1>
