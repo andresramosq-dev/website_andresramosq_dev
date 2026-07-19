@@ -40,9 +40,12 @@ export const site = {
 export const nav = [{ label: 'about', href: '/about' }] as const;
 
 export const now = {
-	exploring: 'AI for web development — building and breaking things with it, including this site.',
-	looking_for: 'A real challenge to build: a product worth shipping, or a team worth growing with.',
-	into: 'Getting better at English, shipping small personal experiments, and staying curious outside the day-to-day.',
+	focused_on:
+		'Playing with AI, learning software architecture, leading and growing products, and sharpening the skills that make those things stick.',
+	looking_for:
+		'Valuable projects or ideas where I can help organize and manage development. If you have a project or a proposal, get in touch.',
+	building:
+		'New systems and products I will publish over time — and maybe an MVP that ships when it is ready.',
 };
 
 export const principles = [
