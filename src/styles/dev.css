@@ -260,21 +260,21 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .whoami__main {
 	display: grid;
-	grid-template-columns: 156px 1fr;
+	grid-template-columns: 128px 1fr;
 	gap: 1.15rem;
 	align-items: start;
 	min-width: 0;
 }
 .whoami__main .avatar.avatar--md {
-	width: 156px;
-	height: 156px;
+	width: 128px;
+	height: 128px;
 	margin: 0;
 }
 .whoami__main .avatar.avatar--md .avatar__frame {
-	width: 156px !important;
-	height: 156px !important;
-	min-width: 156px;
-	min-height: 156px;
+	width: 128px !important;
+	height: 128px !important;
+	min-width: 128px;
+	min-height: 128px;
 	aspect-ratio: 1 / 1;
 }
 .whoami__main .avatar.avatar--md .avatar__frame img {
@@ -601,7 +601,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	object-fit: cover;
 	display: block;
 }
-.avatar--md .avatar__frame { width: 156px; height: 156px; }
+.avatar--md .avatar__frame { width: 128px; height: 128px; }
 .avatar--sm .avatar__frame { width: 64px; height: 64px; }
 .avatar__path { margin-top: 0.35rem; font-size: 0.68rem; color: var(--muted); text-align: center; }
 
