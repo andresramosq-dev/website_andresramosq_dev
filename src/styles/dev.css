@@ -277,19 +277,21 @@ a.twin__name:hover {
 	width: 300px;
 	height: 80px;
 	overflow: hidden;
-	opacity: 0;
 	z-index: -1;
 	margin: 0;
 	padding: 0;
-	border: 0;
-}
-.spotify-sink [data-spotify-embed-host] {
-	width: 300px;
-	height: 80px;
+	pointer-events: none;
 }
 .spotify-sink iframe {
 	display: block;
 	border: 0;
+}
+.hdr-music__btn--loading {
+	opacity: 0.65;
+	cursor: wait;
+}
+.hdr-music__btn:not(.hdr-music__btn--loading) {
+	cursor: pointer;
 }
 @keyframes hdr-eq-bar {
 	0%,

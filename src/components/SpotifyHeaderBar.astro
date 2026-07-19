@@ -13,22 +13,15 @@ const playlistId = spotifyPlaylistId(tastes.spotify.playlistUrl);
 			<a class="hdr-music__link" href={playerHref}>
 				{linkLabel}
 			</a>
-			<button
-				type="button"
-				class="hdr-music__btn"
-				data-now-play
-				aria-pressed="false"
-				aria-label="Play"
-				disabled
-			>
+			<button type="button" class="hdr-music__btn hdr-music__btn--loading" data-now-play aria-pressed="false" aria-label="Play">
 				<span class="hdr-music__icon" aria-hidden="true" />
 			</button>
 			<div class="hdr-eq" data-eq aria-hidden="true">
 				<span /><span /><span /><span /><span />
 			</div>
 		</div>
-		<div class="spotify-sink" aria-hidden="true">
-			<div data-spotify-embed-host />
+		<div class="spotify-sink">
+			<div id="spotify-embed-host" data-spotify-embed-host />
 		</div>
 	</>
 ) : (
@@ -39,4 +32,75 @@ const playlistId = spotifyPlaylistId(tastes.spotify.playlistUrl);
 	</div>
 )}
 
-<script src="../scripts/spotify-header.ts"></script>
+{playlistId ? (
+	<script is:inline define:vars={{ playlistId }}>
+		(function () {
+			if (window.__hdrSpotifyInit) return;
+			window.__hdrSpotifyInit = true;
+
+			function boot() {
+				var host = document.getElementById('spotify-embed-host');
+				var header = document.querySelector('[data-spotify-header]');
+				var playBtn = document.querySelector('[data-now-play]');
+				var eq = document.querySelector('[data-eq]');
+				if (!host || !header || !playBtn || !playlistId) return;
+
+				var controller = null;
+				var embedReady = false;
+
+				function setPlaying(on) {
+					if (eq) eq.classList.toggle('hdr-eq--active', on);
+					playBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+					playBtn.setAttribute('aria-label', on ? 'Pause' : 'Play');
+				}
+
+				function wireController(embedController) {
+					controller = embedController;
+					playBtn.classList.remove('hdr-music__btn--loading');
+
+					embedController.addListener('ready', function () {
+						embedReady = true;
+					});
+					embedController.addListener('playback_started', function () {
+						setPlaying(true);
+					});
+					embedController.addListener('playback_update', function (e) {
+						setPlaying(!e.data.isPaused);
+					});
+				}
+
+				function mount(api) {
+					api.createController(
+						host,
+						{ uri: 'spotify:playlist:' + playlistId, width: 300, height: 80 },
+						wireController,
+					);
+				}
+
+				if (window.__spotifyIframeApi) {
+					mount(window.__spotifyIframeApi);
+				} else {
+					window.__spotifyApiQueue = window.__spotifyApiQueue || [];
+					window.__spotifyApiQueue.push(mount);
+				}
+
+				playBtn.addEventListener('click', function (e) {
+					e.preventDefault();
+					e.stopPropagation();
+					if (!controller) return;
+					if (embedReady) {
+						controller.togglePlay();
+						return;
+					}
+					controller.togglePlay();
+				});
+			}
+
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', boot);
+			} else {
+				boot();
+			}
+		})();
+	</script>
+) : null}
