@@ -3,7 +3,7 @@ export const site = {
 	consoleUser: 'website',
 	name: 'Andrés Ramos Q',
 	handle: '@andresramosq-dev',
-	role: 'Senior Software Developer',
+	role: 'Mid Software Developer',
 	location: 'Colombia · remote',
 	avatar: '/images/me.jpg',
 	tagline: 'Responsible for balancing product growth with system stability.',
@@ -28,7 +28,7 @@ export const site = {
 		{ id: 'linkedin', icon: 'linkedin' as const, label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramos-dev/', value: 'linkedin.com/in/andresramos-dev' },
 		{ id: 'gmail', icon: 'mail' as const, label: 'Gmail', href: 'mailto:andresramosdev.personal@gmail.com', value: 'andresramosdev.personal@gmail.com' },
 		{ id: 'spotify', icon: 'spotify' as const, label: 'Spotify', href: 'https://open.spotify.com/user/12163431588', value: 'open.spotify.com/user/12163431588' },
-		{ id: 'cv', icon: 'cv' as const, label: 'CV', href: '', value: 'cv' },
+		{ id: 'cv', icon: 'cv' as const, label: 'CV', href: '/about', value: 'cv' },
 	] as const,
 	links: [
 		{ label: 'GitHub', href: 'https://github.com/andresramos-dev' },
