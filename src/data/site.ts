@@ -35,7 +35,7 @@ export const aboutNav = [
 	{ id: 'principles', label: 'principles' },
 ] as const;
 
-export const nav = [{ label: 'andres-ramos', href: '/andres-ramos' }] as const;
+export const nav = [{ label: 'about', href: '/about' }] as const;
 
 export const now = {
 	working: 'Este sitio en Astro, un dashboard interno para seguimiento de tareas y un design system personal.',

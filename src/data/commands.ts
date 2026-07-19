@@ -1,7 +1,7 @@
 export const commands = [
 	{ cmd: 'help', aliases: ['?', 'ayuda'], desc: 'Lista de comandos', action: 'help' as const },
 	{ cmd: 'home', aliases: ['inicio', '~', '/'], path: '/', desc: 'Ir al inicio' },
-	{ cmd: 'andres', aliases: ['sobre', 'about', 'me'], path: '/andres-ramos', desc: 'Perfil y datos' },
+	{ cmd: 'andres', aliases: ['sobre', 'about', 'me'], path: '/about', desc: 'Perfil y datos' },
 	{ cmd: 'blog', path: '/blog', desc: 'Ver artículos' },
 	{ cmd: 'experiencia', aliases: ['exp', 'cv'], path: '/experiencia', desc: 'Ver experiencia laboral' },
 	{ cmd: 'proyectos', aliases: ['projects'], path: '/proyectos', desc: 'Ver proyectos' },

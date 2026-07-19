@@ -3,5 +3,8 @@ import { site } from '../data/site';
 ---
 
 <h1 class="console-title">
-	<span class="console-title__user">{site.user}</span><span class="console-title__at">@</span><span class="console-title__host">{site.domain}</span><span class="console-title__sep">:</span><span class="console-title__cwd">~/andres</span>
+	<span class="console-title__line console-title__line--prompt">
+		<span class="console-title__user">{site.user}</span><span class="console-title__at">@</span><span class="console-title__host">{site.domain}</span><span class="console-title__sep">:</span><span class="console-title__cwd">~/about</span>
+	</span>
+	<span class="console-title__line console-title__line--path">/about/{site.name}</span>
 </h1>
