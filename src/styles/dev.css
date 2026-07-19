@@ -151,8 +151,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	font-weight: 400;
 }
 .console-title__command,
-.console-title__print,
-.console-title__quote {
+.console-title__print {
 	color: var(--ink);
 	font-weight: 600;
 }
@@ -236,25 +235,25 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .whoami__main {
 	display: grid;
-	grid-template-columns: 96px 1fr;
-	gap: 0.9rem;
+	grid-template-columns: 118px 1fr;
+	gap: 1.1rem;
 	align-items: start;
 }
 .whoami__info {
 	display: grid;
-	gap: 0.25rem;
+	gap: 0.3rem;
 	min-width: 0;
 }
 .whoami__name {
 	margin: 0;
-	font-size: 1.02rem;
+	font-size: 1.12rem;
 	font-weight: 600;
 	color: var(--ink);
 	line-height: 1.3;
 }
 .whoami__handle {
 	margin: 0;
-	font-size: 0.84rem;
+	font-size: 0.92rem;
 }
 .whoami__handle a {
 	color: var(--cmd);
@@ -266,7 +265,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .whoami__role {
 	margin: 0;
-	font-size: 0.82rem;
+	font-size: 0.9rem;
 	color: var(--muted);
 	line-height: 1.45;
 }
@@ -274,9 +273,9 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	gap: 0.45rem 0.6rem;
-	margin: 0.35rem 0 0;
-	font-size: 0.84rem;
+	gap: 0.2rem 0.35rem;
+	margin: 0.4rem 0 0;
+	font-size: 0.86rem;
 }
 .whoami__sig {
 	color: var(--muted);
@@ -289,7 +288,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .whoami__icons {
 	display: inline-flex;
 	align-items: center;
-	gap: 0.65rem;
+	gap: 0.5rem;
 }
 .whoami__icons a {
 	display: inline-flex;
@@ -318,14 +317,6 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .whoami__print-line--cont {
 	padding-left: 0.15rem;
 	margin-top: 0.1rem;
-}
-.whoami__prompt {
-	color: var(--prompt);
-	font-weight: 600;
-}
-.whoami__print-text {
-	color: var(--text);
-	font-weight: 400;
 }
 .whoami__print .whoami__sig {
 	color: var(--muted);
@@ -415,7 +406,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	object-fit: cover;
 	display: block;
 }
-.avatar--md .avatar__frame { width: 96px; height: 96px; }
+.avatar--md .avatar__frame { width: 118px; height: 118px; }
 .avatar--sm .avatar__frame { width: 64px; height: 64px; }
 .avatar__path { margin-top: 0.35rem; font-size: 0.68rem; color: var(--muted); text-align: center; }
 

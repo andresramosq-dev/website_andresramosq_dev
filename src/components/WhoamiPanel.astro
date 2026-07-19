@@ -16,7 +16,7 @@ const printText = `${site.tagline} ${site.pillars.map((p) => `· ${p}`).join(' '
 			</p>
 			<p class="whoami__role">{site.role}</p>
 			<p class="whoami__links-line">
-				<span class="whoami__sig">@</span><span class="whoami__cmd"> social -all</span>
+				<span class="whoami__sig">@</span><span class="whoami__cmd"> social -all "</span>
 				<span class="whoami__icons">
 					{site.social.map((s) => (
 						<a
@@ -26,10 +26,11 @@ const printText = `${site.tagline} ${site.pillars.map((p) => `· ${p}`).join(' '
 							target={s.href.startsWith('http') ? '_blank' : undefined}
 							rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
 						>
-							<Icon name={s.icon} size={19} />
+							<Icon name={s.icon} size={20} />
 						</a>
 					))}
 				</span>
+				<span class="whoami__cmd">"</span>
 			</p>
 		</div>
 	</div>
@@ -39,7 +40,7 @@ const printText = `${site.tagline} ${site.pillars.map((p) => `· ${p}`).join(' '
 			<span class="whoami__sig">@</span><span class="whoami__cmd"> print \</span>
 		</p>
 		<p class="whoami__print-line whoami__print-line--cont">
-			<span class="whoami__prompt">&gt;</span> <span class="whoami__print-text">{printText}</span>
+			<span class="whoami__sig">&gt;</span> <span class="whoami__cmd">"{printText}"</span>
 		</p>
 	</div>
 </div>
