@@ -84,9 +84,6 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .twin__bash { color: var(--prompt); font-weight: 600; }
 .twin__at { color: var(--muted); }
 .twin__host { color: var(--host); }
-.twin__slash { color: var(--muted); }
-.twin__slug { color: var(--ink); }
-
 .twin__body {
 	flex: 1;
 	display: flex;
@@ -126,15 +123,19 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	padding: 1.25rem 1.4rem 2.5rem;
 }
 
-/* Título consola */
+/* Título consola — prompt completo */
 .console-title {
-	font-size: 1.55rem;
+	font-size: 1.35rem;
 	font-weight: 600;
-	color: var(--cmd);
 	margin: 0 0 1.5rem;
-	line-height: 1.2;
+	line-height: 1.3;
 	letter-spacing: -0.01em;
 }
+.console-title__user { color: var(--prompt); }
+.console-title__at,
+.console-title__sep { color: var(--muted); font-weight: 400; }
+.console-title__host { color: var(--host); }
+.console-title__cwd { color: var(--cmd); }
 
 /* Bloque comando + salida */
 .cmd-block {

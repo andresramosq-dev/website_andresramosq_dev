@@ -1,1 +1,7 @@
-<h1 class="console-title">~/andres</h1>
+---
+import { site } from '../data/site';
+---
+
+<h1 class="console-title">
+	<span class="console-title__user">{site.user}</span><span class="console-title__at">@</span><span class="console-title__host">{site.domain}</span><span class="console-title__sep">:</span><span class="console-title__cwd">~/andres</span>
+</h1>
