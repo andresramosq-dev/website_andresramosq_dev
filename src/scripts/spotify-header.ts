@@ -1,12 +1,22 @@
+type PlaybackData = {
+	isPaused?: boolean;
+	is_paused?: boolean;
+	isBuffering?: boolean;
+	playingURI?: string;
+};
+
 type SpotifyEmbedController = {
+	play: () => void;
+	pause: () => void;
+	resume: () => void;
 	togglePlay: () => void;
-	addListener: (event: string, cb: (payload: { data?: { is_paused?: boolean } }) => void) => void;
+	addListener: (event: string, cb: (payload: { data?: PlaybackData }) => void) => void;
 };
 
 type SpotifyIFrameAPI = {
 	createController: (
 		element: HTMLElement,
-		options: { uri: string; width: number; height: number },
+		options: { uri?: string; url?: string; width: number; height: number },
 		callback: (controller: SpotifyEmbedController) => void,
 	) => void;
 };
@@ -33,6 +43,13 @@ function whenSpotifyApi(): Promise<SpotifyIFrameAPI> {
 	});
 }
 
+function pausedFromData(data?: PlaybackData): boolean | null {
+	if (!data) return null;
+	if (typeof data.isPaused === 'boolean') return data.isPaused;
+	if (typeof data.is_paused === 'boolean') return data.is_paused;
+	return null;
+}
+
 function setEqActive(eq: HTMLElement | null, active: boolean) {
 	if (!eq) return;
 	eq.classList.toggle('hdr-eq--active', active);
@@ -43,11 +60,21 @@ function init() {
 	const playBtn = document.querySelector<HTMLButtonElement>('[data-hdr-play]');
 	const eq = document.querySelector<HTMLElement>('[data-eq]');
 	const uri = host?.dataset.spotifyUri;
+	const playlistUrl = host?.dataset.spotifyUrl;
 
-	if (!host || !playBtn || !uri) return;
+	if (!host || !playBtn || (!uri && !playlistUrl)) return;
+
+	const musicMount = document.querySelector<HTMLElement>('[data-spotify-page-player]');
+	const onMusicPage = Boolean(musicMount);
+	if (musicMount) {
+		musicMount.appendChild(host);
+		host.classList.add('spotify-header-sink--page');
+	}
 
 	let controller: SpotifyEmbedController | null = null;
+	let embedReady = false;
 	let pendingPlay = false;
+	let lastPaused = true;
 
 	const setState = (state: PlayerState) => {
 		playBtn.dataset.state = state;
@@ -58,44 +85,70 @@ function init() {
 		setEqActive(eq, state === 'playing');
 	};
 
-	const syncFromPlayer = (paused: boolean) => {
+	const applyPaused = (paused: boolean) => {
+		lastPaused = paused;
 		pendingPlay = false;
 		setState(paused ? 'paused' : 'playing');
 	};
 
-	const tryStartPlayback = () => {
-		if (!controller) return;
-		controller.togglePlay();
+	const onPlaybackData = (data?: PlaybackData) => {
+		if (data?.isBuffering) {
+			setState('loading');
+			return;
+		}
+		const paused = pausedFromData(data);
+		if (paused !== null) applyPaused(paused);
+	};
+
+	const wireController = (ctrl: SpotifyEmbedController) => {
+		controller = ctrl;
+
+		ctrl.addListener('ready', () => {
+			embedReady = true;
+			host.dataset.spotifyReady = 'true';
+			if (pendingPlay) {
+				setState('loading');
+				ctrl.resume();
+			} else {
+				applyPaused(true);
+			}
+		});
+
+		ctrl.addListener('playback_started', () => {
+			applyPaused(false);
+		});
+
+		ctrl.addListener('playback_update', (e) => {
+			onPlaybackData(e.data);
+		});
 	};
 
 	playBtn.addEventListener('click', () => {
-		if (!controller) {
+		if (!controller || !embedReady) {
 			pendingPlay = true;
 			setState('loading');
 			return;
 		}
 
-		const playing = playBtn.dataset.state === 'playing';
-		setState(playing ? 'paused' : 'playing');
-		tryStartPlayback();
+		if (lastPaused) {
+			setState('loading');
+			controller.resume();
+		} else {
+			controller.pause();
+		}
 	});
 
-	setState('paused');
+	setState('loading');
+
+	const options: { width: number; height: number; uri?: string; url?: string } = {
+		width: onMusicPage ? 860 : 300,
+		height: onMusicPage ? 380 : 80,
+	};
+	if (playlistUrl) options.url = playlistUrl;
+	else if (uri) options.uri = uri;
 
 	void whenSpotifyApi().then((api) => {
-		api.createController(host, { uri, width: 300, height: 80 }, (ctrl) => {
-			controller = ctrl;
-
-			ctrl.addListener('ready', () => {
-				if (pendingPlay) tryStartPlayback();
-				else syncFromPlayer(true);
-			});
-
-			ctrl.addListener('playback_update', (e) => {
-				const paused = e.data?.is_paused ?? true;
-				syncFromPlayer(paused);
-			});
-		});
+		api.createController(host, options, wireController);
 	});
 }
 

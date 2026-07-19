@@ -28,6 +28,7 @@ const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
       <>
         <link rel="preconnect" href="https://open.spotify.com" />
         <link rel="dns-prefetch" href="https://open.spotify.com" />
+        <link rel="preload" href="https://open.spotify.com/embed/iframe-api/v1" as="script" />
         <script is:inline>
           window.__spotifyHdrBoot = window.__spotifyHdrBoot || [];
           if (!window.onSpotifyIframeApiReady) {
@@ -43,6 +44,16 @@ const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
     ) : null}
   </head>
   <body>
+    {spotifyUri ? (
+      <div
+        id="spotify-header-embed-host"
+        class="spotify-header-sink"
+        data-spotify-uri={spotifyUri}
+        data-spotify-url={tastes.spotify.playlistUrl}
+        aria-hidden="true"
+      ></div>
+    ) : null}
+
     <a class="skip" href="#main">Skip to content</a>
 
     <div class="desk">
@@ -74,15 +85,6 @@ const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
         </footer>
       </TerminalShell>
     </div>
-
-    {spotifyUri ? (
-      <div
-        id="spotify-header-embed-host"
-        class="spotify-header-sink"
-        data-spotify-uri={spotifyUri}
-        aria-hidden="true"
-      ></div>
-    ) : null}
 
     <script src="../scripts/spotify-header.ts"></script>
   </body>

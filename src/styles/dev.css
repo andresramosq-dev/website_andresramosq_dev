@@ -275,11 +275,35 @@ a.twin__name:hover {
 	width: 300px;
 	height: 80px;
 	overflow: hidden;
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
 	pointer-events: none;
-	z-index: -1;
+	z-index: 0;
 }
 .spotify-header-sink iframe {
 	border: 0;
+	width: 300px;
+	height: 80px;
+}
+.spotify-header-sink--page {
+	position: static;
+	clip: auto;
+	clip-path: none;
+	width: 100%;
+	height: 380px;
+	margin: 0;
+	overflow: hidden;
+	border-radius: 10px;
+	border: 1px solid var(--border2);
+	background: #121212;
+	pointer-events: auto;
+	z-index: auto;
+}
+.spotify-header-sink--page iframe {
+	width: 100%;
+	height: 380px;
 }
 .hdr-eq {
 	display: inline-flex;
