@@ -28,7 +28,6 @@ export const site = {
 		{ id: 'linkedin', icon: 'linkedin' as const, label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramos-dev/', value: 'linkedin.com/in/andresramos-dev' },
 		{ id: 'gmail', icon: 'mail' as const, label: 'Gmail', href: 'mailto:andresramosdev.personal@gmail.com', value: 'andresramosdev.personal@gmail.com' },
 		{ id: 'spotify', icon: 'spotify' as const, label: 'Spotify', href: 'https://open.spotify.com/user/12163431588', value: 'open.spotify.com/user/12163431588' },
-		{ id: 'phone', icon: 'phone' as const, label: 'Phone', href: 'tel:+573172116762', value: '+57 317 211 6762' },
 		{ id: 'cv', icon: 'cv' as const, label: 'CV', href: '', value: 'cv' },
 	] as const,
 	links: [

@@ -1,6 +1,6 @@
 ---
 interface Props {
-	name: 'github' | 'linkedin' | 'mail' | 'spotify' | 'phone' | 'cv';
+	name: 'github' | 'linkedin' | 'mail' | 'spotify' | 'cv';
 	size?: number;
 	class?: string;
 }
@@ -67,17 +67,6 @@ const { name, size = 22, class: className } = Astro.props;
 					stroke-linecap="round"
 				/>
 			</>
-		)
-	}
-	{
-		name === 'phone' && (
-			<path
-				d="M6.5 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5L17.5 12.5 21.5 14v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4 6.2 2 2 0 0 1 6.5 4Z"
-				stroke="currentColor"
-				stroke-width="1.7"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-			/>
 		)
 	}
 	{
