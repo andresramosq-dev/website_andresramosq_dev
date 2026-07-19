@@ -41,12 +41,7 @@ export const site = {
 			' — my space to share ideas, projects, and what I am learning as a developer.',
 		body: [
 			'Here I write about software, technology, product thinking, and the day-to-day of building systems. You will find notes, experiments, lessons from real work, and a blog where I publish what I am exploring right now.',
-			{
-				before: 'It is also a place to ',
-				idea: 'leave a trail of my process',
-				after:
-					': architecture decisions, tools I am trying, mistakes worth documenting, and the skills I am sharpening over time.',
-			},
+			'It is also a place to leave a trail of my process: architecture decisions, tools I am trying, mistakes worth documenting, and the skills I am sharpening over time.',
 		] as const,
 		builtBefore: 'I built it with',
 		builtWith: ['Astro'] as const,
@@ -56,10 +51,12 @@ export const site = {
 			' to move faster on the development side (I am not that great at web design 😉).',
 		closing: [
 			{
-				before:
-					'The terminal look comes from how much I like simple design — and because this is my workspace, I wanted it to feel a bit like my day to day: ',
-				idea: 'consoles, tests, and errors',
-				after: '.',
+				before: 'The ',
+				idea: 'terminal look',
+				after:
+					' comes from how much I like simple design — and because this is my workspace, I wanted it to feel a bit like my day to day: ',
+				idea2: 'consoles, tests, and errors',
+				after2: '.',
 			},
 			'I write everything in English. It is not my strongest language yet, but practicing here is part of the point: clearer thinking, shorter sentences, and the habit of writing in public.',
 		] as const,

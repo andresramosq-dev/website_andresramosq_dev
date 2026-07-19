@@ -10,19 +10,9 @@ function joinItems(items: readonly string[]) {
 	}));
 }
 
-type Line =
-	| string
-	| {
-			before: string;
-			idea: string;
-			after: string;
-	  };
-
-function isIdeaLine(line: Line): line is { before: string; idea: string; after: string } {
-	return typeof line !== 'string';
-}
-
 const { aboutSite } = site;
+const designLine = aboutSite.closing[0];
+const languageLine = aboutSite.closing[1];
 ---
 
 <div class="site-about">
@@ -32,17 +22,9 @@ const { aboutSite } = site;
 		<span class="site-about__lead-text">{aboutSite.leadAfter}</span>
 	</p>
 
-	{aboutSite.body.map((line) =>
-		isIdeaLine(line) ? (
-			<p class="site-about__out">
-				<span class="site-about__out-inline">{line.before}</span>
-				<BioKeyword label={line.idea} />
-				<span class="site-about__out-inline">{line.after}</span>
-			</p>
-		) : (
-			<p class="site-about__out">{line}</p>
-		)
-	)}
+	{aboutSite.body.map((line) => (
+		<p class="site-about__out">{line}</p>
+	))}
 
 	<div class="tag-box tag-box--c site-about__build">
 		<div class="tag-box__key">build</div>
@@ -63,15 +45,13 @@ const { aboutSite } = site;
 		</div>
 	</div>
 
-	{aboutSite.closing.map((line) =>
-		isIdeaLine(line) ? (
-			<p class="site-about__lang">
-				<span class="site-about__out-inline">{line.before}</span>
-				<BioKeyword label={line.idea} />
-				<span class="site-about__out-inline">{line.after}</span>
-			</p>
-		) : (
-			<p class="site-about__lang">{line}</p>
-		)
-	)}
+	<p class="site-about__lang">
+		<span class="site-about__out-inline">{designLine.before}</span>
+		<BioKeyword label={designLine.idea} />
+		<span class="site-about__out-inline">{designLine.after}</span>
+		<BioKeyword label={designLine.idea2} />
+		<span class="site-about__out-inline">{designLine.after2}</span>
+	</p>
+
+	<p class="site-about__lang">{languageLine}</p>
 </div>
