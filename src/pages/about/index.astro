@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ConsoleTitle from '../../components/ConsoleTitle.astro';
 import CmdBlock from '../../components/CmdBlock.astro';
 import WhoamiPanel from '../../components/WhoamiPanel.astro';
+import BioPanel from '../../components/BioPanel.astro';
 import { site, skills, now, principles } from '../../data/site';
 
 const skillGroups = [
@@ -20,10 +21,7 @@ const skillGroups = [
   </CmdBlock>
 
   <CmdBlock cmd="cat bio.txt" id="bio">
-    <div class="prose">
-      <p class="prose__lead">{site.bio}</p>
-      {site.about.map((p) => <p>{p}</p>)}
-    </div>
+    <BioPanel />
   </CmdBlock>
 
   <CmdBlock cmd="cat now.txt" id="now">

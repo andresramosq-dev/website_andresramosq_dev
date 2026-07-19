@@ -348,6 +348,43 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .kv dt { color: var(--prompt); font-size: 0.78rem; }
 .kv dd { margin: 0; color: var(--text); font-size: 0.88rem; line-height: 1.5; }
 
+.skills { display: grid; gap: 0; }
+
+/* bio.txt */
+.bio {
+	display: grid;
+	gap: 0.55rem;
+	font-size: 0.88rem;
+	line-height: 1.65;
+}
+.bio__file {
+	margin: 0;
+	font-size: 0.72rem;
+	color: var(--muted);
+}
+.bio__comment {
+	color: var(--prompt);
+	margin-right: 0.25rem;
+}
+.bio__hook {
+	margin: 0;
+	padding: 0.65rem 0.75rem;
+	background: var(--panel2);
+	border: 1px solid var(--border2);
+	border-left: 3px solid var(--cmd);
+	color: var(--ink);
+	font-weight: 500;
+}
+.bio__teaser {
+	margin: 0;
+	font-size: 0.8rem;
+	color: var(--muted);
+}
+.bio__sig {
+	color: var(--prompt);
+	margin-right: 0.3rem;
+}
+
 .prose p {
 	margin: 0 0 0.85rem;
 	font-size: 0.9rem;
