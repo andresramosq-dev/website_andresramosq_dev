@@ -387,7 +387,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	line-height: 1.5;
 }
 .tag-box--c .tag-box__key {
-	padding: 0.45rem 0.7rem;
+	padding: 0.35rem 0.65rem;
 	border-right: 1px solid var(--border);
 	font-size: 0.86rem;
 	align-self: stretch;
@@ -395,7 +395,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	align-items: center;
 }
 .tag-box--c .tag-box__text {
-	padding: 0.45rem 0.7rem;
+	padding: 0.35rem 0.65rem;
 	font-size: 0.86rem;
 }
 .whoami__sig {
