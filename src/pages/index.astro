@@ -18,13 +18,15 @@ const latest = posts.filter((post) => post.id !== featured.id).slice(0, 4);
 	<section class="hero">
 		<div>
 			<p class="hero__kicker">
-				<Icon name="book" size={15} />
-				Blog
+				<Icon name="pen" size={15} />
+				Cuaderno abierto
 			</p>
 			<h1 class="hero__title">
 				{site.name}
 			</h1>
-			<p class="hero__text">{site.tagline} {site.bio}</p>
+			<p class="hero__text">
+				{site.tagline} Un espacio artístico y simple para pensar en voz alta.
+			</p>
 			<div class="hero__actions">
 				<a class="btn btn--solid" href="/blog">
 					Ver escritos

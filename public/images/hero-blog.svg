@@ -1,26 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" fill="none" aria-hidden="true">
-  <rect width="640" height="420" rx="24" fill="#EFEDE7"/>
-  <!-- soft natural shapes -->
-  <circle cx="520" cy="96" r="64" fill="#D8E0D6"/>
-  <circle cx="110" cy="330" r="78" fill="#E4DDD2"/>
-  <!-- notebook -->
-  <rect x="168" y="70" width="246" height="286" rx="16" fill="#FAFAF8" stroke="#1A1917" stroke-width="2"/>
-  <path d="M232 70v286" stroke="#1A1917" stroke-width="2"/>
-  <circle cx="208" cy="140" r="4" fill="#1A1917"/>
-  <circle cx="208" cy="186" r="4" fill="#1A1917"/>
-  <circle cx="208" cy="232" r="4" fill="#1A1917"/>
-  <path d="M258 138h110" stroke="#1A1917" stroke-width="7" stroke-linecap="round"/>
-  <path d="M258 176h128" stroke="#1A1917" stroke-width="4" stroke-linecap="round" opacity=".35"/>
-  <path d="M258 206h96" stroke="#1A1917" stroke-width="4" stroke-linecap="round" opacity=".28"/>
-  <path d="M258 236h118" stroke="#1A1917" stroke-width="4" stroke-linecap="round" opacity=".22"/>
-  <path d="M258 266h84" stroke="#1A1917" stroke-width="4" stroke-linecap="round" opacity=".18"/>
-  <!-- plant / natural mark -->
-  <path d="M470 280c20-54 48-78 86-92" stroke="#2C5F4E" stroke-width="3" stroke-linecap="round"/>
-  <path d="M500 250c18 4 34 18 42 36" stroke="#2C5F4E" stroke-width="3" stroke-linecap="round"/>
-  <circle cx="556" cy="188" r="16" stroke="#2C5F4E" stroke-width="3"/>
-  <!-- pen -->
-  <g transform="translate(430 300) rotate(-20)">
-    <rect width="120" height="14" rx="7" fill="#1A1917"/>
-    <path d="M120 0 142 7 120 14Z" fill="#1A1917"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 460" fill="none" aria-hidden="true">
+  <rect width="720" height="460" rx="28" fill="#2B3038"/>
+  <!-- chalk dust -->
+  <g stroke="#F2EBDD" stroke-opacity=".14" stroke-width="1.2">
+    <path d="M70 70c40-18 70 14 110-4"/>
+    <path d="M480 80c30 16 58-8 90 10"/>
+    <path d="M90 360c55 20 100-10 150 12"/>
   </g>
+  <!-- chalk frame -->
+  <rect x="48" y="48" width="624" height="364" rx="18" stroke="#F2EBDD" stroke-opacity=".35" stroke-width="2" stroke-dasharray="7 6"/>
+  <!-- sketch notebook -->
+  <path d="M170 95h250c10 0 18 8 18 18v250c0 10-8 18-18 18H170c-10 0-18-8-18-18V113c0-10 8-18 18-18Z" fill="#F7F2E8" fill-opacity=".96"/>
+  <path d="M214 95v286" stroke="#2B3038" stroke-width="2.5" stroke-opacity=".55"/>
+  <!-- hole marks -->
+  <circle cx="192" cy="150" r="4" fill="#2B3038" fill-opacity=".55"/>
+  <circle cx="192" cy="200" r="4" fill="#2B3038" fill-opacity=".55"/>
+  <circle cx="192" cy="250" r="4" fill="#2B3038" fill-opacity=".55"/>
+  <!-- handwritten lines -->
+  <path d="M240 155c40-8 80 6 120-4" stroke="#2B3038" stroke-width="7" stroke-linecap="round"/>
+  <path d="M240 195c46-6 78 8 118-2" stroke="#2B3038" stroke-width="4" stroke-linecap="round" opacity=".4"/>
+  <path d="M240 228c38-4 70 6 102-2" stroke="#2B3038" stroke-width="4" stroke-linecap="round" opacity=".3"/>
+  <path d="M240 260c42-5 66 7 98-1" stroke="#2B3038" stroke-width="4" stroke-linecap="round" opacity=".24"/>
+  <!-- chalk doodles -->
+  <path d="M500 150c28-40 70-52 110-40" stroke="#F2EBDD" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="560" cy="210" r="34" stroke="#F2EBDD" stroke-width="3" stroke-dasharray="5 5"/>
+  <path d="M520 280c24 18 52 20 84 8" stroke="#C9D2C4" stroke-width="3" stroke-linecap="round"/>
+  <!-- chalk stick -->
+  <rect x="500" y="330" width="96" height="16" rx="8" fill="#F2EBDD" fill-opacity=".9"/>
+  <rect x="602" y="334" width="34" height="8" rx="4" fill="#C9D2C4"/>
 </svg>
