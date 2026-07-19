@@ -1,5 +1,6 @@
 ---
 import { tastes } from '../data/site';
+import SpotifyEmbed from './SpotifyEmbed.astro';
 ---
 
 <div class="console-doc tastes">
@@ -39,21 +40,18 @@ import { tastes } from '../data/site';
 
 	<section class="tastes__section">
 		<p class="stack-group__label">series</p>
-		<div class="stack-group__chips">
+		<ul class="tastes__lines">
 			{tastes.series.map((title) => (
-				<span class="stack-chip">
-					<span class="stack-chip__hash">#</span>
-					{title}
-				</span>
+				<li>{title}</li>
 			))}
-		</div>
+		</ul>
 	</section>
 
 	<section class="tastes__section" id="music">
 		<p class="stack-group__label">music</p>
-		<p class="console-doc__line">
-			playlist <span class="tastes__muted">→</span>{' '}
+		<p class="console-doc__line tastes__music-line">
 			<span class="tastes__name">{tastes.spotify.playlistLabel}</span>
 		</p>
+		<SpotifyEmbed variant="panel" />
 	</section>
 </div>

@@ -108,10 +108,22 @@ export const workPhilosophy = {
 
 export const tastes = {
 	figures: [
-		{ name: 'Marcus Aurelius', text: 'Stoicism and calm under pressure.' },
-		{ name: 'Charlemagne', text: 'Building something that outlives you.' },
-		{ name: 'Cristiano Ronaldo', text: 'Discipline, ambition, no excuses.' },
-		{ name: 'Linus Torvalds', text: 'Open systems and blunt honesty.' },
+		{
+			name: 'Marcus Aurelius',
+			text: 'His philosophy and writing — discipline, perspective, and how to act under pressure.',
+		},
+		{
+			name: 'Charlemagne',
+			text: 'His history and figure — building something larger than yourself across time.',
+		},
+		{
+			name: 'Cristiano Ronaldo',
+			text: 'A winning, competitive mindset — consistency, ambition, and refusing to coast.',
+		},
+		{
+			name: 'Linus Torvalds',
+			text: 'What he created and how he shares it — open systems, sharp opinions, real impact.',
+		},
 	] as const,
 	movies: [
 		{ rank: 1, title: 'Interstellar', year: 2014 },

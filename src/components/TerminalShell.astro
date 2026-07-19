@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site';
+import SpotifyEmbed from './SpotifyEmbed.astro';
 ---
 
 <div class="twin">
@@ -7,6 +8,7 @@ import { site } from '../data/site';
 		<code class="twin__title">
 			<span class="twin__blog">{site.consoleUser}</span><span class="twin__at">@</span><a href="/about" class="twin__host">{site.domain}</a><span class="twin__handle">{site.handle}</span> <span class="twin__name">"Andrés Ramos Q"</span>
 		</code>
+		<SpotifyEmbed variant="mini" />
 	</header>
 	<div class="twin__body">
 		<slot />
