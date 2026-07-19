@@ -1,7 +1,8 @@
 ---
 import '../styles/dev.css';
 import TerminalShell from '../components/TerminalShell.astro';
-import { site, nav } from '../data/site';
+import AboutNav from '../components/AboutNav.astro';
+import { site } from '../data/site';
 import { pathToSegment } from '../utils/segment';
 
 interface Props {
@@ -13,6 +14,7 @@ interface Props {
 const { title, description, path = '/andres' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
 const segment = pathToSegment(path);
+const isAbout = path.startsWith('/andres');
 ---
 
 <!doctype html>
@@ -30,23 +32,20 @@ const segment = pathToSegment(path);
 
     <div class="desk">
       <TerminalShell segment={segment}>
-        <header class="term-hd">
-          <nav class="nav" aria-label="Rutas">
-            {nav.map((item) => (
-              <a href={item.href} aria-current={path === item.href || path.startsWith(item.href) ? 'page' : undefined}>
-                {item.label}
-              </a>
-            ))}
-          </nav>
-        </header>
+        {isAbout && (
+          <header class="term-hd">
+            <AboutNav />
+          </header>
+        )}
 
         <main id="main" class="main">
           <slot />
         </main>
 
         <footer class="ftr" role="contentinfo">
+          <span class="ftr__status">[exit 0]</span>
           <span>© {new Date().getFullYear()} {site.domain}</span>
-          <div>
+          <div class="ftr__links">
             {site.links.map((l, i) => (
               <>
                 {i > 0 && ' · '}

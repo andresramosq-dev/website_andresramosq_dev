@@ -1,0 +1,13 @@
+---
+import { aboutNav } from '../data/site';
+
+const base = '/andres';
+---
+
+<nav class="subnav" aria-label="Secciones de andres">
+	{aboutNav.map((item) => (
+		<a class="subnav__link" href={`${base}#${item.id}`}>
+			<span class="subnav__path">/andres/{item.label}</span>
+		</a>
+	))}
+</nav>

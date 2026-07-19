@@ -4,143 +4,112 @@ export const site = {
 	name: 'Andrés Ramos',
 	handle: '@andres_ramos_dev',
 	role: 'Desarrollador de software',
-	location: 'Latinoamérica',
+	location: 'Bogotá, Colombia',
 	email: 'andfera201@gmail.com',
 	since: 2020,
-	/** Pon tu foto en public/images/avatar.jpg y cambia esta ruta */
 	avatar: '/images/avatar.svg',
-	avatarPath: '~/avatar.jpg',
+	avatarPath: '~/andres/avatar.jpg',
 	tagline: 'Interfaces, código y oficio — documentado en público.',
+	consoleTitle: 'consola de Andrés Ramos',
 	description:
-		'Blog de Andrés Ramos en andresramos.dev. Desarrollo de software, diseño de interfaces y reflexiones sobre el oficio.',
-	bio: 'Construyo productos web y escribo para pensar mejor. Me interesa el frontend, la arquitectura de interfaces y cómo publicar ideas con claridad.',
+		'Consola personal de Andrés Ramos. Desarrollo de software, diseño de interfaces y notas sobre el oficio.',
+	bio: 'Construyo productos web con criterio. Me mueven las interfaces bien pensadas, el código legible y publicar lo que aprendo en el camino.',
 	about: [
-		'Llevo años entre código y diseño: no como disciplinas separadas, sino como el mismo problema visto desde ángulos distintos. Me gusta entender cómo se siente un producto antes de escribir la primera línea.',
-		'Escribo sobre lo que aprendo construyendo software: interfaces, herramientas, hábitos y decisiones de producto. Este sitio es mi cuaderno público — ideas abiertas, no portfolio pulido.',
-		'Cuando no estoy frente al editor, suelo estar leyendo sobre sistemas UI, probando frameworks o refinando cómo organizo mis notas.',
+		'Soy desarrollador con base en frontend y curiosidad por el producto completo. Me gusta entender el problema antes de elegir la herramienta, y diseñar experiencias que se sientan claras sin necesidad de manual.',
+		'He trabajado en equipos pequeños, proyectos propios y entregas freelance. Eso me enseñó a priorizar, documentar decisiones y mantener código que otra persona —o yo en seis meses— pueda leer sin sufrimiento.',
+		'Fuera del editor: leo sobre sistemas de diseño, pruebo stacks nuevos en side projects y escribo notas cortas sobre lo que voy aprendiendo. Este sitio es ese cuaderno, en formato terminal.',
 	],
 	links: [
 		{ label: 'GitHub', href: 'https://github.com/ramos-andres-dev', icon: 'github' as const },
+		{ label: 'LinkedIn', href: 'https://linkedin.com/in/andresramos', icon: 'linkedin' as const },
 		{ label: 'Email', href: 'mailto:andfera201@gmail.com', icon: 'mail' as const },
 	],
 };
 
-export const nav = [
-	{ label: 'sobre', href: '/andres' },
+/** Secciones navegables bajo /andres */
+export const aboutNav = [
+	{ id: 'perfil', label: 'perfil' },
+	{ id: 'bio', label: 'bio' },
+	{ id: 'now', label: 'now' },
+	{ id: 'skills', label: 'skills' },
+	{ id: 'experiencia', label: 'experiencia' },
+	{ id: 'principles', label: 'principles' },
+	{ id: 'contacto', label: 'contacto' },
 ] as const;
 
+export const nav = [{ label: 'andres', href: '/andres' }] as const;
+
 export const now = {
-	working: 'Este blog en Astro, un panel de operaciones interno y un kit de componentes UI.',
-	learning: 'Patrones de contenido tipado, diseño de sistemas y escritura técnica en público.',
-	reading: 'Notas sobre arquitectura frontend, DX y cómo mantener proyectos vivos con el tiempo.',
+	working: 'Este sitio en Astro, un dashboard interno para seguimiento de tareas y un design system personal.',
+	learning: 'Arquitectura de contenido, animaciones con CSS y escritura técnica en público.',
+	reading: 'Notas sobre UX engineering, DX moderna y cómo mantener proyectos vivos con el tiempo.',
 };
 
 export const principles = [
-	{
-		title: 'claridad',
-		desc: 'Código y texto que se entienden sin manual. Si no puedo explicarlo, no lo entiendo.',
-	},
-	{
-		title: 'oficio',
-		desc: 'La calidad no es un filtro final: es el hábito de revisar, simplificar y cuidar los detalles.',
-	},
-	{
-		title: 'documentar',
-		desc: 'Escribir en público obliga a pensar mejor. Las notas son parte del trabajo, no un extra.',
-	},
-	{
-		title: 'iterar',
-		desc: 'Los productos y los blogs mejoran en ciclos cortos. Publicar imperfecto > perfeccionar en silencio.',
-	},
+	{ title: 'claridad', desc: 'Si no se entiende en una lectura, todavía no está listo.' },
+	{ title: 'oficio', desc: 'Los detalles no son decoración: son señal de respeto por quien usa lo que construyes.' },
+	{ title: 'documentar', desc: 'Escribir obliga a pensar. Las notas son parte del trabajo, no un extra.' },
+	{ title: 'iterar', desc: 'Publicar imperfecto y mejorar en ciclos cortos beats perfeccionar en silencio.' },
 ];
 
-export const skills = [
-	'TypeScript',
-	'Astro',
-	'React',
-	'CSS',
-	'Node.js',
-	'Git',
-	'Figma',
-	'Markdown',
-];
+export const skills = {
+	frontend: ['TypeScript', 'React', 'Astro', 'CSS', 'HTML'],
+	backend: ['Node.js', 'PostgreSQL', 'REST'],
+	tools: ['Git', 'Figma', 'Linux', 'Vercel', 'Storybook'],
+};
 
 export const experience = [
 	{
 		period: '2024 — presente',
 		role: 'Desarrollador Frontend',
-		company: 'Producto & freelance',
-		desc: 'Interfaces web, design systems, componentes reutilizables y entrega continua en equipos pequeños.',
-		stack: ['TypeScript', 'React', 'Astro', 'CSS'],
+		company: 'Producto digital · remoto',
+		desc: 'Interfaces web, design system interno, componentes reutilizables y entrega continua con equipo de 4 personas.',
+		stack: ['TypeScript', 'React', 'CSS', 'Figma'],
 	},
 	{
-		period: '2025',
-		role: 'Panel de operaciones',
-		company: 'Proyecto interno',
-		desc: 'Dashboard para seguimiento de entregas, estados y bloqueos de equipo.',
-		stack: ['React', 'Node.js', 'PostgreSQL'],
+		period: '2023 — 2024',
+		role: 'Desarrollador Full Stack',
+		company: 'Freelance',
+		desc: 'Sitios y paneles a medida para clientes pequeños. Desde wireframes hasta deploy y mantenimiento.',
+		stack: ['Astro', 'Node.js', 'PostgreSQL'],
 	},
 	{
-		period: '2024',
-		role: 'Kit de componentes UI',
-		company: 'Experimento / estudio',
-		desc: 'Biblioteca interna con tokens, variantes y documentación en Storybook.',
-		stack: ['TypeScript', 'Storybook', 'CSS'],
+		period: '2022',
+		role: 'Prácticas · UI',
+		company: 'Startup local',
+		desc: 'Apoyo en prototipos, pruebas de usabilidad y primeras versiones del sistema de componentes.',
+		stack: ['React', 'Figma', 'Git'],
 	},
 ];
 
+export const education = [
+	{
+		period: '2018 — 2022',
+		title: 'Ingeniería de sistemas',
+		place: 'Universidad (placeholder)',
+		desc: 'Base en algoritmos, bases de datos y desarrollo de software.',
+	},
+];
+
+export const languages = [
+	{ lang: 'Español', level: 'nativo' },
+	{ lang: 'Inglés', level: 'lectura técnica · conversación intermedia' },
+];
+
+export const interests = ['tipografía', 'CLI tools', 'café', 'senderismo', 'música electrónica'];
+
+// Legacy exports used by other pages (not linked for now)
 export const timeline = [
-	{
-		year: '2026',
-		title: 'Blog personal',
-		desc: 'Sitio con Astro 7, collections tipadas y diseño dev-terminal.',
-	},
-	{
-		year: '2025',
-		title: 'Panel de operaciones',
-		desc: 'Herramienta interna para seguimiento de entregas y estados de proyecto.',
-	},
-	{
-		year: '2024',
-		title: 'Frontend & producto',
-		desc: 'Interfaces web, design systems y entrega continua en equipos pequeños.',
-	},
-	{
-		year: '—',
-		title: 'Siempre aprendiendo',
-		desc: 'Código, diseño y oficio como práctica continua.',
-	},
+	{ year: '2026', title: 'Consola personal', desc: 'Sitio terminal con Astro 7.' },
+	{ year: '2025', title: 'Panel interno', desc: 'Dashboard de operaciones.' },
+	{ year: '2024', title: 'Frontend', desc: 'Producto y freelance.' },
 ];
 
 export const categories = [
-	{
-		id: 'diseno',
-		label: 'diseño',
-		description: 'Interfaces, jerarquía y criterio visual.',
-		icon: 'spark',
-		color: '#4ade80',
-	},
-	{
-		id: 'codigo',
-		label: 'código',
-		description: 'Frontend, arquitectura y herramientas.',
-		icon: 'code',
-		color: '#38bdf8',
-	},
-	{
-		id: 'oficio',
-		label: 'oficio',
-		description: 'Carrera, hábitos y aprendizaje continuo.',
-		icon: 'compass',
-		color: '#facc15',
-	},
-	{
-		id: 'metodo',
-		label: 'método',
-		description: 'Cómo escribo, publico y organizo ideas.',
-		icon: 'pen',
-		color: '#a78bfa',
-	},
+	{ id: 'diseno', label: 'diseño', description: '', icon: 'spark', color: '#4ade80' },
+	{ id: 'codigo', label: 'código', description: '', icon: 'code', color: '#38bdf8' },
+	{ id: 'oficio', label: 'oficio', description: '', icon: 'compass', color: '#facc15' },
+	{ id: 'metodo', label: 'método', description: '', icon: 'pen', color: '#a78bfa' },
 ] as const;
 
 export type CategoryId = (typeof categories)[number]['id'];
