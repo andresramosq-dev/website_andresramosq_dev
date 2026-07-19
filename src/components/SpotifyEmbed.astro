@@ -2,24 +2,18 @@
 import { tastes } from '../data/site';
 import { spotifyPlaylistEmbedSrc } from '../lib/spotify';
 
-interface Props {
-	variant?: 'mini' | 'panel';
-}
-
-const { variant = 'panel' } = Astro.props;
 const embedSrc = spotifyPlaylistEmbedSrc(tastes.spotify.playlistUrl);
 const label = tastes.spotify.playlistLabel ?? 'playlist';
-const height = variant === 'mini' ? 80 : 352;
 ---
 
 {embedSrc ? (
-	<div class:list={['spotify-embed', `spotify-embed--${variant}`]}>
+	<div class="spotify-embed">
 		<iframe
 			class="spotify-embed__frame"
 			title={`Spotify: ${label}`}
 			src={embedSrc}
 			width="100%"
-			height={height}
+			height="380"
 			allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
 			loading="lazy"
 			referrerpolicy="strict-origin-when-cross-origin"

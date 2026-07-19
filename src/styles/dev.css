@@ -155,86 +155,91 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	overflow: hidden;
 	background: #121212;
 	border: 1px solid var(--border2);
+	border-radius: 10px;
 }
 .spotify-embed__frame {
 	display: block;
 	width: 100%;
 	border: 0;
-}
-.spotify-embed--panel {
-	margin-top: 0.25rem;
-	max-width: 100%;
-	border-radius: 8px;
-}
-.spotify-embed--panel .spotify-embed__frame {
-	min-height: 352px;
-}
-.tastes__music-line {
-	margin: 0 0 0.35rem;
+	min-height: 380px;
 }
 
-/* Header: song title + play + clipped Spotify prev/next */
-.now-bar {
-	display: flex;
+.hdr-music {
+	display: inline-flex;
 	align-items: center;
-	gap: 0.45rem;
-	flex: 0 1 min(19rem, 46vw);
-	min-width: 10.5rem;
-	padding: 0.28rem 0.4rem 0.28rem 0.55rem;
-	border: 1px solid var(--border2);
-	border-radius: 6px;
-	background: var(--panel2);
+	gap: 0.35rem;
+	flex-shrink: 0;
+	font-size: 0.72rem;
+	line-height: 1;
+	max-width: min(11rem, 36vw);
 }
-.now-bar__track {
-	flex: 1 1 auto;
-	min-width: 0;
-	margin: 0;
-	font-size: 0.68rem;
-	line-height: 1.35;
-	color: var(--text);
+.hdr-music__label {
+	color: var(--muted);
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-.now-bar__actions {
-	display: flex;
+.hdr-music__btn {
+	display: inline-flex;
 	align-items: center;
-	gap: 0.2rem;
-	flex-shrink: 0;
-}
-.now-bar__btn {
-	font-family: var(--mono);
-	font-size: 0.62rem;
-	line-height: 1;
-	width: 1.55rem;
-	height: 1.55rem;
+	justify-content: center;
+	width: 1.35rem;
+	height: 1.35rem;
 	padding: 0;
 	border: 1px solid var(--border2);
-	border-radius: 4px;
+	border-radius: 3px;
 	background: var(--panel);
 	color: var(--ink);
-	cursor: pointer;
+	font-family: var(--mono);
+	font-size: 0.55rem;
+	text-decoration: none;
 }
-.now-bar__btn:hover {
+.hdr-music__btn:hover {
 	border-color: var(--prompt);
 	color: var(--prompt);
+	text-decoration: none;
 }
-.now-bar__native {
-	width: 4.6rem;
-	height: 1.55rem;
+.hdr-music__link {
+	color: var(--cmd);
+	text-decoration: none;
+	white-space: nowrap;
+}
+.hdr-music__link:hover {
+	color: var(--link-hover);
+	text-decoration: underline;
+}
+
+.music-page {
+	display: grid;
+	gap: 0.85rem;
+	max-width: 32rem;
+}
+.music-page__line {
+	margin: 0;
+	font-size: 0.86rem;
+	color: var(--muted);
+}
+.music-page__key {
+	color: var(--perm);
+}
+.music-page__sep {
+	margin: 0 0.35rem;
+}
+.music-page__val {
+	color: var(--ink);
+}
+.music-page__player {
+	border-radius: 10px;
 	overflow: hidden;
-	position: relative;
-	flex-shrink: 0;
-	border-radius: 3px;
-	opacity: 0.92;
+	box-shadow: 0 0 0 1px var(--border2);
 }
-.now-bar__native iframe {
-	position: absolute;
-	top: -2.35rem;
-	right: -4.5rem;
-	width: 18rem !important;
-	height: 5rem !important;
-	border: 0;
+
+.tastes__link {
+	color: var(--cmd);
+	text-decoration: none;
+}
+.tastes__link:hover {
+	text-decoration: underline;
 }
 .tastes {
 	gap: 0.75rem;
@@ -816,14 +821,6 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 		word-break: break-word;
 		white-space: normal;
 		flex: 1 1 100%;
-	}
-	.spotify-embed--panel .spotify-embed__frame {
-		min-height: 280px;
-	}
-	.now-bar {
-		flex: 1 1 100%;
-		max-width: none;
-		min-width: 0;
 	}
 	.twin__handle { margin-left: 0.35rem; }
 	.nav a { padding: 0.5rem 0.85rem; font-size: 0.8rem; }
