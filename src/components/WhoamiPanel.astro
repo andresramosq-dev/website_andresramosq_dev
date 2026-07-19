@@ -6,7 +6,7 @@ import { site } from '../data/site';
 <div class="whoami">
 	<div class="whoami__main">
 		<div class="whoami__photo">
-			<img src={site.avatar} alt={`Photo of ${site.name}`} width="160" height="160" loading="eager" />
+			<img src={site.avatar} alt={`Photo of ${site.name}`} loading="eager" />
 		</div>
 		<div class="whoami__fields">
 			<div class="whoami__row">
@@ -39,7 +39,7 @@ import { site } from '../data/site';
 								target={s.href.startsWith('http') ? '_blank' : undefined}
 								rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
 							>
-								<Icon name={s.icon} size={18} />
+								<Icon name={s.icon} size={16} />
 							</a>
 						))}
 					</span>
