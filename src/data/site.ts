@@ -4,21 +4,21 @@ export const site = {
 	user: 'andres',
 	name: 'Andrés Ramos',
 	handle: '@andresramos-dev',
-	role: 'Desarrollador de Software Senior',
-	location: 'Pitalito, Huila · remoto',
+	role: 'Senior Software Developer',
+	location: 'Pitalito, Huila · remote',
 	email: 'andfera201@gmail.com',
 	phone: '+57 317 211 6762',
 	since: 2020,
 	avatar: '/images/avatar.svg',
 	avatarPath: '~/about/avatar.jpg',
-	tagline: 'Te ayudo a construir software que tu equipo amará mantener:',
-	pillars: ['Limpio', 'Sólido', 'Escalable'] as const,
-	consoleSlug: 'consola-de-andres-ramos',
+	tagline: 'I help teams build software they will actually enjoy maintaining:',
+	pillars: ['Clean', 'Solid', 'Scalable'] as const,
+	consoleSlug: 'andres-ramos-console',
 	description:
-		'Consola personal de Andrés Ramos. Backend, APIs, microservicios y notas sobre el oficio.',
-	bio: `Desarrollador de software senior con más de 4 años de experiencia en desarrollo backend, principalmente con JavaScript, TypeScript, Node.js, Python, PostgreSQL, AWS, Docker y Git. Apasionado por el código limpio, arquitectura modular y sistemas que el equipo pueda mantener.`,
+		'Personal console of Andrés Ramos. Backend development, APIs, microservices, and notes on the craft.',
+	bio: 'Senior software developer with 4+ years in backend work — JavaScript, TypeScript, Node.js, Python, PostgreSQL, AWS, Docker, and Git. I focus on clean code, modular architecture, and systems a team can own long term.',
 	bioPersonal:
-		'actualmente estoy jugando mucho con la IA (esta web fue construida en gran parte gracias a ella —no soy muy bueno con diseños web— 😉) y construir sistemas desde cero; estoy buscando ese reto de productos a mejorar y construir',
+		'These days I am deep in AI — this site is living proof (web design is not my superpower 😉). I like building systems from scratch and I am most excited about products worth improving and growing.',
 	about: [],
 	social: [
 		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/aframos-dev', value: 'github.com/aframos-dev' },
@@ -34,9 +34,9 @@ export const site = {
 	],
 };
 
-/** Secciones con sub-path en la página (no en el menú) */
+/** Page sections with sub-path anchors (not in the main nav) */
 export const aboutNav = [
-	{ id: 'perfil', label: 'perfil' },
+	{ id: 'profile', label: 'profile' },
 	{ id: 'bio', label: 'bio' },
 	{ id: 'now', label: 'now' },
 	{ id: 'skills', label: 'skills' },
@@ -46,16 +46,16 @@ export const aboutNav = [
 export const nav = [{ label: 'about', href: '/about' }] as const;
 
 export const now = {
-	working: 'Backend services at Nova Dynamics — IAM, microservices, and AWS/Docker infrastructure.',
-	learning: 'System design, cloud architecture, and technical writing.',
-	reading: 'Notes on backend engineering, clean architecture, and maintainable codebases.',
+	working: 'Backend at Nova Dynamics — IAM, microservices, and AWS/Docker infrastructure.',
+	learning: 'System design, cloud architecture, and clear technical writing.',
+	reading: 'Backend craft, clean architecture, and maintainable codebases.',
 };
 
 export const principles = [
-	{ title: 'clarity', desc: 'If it is not clear in one read, it is not ready yet.' },
+	{ title: 'clarity', desc: 'If it is not clear in one read, it is not ready.' },
 	{ title: 'craft', desc: 'Details are not decoration — they signal respect for the people using what you build.' },
-	{ title: 'document', desc: 'Writing forces you to think. Notes are part of the work, not an extra.' },
-	{ title: 'iterate', desc: 'Ship imperfect work and improve in short cycles rather than perfecting in silence.' },
+	{ title: 'document', desc: 'Writing forces you to think. Notes are part of the work, not an afterthought.' },
+	{ title: 'iterate', desc: 'Ship, learn, and tighten in short cycles — not in silence.' },
 ];
 
 export const skills = {
@@ -66,24 +66,24 @@ export const skills = {
 
 export const experience = [
 	{
-		period: '2024 — presente',
-		role: 'Desarrollador Frontend',
-		company: 'Producto digital · remoto',
-		desc: 'Interfaces web, design system interno, componentes reutilizables y entrega continua con equipo de 4 personas.',
+		period: '2024 — present',
+		role: 'Frontend Developer',
+		company: 'Digital product · remote',
+		desc: 'Web interfaces, internal design system, reusable components, and continuous delivery with a team of four.',
 		stack: ['TypeScript', 'React', 'CSS', 'Figma'],
 	},
 	{
 		period: '2023 — 2024',
-		role: 'Desarrollador Full Stack',
+		role: 'Full Stack Developer',
 		company: 'Freelance',
-		desc: 'Sitios y paneles a medida para clientes pequeños. Desde wireframes hasta deploy y mantenimiento.',
+		desc: 'Custom sites and dashboards for small clients — from wireframes through deploy and maintenance.',
 		stack: ['Astro', 'Node.js', 'PostgreSQL'],
 	},
 	{
 		period: '2022',
-		role: 'Prácticas · UI',
-		company: 'Startup local',
-		desc: 'Apoyo en prototipos, pruebas de usabilidad y primeras versiones del sistema de componentes.',
+		role: 'UI Internship',
+		company: 'Local startup',
+		desc: 'Prototypes, usability testing, and early versions of the component system.',
 		stack: ['React', 'Figma', 'Git'],
 	},
 ];
@@ -91,31 +91,31 @@ export const experience = [
 export const education = [
 	{
 		period: '2018 — 2022',
-		title: 'Ingeniería de sistemas',
-		place: 'Universidad (placeholder)',
-		desc: 'Base en algoritmos, bases de datos y desarrollo de software.',
+		title: 'Systems Engineering',
+		place: 'University (placeholder)',
+		desc: 'Foundations in algorithms, databases, and software development.',
 	},
 ];
 
 export const languages = [
-	{ lang: 'Español', level: 'nativo' },
-	{ lang: 'Inglés', level: 'lectura técnica · conversación intermedia' },
+	{ lang: 'Spanish', level: 'native' },
+	{ lang: 'English', level: 'technical reading · intermediate conversation' },
 ];
 
-export const interests = ['tipografía', 'CLI tools', 'café', 'senderismo', 'música electrónica'];
+export const interests = ['typography', 'CLI tools', 'coffee', 'hiking', 'electronic music'];
 
 // Legacy exports used by other pages (not linked for now)
 export const timeline = [
-	{ year: '2026', title: 'Consola personal', desc: 'Sitio terminal con Astro 7.' },
-	{ year: '2025', title: 'Panel interno', desc: 'Dashboard de operaciones.' },
-	{ year: '2024', title: 'Frontend', desc: 'Producto y freelance.' },
+	{ year: '2026', title: 'Personal console', desc: 'Terminal-style site with Astro 7.' },
+	{ year: '2025', title: 'Internal dashboard', desc: 'Operations panel.' },
+	{ year: '2024', title: 'Frontend', desc: 'Product work and freelance.' },
 ];
 
 export const categories = [
-	{ id: 'diseno', label: 'diseño', description: '', icon: 'spark', color: '#4ade80' },
-	{ id: 'codigo', label: 'código', description: '', icon: 'code', color: '#38bdf8' },
-	{ id: 'oficio', label: 'oficio', description: '', icon: 'compass', color: '#facc15' },
-	{ id: 'metodo', label: 'método', description: '', icon: 'pen', color: '#a78bfa' },
+	{ id: 'diseno', label: 'design', description: '', icon: 'spark', color: '#4ade80' },
+	{ id: 'codigo', label: 'code', description: '', icon: 'code', color: '#38bdf8' },
+	{ id: 'oficio', label: 'craft', description: '', icon: 'compass', color: '#facc15' },
+	{ id: 'metodo', label: 'method', description: '', icon: 'pen', color: '#a78bfa' },
 ] as const;
 
 export type CategoryId = (typeof categories)[number]['id'];
