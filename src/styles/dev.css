@@ -92,12 +92,12 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	text-decoration: underline;
 	text-underline-offset: 3px;
 }
-.twin__name {
-	color: var(--ink);
-	margin-left: 0.55rem;
-}
 .twin__handle {
 	color: #7a9a7a;
+	margin-left: 0.55rem;
+}
+.twin__name {
+	color: var(--ink);
 }
 .twin__body {
 	flex: 1;
