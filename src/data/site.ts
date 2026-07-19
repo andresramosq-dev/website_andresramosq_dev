@@ -93,52 +93,18 @@ export const stack = {
 	] as const,
 };
 
-type PhilosophyTone = 'text' | 'amber' | 'cyan';
-
-type PhilosophyPart = { tone: PhilosophyTone; text: string };
-
 export const workPhilosophy = {
-	lead: 'I build clear, useful software.',
-	passages: [
-		[
-			{ tone: 'text', text: 'I work with ' },
-			{ tone: 'amber', text: 'simplicity and quality' },
-			{ tone: 'text', text: '.' },
-		],
-		[
-			{ tone: 'text', text: 'I ' },
-			{ tone: 'amber', text: 'understand the problem before I write code' },
-			{ tone: 'text', text: '.' },
-		],
-		[
-			{ tone: 'text', text: 'I am critical, analytical, and direct. When I see a problem, I go to the cause and ' },
-			{ tone: 'amber', text: 'work through solutions with the team' },
-			{ tone: 'text', text: '.' },
-		],
-		[
-			{ tone: 'text', text: 'I question assumptions, compare options, and ' },
-			{ tone: 'amber', text: 'do not keep the first answer' },
-			{ tone: 'text', text: '. I observe, try, and adjust until something works.' },
-		],
-		[
-			{ tone: 'text', text: 'I take part in ' },
-			{ tone: 'amber', text: 'defining and evolving the product' },
-			{ tone: 'text', text: ', not only in implementation.' },
-		],
-		[
-			{ tone: 'text', text: 'I improve step by step: review, learn, and strengthen what we build.' },
-		],
-		[
-			{ tone: 'text', text: 'I think in ' },
-			{ tone: 'cyan', text: 'modules' },
-			{ tone: 'text', text: ' so the system stays maintainable and can grow without improvised decisions.' },
-		],
-		[
-			{ tone: 'text', text: 'I value ' },
-			{ tone: 'amber', text: 'open communication and honest feedback' },
-			{ tone: 'text', text: ' in the team.' },
-		],
-	] as const satisfies readonly PhilosophyPart[][],
+	paragraphs: [
+		'I build clear, useful software.',
+		'I work with simplicity and quality.',
+		'I understand the problem before I write code.',
+		'I am critical, analytical, and direct. When I see a problem, I go to the cause and work through solutions with the team.',
+		'I question assumptions, compare options, and do not keep the first answer. I observe, try, and adjust until something works.',
+		'I take part in defining and evolving the product, not only in implementation.',
+		'I improve step by step: I review, learn, and strengthen what we build.',
+		'I think in modules so the system stays maintainable and can grow without improvised decisions.',
+		'I value open communication and honest feedback in the team.',
+	] as const,
 };
 
 export const tastes = {
