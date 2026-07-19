@@ -1,53 +1,45 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PostEntry from '../../components/PostEntry.astro';
-import Icon from '../../components/Icon.astro';
+import PostTile from '../../components/PostTile.astro';
+import ArtIllus from '../../components/ArtIllus.astro';
 import { getCollection } from 'astro:content';
 import { categories } from '../../data/site';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
 const grouped = categories.map((cat) => ({
   ...cat,
-  posts: posts
-    .filter((p) => p.data.category === cat.id)
+  posts: posts.filter((p) => p.data.category === cat.id)
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
 }));
 ---
 
-<BaseLayout title="Categorías" description="Categorías del blog">
+<BaseLayout title="Categorías">
   <div class="wrap">
-    <header class="page-head">
+    <header class="pg-head">
       <h1>Categorías</h1>
       <p>Artículos por tema.</p>
     </header>
-
-    {
-      grouped.map((group) => (
-        <section class="cluster">
-          <h2>
-            <Icon name={group.icon} size={20} />
-            {group.label}
-          </h2>
-          <p class="section-sub">{group.description}</p>
-          {group.posts.length === 0 ? (
-            <p class="empty">Sin artículos.</p>
-          ) : (
-            <ul class="post-list">
-              {group.posts.map((post) => (
-                <PostEntry
-                  href={`/blog/${post.id}`}
-                  title={post.data.title}
-                  description={post.data.description}
-                  date={post.data.pubDate}
-                  minutes={post.data.minutes}
-                  category={post.data.category}
-                  icon={group.icon}
-                />
-              ))}
-            </ul>
-          )}
-        </section>
-      ))
-    }
+    {grouped.map((g) => (
+      <section class="cluster">
+        <h2>{g.label}</h2>
+        {g.posts.length === 0 ? (
+          <p style="color:var(--muted)">Sin artículos.</p>
+        ) : (
+          <div class="post-grid">
+            {g.posts.map((post, i) => (
+              <PostTile
+                href={`/blog/${post.id}`}
+                title={post.data.title}
+                description={post.data.description}
+                date={post.data.pubDate}
+                minutes={post.data.minutes}
+                category={post.data.category}
+                featured={i === 0 && g.posts.length > 1}
+              />
+            ))}
+          </div>
+        )}
+      </section>
+    ))}
   </div>
 </BaseLayout>

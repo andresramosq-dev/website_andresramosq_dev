@@ -1,39 +1,26 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Icon from '../../components/Icon.astro';
+import ArtIllus from '../../components/ArtIllus.astro';
 import { getCollection } from 'astro:content';
 
-const projects = (await getCollection('projects')).sort(
-  (a, b) => b.data.year - a.data.year
-);
+const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year);
 ---
 
-<BaseLayout title="Proyectos" description="Proyectos personales">
+<BaseLayout title="Proyectos">
   <div class="wrap">
-    <header class="page-head">
+    <header class="pg-head">
       <h1>Proyectos</h1>
       <p>Trabajo personal y experimentos.</p>
     </header>
-
-    <div>
-      {
-        projects.map((project) => (
-          <article class="project-entry">
-            <a href={project.data.url ?? '#'}>
-              <span class="topic-item__icon">
-                <Icon name="folder" size={22} />
-              </span>
-              <div>
-                <p class="project-entry__meta">
-                  {project.data.year} · {project.data.stack.join(', ')}
-                </p>
-                <h2 class="project-entry__title">{project.data.title}</h2>
-                <p class="project-entry__desc">{project.data.description}</p>
-              </div>
-            </a>
-          </article>
-        ))
-      }
-    </div>
+    {projects.map((p) => (
+      <a class="proj" href={p.data.url ?? '#'}>
+        <ArtIllus variant="codigo" />
+        <div>
+          <p class="proj__meta">{p.data.year} · {p.data.stack.join(', ')}</p>
+          <h2 class="proj__title">{p.data.title}</h2>
+          <p class="proj__desc">{p.data.description}</p>
+        </div>
+      </a>
+    ))}
   </div>
 </BaseLayout>

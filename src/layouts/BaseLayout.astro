@@ -2,14 +2,10 @@
 import '../styles/site.css';
 import { site, nav } from '../data/site';
 
-interface Props {
-  title?: string;
-  description?: string;
-}
+interface Props { title?: string; description?: string; }
 
 const { title, description } = Astro.props;
 const pageTitle = title ? `${title} — ${site.name}` : site.name;
-const pageDescription = description ?? site.description;
 ---
 
 <!doctype html>
@@ -17,30 +13,21 @@ const pageDescription = description ?? site.description;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={pageDescription} />
+    <meta name="description" content={description ?? site.description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{pageTitle}</title>
   </head>
-  <body class="site">
+  <body>
     <a class="skip" href="#main">Saltar al contenido</a>
-
-    <header class="site-header">
-      <div class="site-header__inner">
-        <a class="site-logo" href="/">{site.name}</a>
-        <nav class="site-nav" aria-label="Principal">
-          {nav.map((item) => (
-            <a href={item.href}>{item.label}</a>
-          ))}
+    <header class="hdr">
+      <div class="hdr__in">
+        <a class="hdr__logo" href="/">{site.name}</a>
+        <nav class="hdr__nav" aria-label="Principal">
+          {nav.map((item) => <a href={item.href}>{item.label}</a>)}
         </nav>
       </div>
     </header>
-
-    <main id="main">
-      <slot />
-    </main>
-
-    <footer class="site-footer">
-      <p>© {new Date().getFullYear()} {site.name}</p>
-    </footer>
+    <main id="main"><slot /></main>
+    <footer class="ftr"><p>© {new Date().getFullYear()} {site.name}</p></footer>
   </body>
 </html>

@@ -1,45 +1,35 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PostEntry from '../../components/PostEntry.astro';
-import Icon from '../../components/Icon.astro';
+import PostTile from '../../components/PostTile.astro';
 import { categories } from '../../data/site';
 
 export function getStaticPaths() {
-	return categories.map((category) => ({
-		params: { id: category.id },
-		props: { category },
-	}));
+  return categories.map((c) => ({ params: { id: c.id }, props: { category: c } }));
 }
 
 const { category } = Astro.props;
-const posts = (
-	await getCollection('blog', ({ data }) => !data.draft && data.category === category.id)
-).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = (await getCollection('blog', ({ data }) => !data.draft && data.category === category.id))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const [featured, ...rest] = posts;
 ---
 
-<BaseLayout title={category.label} description={category.description}>
-	<div class="wrap">
-		<header class="page-head">
-			<a class="back" href="/categorias">← Categorías</a>
-			<h1>{category.label}</h1>
-			<p>{category.description}</p>
-		</header>
-
-		<ul class="post-list">
-			{
-				posts.map((post) => (
-					<PostEntry
-						href={`/blog/${post.id}`}
-						title={post.data.title}
-						description={post.data.description}
-						date={post.data.pubDate}
-						minutes={post.data.minutes}
-						category={post.data.category}
-						icon={category.icon}
-					/>
-				))
-			}
-		</ul>
-	</div>
+<BaseLayout title={category.label}>
+  <div class="wrap">
+    <header class="pg-head">
+      <a class="back" href="/categorias">← Categorías</a>
+      <h1>{category.label}</h1>
+      <p>{category.description}</p>
+    </header>
+    <div class="post-grid">
+      {featured && (
+        <PostTile href={`/blog/${featured.id}`} title={featured.data.title} description={featured.data.description}
+          date={featured.data.pubDate} minutes={featured.data.minutes} category={featured.data.category} featured />
+      )}
+      {rest.map((post) => (
+        <PostTile href={`/blog/${post.id}`} title={post.data.title} description={post.data.description}
+          date={post.data.pubDate} minutes={post.data.minutes} category={post.data.category} />
+      ))}
+    </div>
+  </div>
 </BaseLayout>

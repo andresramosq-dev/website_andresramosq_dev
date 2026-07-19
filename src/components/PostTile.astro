@@ -1,0 +1,39 @@
+---
+import ArtIllus from './ArtIllus.astro';
+import Icon from './Icon.astro';
+import { categoryLabel, type CategoryId } from '../data/site';
+
+interface Props {
+	href: string;
+	title: string;
+	description: string;
+	date: Date;
+	minutes: number;
+	category: CategoryId;
+	featured?: boolean;
+}
+
+const { href, title, description, date, minutes, category, featured = false } = Astro.props;
+---
+
+<article class:list={['post-tile', featured && 'post-tile--featured']}>
+	<a class="post-tile__link" href={href}>
+		<div class="post-tile__art">
+			<ArtIllus variant={category} />
+		</div>
+		<div class="post-tile__content">
+			<div class="post-tile__meta">
+				<Icon name={category === 'diseno' ? 'spark' : category === 'codigo' ? 'code' : category === 'oficio' ? 'compass' : 'pen'} size={14} />
+				<span>{categoryLabel[category]}</span>
+				<span>·</span>
+				<time datetime={date.toISOString()}>
+					{date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}
+				</time>
+				<span>·</span>
+				<span>{minutes} min</span>
+			</div>
+			<h2 class="post-tile__title">{title}</h2>
+			<p class="post-tile__desc">{description}</p>
+		</div>
+	</a>
+</article>

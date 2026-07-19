@@ -1,37 +1,42 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PostEntry from '../../components/PostEntry.astro';
+import PostTile from '../../components/PostTile.astro';
 import { getCollection } from 'astro:content';
-import { categories } from '../../data/site';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const iconByCategory = Object.fromEntries(categories.map((c) => [c.id, c.icon]));
+const [featured, ...rest] = posts;
 ---
 
-<BaseLayout title="Blog" description="Artículos del blog">
+<BaseLayout title="Blog">
   <div class="wrap">
-    <header class="page-head">
+    <header class="pg-head">
       <h1>Blog</h1>
       <p>Artículos sobre diseño, código y oficio.</p>
     </header>
-
-    <ul class="post-list">
-      {
-        posts.map((post) => (
-          <PostEntry
-            href={`/blog/${post.id}`}
-            title={post.data.title}
-            description={post.data.description}
-            date={post.data.pubDate}
-            minutes={post.data.minutes}
-            category={post.data.category}
-            icon={iconByCategory[post.data.category]}
-          />
-        ))
-      }
-    </ul>
+    <div class="post-grid">
+      {featured && (
+        <PostTile
+          href={`/blog/${featured.id}`}
+          title={featured.data.title}
+          description={featured.data.description}
+          date={featured.data.pubDate}
+          minutes={featured.data.minutes}
+          category={featured.data.category}
+          featured
+        />
+      )}
+      {rest.map((post) => (
+        <PostTile
+          href={`/blog/${post.id}`}
+          title={post.data.title}
+          description={post.data.description}
+          date={post.data.pubDate}
+          minutes={post.data.minutes}
+          category={post.data.category}
+        />
+      ))}
+    </div>
   </div>
 </BaseLayout>

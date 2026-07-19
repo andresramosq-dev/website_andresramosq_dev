@@ -1,0 +1,61 @@
+---
+interface Props {
+	variant?: 'diseno' | 'codigo' | 'oficio' | 'metodo' | 'hero';
+}
+
+const { variant = 'hero' } = Astro.props;
+---
+
+{variant === 'hero' && (
+	<svg class="illus" viewBox="0 0 560 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+		<rect width="560" height="420" rx="20" fill="#FAFAFA"/>
+		<circle cx="420" cy="100" r="70" fill="#E07A5F" opacity="0.9"/>
+		<rect x="60" y="240" width="110" height="110" rx="12" fill="#3D9AAD" opacity="0.85" transform="rotate(-6 115 295)"/>
+		<circle cx="180" cy="120" r="48" fill="#9B8AFB" opacity="0.8"/>
+		<path d="M300 320c80-40 140-20 200 0" stroke="#0A0A0A" stroke-width="2" stroke-linecap="round" opacity="0.15"/>
+		<path d="M80 80c60 40 100 20 140 60" stroke="#0A0A0A" stroke-width="2" stroke-linecap="round" opacity="0.12"/>
+		<g stroke="#0A0A0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+			<path d="M400 90l14 38h40l-32 24 12 38-34-24-34 24 12-38-32-24h40l14-38Z" opacity="0.7"/>
+			<path d="M155 105h30M170 90v30" opacity="0.5"/>
+			<path d="M95 270h50M95 290h35M95 310h45" opacity="0.25"/>
+			<circle cx="330" cy="280" r="28" opacity="0.35"/>
+			<path d="M318 280h24M330 268v24" opacity="0.35"/>
+		</g>
+	</svg>
+)}
+
+{variant === 'diseno' && (
+	<svg class="illus illus--sm" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+		<rect width="120" height="120" rx="16" fill="#FEF2F0"/>
+		<circle cx="75" cy="40" r="22" fill="#E07A5F" opacity="0.85"/>
+		<path d="M25 85l20-35 18 20 30-40 22 55H25Z" fill="#E07A5F" opacity="0.25"/>
+		<path d="m60 28 4 10h11l-9 7 3 10-9-7-9 7 3-10-9-7h11l4-10Z" stroke="#0A0A0A" stroke-width="1.5" opacity="0.5"/>
+	</svg>
+)}
+
+{variant === 'codigo' && (
+	<svg class="illus illus--sm" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+		<rect width="120" height="120" rx="16" fill="#F0F9FA"/>
+		<rect x="28" y="30" width="64" height="48" rx="6" fill="#3D9AAD" opacity="0.2"/>
+		<path d="M40 50 30 60l10 10M80 50l10 10-10 10M58 44l-8 32" stroke="#3D9AAD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+		<circle cx="85" cy="85" r="14" fill="#3D9AAD" opacity="0.7"/>
+	</svg>
+)}
+
+{variant === 'oficio' && (
+	<svg class="illus illus--sm" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+		<rect width="120" height="120" rx="16" fill="#FDF8EE"/>
+		<circle cx="60" cy="55" r="26" stroke="#D4A017" stroke-width="2.5" fill="none" opacity="0.6"/>
+		<path d="M60 55l16-10M60 55V78" stroke="#D4A017" stroke-width="2.5" stroke-linecap="round"/>
+		<path d="M30 95c12-18 28-28 50-28s38 10 50 28" stroke="#D4A017" stroke-width="2" opacity="0.35"/>
+	</svg>
+)}
+
+{variant === 'metodo' && (
+	<svg class="illus illus--sm" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+		<rect width="120" height="120" rx="16" fill="#F5F3FF"/>
+		<path d="M35 85l25-55 25 55H35Z" fill="#9B8AFB" opacity="0.3"/>
+		<path d="M42 70h36M48 55h24" stroke="#9B8AFB" stroke-width="2" stroke-linecap="round"/>
+		<circle cx="82" cy="38" r="12" fill="#9B8AFB" opacity="0.75"/>
+	</svg>
+)}
