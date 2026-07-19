@@ -2,20 +2,32 @@
 import ProfilePhoto from './ProfilePhoto.astro';
 import Icon from './Icon.astro';
 import { site } from '../data/site';
-
 ---
 
 <div class="whoami">
 	<div class="whoami__main">
 		<ProfilePhoto size="md" caption={false} />
-		<div class="whoami__info">
-			<p class="whoami__name">{site.name}</p>
-			<p class="whoami__role">{site.role}</p>
-			<p class="whoami__handle">
-				<a href="/about">{site.handle}</a>
-			</p>
-			<p class="whoami__links-line">
-				<span class="whoami__sig">@</span><span class="whoami__cmd"> social -all "</span>
+		<div class="whoami__fields">
+			<div class="whoami__row">
+				<span class="whoami__key">name</span>
+				<span class="whoami__val whoami__val--name">{site.name}</span>
+			</div>
+			<div class="whoami__row">
+				<span class="whoami__key">role</span>
+				<span class="whoami__val whoami__val--role">{site.role}</span>
+			</div>
+			<div class="whoami__row">
+				<span class="whoami__key">handle</span>
+				<span class="whoami__val">
+					<a class="whoami__handle" href="/about">{site.handle}</a>
+				</span>
+			</div>
+			<div class="whoami__row">
+				<span class="whoami__key">location</span>
+				<span class="whoami__val">{site.location}</span>
+			</div>
+			<div class="whoami__row whoami__row--links">
+				<span class="whoami__key">links</span>
 				<span class="whoami__icons">
 					{site.social.map((s) => (
 						<a
@@ -25,21 +37,13 @@ import { site } from '../data/site';
 							target={s.href.startsWith('http') ? '_blank' : undefined}
 							rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
 						>
-							<Icon name={s.icon} size={20} />
+							<Icon name={s.icon} size={18} />
 						</a>
 					))}
 				</span>
-				<span class="whoami__cmd">"</span>
-			</p>
+			</div>
 		</div>
 	</div>
 
-	<div class="whoami__print">
-		<p class="whoami__print-line">
-			<span class="whoami__sig">@</span><span class="whoami__cmd"> print \</span>
-		</p>
-		<p class="whoami__print-line whoami__print-line--cont">
-			<span class="whoami__sig">&gt;</span> <span class="whoami__cmd">"{site.tagline}"</span>
-		</p>
-	</div>
+	<p class="whoami__tagline">{site.tagline}</p>
 </div>
