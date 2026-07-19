@@ -257,9 +257,20 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .whoami__main {
 	display: grid;
-	grid-template-columns: 118px 1fr;
+	grid-template-columns: 156px 1fr;
 	gap: 1.15rem;
-	align-items: start;
+	align-items: stretch;
+}
+.whoami__main .avatar {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+.whoami__main .avatar__frame {
+	width: 156px;
+	flex: 1 1 auto;
+	min-height: 156px;
+	height: auto;
 }
 .whoami__fields {
 	display: grid;
@@ -472,7 +483,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	object-fit: cover;
 	display: block;
 }
-.avatar--md .avatar__frame { width: 118px; height: 118px; }
+.avatar--md .avatar__frame { width: 148px; height: 148px; }
 .avatar--sm .avatar__frame { width: 64px; height: 64px; }
 .avatar__path { margin-top: 0.35rem; font-size: 0.68rem; color: var(--muted); text-align: center; }
 

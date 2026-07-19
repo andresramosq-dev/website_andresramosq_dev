@@ -5,7 +5,7 @@ export const site = {
 	name: 'Andrés Ramos Q',
 	handle: '@andresramosq-dev',
 	role: 'Senior Software Developer',
-	location: 'Pitalito, Huila · remote',
+	location: 'Colombia · remote',
 	email: 'andresramosdev.personal@gmail.com',
 	phone: '+57 317 211 6762',
 	since: 2020,
