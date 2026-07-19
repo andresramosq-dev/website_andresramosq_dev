@@ -20,8 +20,14 @@ function joinItems(items: readonly string[]) {
 				{sep}<BioTag label={item} />
 			</>
 		))}.
+	</p>
+	<p class="bio__out">
 		I have built software at an insurance fintech: payment gateways, SOAT product sales, and keeping codebases healthy over time.
+	</p>
+	<p class="bio__out">
 		I have also built systems from scratch — including a VCC platform with IAM, call handling, CRM, and more.
+	</p>
+	<p class="bio__out">
 		Passionate about{' '}
 		{joinItems(site.bioValues).map(({ item, sep }) => (
 			<>
@@ -29,14 +35,4 @@ function joinItems(items: readonly string[]) {
 			</>
 		))}.
 	</p>
-	{site.bioPersonal.map((line) => (
-		<div class="whoami__print">
-			<p class="whoami__print-line">
-				<span class="whoami__sig">@</span><span class="whoami__cmd"> print \</span>
-			</p>
-			<p class="whoami__print-line whoami__print-line--cont">
-				<span class="whoami__sig">&gt;</span> <span class="whoami__cmd">"{line}"</span>
-			</p>
-		</div>
-	))}
 </div>

@@ -1,0 +1,9 @@
+---
+import { site } from '../data/site';
+---
+
+<div class="bio-notes">
+	{site.bioPersonal.map((line) => (
+		<p class="bio-notes__line">{line}</p>
+	))}
+</div>

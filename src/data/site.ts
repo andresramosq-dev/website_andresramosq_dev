@@ -42,6 +42,7 @@ export const site = {
 export const aboutNav = [
 	{ id: 'profile', label: 'profile' },
 	{ id: 'bio', label: 'bio' },
+	{ id: 'notes', label: 'notes' },
 	{ id: 'now', label: 'now' },
 	{ id: 'skills', label: 'skills' },
 	{ id: 'principles', label: 'principles' },
