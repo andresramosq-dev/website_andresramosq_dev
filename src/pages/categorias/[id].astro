@@ -1,8 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import IdeaNode from '../../components/IdeaNode.astro';
-import BoardLines from '../../components/BoardLines.astro';
+import MuralLayout from '../../layouts/MuralLayout.astro';
+import BlogMural from '../../components/murals/BlogMural.astro';
 import { categories } from '../../data/site';
 
 export function getStaticPaths() {
@@ -15,48 +14,22 @@ export function getStaticPaths() {
 const { category } = Astro.props;
 const posts = (
 	await getCollection('blog', ({ data }) => !data.draft && data.category === category.id)
-).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-const positions = ['wall--p1', 'wall--p2', 'wall--p3', 'wall--p4', 'wall--p5'];
-const lines = [
-	{ d: 'M50 15 C35 25, 20 35, 14 42' },
-	{ d: 'M50 15 C65 22, 80 32, 86 40' },
-	{ d: 'M14 42 C28 48, 42 52, 50 55' },
-	{ d: 'M86 40 C72 48, 58 52, 50 55' },
-	{ d: 'M50 55 C42 68, 38 78, 35 85' },
-];
+)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.map((p) => ({ id: p.id, title: p.data.title, category: category.label }));
 ---
 
-<BaseLayout title={category.label} description={category.description}>
-	<section class="idea-wall">
-		<img class="board-canvas" src="/images/board-canvas.svg" alt="" width="1400" height="900" />
-		<BoardLines lines={lines} />
-
-		<IdeaNode
-			class="wall--title"
-			href="/categorias"
-			title={category.label}
-			subtitle={category.description}
-			icon={category.icon}
-			color={category.color}
-			size="lg"
-			frame={1}
-		/>
-
-		{
-			posts.map((post, i) => (
-				<IdeaNode
-					class={positions[i % positions.length]}
-					href={`/blog/${post.id}`}
-					title={post.data.title}
-					subtitle={`${post.data.minutes}min`}
-					desc={post.data.description}
-					icon={category.icon}
-					color={category.color}
-					size="sm"
-					frame={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5}
-				/>
-			))
-		}
-	</section>
-</BaseLayout>
+<MuralLayout title={category.label}>
+  <div class="mural-scroll">
+    <svg class="mural-svg" viewBox="0 0 1200 180" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: -1rem;">
+      <rect width="1200" height="180" fill="#2a2f36" />
+      <ellipse cx="200" cy="90" rx="120" ry="70" fill={category.color} opacity="0.2" />
+      <text x="600" y="90" text-anchor="middle" font-family="Caveat, cursive" font-size="44" font-weight="700" fill="#ebe6dc">{category.label}</text>
+      <text x="600" y="125" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="rgba(235,230,220,0.5)">{category.description}</text>
+      <a href="/categorias">
+        <text x="60" y="50" font-family="Caveat, cursive" font-size="22" fill="rgba(235,230,220,0.5)">← temas</text>
+      </a>
+    </svg>
+    <BlogMural posts={posts} />
+  </div>
+</MuralLayout>

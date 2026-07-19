@@ -1,70 +1,46 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import IdeaNode from '../components/IdeaNode.astro';
-import BoardLines from '../components/BoardLines.astro';
+import MuralLayout from '../layouts/MuralLayout.astro';
 import { site } from '../data/site';
-
-const lines = [
-  { d: 'M50 30 C35 45, 25 55, 20 70' },
-  { d: 'M50 30 C65 42, 75 55, 78 72' },
-  { d: 'M20 70 C35 75, 50 78, 65 75' },
-];
 ---
 
-<BaseLayout title="Sobre" description="Sobre el autor del blog">
-  <section class="idea-wall" style="min-height: 340px;">
-    <img class="board-canvas" src="/images/board-canvas.svg" alt="" width="1400" height="900" />
-    <BoardLines lines={lines} />
-
-    <IdeaNode
-      class="wall--title"
-      title={site.name}
-      subtitle={site.role}
-      icon="user"
-      color="#ff7b72"
-      size="lg"
-      frame={2}
-    />
-
-    <IdeaNode
-      class="wall--p3"
-      title="escritos"
-      subtitle="lee el blog"
-      icon="book"
-      color="#56d4dd"
-      href="/blog"
-      frame={4}
-    />
-
-    <IdeaNode
-      class="wall--p4"
-      title="proyectos"
-      subtitle="mi trabajo"
-      icon="folder"
-      color="#bc8cff"
-      href="/proyectos"
-      frame={5}
-    />
-  </section>
-
-  <article class="art-article">
-    <div class="art-paper">
-      <div class="art-prose">
-        <p>{site.bio}</p>
-        <p>
-          Este sitio es una pizarra de ideas conectadas — notas sueltas con colores planos, iconos SVG
-          y tipografía de desarrollador. No una plantilla de blog.
-        </p>
-        <p>
-          {
-            site.links.map((link) => (
-              <a href={link.href} style="margin-right: 1rem;">
-                {link.label}
-              </a>
-            ))
-          }
-        </p>
-      </div>
+<MuralLayout title="sobre">
+  <div class="mural-stage" style="min-height: 420px;">
+    <svg class="mural-svg" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sobre mí">
+      <rect width="900" height="420" fill="#2a2f36" />
+      <circle cx="200" cy="200" r="100" fill="#ff7b72" opacity="0.15" />
+      <!-- persona dibujada -->
+      <g stroke="#ebe6dc" stroke-width="3" fill="none" transform="translate(160 120)">
+        <circle cx="60" cy="40" r="32" />
+        <path d="M20 130c12-28 32-42 60-42s48 14 60 42" />
+      </g>
+      <!-- café pequeño -->
+      <g stroke="#ebe6dc" stroke-width="2.5" fill="none" transform="translate(320 260)" opacity="0.6">
+        <path d="M10 20h50c6 0 10 4 10 10v35c0 18-14 32-32 32h-8c-18 0-32-14-32-32V30c0-6 4-10 10-10h22Z" />
+        <path d="M70 35h15c8 0 14 6 14 14s-6 14-14 14h-10" />
+      </g>
+      <text x="300" y="100" font-family="Caveat, cursive" font-size="48" font-weight="700" fill="#ebe6dc">{site.name}</text>
+      <text x="300" y="140" font-family="JetBrains Mono, monospace" font-size="13" fill="rgba(235,230,220,0.55)">{site.role}</text>
+      <a href="/blog">
+        <text x="300" y="200" font-family="Caveat, cursive" font-size="28" fill="#56d4dd">→ escritos</text>
+      </a>
+      <a href="/proyectos">
+        <text x="300" y="240" font-family="Caveat, cursive" font-size="28" fill="#bc8cff">→ proyectos</text>
+      </a>
+      <a href="/">
+        <text x="60" y="50" font-family="Caveat, cursive" font-size="24" fill="rgba(235,230,220,0.5)">← mapa</text>
+      </a>
+    </svg>
+  </div>
+  <article class="chalk-read">
+    <div class="chalk-read__paper">
+      <p>{site.bio}</p>
+      <p>
+        {
+          site.links.map((l) => (
+            <a href={l.href} style="margin-right: 1rem;">{l.label}</a>
+          ))
+        }
+      </p>
     </div>
   </article>
-</BaseLayout>
+</MuralLayout>

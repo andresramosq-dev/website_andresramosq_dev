@@ -1,0 +1,225 @@
+/* Pizarra dibujada — el mural ES el sitio, no un blog con skin */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+	--board: #2a2f36;
+	--board-deep: #1e2228;
+	--chalk: #ebe6dc;
+	--chalk-dim: rgba(235, 230, 220, 0.55);
+	--hand: 'Caveat', cursive;
+	--mono: 'JetBrains Mono', monospace;
+	--flat-coral: #ff7b72;
+	--flat-cyan: #56d4dd;
+	--flat-gold: #e3b341;
+	--flat-violet: #bc8cff;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	min-height: 100%;
+}
+
+body.is-mural {
+	background: var(--board-deep);
+	color: var(--chalk);
+	font-family: var(--hand);
+	overflow-x: hidden;
+}
+
+.skip {
+	position: absolute;
+	left: -9999px;
+	z-index: 999;
+	padding: 0.5rem 1rem;
+	background: var(--chalk);
+	color: var(--board-deep);
+}
+
+.skip:focus {
+	left: 0.5rem;
+	top: 0.5rem;
+}
+
+/* Solo un enlace mínimo fuera del dibujo */
+.mural-escape {
+	position: fixed;
+	top: 0.75rem;
+	left: 0.75rem;
+	z-index: 50;
+	font-family: var(--mono);
+	font-size: 0.7rem;
+	color: var(--chalk-dim);
+	text-decoration: none;
+	opacity: 0.5;
+}
+
+.mural-escape:hover {
+	opacity: 1;
+	color: var(--chalk);
+}
+
+/* ===== El lienzo ocupa todo ===== */
+.mural-stage {
+	position: relative;
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5rem;
+}
+
+.mural-svg {
+	width: min(100%, 1400px);
+	height: auto;
+	display: block;
+	user-select: none;
+}
+
+.mural-svg .chalk-stroke {
+	fill: none;
+	stroke: var(--chalk);
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.mural-svg .chalk-fill {
+	fill: var(--chalk);
+}
+
+.mural-svg .chalk-label {
+	font-family: var(--hand);
+	fill: var(--chalk);
+	pointer-events: none;
+}
+
+.mural-svg .chalk-mono {
+	font-family: var(--mono);
+	fill: var(--chalk-dim);
+	font-size: 14px;
+}
+
+.mural-svg a {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.mural-svg a .hit-area {
+	fill: transparent;
+	stroke: transparent;
+}
+
+.mural-svg a:hover .draw {
+	stroke: #fff;
+	filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
+}
+
+.mural-svg a:hover .chalk-label {
+	fill: #fff;
+}
+
+.mural-svg a:hover .flat-blob {
+	opacity: 0.35;
+}
+
+.flat-blob {
+	opacity: 0.2;
+	transition: opacity 200ms ease;
+}
+
+/* ===== Blog: notas de tiza en el mural ===== */
+.mural-scroll {
+	min-height: 100vh;
+	padding: 1rem 0.5rem 3rem;
+}
+
+.mural-scroll .mural-svg {
+	margin: 0 auto;
+}
+
+/* ===== Artículo: título en pizarra + papel ===== */
+.chalk-read {
+	width: min(100% - 1.5rem, 680px);
+	margin: 0 auto;
+	padding: 1rem 0 3rem;
+}
+
+.chalk-read__back {
+	display: inline-block;
+	font-family: var(--mono);
+	font-size: 0.72rem;
+	color: var(--chalk-dim);
+	text-decoration: none;
+	margin-bottom: 1rem;
+}
+
+.chalk-read__back:hover {
+	color: var(--chalk);
+}
+
+.chalk-read__paper {
+	background: #f5f0e6;
+	color: #1c1a17;
+	padding: 1.8rem 2rem;
+	border-radius: 2px 18px 4px 22px;
+	transform: rotate(0.3deg);
+	box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 0.92rem;
+	line-height: 1.75;
+}
+
+.chalk-read__paper h2,
+.chalk-read__paper h3 {
+	font-size: 1rem;
+	margin: 1.5rem 0 0.6rem;
+}
+
+.chalk-read__paper p,
+.chalk-read__paper ul,
+.chalk-read__paper ol {
+	margin: 0 0 1rem;
+}
+
+.chalk-read__paper code {
+	background: #e8e2d6;
+	padding: 0.1em 0.35em;
+	font-size: 0.88em;
+}
+
+.chalk-read__paper pre {
+	background: var(--board);
+	color: var(--chalk);
+	padding: 1rem;
+	overflow-x: auto;
+	margin: 0 0 1rem;
+}
+
+.chalk-read__paper pre code {
+	background: none;
+	padding: 0;
+}
+
+.chalk-read__paper a {
+	color: #2a6f7a;
+}
+
+@media (max-width: 700px) {
+	.mural-stage {
+		padding: 0;
+		align-items: flex-start;
+	}
+
+	.mural-svg {
+		width: 100%;
+		min-width: 600px;
+	}
+}

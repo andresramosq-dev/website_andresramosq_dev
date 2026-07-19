@@ -1,0 +1,203 @@
+---
+import { site } from '../../data/site';
+
+interface Props {
+	recentPosts: { id: string; title: string }[];
+}
+
+const { recentPosts } = Astro.props;
+---
+
+<svg
+	class="mural-svg"
+	viewBox="0 0 1400 900"
+	xmlns="http://www.w3.org/2000/svg"
+	role="img"
+	aria-label="Pizarra artística de ideas conectadas"
+>
+	<rect width="1400" height="900" fill="#2a2f36" />
+
+	<!-- polvo de tiza -->
+	<g fill="#ebe6dc" opacity="0.06">
+		<circle cx="100" cy="90" r="1.5" /><circle cx="350" cy="50" r="1" />
+		<circle cx="1100" cy="120" r="1.3" /><circle cx="1280" cy="350" r="1.1" />
+		<circle cx="200" cy="780" r="1.2" /><circle cx="800" cy="850" r="1" />
+		<circle cx="600" cy="400" r="0.9" />
+	</g>
+
+	<!-- blobs planos de color (arte, no UI) -->
+	<circle cx="220" cy="200" r="90" fill="#ff7b72" class="flat-blob" />
+	<circle cx="1150" cy="650" r="110" fill="#56d4dd" class="flat-blob" />
+	<rect x="1000" y="80" width="110" height="110" rx="8" fill="#bc8cff" class="flat-blob" transform="rotate(12 1055 135)" />
+	<rect x="60" y="620" width="90" height="90" rx="6" fill="#e3b341" class="flat-blob" transform="rotate(-10 105 665)" />
+
+	<!-- marco suelto -->
+	<path
+		class="chalk-stroke"
+		d="M35 45c10-14 1330-20 1340 10 8 20 6 780-10 810-12 24-1320 28-1340-6-10-16-8-790 10-814Z"
+		stroke-width="2.5"
+		opacity="0.22"
+		stroke-dasharray="9 7"
+	/>
+
+	<!-- FLECHAS conectando ideas -->
+	<g class="chalk-stroke" stroke-width="2.8" opacity="0.4" fill="none">
+		<path d="M420 300c80 30 140 90 170 170" />
+		<path d="M580 220c120 40 200 120 240 220" />
+		<path d="M350 500c100 60 200 40 300 20" />
+		<path d="M900 380c60 80 40 160 20 240" />
+		<path d="M700 520c-80 40-160 80-220 120" />
+		<path d="M500 350c-60 80-40 160-20 240" />
+	</g>
+	<path d="M585 365l16 8-10 14z" fill="#ebe6dc" opacity="0.35" />
+	<path d="M815 435l14-6 4 16z" fill="#ebe6dc" opacity="0.35" />
+
+	<!-- PLANTA (izquierda) -->
+	<g transform="translate(80 620)" class="chalk-stroke" stroke-width="3.5" fill="none" opacity="0.55">
+		<path d="M20 80c50-140 90-200 170-250" />
+		<path d="M90-50c-6 50-4 100 12 150" />
+		<path d="M130-80c10 45 12 90 0 140" />
+		<path d="M70-10c22 35 28 75 18 120" />
+		<path d="M170-120c-35-55 5-95 55-80" />
+	</g>
+
+	<!-- CAFÉ (derecha arriba) -->
+	<a href="/sobre">
+		<g transform="translate(1080 140)">
+			<rect class="hit-area" x="-20" y="-40" width="200" height="200" />
+			<ellipse class="flat-blob" cx="90" cy="80" rx="100" ry="90" fill="#e3b341" />
+			<g class="draw chalk-stroke" stroke-width="3.5" fill="none">
+				<path d="M20 40h100c12 0 22 10 22 22v80c0 44-36 80-80 80h-24c-44 0-80-36-80-80v-80c0-12 10-22 22-22h40Z" />
+				<path d="M142 80h32c20 0 36 16 36 36s-16 36-36 36h-24" />
+				<path d="M50 10c10-24 36-34 58-18" opacity="0.6" />
+				<path d="M85 2c8-20 30-28 48-14" opacity="0.6" />
+			</g>
+			<text class="chalk-label" x="30" y="175" font-size="28" font-weight="700">sobre</text>
+		</g>
+	</a>
+
+	<!-- BOMBILLA (ideas) -->
+	<g transform="translate(240 160)" class="chalk-stroke" stroke-width="3.5" fill="none" opacity="0.5">
+		<path d="M60 0a60 60 0 0 1 38 106c-10 10-16 22-16 36v12h-44v-12c0-14-6-26-16-36a60 60 0 0 1 38-106Z" />
+		<path d="M38 170h44M44 195h32" />
+		<path d="M60 30v32M10 70l20 14M110 70l-20 14" opacity="0.5" />
+	</g>
+
+	<!-- LIBRO = ESCRITOS (centro) -->
+	<a href="/blog">
+		<g transform="translate(480 520)">
+			<rect class="hit-area" x="-30" y="-30" width="340" height="220" />
+			<ellipse class="flat-blob" cx="140" cy="90" rx="160" ry="80" fill="#56d4dd" />
+			<g class="draw chalk-stroke" stroke-width="3" fill="none">
+				<path d="M140 20c50-24 110-24 160 0v180c-50-22-110-22-160 0V20Z" />
+				<path d="M140 20c-50-24-110-24-160 0v180c50-22 110-22 160 0V20Z" />
+				<path d="M60 100h70M50 140h85M60 180h60" stroke-width="2" opacity="0.45" />
+				<path d="M180 100h70M190 140h85M180 180h60" stroke-width="2" opacity="0.45" />
+			</g>
+			<text class="chalk-label" x="50" y="215" font-size="36" font-weight="700">escritos</text>
+			<text class="chalk-mono" x="50" y="240" font-size="13">blog / notas</text>
+		</g>
+	</a>
+
+	<!-- CARPETA = PROYECTOS -->
+	<a href="/proyectos">
+		<g transform="translate(1020 480)">
+			<rect class="hit-area" x="-20" y="-30" width="200" height="160" />
+			<ellipse class="flat-blob" cx="80" cy="50" rx="95" ry="60" fill="#bc8cff" />
+			<g class="draw chalk-stroke" stroke-width="3" fill="none">
+				<path d="M10 30a10 10 0 0 1 10-10h50l15 15h75a10 10 0 0 1 10 10v80a10 10 0 0 1-10 10H20a10 10 0 0 1-10-10V30Z" />
+				<path d="M30 70h120M30 95h90" stroke-width="2" opacity="0.4" />
+			</g>
+			<text class="chalk-label" x="10" y="135" font-size="30" font-weight="700">proyectos</text>
+		</g>
+	</a>
+
+	<!-- ETIQUETAS = TEMAS -->
+	<a href="/categorias">
+		<g transform="translate(200 420)">
+			<rect class="hit-area" x="-20" y="-30" width="200" height="140" />
+			<ellipse class="flat-blob" cx="70" cy="40" rx="85" ry="55" fill="#ff7b72" />
+			<g class="draw chalk-stroke" stroke-width="3" fill="none">
+				<path d="M10 30 10 10h50l60 60-40 40-70-70Z" />
+				<circle cx="28" cy="28" r="6" fill="#ebe6dc" opacity="0.5" />
+			</g>
+			<text class="chalk-label" x="5" y="105" font-size="30" font-weight="700">temas</text>
+		</g>
+	</a>
+
+	<!-- NOMBRE (centro arriba) -->
+	<a href="/">
+		<g transform="translate(520 80)">
+			<rect class="hit-area" x="-20" y="-20" width="400" height="120" />
+			<text class="chalk-label" x="0" y="50" font-size="56" font-weight="700">{site.name}</text>
+			<text class="chalk-mono" x="4" y="82" font-size="14">{site.tagline}</text>
+		</g>
+	</a>
+
+	<!-- posts recientes como garabatos / notas pequeñas -->
+	{
+		recentPosts.map((post, i) => {
+			const spots = [
+				{ x: 380, y: 320, rot: -3 },
+				{ x: 720, y: 280, rot: 2 },
+				{ x: 950, y: 200, rot: -2 },
+			];
+			const s = spots[i];
+			const label = post.title.length > 22 ? `${post.title.slice(0, 20)}…` : post.title;
+			return (
+				<a href={`/blog/${post.id}`}>
+					<g transform={`translate(${s.x} ${s.y}) rotate(${s.rot})`}>
+						<rect class="hit-area" x="-10" y="-10" width="220" height="70" />
+						<path
+							class="draw chalk-stroke"
+							stroke-width="2"
+							d="M4 6c30-4 180-8 200 4 6 4 8 12 6 24l-2 28c-2 10-10 14-20 12l-180-2c-10-2-14-8-12-18l4-38c2-8 8-12 16-10Z"
+							opacity="0.7"
+						/>
+						<text class="chalk-label" x="14" y="32" font-size="22" font-weight="700">
+							{label}
+						</text>
+					</g>
+				</a>
+			);
+		})
+	}
+
+	<!-- estrellas -->
+	<path
+		class="chalk-stroke"
+		d="m900 100 12 32h34l-27 20 10 32-29-20-29 20 10-32-27-20h34l12-32Z"
+		stroke-width="2.5"
+		opacity="0.4"
+		fill="none"
+	/>
+	<path
+		class="chalk-stroke"
+		d="m1220 560 9 24h25l-20 15 8 25-22-15-22 15 8-25-20-15h25l9-24Z"
+		stroke-width="2.2"
+		opacity="0.35"
+		fill="none"
+	/>
+
+	<!-- código dibujado -->
+	<g transform="translate(1180 180)" class="chalk-mono" font-size="16" opacity="0.35" fill="#ebe6dc">
+		<text x="0" y="0">&lt;/&gt;</text>
+		<text x="0" y="24" font-size="12">{'{ }'}</text>
+	</g>
+
+	<!-- carita -->
+	<g transform="translate(1050 720)" opacity="0.4">
+		<circle class="chalk-stroke" cx="0" cy="0" r="28" stroke-width="2.5" fill="none" />
+		<path class="chalk-stroke" d="M-10-8h0.1M10-8h0.1M-8 8c6 8 14 8 20 0" stroke-width="2.5" fill="none" />
+	</g>
+
+	<!-- tizas abajo -->
+	<rect x="90" y="860" width="130" height="12" rx="6" fill="#ebe6dc" opacity="0.75" />
+	<rect x="240" y="864" width="55" height="7" rx="3" fill="#d5dfea" opacity="0.55" />
+	<rect x="310" y="858" width="90" height="10" rx="5" fill="#e8c4b8" opacity="0.5" />
+
+	<!-- instrucción sutil -->
+	<text x="700" y="880" text-anchor="middle" class="chalk-mono" font-size="12" opacity="0.4">
+		haz clic en los dibujos
+	</text>
+</svg>

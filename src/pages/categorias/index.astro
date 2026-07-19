@@ -1,72 +1,61 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import IdeaNode from '../../components/IdeaNode.astro';
-import BoardLines from '../../components/BoardLines.astro';
-import { getCollection } from 'astro:content';
+import MuralLayout from '../../layouts/MuralLayout.astro';
 import { categories } from '../../data/site';
+import { getCollection } from 'astro:content';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
-const grouped = categories.map((cat) => ({
-  ...cat,
-  posts: posts
-    .filter((p) => p.data.category === cat.id)
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
-}));
+const counts = Object.fromEntries(
+  categories.map((c) => [c.id, posts.filter((p) => p.data.category === c.id).length])
+);
 
-const clusterLines = [
-  { d: 'M20 20 C35 30, 50 25, 65 35' },
-  { d: 'M65 35 C75 45, 80 55, 75 70' },
-  { d: 'M20 20 C30 50, 40 65, 55 75' },
+const spots = [
+  { x: 200, y: 280, icon: 'spark' },
+  { x: 600, y: 220, icon: 'code' },
+  { x: 350, y: 520, icon: 'compass' },
+  { x: 900, y: 480, icon: 'pen' },
 ];
 ---
 
-<BaseLayout title="Temas" description="Categorías del blog">
-  <section class="idea-wall" style="min-height: 280px; margin-bottom: 1rem;">
-    <img class="board-canvas" src="/images/board-canvas.svg" alt="" width="1400" height="900" />
-    <BoardLines lines={[{ d: 'M50 50 C30 30, 70 30, 50 50' }]} />
-    <IdeaNode
-      class="wall--title"
-      title="temas"
-      subtitle="rutas de lectura"
-      icon="tag"
-      color="#e8e4dc"
-      size="lg"
-      frame={2}
-    />
-  </section>
-
-  {
-    grouped.map((group) => (
-      <section class="cluster-wall" aria-label={group.label}>
-        <img class="board-canvas" src="/images/board-canvas.svg" alt="" width="1400" height="400" />
-        <BoardLines lines={clusterLines} />
-
-        <IdeaNode
-          class="cluster--label"
-          href={`/categorias/${group.id}`}
-          title={group.label}
-          subtitle={group.description}
-          icon={group.icon}
-          color={group.color}
-          frame={1}
-        />
-
-        {group.posts.map((post, i) => (
-          <IdeaNode
-            class={`cluster--p${(i % 3) + 1}`}
-            href={`/blog/${post.id}`}
-            title={post.data.title}
-            subtitle={post.data.pubDate.toLocaleDateString('es-ES', {
-              day: 'numeric',
-              month: 'short',
-            })}
-            icon={group.icon}
-            color={group.color}
-            size="sm"
-            frame={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5}
-          />
-        ))}
-      </section>
-    ))
-  }
-</BaseLayout>
+<MuralLayout title="temas">
+  <div class="mural-scroll">
+    <svg class="mural-svg" viewBox="0 0 1200 750" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Temas dibujados">
+      <rect width="1200" height="750" fill="#2a2f36" />
+      <g fill="#ebe6dc" opacity="0.06">
+        <circle cx="100" cy="100" r="1.2" /><circle cx="1000" cy="600" r="1" />
+      </g>
+      <text x="600" y="80" text-anchor="middle" font-family="Caveat, cursive" font-size="48" font-weight="700" fill="#ebe6dc">temas</text>
+      <g class="chalk-stroke" stroke="#ebe6dc" stroke-width="2.5" fill="none" opacity="0.3">
+        <path d="M200 400c150-60 300-40 450 20" />
+        <path d="M600 300c100 80 80 180 60 260" />
+        <path d="M900 350c-120 80-200 140-280 200" />
+      </g>
+      {
+        categories.map((cat, i) => {
+          const s = spots[i];
+          return (
+            <a href={`/categorias/${cat.id}`}>
+              <g transform={`translate(${s.x} ${s.y})`}>
+                <rect fill="transparent" x="-60" y="-60" width="280" height="200" />
+                <ellipse cx="80" cy="50" rx="110" ry="70" fill={cat.color} opacity="0.22" />
+                <path
+                  stroke="#ebe6dc"
+                  stroke-width="3"
+                  fill="none"
+                  d="M10 20c40-8 140-12 160 8 6 6 8 16 6 30l-4 50c-2 12-12 16-24 14l-140-2c-12-2-16-10-14-22l6-52c2-10 8-14 18-12Z"
+                />
+                <text x="24" y="48" font-family="Caveat, cursive" font-size="34" font-weight="700" fill="#ebe6dc">{cat.label}</text>
+                <text x="24" y="72" font-family="JetBrains Mono, monospace" font-size="11" fill="rgba(235,230,220,0.5)">{counts[cat.id]} notas</text>
+              </g>
+            </a>
+          );
+        })
+      }
+      <a href="/">
+        <g transform="translate(60 60)">
+          <rect fill="transparent" x="-10" y="-25" width="100" height="50" />
+          <text font-family="Caveat, cursive" font-size="24" fill="#ebe6dc" x="0" y="0">← mapa</text>
+        </g>
+      </a>
+    </svg>
+  </div>
+</MuralLayout>
