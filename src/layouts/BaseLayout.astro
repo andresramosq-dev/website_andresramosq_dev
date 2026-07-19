@@ -31,34 +31,35 @@ const segment = path === '/' ? '~' : `~${path}`;
 
     <div class="desk">
       <TerminalShell segment={segment}>
-        <div class="term__screen">
-          <nav class="nav" aria-label="Principal">
-            {nav.map((item) => (
-              <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
-                {item.label}
-              </a>
-            ))}
-          </nav>
+        <nav class="nav" aria-label="Principal">
+          {nav.map((item) => (
+            <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
 
-          <details class="cmd-fold">
-            <summary>/help — navegar por comandos</summary>
-            <CommandBar />
-          </details>
+        <details class="cmd-fold">
+          <summary>navegar por comandos (/help)</summary>
+          <CommandBar />
+        </details>
 
-          <main id="main" class="main">
-            <slot />
-          </main>
-        </div>
+        <main id="main" class="main">
+          <slot />
+        </main>
 
         <footer class="ftr">
           <span>© {new Date().getFullYear()} {site.domain}</span>
-          <span>
-            <a href={site.links[0].href}>github</a>
-            {' · '}
-            <a href={`mailto:${site.email}`}>email</a>
-            {' · '}
-            <a href="/rss.xml">rss</a>
-          </span>
+          <div>
+            {site.links.map((l, i) => (
+              <>
+                {i > 0 && ' · '}
+                <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">{l.label}</a>
+              </>
+            ))}
+            {' · '}<a href="/notas">notas</a>
+            {' · '}<a href="/rss.xml">rss</a>
+          </div>
         </footer>
       </TerminalShell>
     </div>

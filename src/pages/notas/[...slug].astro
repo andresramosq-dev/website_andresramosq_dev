@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import TermLine from '../../components/TermLine.astro';
-import PromptCursor from '../../components/PromptCursor.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import TermBlock from '../../components/TermBlock.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -25,8 +25,9 @@ const date = note.data.pubDate.toLocaleDateString('es-ES', {
 ---
 
 <BaseLayout title={note.data.title} path="/notas">
-  <TermLine cmd={`cat "${note.data.title}"`}>
-    <p class="out out--lg">{note.data.title}</p>
+  <PageHeader segment={`notas/${note.id}`} title={note.data.title} />
+
+  <TermBlock cmd={`less "${note.data.title}"`}>
     <p class="article__meta">{date}</p>
     <div class="article__body">
       <Content />
@@ -36,18 +37,17 @@ const date = note.data.pubDate.toLocaleDateString('es-ES', {
       <nav class="post-nav" aria-label="Notas">
         {prev ? (
           <a href={`/notas/${prev.id}`}>
-            <div class="post-nav__l">← anterior</div>
-            <p class="post-nav__t">{prev.data.title}</p>
+            <span class="post-nav__label">← anterior</span>
+            <p class="post-nav__title">{prev.data.title}</p>
           </a>
         ) : <div />}
         {next ? (
-          <a class="next" href={`/notas/${next.id}`}>
-            <div class="post-nav__l">siguiente →</div>
-            <p class="post-nav__t">{next.data.title}</p>
+          <a class="post-nav__next" href={`/notas/${next.id}`}>
+            <span class="post-nav__label">siguiente →</span>
+            <p class="post-nav__title">{next.data.title}</p>
           </a>
         ) : <div />}
       </nav>
     )}
-  </TermLine>
-  <PromptCursor />
+  </TermBlock>
 </BaseLayout>

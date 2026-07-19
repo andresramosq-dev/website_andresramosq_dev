@@ -8,11 +8,15 @@ interface Props {
 const { segment = '~' } = Astro.props;
 ---
 
-<div class="term">
-	<div class="term__bar">
-		<a href="/">{site.domain}</a>
-		{' — bash — '}
-		<span class="h">{site.user}@{site.domain}</span>:{segment}
+<div class="twin">
+	<div class="twin__bar">
+		<a class="twin__brand" href="/">{site.domain}</a>
+		<span class="twin__sep"> — bash — </span>
+		<span class="twin__path">
+			<span class="user">{site.user}</span>@<span class="host">{site.domain}</span>:{segment}
+		</span>
 	</div>
-	<slot />
+	<div class="twin__body">
+		<slot />
+	</div>
 </div>

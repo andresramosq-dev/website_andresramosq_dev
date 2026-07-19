@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import TermLine from '../../components/TermLine.astro';
-import PromptCursor from '../../components/PromptCursor.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import TermBlock from '../../components/TermBlock.astro';
 import FeedList from '../../components/FeedList.astro';
 import { getCollection } from 'astro:content';
 
@@ -9,7 +9,9 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.year - 
 ---
 
 <BaseLayout title="proyectos" path="/proyectos">
-  <TermLine cmd="ls proyectos/">
+  <PageHeader segment="proyectos" title="Proyectos" />
+
+  <TermBlock cmd="ls proyectos/">
     <FeedList
       items={projects.map((p) => ({
         href: `/proyectos/${p.id}`,
@@ -17,6 +19,5 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.year - 
         meta: String(p.data.year),
       }))}
     />
-  </TermLine>
-  <PromptCursor />
+  </TermBlock>
 </BaseLayout>
