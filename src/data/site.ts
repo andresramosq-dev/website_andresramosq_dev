@@ -1,53 +1,91 @@
 export const site = {
 	name: 'Andrés Ramos',
 	handle: '@andres_ramos_dev',
-	role: 'Desarrollador',
+	role: 'Desarrollador de software',
 	location: 'Latinoamérica',
 	email: 'andfera201@gmail.com',
-	tagline: 'Escribo sobre código, diseño y oficio.',
-	description: 'Blog personal de Andrés Ramos sobre desarrollo, diseño y oficio.',
-	bio: 'Construyo interfaces y escribo para pensar mejor. Este espacio es mi cuaderno público: ideas claras, sin ruido.',
+	tagline: 'Interfaces, código y oficio — documentado en público.',
+	description:
+		'Blog de Andrés Ramos. Desarrollo de software, diseño de interfaces y reflexiones sobre el oficio.',
+	bio: 'Construyo productos web y escribo para pensar mejor. Me interesa el frontend, la arquitectura de interfaces y cómo publicar ideas con claridad.',
 	links: [
-		{ label: 'GitHub', href: 'https://github.com/ramos-andres-dev' },
-		{ label: 'Email', href: 'mailto:andfera201@gmail.com' },
+		{ label: 'GitHub', href: 'https://github.com/ramos-andres-dev', icon: 'github' },
+		{ label: 'Email', href: 'mailto:andfera201@gmail.com', icon: 'mail' },
 	],
 };
 
 export const nav = [
-	{ label: 'Blog', href: '/blog' },
-	{ label: 'Categorías', href: '/categorias' },
-	{ label: 'Proyectos', href: '/proyectos' },
-	{ label: 'Sobre', href: '/sobre' },
+	{ label: 'inicio', href: '/' },
+	{ label: 'blog', href: '/blog' },
+	{ label: 'proyectos', href: '/proyectos' },
+	{ label: 'sobre', href: '/sobre' },
+	{ label: 'tags', href: '/categorias' },
+] as const;
+
+/** Lo que estoy haciendo ahora — sección tipo /now */
+export const now = {
+	working: 'Este blog en Astro y un panel de operaciones interno.',
+	learning: 'Patrones de contenido tipado y diseño de sistemas UI.',
+	reading: 'Notas sobre arquitectura frontend y escritura técnica.',
+};
+
+export const skills = [
+	'TypeScript',
+	'Astro',
+	'React',
+	'CSS',
+	'Node.js',
+	'Git',
+	'Figma',
+	'Markdown',
+];
+
+export const timeline = [
+	{
+		year: '2026',
+		title: 'Blog personal',
+		desc: 'Sitio con Astro, collections tipadas y diseño dev.',
+	},
+	{
+		year: '2024',
+		title: 'Frontend & producto',
+		desc: 'Interfaces web, design systems y entrega continua.',
+	},
+	{
+		year: '—',
+		title: 'Siempre aprendiendo',
+		desc: 'Código, diseño y oficio como práctica continua.',
+	},
 ];
 
 export const categories = [
 	{
 		id: 'diseno',
-		label: 'Diseño',
+		label: 'diseño',
 		description: 'Interfaces, jerarquía y criterio visual.',
 		icon: 'spark',
-		color: '#e07a5f',
+		color: '#4ade80',
 	},
 	{
 		id: 'codigo',
-		label: 'Código',
+		label: 'código',
 		description: 'Frontend, arquitectura y herramientas.',
 		icon: 'code',
-		color: '#3d9aad',
+		color: '#38bdf8',
 	},
 	{
 		id: 'oficio',
-		label: 'Oficio',
+		label: 'oficio',
 		description: 'Carrera, hábitos y aprendizaje continuo.',
 		icon: 'compass',
-		color: '#d4a017',
+		color: '#facc15',
 	},
 	{
 		id: 'metodo',
-		label: 'Método',
+		label: 'método',
 		description: 'Cómo escribo, publico y organizo ideas.',
 		icon: 'pen',
-		color: '#9b8afb',
+		color: '#a78bfa',
 	},
 ] as const;
 

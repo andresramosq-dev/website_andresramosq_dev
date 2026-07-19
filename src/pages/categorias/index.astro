@@ -1,45 +1,30 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PostTile from '../../components/PostTile.astro';
-import ArtIllus from '../../components/ArtIllus.astro';
 import { getCollection } from 'astro:content';
 import { categories } from '../../data/site';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
-const grouped = categories.map((cat) => ({
-  ...cat,
-  posts: posts.filter((p) => p.data.category === cat.id)
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
-}));
+const counts = Object.fromEntries(
+  categories.map((c) => [c.id, posts.filter((p) => p.data.category === c.id).length])
+);
 ---
 
-<BaseLayout title="Categorías">
-  <div class="wrap">
-    <header class="pg-head">
-      <h1>Categorías</h1>
-      <p>Artículos por tema.</p>
-    </header>
-    {grouped.map((g) => (
-      <section class="cluster">
-        <h2>{g.label}</h2>
-        {g.posts.length === 0 ? (
-          <p style="color:var(--muted)">Sin artículos.</p>
-        ) : (
-          <div class="post-grid">
-            {g.posts.map((post, i) => (
-              <PostTile
-                href={`/blog/${post.id}`}
-                title={post.data.title}
-                description={post.data.description}
-                date={post.data.pubDate}
-                minutes={post.data.minutes}
-                category={post.data.category}
-                featured={i === 0 && g.posts.length > 1}
-              />
-            ))}
-          </div>
-        )}
-      </section>
-    ))}
-  </div>
+<BaseLayout title="tags" path="/categorias">
+  <p class="crumb"><a href="/">~</a> / tags</p>
+  <h1 class="pg-title">Tags</h1>
+  <p class="pg-desc">Artículos por categoría.</p>
+
+  <ul class="posts">
+    {
+      categories.map((cat) => (
+        <li>
+          <a href={`/categorias/${cat.id}`}>
+            <span class="posts__date">{counts[cat.id]} posts</span>
+            <span class="posts__title">#{cat.label}</span>
+            <span class="posts__tag">{cat.description}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </BaseLayout>

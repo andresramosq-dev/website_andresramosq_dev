@@ -1,10 +1,14 @@
 ---
-import '../styles/site.css';
+import '../styles/dev.css';
 import { site, nav } from '../data/site';
 
-interface Props { title?: string; description?: string; }
+interface Props {
+	title?: string;
+	description?: string;
+	path?: string;
+}
 
-const { title, description } = Astro.props;
+const { title, description, path = '/' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.name}` : site.name;
 ---
 
@@ -19,15 +23,30 @@ const pageTitle = title ? `${title} — ${site.name}` : site.name;
   </head>
   <body>
     <a class="skip" href="#main">Saltar al contenido</a>
-    <header class="hdr">
-      <div class="hdr__in">
-        <a class="hdr__logo" href="/">{site.name}</a>
+
+    <div class="shell">
+      <header class="hdr">
+        <div class="hdr__top">
+          <a class="hdr__logo" href="/">{site.handle}<span> ~ dev</span></a>
+          <span class="hdr__status"><span class="dot"></span>disponible</span>
+        </div>
         <nav class="hdr__nav" aria-label="Principal">
-          {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+          {nav.map((item) => (
+            <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
+              {item.label}
+            </a>
+          ))}
         </nav>
-      </div>
-    </header>
-    <main id="main"><slot /></main>
-    <footer class="ftr"><p>© {new Date().getFullYear()} {site.name}</p></footer>
+      </header>
+
+      <main id="main">
+        <slot />
+      </main>
+
+      <footer class="ftr">
+        <span><span class="ftr__prompt">$</span> echo "© {new Date().getFullYear()} {site.name}"</span>
+        <span>{site.location}</span>
+      </footer>
+    </div>
   </body>
 </html>

@@ -1,26 +1,32 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ArtIllus from '../../components/ArtIllus.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year);
 ---
 
-<BaseLayout title="Proyectos">
-  <div class="wrap">
-    <header class="pg-head">
-      <h1>Proyectos</h1>
-      <p>Trabajo personal y experimentos.</p>
-    </header>
-    {projects.map((p) => (
+<BaseLayout title="proyectos" path="/proyectos">
+  <p class="crumb"><a href="/">~</a> / proyectos</p>
+  <h1 class="pg-title">Proyectos</h1>
+  <p class="pg-desc">Cosas que construyo, experimentos y herramientas.</p>
+
+  {
+    projects.map((p) => (
       <a class="proj" href={p.data.url ?? '#'}>
-        <ArtIllus variant="codigo" />
+        <span class="proj__year">{p.data.year}</span>
         <div>
-          <p class="proj__meta">{p.data.year} · {p.data.stack.join(', ')}</p>
-          <h2 class="proj__title">{p.data.title}</h2>
+          <p class="proj__title">
+            {p.data.title}
+            <span style="color:var(--muted);font-weight:400;font-size:0.78rem;margin-left:0.5rem">
+              [{p.data.status}]
+            </span>
+          </p>
           <p class="proj__desc">{p.data.description}</p>
+          <div class="proj__stack">
+            {p.data.stack.map((t) => <span class="tag">{t}</span>)}
+          </div>
         </div>
       </a>
-    ))}
-  </div>
+    ))
+  }
 </BaseLayout>

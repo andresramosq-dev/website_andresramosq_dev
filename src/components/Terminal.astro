@@ -1,0 +1,20 @@
+---
+interface Props {
+	title?: string;
+	path?: string;
+}
+
+const { title = '~/andres', path } = Astro.props;
+---
+
+<div class="term">
+	<div class="term__bar">
+		<span class="term__dot term__dot--r"></span>
+		<span class="term__dot term__dot--y"></span>
+		<span class="term__dot term__dot--g"></span>
+		<span class="term__title">{title}</span>
+	</div>
+	<div class="term__body">
+		<slot />
+	</div>
+</div>

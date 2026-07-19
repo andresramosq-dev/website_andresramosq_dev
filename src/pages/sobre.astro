@@ -1,20 +1,78 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ArtIllus from '../components/ArtIllus.astro';
-import { site } from '../data/site';
+import Terminal from '../components/Terminal.astro';
+import { site, skills, timeline, now } from '../data/site';
 ---
 
-<BaseLayout title="Sobre">
-  <div class="wrap">
-    <header class="pg-head"><h1>Sobre mí</h1></header>
-    <div style="display:grid;grid-template-columns:100px 1fr;gap:1.5rem;max-width:var(--read);align-items:start;">
-      <ArtIllus variant="oficio" />
-      <div>
-        <h2 style="font-family:var(--display);font-size:1.35rem;font-weight:700;margin:0 0 0.25rem;">{site.name}</h2>
-        <p style="color:var(--muted);margin:0 0 1rem;">{site.role}</p>
-        <p style="margin:0 0 1rem;line-height:1.7;">{site.bio}</p>
-        <p>{site.links.map((l) => <a href={l.href} style="margin-right:1rem;color:var(--ink);">{l.label}</a>)}</p>
+<BaseLayout title="sobre" path="/sobre">
+  <p class="crumb"><a href="/">~</a> / sobre</p>
+  <h1 class="pg-title">Sobre mí</h1>
+  <p class="pg-desc">{site.tagline}</p>
+
+  <Terminal title="~/sobre/me.json">
+    <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">cat me.json</span></p>
+    <p class="term__out term__out--muted">
+      {'{'}
+      <br />
+      &nbsp;&nbsp;"name": "{site.name}",<br />
+      &nbsp;&nbsp;"role": "{site.role}",<br />
+      &nbsp;&nbsp;"location": "{site.location}",<br />
+      &nbsp;&nbsp;"email": "{site.email}"<br />
+      {'}'}
+    </p>
+  </Terminal>
+
+  <div class="about-grid">
+    <section class="sec" style="margin:0">
+      <h2 class="sec__title">bio</h2>
+      <p style="margin:0.75rem 0 0;line-height:1.75">{site.bio}</p>
+      <p style="margin:1rem 0 0;line-height:1.75;color:var(--muted);font-size:0.85rem">
+        Escribo sobre lo que aprendo construyendo software: interfaces, herramientas, hábitos y
+        decisiones de producto. Este sitio es mi cuaderno público — código abierto en ideas.
+      </p>
+    </section>
+
+    <section class="sec" style="margin:0">
+      <h2 class="sec__title">now</h2>
+      <div class="now" style="margin-top:0.75rem">
+        <dl>
+          <div><dt>working_on</dt><dd>{now.working}</dd></div>
+          <div><dt>learning</dt><dd>{now.learning}</dd></div>
+        </dl>
       </div>
-    </div>
+    </section>
   </div>
+
+  <section class="sec">
+    <h2 class="sec__title">skills</h2>
+    <div class="tags" style="margin-top:0.75rem">
+      {skills.map((s) => <span class="tag tag--skill">{s}</span>)}
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec__title">timeline</h2>
+    <ul class="timeline" style="margin-top:0.75rem">
+      {timeline.map((t) => (
+        <li>
+          <span class="timeline__year">{t.year}</span>
+          <div>
+            <p class="timeline__title">{t.title}</p>
+            <p class="timeline__desc">{t.desc}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="sec">
+    <h2 class="sec__title">contact</h2>
+    <div class="tags" style="margin-top:0.75rem">
+      {site.links.map((l) => (
+        <a class="tag" href={l.href}>{l.label}</a>
+      ))}
+      <a class="tag" href="/blog">blog</a>
+      <a class="tag" href="/proyectos">proyectos</a>
+    </div>
+  </section>
 </BaseLayout>

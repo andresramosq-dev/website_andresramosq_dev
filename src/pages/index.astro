@@ -1,83 +1,133 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PostTile from '../components/PostTile.astro';
-import ArtIllus from '../components/ArtIllus.astro';
+import Terminal from '../components/Terminal.astro';
 import { getCollection } from 'astro:content';
-import { site, categories } from '../data/site';
+import { site, now, skills, categories } from '../data/site';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const [featured, ...rest] = posts;
+const pinned = posts.filter((p) => p.data.featured);
+const recent = posts.filter((p) => !p.data.featured).slice(0, 5);
+const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year).slice(0, 3);
 ---
 
-<BaseLayout>
-  <div class="wrap">
-    <section class="hero">
-      <div>
-        <p class="hero__tag">Blog · diseño · código</p>
-        <h1>{site.name}</h1>
-        <p class="hero__lead">{site.tagline}</p>
-        <div class="hero__btns">
-          <a class="btn btn--dark" href="/blog">Ver artículos</a>
-          <a class="btn btn--light" href="/proyectos">Proyectos</a>
-        </div>
-      </div>
-      <div class="hero__visual">
-        <ArtIllus variant="hero" />
-      </div>
-    </section>
-  </div>
+<BaseLayout path="/">
+  <Terminal title="~/andres — zsh">
+    <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">whoami</span></p>
+    <p class="term__out">{site.name} — {site.role}</p>
+
+    <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">cat intro.txt</span></p>
+    <p class="term__out">{site.bio}</p>
+
+    <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">ls --skills</span></p>
+    <p class="term__out">
+      {skills.map((s) => (
+        <span style="margin-right:0.75rem;color:var(--blue)">{s}</span>
+      ))}
+    </p>
+
+    <p class="term__line">
+      <span class="term__prompt">$ </span><span class="term__cursor"></span>
+    </p>
+  </Terminal>
 
   <section class="sec">
-    <div class="wrap">
-      <div class="sec__head">
-        <h2 class="sec__title">Artículos</h2>
-        <a class="sec__more" href="/blog">Ver todos →</a>
-      </div>
-      <div class="post-grid">
-        {featured && (
-          <PostTile
-            href={`/blog/${featured.id}`}
-            title={featured.data.title}
-            description={featured.data.description}
-            date={featured.data.pubDate}
-            minutes={featured.data.minutes}
-            category={featured.data.category}
-            featured
-          />
-        )}
-        {rest.slice(0, 2).map((post) => (
-          <PostTile
-            href={`/blog/${post.id}`}
-            title={post.data.title}
-            description={post.data.description}
-            date={post.data.pubDate}
-            minutes={post.data.minutes}
-            category={post.data.category}
-          />
-        ))}
-      </div>
+    <div class="sec__head">
+      <h2 class="sec__title">now</h2>
+    </div>
+    <div class="now">
+      <dl>
+        <div>
+          <dt>working_on</dt>
+          <dd>{now.working}</dd>
+        </div>
+        <div>
+          <dt>learning</dt>
+          <dd>{now.learning}</dd>
+        </div>
+        <div>
+          <dt>reading</dt>
+          <dd>{now.reading}</dd>
+        </div>
+      </dl>
     </div>
   </section>
 
-  <section class="sec">
-    <div class="wrap">
+  {pinned.length > 0 && (
+    <section class="sec">
       <div class="sec__head">
-        <h2 class="sec__title">Categorías</h2>
-        <a class="sec__more" href="/categorias">Ver todas →</a>
+        <h2 class="sec__title">pinned</h2>
+        <a class="sec__link" href="/blog">blog →</a>
       </div>
-      <div class="cat-row">
-        {categories.map((cat) => (
-          <a class="cat-pill" href={`/categorias/${cat.id}`}>
-            <div class="cat-pill__art">
-              <ArtIllus variant={cat.id} />
-            </div>
-            <p class="cat-pill__label">{cat.label}</p>
-            <p class="cat-pill__desc">{cat.description}</p>
-          </a>
+      <ul class="posts posts--pinned">
+        {pinned.map((post) => (
+          <li>
+            <a href={`/blog/${post.id}`}>
+              <span class="posts__date">
+                {post.data.pubDate.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
+              </span>
+              <span class="posts__title">{post.data.title}</span>
+              <span class="posts__tag">{post.data.category}</span>
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
+    </section>
+  )}
+
+  <section class="sec">
+    <div class="sec__head">
+      <h2 class="sec__title">posts</h2>
+      <a class="sec__link" href="/blog">ver todos →</a>
+    </div>
+    <ul class="posts">
+      {recent.map((post) => (
+        <li>
+          <a href={`/blog/${post.id}`}>
+            <span class="posts__date">
+              {post.data.pubDate.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
+            </span>
+            <span class="posts__title">{post.data.title}</span>
+            <span class="posts__tag">{post.data.category}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="sec">
+    <div class="sec__head">
+      <h2 class="sec__title">projects</h2>
+      <a class="sec__link" href="/proyectos">ver todos →</a>
+    </div>
+    {projects.map((p) => (
+      <a class="proj" href={p.data.url ?? '/proyectos'}>
+        <span class="proj__year">{p.data.year}</span>
+        <div>
+          <p class="proj__title">{p.data.title}</p>
+          <p class="proj__desc">{p.data.description}</p>
+          <div class="proj__stack">
+            {p.data.stack.map((t) => <span class="tag">{t}</span>)}
+          </div>
+        </div>
+      </a>
+    ))}
+  </section>
+
+  <section class="sec">
+    <div class="sec__head">
+      <h2 class="sec__title">find_me</h2>
+    </div>
+    <div class="tags">
+      {site.links.map((l) => (
+        <a class="tag" href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
+          {l.label}
+        </a>
+      ))}
+      {categories.map((c) => (
+        <a class="tag" href={`/categorias/${c.id}`}>#{c.label}</a>
+      ))}
     </div>
   </section>
 </BaseLayout>
