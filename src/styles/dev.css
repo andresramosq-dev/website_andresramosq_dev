@@ -551,6 +551,12 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .site-about__handle {
 	color: #7a9a7a;
+	text-decoration: none;
+}
+.site-about__handle:hover {
+	color: var(--cmd);
+	text-decoration: underline;
+	text-underline-offset: 3px;
 }
 .site-about__out,
 .site-about__out-inline,

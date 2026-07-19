@@ -14,16 +14,19 @@ const { aboutSite } = site;
 
 <div class="site-about">
 	<p class="site-about__lead">
-		<span class="site-about__lead-text">{aboutSite.leadBefore}</span>{' '}
-		<span class="site-about__handle">{site.handle}</span>
+		<a class="site-about__handle" href="#profile">{site.handle}</a>
 		<span class="site-about__lead-text">{aboutSite.leadAfter}</span>
 	</p>
-
-	<p class="site-about__out">{aboutSite.purpose}</p>
 
 	<p class="site-about__built">
 		<span class="site-about__out-inline">{aboutSite.builtBefore}</span>{' '}
 		{joinItems(aboutSite.builtWith).map(({ item, sep }) => (
+			<>
+				{sep}<BioTag label={item} />
+			</>
+		))}
+		<span class="site-about__out-inline">{aboutSite.builtMid}</span>{' '}
+		{joinItems(aboutSite.builtAlso).map(({ item, sep }) => (
 			<>
 				{sep}<BioTag label={item} />
 			</>
