@@ -4,9 +4,10 @@ import { site } from '../data/site';
 interface Props {
 	cmd: string;
 	id?: string;
+	plain?: boolean;
 }
 
-const { cmd, id } = Astro.props;
+const { cmd, id, plain = false } = Astro.props;
 ---
 
 <section class="cmd-block" id={id}>
@@ -17,7 +18,7 @@ const { cmd, id } = Astro.props;
 		<span class="cmd-block__sig"> @</span>
 		<span class="cmd-block__cmd">{cmd}</span>
 	</p>
-	<div class="cmd-block__out">
+	<div class:list={['cmd-block__out', plain && 'cmd-block__out--plain']}>
 		<slot />
 	</div>
 </section>

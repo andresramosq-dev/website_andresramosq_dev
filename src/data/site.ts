@@ -4,26 +4,29 @@ export const site = {
 	user: 'andres',
 	name: 'Andrés Ramos',
 	handle: '@andresramos-dev',
-	role: 'Software Developer Senior',
-	location: 'Pitalito, Huila · remoto',
+	role: 'Senior Software Developer',
+	location: 'Pitalito, Huila · remote',
 	email: 'andfera201@gmail.com',
 	phone: '+57 317 211 6762',
 	since: 2020,
 	avatar: '/images/avatar.svg',
 	avatarPath: '~/about/avatar.jpg',
-	tagline: 'Te ayudo a construir software que tu equipo amará mantener:',
-	pillars: ['Limpio', 'Sólido', 'Escalable'] as const,
+	tagline: 'I help you build software your team will love maintaining:',
+	pillars: ['Clean', 'Solid', 'Scalable'] as const,
 	consoleSlug: 'consola-de-andres-ramos',
 	description:
-		'Consola personal de Andrés Ramos. Backend, APIs, microservicios y notas sobre el oficio.',
-	bio: 'Senior Software Developer with expertise in backend, TypeScript, Python, and cloud architectures. Open-source contributor and writer with a passion for sharing knowledge in public. I help teams build APIs, microservices, and integrations they can maintain in production.',
+		'Personal console of Andrés Ramos. Backend development, APIs, microservices, and notes on the craft.',
+	bio: `Backend developer with 4+ years of experience across R5 Colombia and Nova Dynamics.
+Built insurer and payment gateway integrations for SOAT sales platforms, IAM and microservice
+orchestration, and production backends with Python, TypeScript, Node.js, NestJS, GraphQL,
+PostgreSQL, MongoDB, Docker, and AWS.`,
 	about: [],
 	social: [
 		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/aframos-dev', value: 'github.com/aframos-dev' },
 		{ id: 'linkedin', icon: 'linkedin' as const, label: 'LinkedIn', href: 'https://linkedin.com/in/andresramos-developer', value: 'linkedin.com/in/andresramos-developer' },
 		{ id: 'gmail', icon: 'mail' as const, label: 'Gmail', href: 'mailto:andfera201@gmail.com', value: 'andfera201@gmail.com' },
 		{ id: 'spotify', icon: 'spotify' as const, label: 'Spotify', href: 'https://open.spotify.com/user/andresramos', value: 'open.spotify.com/andresramos' },
-		{ id: 'phone', icon: 'phone' as const, label: 'Teléfono', href: 'tel:+573172116762', value: '+57 317 211 6762' },
+		{ id: 'phone', icon: 'phone' as const, label: 'Phone', href: 'tel:+573172116762', value: '+57 317 211 6762' },
 	] as const,
 	links: [
 		{ label: 'GitHub', href: 'https://github.com/ramos-andres-dev', icon: 'github' as const },
@@ -44,22 +47,22 @@ export const aboutNav = [
 export const nav = [{ label: 'about', href: '/about' }] as const;
 
 export const now = {
-	working: 'Este sitio en Astro, un dashboard interno para seguimiento de tareas y un design system personal.',
-	learning: 'Arquitectura de contenido, animaciones con CSS y escritura técnica en público.',
-	reading: 'Notas sobre UX engineering, DX moderna y cómo mantener proyectos vivos con el tiempo.',
+	working: 'Backend services at Nova Dynamics — IAM, microservices, and AWS/Docker infrastructure.',
+	learning: 'System design, cloud architecture, and technical writing.',
+	reading: 'Notes on backend engineering, clean architecture, and maintainable codebases.',
 };
 
 export const principles = [
-	{ title: 'claridad', desc: 'Si no se entiende en una lectura, todavía no está listo.' },
-	{ title: 'oficio', desc: 'Los detalles no son decoración: son señal de respeto por quien usa lo que construyes.' },
-	{ title: 'documentar', desc: 'Escribir obliga a pensar. Las notas son parte del trabajo, no un extra.' },
-	{ title: 'iterar', desc: 'Publicar imperfecto y mejorar en ciclos cortos beats perfeccionar en silencio.' },
+	{ title: 'clarity', desc: 'If it is not clear in one read, it is not ready yet.' },
+	{ title: 'craft', desc: 'Details are not decoration — they signal respect for the people using what you build.' },
+	{ title: 'document', desc: 'Writing forces you to think. Notes are part of the work, not an extra.' },
+	{ title: 'iterate', desc: 'Ship imperfect work and improve in short cycles rather than perfecting in silence.' },
 ];
 
 export const skills = {
-	frontend: ['TypeScript', 'React', 'Astro', 'CSS', 'HTML'],
-	backend: ['Node.js', 'PostgreSQL', 'REST'],
-	tools: ['Git', 'Figma', 'Linux', 'Vercel', 'Storybook'],
+	frontend: ['TypeScript', 'React', 'Next.js', 'HTML', 'CSS', 'Tailwind CSS'],
+	backend: ['Node.js', 'NestJS', 'Python', 'GraphQL', 'REST', 'PostgreSQL', 'MongoDB'],
+	tools: ['Docker', 'AWS', 'GCP', 'Git', 'Linux', 'CI/CD'],
 };
 
 export const experience = [
