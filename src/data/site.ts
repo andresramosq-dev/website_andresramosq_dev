@@ -11,7 +11,7 @@ export const site = {
 	since: 2020,
 	avatar: '/images/avatar.svg',
 	avatarPath: '~/about/avatar.jpg',
-	tagline: 'Responsable de equilibrar el crecimiento del producto con la estabilidad del sistema.',
+	tagline: 'Responsible for balancing product growth with system stability.',
 	pillars: ['Clean', 'Solid', 'Scalable'] as const,
 	consoleSlug: 'andres-ramos-console',
 	description:
