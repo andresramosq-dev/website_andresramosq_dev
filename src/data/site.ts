@@ -45,7 +45,7 @@ export const now = {
 	looking_for:
 		'Projects or ideas where I can contribute and help take them to production. If you have a project or a proposal, get in touch.',
 	philosophy:
-		'I care about clear, clean, modular software — and keeping it tied to the product.',
+		'I aim for simplicity: clear, clean, modular software — tied to the product.',
 };
 
 export const principles = [
