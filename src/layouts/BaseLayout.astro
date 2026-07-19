@@ -1,6 +1,7 @@
 ---
 import '../styles/dev.css';
 import TerminalShell from '../components/TerminalShell.astro';
+import HeaderSpotifyPlayer from '../components/HeaderSpotifyPlayer.astro';
 import { site, nav } from '../data/site';
 
 interface Props {
@@ -36,6 +37,7 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
               </a>
             ))}
           </nav>
+          <HeaderSpotifyPlayer />
         </header>
 
         <main id="main" class="main">

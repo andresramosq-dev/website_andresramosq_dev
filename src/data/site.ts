@@ -107,7 +107,6 @@ export const workPhilosophy = {
 };
 
 export const tastes = {
-	lead: 'Favorites — printed like stdout.',
 	figures: [
 		{ name: 'Marcus Aurelius', text: 'Stoicism and calm under pressure.' },
 		{ name: 'Charlemagne', text: 'Building something that outlives you.' },
