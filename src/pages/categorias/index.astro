@@ -10,21 +10,19 @@ const counts = Object.fromEntries(
 ---
 
 <BaseLayout title="tags" path="/categorias">
-  <p class="crumb"><a href="/">~</a> / tags</p>
-  <h1 class="pg-title">Tags</h1>
-  <p class="pg-desc">Artículos por categoría.</p>
+  <header class="pg-head">
+    <p class="crumb"><a href="/">~</a> / tags</p>
+    <h1 class="pg-title">Tags</h1>
+    <p class="pg-desc">Artículos por categoría.</p>
+  </header>
 
-  <ul class="posts">
+  <ul class="list">
     {
       categories.map((cat) => (
         <li>
           <a href={`/categorias/${cat.id}`}>
-            <span class="posts__date">{counts[cat.id]} posts</span>
-            <span class="posts__title">
-              <span class="cat-dot" style={`--cat: ${cat.color}`}></span>
-              #{cat.label}
-            </span>
-            <span class="posts__tag">{cat.description}</span>
+            <p class="list__title">#{cat.label}</p>
+            <p class="list__meta">{counts[cat.id]} posts · {cat.description}</p>
           </a>
         </li>
       ))

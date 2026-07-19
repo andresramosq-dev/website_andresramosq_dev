@@ -14,11 +14,13 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft && data.cat
 ---
 
 <BaseLayout title={`#${category.label}`} path="/categorias">
-  <p class="crumb">
-    <a href="/">~</a> / <a href="/categorias">tags</a> / {category.label}
-  </p>
-  <h1 class="pg-title">#{category.label}</h1>
-  <p class="pg-desc">{category.description}</p>
+  <header class="pg-head">
+    <p class="crumb">
+      <a href="/">~</a> / <a href="/categorias">tags</a> / {category.label}
+    </p>
+    <h1 class="pg-title">#{category.label}</h1>
+    <p class="pg-desc">{category.description}</p>
+  </header>
 
   <ul class="posts">
     {

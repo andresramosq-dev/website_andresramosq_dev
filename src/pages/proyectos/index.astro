@@ -1,32 +1,29 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import TermSection from '../../components/TermSection.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year);
 ---
 
 <BaseLayout title="proyectos" path="/proyectos">
-  <p class="crumb"><a href="/">~</a> / proyectos</p>
-  <h1 class="pg-title">proyectos/</h1>
-  <p class="pg-desc">Cosas que construyo y experimentos.</p>
+  <header class="pg-head">
+    <p class="crumb"><a href="/">~</a> / proyectos</p>
+    <h1 class="pg-title">Proyectos</h1>
+    <p class="pg-desc">Cosas que construyo y experimentos.</p>
+  </header>
 
-  <TermSection cmd={`ls proyectos/ (${projects.length})`}>
+  <ul class="list">
     {
       projects.map((p) => (
-        <a class="proj" href={`/proyectos/${p.id}`}>
-          <span class="proj__year">{p.data.year}</span>
-          <div>
-            <p class="proj__title">
-              {p.data.title}
-              <span style="color:var(--muted);font-weight:400;font-size:0.72rem;margin-left:0.4rem">
-                [{p.data.status}]
-              </span>
+        <li>
+          <a href={`/proyectos/${p.id}`}>
+            <p class="list__title">{p.data.title}</p>
+            <p class="list__meta">
+              {p.data.year} · {p.data.status} · {p.data.stack.join(', ')}
             </p>
-            <p class="proj__desc">{p.data.description}</p>
-          </div>
-        </a>
+          </a>
+        </li>
       ))
     }
-  </TermSection>
+  </ul>
 </BaseLayout>

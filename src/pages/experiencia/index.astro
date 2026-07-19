@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { experience, site } from '../../data/site';
+---
+
+<BaseLayout title="experiencia" path="/experiencia">
+  <header class="pg-head">
+    <p class="crumb"><a href="/">~</a> / experiencia</p>
+    <h1 class="pg-title">Experiencia</h1>
+    <p class="pg-desc">
+      Trayectoria en desarrollo de software, producto y herramientas web.
+    </p>
+  </header>
+
+  <div class="panel" style="padding:1.25rem 1.35rem">
+    {experience.map((job) => (
+      <article class="exp">
+        <div class="exp__head">
+          <h2 class="exp__role">{job.role}</h2>
+          <span class="exp__period">{job.period}</span>
+        </div>
+        <p class="exp__company">{job.company}</p>
+        <p class="exp__desc">{job.desc}</p>
+        <div class="exp__stack">
+          {job.stack.map((t) => <span class="exp__tag">{t}</span>)}
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <p style="margin-top:1.5rem;font-size:0.9rem;color:var(--muted)">
+    Más sobre mí en <a href="/sobre">{site.name}</a> · código abierto en{' '}
+    <a href={site.links[0].href}>GitHub</a>
+  </p>
+</BaseLayout>

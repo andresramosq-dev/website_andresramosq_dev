@@ -1,0 +1,88 @@
+---
+import { commands } from '../data/commands';
+---
+
+<div class="cmd" id="cmd-root">
+	<form class="cmd__form" id="cmd-form" autocomplete="off">
+		<span class="cmd__path">~/andres</span>
+		<span class="cmd__prompt">$</span>
+		<input
+			type="text"
+			id="cmd-input"
+			class="cmd__input"
+			placeholder="escribe /help para navegar..."
+			spellcheck="false"
+			aria-label="Terminal de comandos"
+		/>
+	</form>
+	<pre class="cmd__out" id="cmd-output" hidden></pre>
+	<p class="cmd__hint">Tip: <kbd>/help</kbd> · o usa el menú de navegación</p>
+</div>
+
+<script define:vars={{ commands }}>
+	const form = document.getElementById('cmd-form');
+	const input = document.getElementById('cmd-input');
+	const output = document.getElementById('cmd-output');
+
+	const helpText = commands
+		.map((c) => {
+			const alias = c.aliases?.length ? ` (${c.aliases.join(', ')})` : '';
+			return `  /${c.cmd}${alias} — ${c.desc}`;
+		})
+		.join('\n');
+
+	function show(text) {
+		output.textContent = text;
+		output.hidden = false;
+	}
+
+	function hide() {
+		output.hidden = true;
+		output.textContent = '';
+	}
+
+	function find(raw) {
+		const q = raw.trim().replace(/^\//, '').toLowerCase();
+		if (!q) return null;
+		return commands.find(
+			(c) => c.cmd === q || c.aliases?.some((a) => a.replace(/^\//, '') === q)
+		);
+	}
+
+	form?.addEventListener('submit', (e) => {
+		e.preventDefault();
+		const value = input.value.trim();
+		if (!value) return;
+
+		const match = find(value);
+
+		if (!match) {
+			show(`command not found: ${value}\nEscribe /help para ver opciones.`);
+			input.value = '';
+			return;
+		}
+
+		if (match.action === 'help') {
+			show(`Comandos disponibles:\n${helpText}`);
+			input.value = '';
+			return;
+		}
+
+		if (match.action === 'clear') {
+			hide();
+			input.value = '';
+			return;
+		}
+
+		if (match.path) {
+			window.location.href = match.path;
+		}
+	});
+
+	input?.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape') {
+			hide();
+			input.value = '';
+		}
+	});
+</script>

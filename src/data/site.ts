@@ -24,12 +24,11 @@ export const site = {
 };
 
 export const nav = [
-	{ label: 'inicio', href: '/', icon: 'home' as const },
-	{ label: 'blog', href: '/blog', icon: 'book' as const },
-	{ label: 'notas', href: '/notas', icon: 'pen' as const },
-	{ label: 'proyectos', href: '/proyectos', icon: 'folder' as const },
-	{ label: 'sobre', href: '/sobre', icon: 'user' as const },
-	{ label: 'tags', href: '/categorias', icon: 'tag' as const },
+	{ label: 'inicio', href: '/' },
+	{ label: 'blog', href: '/blog' },
+	{ label: 'experiencia', href: '/experiencia' },
+	{ label: 'proyectos', href: '/proyectos' },
+	{ label: 'sobre', href: '/sobre' },
 ] as const;
 
 export const now = {
@@ -66,6 +65,30 @@ export const skills = [
 	'Git',
 	'Figma',
 	'Markdown',
+];
+
+export const experience = [
+	{
+		period: '2024 — presente',
+		role: 'Desarrollador Frontend',
+		company: 'Producto & freelance',
+		desc: 'Interfaces web, design systems, componentes reutilizables y entrega continua en equipos pequeños.',
+		stack: ['TypeScript', 'React', 'Astro', 'CSS'],
+	},
+	{
+		period: '2025',
+		role: 'Panel de operaciones',
+		company: 'Proyecto interno',
+		desc: 'Dashboard para seguimiento de entregas, estados y bloqueos de equipo.',
+		stack: ['React', 'Node.js', 'PostgreSQL'],
+	},
+	{
+		period: '2024',
+		role: 'Kit de componentes UI',
+		company: 'Experimento / estudio',
+		desc: 'Biblioteca interna con tokens, variantes y documentación en Storybook.',
+		stack: ['TypeScript', 'Storybook', 'CSS'],
+	},
 ];
 
 export const timeline = [

@@ -1,134 +1,76 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Terminal from '../components/Terminal.astro';
 import ProfilePhoto from '../components/ProfilePhoto.astro';
-import TermSection from '../components/TermSection.astro';
-import CategoryDot from '../components/CategoryDot.astro';
 import { getCollection } from 'astro:content';
-import { site, now, skills } from '../data/site';
+import { site, skills } from '../data/site';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const notes = (await getCollection('notes', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const projects = (await getCollection('projects'))
+  .sort((a, b) => b.data.year - a.data.year)
+  .slice(0, 3);
 
-const pinned = posts.filter((p) => p.data.featured);
-const recent = posts.filter((p) => !p.data.featured).slice(0, 4);
-const recentNotes = notes.slice(0, 3);
-const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year).slice(0, 3);
+const recent = posts.slice(0, 3);
 ---
 
 <BaseLayout path="/">
-  <div class="hero">
-    <Terminal title="~/andres — login">
-      <div class="term__hero">
-        <ProfilePhoto />
-        <div class="term__content">
-          <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">whoami</span></p>
-          <p class="term__out">{site.name}</p>
-          <p class="term__out term__out--role">{site.role} · {site.location}</p>
+  <section class="hero">
+    <ProfilePhoto />
+    <div>
+      <h1 class="hero__name">{site.name}</h1>
+      <p class="hero__role">{site.role} · {site.location}</p>
 
-          <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">cat about.txt</span></p>
-          <p class="term__out">{site.bio}</p>
-
-          <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">ls skills/</span></p>
-          <p class="term__out term__skills">{skills.join('  ')}</p>
-
-          <p class="term__line">
-            <span class="term__prompt">$ </span><span class="term__cursor"></span>
-          </p>
-        </div>
+      <div class="hero__block">
+        <p class="hero__cmd">cat about.txt</p>
+        <p class="hero__text">{site.bio}</p>
       </div>
-    </Terminal>
-  </div>
 
-  <TermSection cmd="cat now.txt">
-    <div class="now">
-      <dl>
-        <div><dt>working_on</dt><dd>{now.working}</dd></div>
-        <div><dt>learning</dt><dd>{now.learning}</dd></div>
-        <div><dt>reading</dt><dd>{now.reading}</dd></div>
-      </dl>
+      <div class="hero__block">
+        <p class="hero__cmd">ls skills/</p>
+        <p class="hero__skills">{skills.join('   ')}</p>
+      </div>
+
+      <p class="hero__cmd"><span class="hero__cursor"></span></p>
     </div>
-  </TermSection>
+  </section>
 
-  {pinned.length > 0 && (
-    <TermSection cmd="ls pinned/" link={{ href: '/blog', label: 'blog →' }}>
-      <ul class="posts posts--pinned">
-        {pinned.map((post) => (
+  <div class="grid-2">
+    <section class="panel">
+      <div class="panel__head">
+        <h2 class="panel__title">ls blog/</h2>
+        <a class="panel__link" href="/blog">ver todos →</a>
+      </div>
+      <ul class="list">
+        {recent.map((post) => (
           <li>
             <a href={`/blog/${post.id}`}>
-              <span class="posts__date">
-                {post.data.pubDate.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
-              </span>
-              <span class="posts__title">
-                <CategoryDot category={post.data.category} />
-                {post.data.title}
-              </span>
-              <span class="posts__tag">{post.data.category}</span>
+              <p class="list__title">{post.data.title}</p>
+              <p class="list__meta">
+                {post.data.pubDate.toLocaleDateString('es-ES', { month: 'short', year: 'numeric' })}
+                {' · '}{post.data.category}
+              </p>
             </a>
           </li>
         ))}
       </ul>
-    </TermSection>
-  )}
+    </section>
 
-  <TermSection cmd="ls blog/" link={{ href: '/blog', label: 'ver todos →' }}>
-    <ul class="posts">
-      {recent.map((post) => (
-        <li>
-          <a href={`/blog/${post.id}`}>
-            <span class="posts__date">
-              {post.data.pubDate.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
-            </span>
-            <span class="posts__title">
-              <CategoryDot category={post.data.category} />
-              {post.data.title}
-            </span>
-            <span class="posts__tag">{post.data.category}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
-  </TermSection>
-
-  <TermSection cmd="ls notas/" link={{ href: '/notas', label: 'ver todas →' }}>
-    <ul class="notes">
-      {recentNotes.map((note) => (
-        <li>
-          <a href={`/notas/${note.id}`}>
-            <span class="notes__title">{note.data.title}</span>
-            <span class="notes__date">
-              {note.data.pubDate.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })}
-            </span>
-          </a>
-        </li>
-      ))}
-    </ul>
-  </TermSection>
-
-  <TermSection cmd="ls proyectos/" link={{ href: '/proyectos', label: 'ver todos →' }}>
-    {projects.map((p) => (
-      <a class="proj" href={`/proyectos/${p.id}`}>
-        <span class="proj__year">{p.data.year}</span>
-        <div>
-          <p class="proj__title">{p.data.title}</p>
-          <p class="proj__desc">{p.data.description}</p>
-        </div>
-      </a>
-    ))}
-  </TermSection>
-
-  <TermSection cmd="cat links.txt">
-    <div class="tags">
-      {site.links.map((l) => (
-        <a class="tag" href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
-          {l.label}
-        </a>
-      ))}
-      <a class="tag" href="/sobre">sobre</a>
-      <a class="tag" href="/categorias">tags</a>
-    </div>
-  </TermSection>
+    <section class="panel">
+      <div class="panel__head">
+        <h2 class="panel__title">ls proyectos/</h2>
+        <a class="panel__link" href="/proyectos">ver todos →</a>
+      </div>
+      <ul class="list">
+        {projects.map((p) => (
+          <li>
+            <a href={`/proyectos/${p.id}`}>
+              <p class="list__title">{p.data.title}</p>
+              <p class="list__meta">{p.data.year} · {p.data.status}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
 </BaseLayout>

@@ -1,6 +1,8 @@
 ---
 import '../styles/dev.css';
 import StatusBar from '../components/StatusBar.astro';
+import TerminalShell from '../components/TerminalShell.astro';
+import CommandBar from '../components/CommandBar.astro';
 import { site, nav } from '../data/site';
 
 interface Props {
@@ -11,6 +13,7 @@ interface Props {
 
 const { title, description, path = '/' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.name}` : site.name;
+const winTitle = path === '/' ? '~/andres — login' : `~/andres${path} — zsh`;
 ---
 
 <!doctype html>
@@ -27,35 +30,37 @@ const pageTitle = title ? `${title} — ${site.name}` : site.name;
   <body>
     <a class="skip" href="#main">Saltar al contenido</a>
 
-    <div class="shell">
-      <StatusBar />
+    <div class="desk">
+      <TerminalShell title={winTitle}>
+        <StatusBar />
+        <CommandBar />
 
-      <header class="hdr">
-        <a class="hdr__logo" href="/"><em>~</em>/andres</a>
-        <nav class="hdr__nav" aria-label="Principal">
+        <nav class="tabs" aria-label="Principal">
           {nav.map((item) => (
             <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
               {item.label}
             </a>
           ))}
         </nav>
-      </header>
 
-      <main id="main">
-        <slot />
-      </main>
+        <main id="main" class="main">
+          <slot />
+        </main>
 
-      <footer class="ftr">
-        <span><span class="ftr__prompt">$</span> echo "© {new Date().getFullYear()} {site.name}"</span>
-        <div class="ftr__links">
-          {site.links.map((l) => (
-            <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
-              {l.label}
-            </a>
-          ))}
-          <a href="/rss.xml">rss</a>
-        </div>
-      </footer>
+        <footer class="ftr">
+          <span><span class="ftr__prompt">$</span> echo "© {new Date().getFullYear()} {site.name}"</span>
+          <div class="ftr__links">
+            {site.links.map((l) => (
+              <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
+                {l.label}
+              </a>
+            ))}
+            <a href="/notas">notas</a>
+            <a href="/categorias">tags</a>
+            <a href="/rss.xml">rss</a>
+          </div>
+        </footer>
+      </TerminalShell>
     </div>
   </body>
 </html>
