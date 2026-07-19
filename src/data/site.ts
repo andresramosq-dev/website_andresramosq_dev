@@ -26,11 +26,12 @@ export const site = {
 };
 
 export const nav = [
-	{ label: 'inicio', href: '/' },
+	{ label: '~', href: '/' },
+	{ label: 'andres', href: '/andres' },
 	{ label: 'blog', href: '/blog' },
 	{ label: 'experiencia', href: '/experiencia' },
 	{ label: 'proyectos', href: '/proyectos' },
-	{ label: 'sobre', href: '/sobre' },
+	{ label: 'notas', href: '/notas' },
 ] as const;
 
 export const now = {

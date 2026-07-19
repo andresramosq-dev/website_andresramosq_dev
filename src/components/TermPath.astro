@@ -1,0 +1,13 @@
+---
+interface Props {
+	path: string;
+}
+
+const { path } = Astro.props;
+const segment = path === '/' ? '~' : `~${path}`;
+---
+
+<div class="tpath" aria-label="Ruta actual">
+	<span class="tpath__prompt">path</span>
+	<span class="tpath__cwd">{segment}</span>
+</div>

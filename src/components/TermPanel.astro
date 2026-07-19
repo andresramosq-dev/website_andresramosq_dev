@@ -1,0 +1,19 @@
+---
+interface Props {
+	label?: string;
+}
+
+const { label } = Astro.props;
+---
+
+<article class="tpanel">
+	{label && (
+		<header class="tpanel__hdr">
+			<span class="tpanel__icon" aria-hidden="true">▸</span>
+			<span class="tpanel__label">{label}</span>
+		</header>
+	)}
+	<div class="tpanel__body">
+		<slot />
+	</div>
+</article>

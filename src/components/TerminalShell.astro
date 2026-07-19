@@ -10,12 +10,12 @@ const { segment = '~' } = Astro.props;
 
 <div class="twin">
 	<header class="twin__bar">
-		<span class="twin__icon" aria-hidden="true">▮</span>
+		<span class="twin__led" aria-hidden="true"></span>
 		<a class="twin__brand" href="/">{site.domain}</a>
 		<span class="twin__sep">—</span>
 		<span class="twin__app">bash</span>
-		<span class="twin__path">
-			<span class="user">{site.user}</span>@<span class="host">{site.domain}</span>:<span class="twin__cwd">{segment}</span>
+		<span class="twin__cwd">
+			<span class="user">{site.user}</span>@<span class="host">{site.domain}</span>:<span class="twin__path">{segment}</span>
 		</span>
 	</header>
 	<div class="twin__body">

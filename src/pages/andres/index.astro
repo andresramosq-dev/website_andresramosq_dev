@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TermPath from '../../components/TermPath.astro';
+import TermPanel from '../../components/TermPanel.astro';
+import ProfilePhoto from '../../components/ProfilePhoto.astro';
+import { site, skills, timeline, now, principles } from '../../data/site';
+---
+
+<BaseLayout title="andres" path="/andres">
+  <TermPath path="/andres" />
+
+  <div class="andres-layout">
+    <aside class="andres-side">
+      <TermPanel label="avatar.jpg">
+        <ProfilePhoto size="md" />
+      </TermPanel>
+      <TermPanel label="me.json">
+        <dl class="kv">
+          <div><dt>name</dt><dd>{site.name}</dd></div>
+          <div><dt>role</dt><dd>{site.role}</dd></div>
+          <div><dt>location</dt><dd>{site.location}</dd></div>
+          <div><dt>since</dt><dd>{site.since}</dd></div>
+          <div><dt>email</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd></div>
+          <div><dt>github</dt><dd><a href={site.links[0].href} target="_blank" rel="noreferrer">{site.handle}</a></dd></div>
+        </dl>
+      </TermPanel>
+    </aside>
+
+    <div class="andres-main">
+      <TermPanel label="bio.txt">
+        <div class="prose">
+          {site.about.map((p) => <p>{p}</p>)}
+        </div>
+      </TermPanel>
+
+      <TermPanel label="now.txt">
+        <dl class="now-grid">
+          <div class="now-item">
+            <dt>working_on</dt>
+            <dd>{now.working}</dd>
+          </div>
+          <div class="now-item">
+            <dt>learning</dt>
+            <dd>{now.learning}</dd>
+          </div>
+          <div class="now-item">
+            <dt>reading</dt>
+            <dd>{now.reading}</dd>
+          </div>
+        </dl>
+      </TermPanel>
+
+      <TermPanel label="skills/">
+        <p class="skills-line">
+          {skills.map((s) => <span>{s}</span>)}
+        </p>
+      </TermPanel>
+
+      <div class="andres-split">
+        <TermPanel label="principles.txt">
+          <div class="principles">
+            {principles.map((p) => (
+              <div class="principle">
+                <p class="principle__title">{p.title}</p>
+                <p class="principle__desc">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </TermPanel>
+
+        <TermPanel label="timeline.log">
+          <ul class="timeline">
+            {timeline.map((t) => (
+              <li>
+                <span class="timeline__year">{t.year}</span>
+                <div>
+                  <p class="timeline__title">{t.title}</p>
+                  <p class="timeline__desc">{t.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </TermPanel>
+      </div>
+
+      <p class="cross-link">
+        <a href="/experiencia">~/experiencia →</a> ver trayectoria laboral
+      </p>
+    </div>
+  </div>
+</BaseLayout>

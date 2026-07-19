@@ -3,6 +3,7 @@ import '../styles/dev.css';
 import TerminalShell from '../components/TerminalShell.astro';
 import CommandBar from '../components/CommandBar.astro';
 import { site, nav } from '../data/site';
+import { pathToSegment } from '../utils/segment';
 
 interface Props {
 	title?: string;
@@ -12,7 +13,7 @@ interface Props {
 
 const { title, description, path = '/' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
-const segment = path === '/' ? '~' : `~${path}`;
+const segment = pathToSegment(path);
 ---
 
 <!doctype html>
@@ -31,18 +32,22 @@ const segment = path === '/' ? '~' : `~${path}`;
 
     <div class="desk">
       <TerminalShell segment={segment}>
-        <nav class="nav" aria-label="Principal">
-          {nav.map((item) => (
-            <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
+        <header class="term-hd">
+          <nav class="nav" aria-label="Rutas">
+            {nav.map((item) => (
+              <a href={item.href} aria-current={path === item.href || (item.href !== '/' && path.startsWith(item.href)) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
 
-        <details class="cmd-fold">
-          <summary>navegar por comandos (/help)</summary>
-          <CommandBar />
-        </details>
+          <details class="term-hd__cmd">
+            <summary>navega por terminal</summary>
+            <div class="term-hd__cmd-body">
+              <CommandBar />
+            </div>
+          </details>
+        </header>
 
         <main id="main" class="main">
           <slot />
@@ -57,7 +62,7 @@ const segment = path === '/' ? '~' : `~${path}`;
                 <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">{l.label}</a>
               </>
             ))}
-            {' · '}<a href="/notas">notas</a>
+            {' · '}<a href="/categorias">tags</a>
             {' · '}<a href="/rss.xml">rss</a>
           </div>
         </footer>

@@ -1,13 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
+import TermPath from '../components/TermPath.astro';
+import TermPanel from '../components/TermPanel.astro';
 ---
 
 <BaseLayout title="404" path="/404">
-  <PageHeader segment="404" title="Página no encontrada" />
-  <div class="err">
-    <p class="err__code">404</p>
-    <p class="err__msg">command not found</p>
-    <p><a href="/">volver al inicio →</a></p>
-  </div>
+  <TermPath path="/404" />
+
+  <TermPanel label="stderr">
+    <div class="err">
+      <p class="err__code">404</p>
+      <p class="err__msg">bash: cd: ruta no encontrada</p>
+      <p><a href="/">cd ~</a></p>
+    </div>
+  </TermPanel>
 </BaseLayout>

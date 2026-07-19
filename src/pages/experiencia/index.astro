@@ -1,20 +1,23 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageHeader from '../../components/PageHeader.astro';
-import TermBlock from '../../components/TermBlock.astro';
+import TermPath from '../../components/TermPath.astro';
+import TermPanel from '../../components/TermPanel.astro';
 import { experience } from '../../data/site';
 ---
 
 <BaseLayout title="experiencia" path="/experiencia">
-  <PageHeader segment="experiencia" title="Experiencia" />
+  <TermPath path="/experiencia" />
 
-  <TermBlock cmd="cat experiencia.log">
-    {experience.map((job) => (
-      <article class="exp">
-        <h2 class="exp__role">{job.role}</h2>
-        <p class="exp__meta">{job.company} · {job.period}</p>
-        <p class="exp__desc">{job.desc}</p>
-      </article>
-    ))}
-  </TermBlock>
+  <TermPanel label="experiencia.log">
+    <div class="exp-grid">
+      {experience.map((job) => (
+        <article class="exp">
+          <h2 class="exp__role">{job.role}</h2>
+          <p class="exp__meta">{job.company} · {job.period}</p>
+          <p class="exp__desc">{job.desc}</p>
+          <p class="exp__stack">{job.stack.join(' · ')}</p>
+        </article>
+      ))}
+    </div>
+  </TermPanel>
 </BaseLayout>
