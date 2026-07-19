@@ -16,7 +16,7 @@ const { command = 'about', slug = 'andres-ramos' } = Astro.props;
 	</span>
 	<span class="console-title__cmd">
 		<span class="console-title__conn" aria-hidden="true">╰─</span>
-		<span class="console-title__bin">{command}</span>
-		<span class="console-title__page"> -{slug}</span>
+		<span class="console-title__arrow">-></span>
+		<span class="console-title__text">{command} {slug}</span>
 	</span>
 </h1>
