@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import Icon from './Icon.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+---
+
+<section class="section" id="blog" aria-labelledby="blog-title">
+	<div class="section__head">
+		<div class="section__icon"><Icon name="book" size={18} /></div>
+		<h2 class="section__title" id="blog-title">Blog</h2>
+	</div>
+	<p class="section__lead">Notas breves en Markdown.</p>
+	<div class="card-grid">
+		{
+			posts.map((post) => (
+				<a class="card" href={`/blog/${post.id}`}>
+					<div class="card__mark">
+						<Icon name="pen" size={18} />
+					</div>
+					<p class="card__meta">
+						{post.data.section} ·{' '}
+						{post.data.pubDate.toLocaleDateString('es-ES', {
+							month: 'short',
+							year: 'numeric',
+						})}
+					</p>
+					<h3 class="card__title">{post.data.title}</h3>
+					<p class="card__text">{post.data.description}</p>
+				</a>
+			))
+		}
+	</div>
+	<a class="section-link" href="/blog">
+		Ir al blog
+		<Icon name="arrow" size={16} />
+	</a>
+</section>

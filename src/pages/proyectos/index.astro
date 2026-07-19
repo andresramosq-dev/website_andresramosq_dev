@@ -1,47 +1,36 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
 
 const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year);
-const rendered = await Promise.all(
-	projects.map(async (project) => ({
-		project,
-		Content: (await render(project)).Content,
-	})),
-);
 ---
 
-<BaseLayout
-	title="Proyectos"
-	description="Selección de trabajo con stack, estado y notas."
-	currentPath="/proyectos"
->
-	<section class="section" style="margin-top: 0.85rem;" aria-labelledby="projects-title">
-		<p class="section__kicker"># archivo</p>
-		<h1 class="page-title" id="projects-title">Proyectos</h1>
-		<p class="page-deck">
-			Fichas en <code>src/content/projects/</code>. Cada una describe el problema, el stack y el estado.
-		</p>
-		<div class="entry-list" style="gap: 1rem;">
-			{
-				rendered.map(({ project, Content }) => (
-					<article class="entry" id={project.id}>
-						<p class="entry__meta">
-							{project.data.year} · {project.data.status}
-						</p>
-						<h2 class="entry__title">{project.data.title}</h2>
-						<p class="entry__desc">{project.data.description}</p>
-						<ul class="stack-inline">
-							{project.data.stack.map((tech) => (
-								<li>{tech}</li>
-							))}
-						</ul>
-						<div class="prose" style="margin-top: 0.45rem;">
-							<Content />
-						</div>
-					</article>
-				))
-			}
-		</div>
+<BaseLayout title="Proyectos" description="Selección de trabajo." currentPath="/proyectos">
+	<section class="page-hero">
+		<a class="back-link" href="/"><Icon name="arrow" size={16} /> Inicio</a>
+		<h1>Proyectos</h1>
+		<p>Fichas cortas con stack y estado.</p>
 	</section>
+	<div class="card-grid list-stack">
+		{
+			projects.map((project) => (
+				<article class="card" id={project.id}>
+					<div class="card__mark">
+						<Icon name="box" size={18} />
+					</div>
+					<p class="card__meta">
+						{project.data.year} · {project.data.status}
+					</p>
+					<h2 class="card__title">{project.data.title}</h2>
+					<p class="card__text">{project.data.description}</p>
+					<div class="card__foot">
+						{project.data.stack.map((tech) => (
+							<span class="chip">{tech}</span>
+						))}
+					</div>
+				</article>
+			))
+		}
+	</div>
 </BaseLayout>

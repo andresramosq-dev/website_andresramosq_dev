@@ -1,0 +1,33 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+---
+
+<section class="hero" aria-label="Presentación">
+	<div>
+		<p class="hero__eyebrow">
+			<Icon name="pen" size={16} />
+			{site.handle}
+		</p>
+		<h1 class="hero__title">{site.name}</h1>
+		<p class="hero__text">{site.tagline} {site.bio}</p>
+		<div class="hero__actions">
+			<a class="btn btn--solid" href="/#proyectos">
+				Ver proyectos
+				<Icon name="arrow" size={18} />
+			</a>
+			<a class="btn btn--ghost" href="/blog">
+				Leer blog
+				<Icon name="book" size={18} />
+			</a>
+		</div>
+	</div>
+	<div class="hero__art">
+		<img
+			src="/images/chalk-hero.svg"
+			alt="Ilustración artística de pizarra con ventana de código y notas"
+			width="640"
+			height="420"
+		/>
+	</div>
+</section>

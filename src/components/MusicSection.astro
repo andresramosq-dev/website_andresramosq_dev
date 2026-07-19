@@ -1,22 +1,23 @@
 ---
+import Icon from './Icon.astro';
 import { music } from '../data/site';
 ---
 
 <section class="section" id="musica" aria-labelledby="musica-title">
-	<p class="section__kicker"># música</p>
-	<h2 class="section__title" id="musica-title">Discos de trabajo</h2>
-	<p class="section__lead">
-		Una lista corta de álbumes que suelen acompañar sesiones de código o escritura.
-	</p>
-	<div class="music-list">
+	<div class="section__head">
+		<div class="section__icon"><Icon name="music" size={18} /></div>
+		<h2 class="section__title" id="musica-title">Música</h2>
+	</div>
+	<p class="section__lead">Álbumes para trabajar.</p>
+	<div class="music-row">
 		{
 			music.map((item) => (
-				<article class="music-item">
-					<div>
-						<h3 class="music-item__title">{item.title}</h3>
-						<p class="music-item__artist">{item.artist}</p>
+				<article class="music-card">
+					<div class="music-card__art" aria-hidden="true">
+						<Icon name="music" size={28} />
 					</div>
-					<p class="music-item__why">{item.why}</p>
+					<h3 class="music-card__title">{item.title}</h3>
+					<p class="music-card__artist">{item.artist}</p>
 				</article>
 			))
 		}

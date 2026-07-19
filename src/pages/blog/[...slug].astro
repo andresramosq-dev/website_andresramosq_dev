@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
-import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -12,13 +13,21 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const date = post.data.pubDate.toLocaleDateString('es-ES', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
 ---
 
-<BlogPostLayout
-	title={post.data.title}
-	description={post.data.description}
-	pubDate={post.data.pubDate}
-	section={post.data.section}
->
-	<Content />
-</BlogPostLayout>
+<BaseLayout title={post.data.title} description={post.data.description} currentPath="/blog">
+	<article class="page-hero" style="padding-bottom: 2rem;">
+		<a class="back-link" href="/blog"><Icon name="arrow" size={16} /> Blog</a>
+		<h1>{post.data.title}</h1>
+		<p>{post.data.description}</p>
+		<p class="post-meta">{post.data.section} · {date}</p>
+		<div class="prose panel" style="padding: 1.2rem;">
+			<Content />
+		</div>
+	</article>
+</BaseLayout>

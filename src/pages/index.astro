@@ -1,25 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ProfileSection from '../components/ProfileSection.astro';
-import TechTimeline from '../components/TechTimeline.astro';
-import BlogTeaser from '../components/BlogTeaser.astro';
-import ProjectsTeaser from '../components/ProjectsTeaser.astro';
+import Hero from '../components/Hero.astro';
+import AboutSection from '../components/AboutSection.astro';
+import StackSection from '../components/StackSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+import BlogSection from '../components/BlogSection.astro';
 import MusicSection from '../components/MusicSection.astro';
-import MethodSection from '../components/MethodSection.astro';
 import { site } from '../data/site';
 ---
 
-<BaseLayout title={site.name} description={site.tagline} currentPath="/">
-	<div class="page-grid home-main">
-		<ProfileSection />
-		<MethodSection />
-		<div class="home-span">
-			<TechTimeline />
-		</div>
-		<BlogTeaser />
-		<ProjectsTeaser />
-		<div class="home-span">
-			<MusicSection />
-		</div>
-	</div>
+<BaseLayout title={site.name} description={`${site.tagline} ${site.bio}`} currentPath="/">
+	<Hero />
+	<AboutSection />
+	<StackSection />
+	<ProjectsSection />
+	<BlogSection />
+	<MusicSection />
 </BaseLayout>

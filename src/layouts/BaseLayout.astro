@@ -14,8 +14,7 @@ const {
 	currentPath = Astro.url.pathname,
 } = Astro.props;
 
-const pageTitle = title === site.name ? title : `${title} · ${site.name}`;
-const isHome = currentPath === '/';
+const pageTitle = title === site.name ? `${site.name} · ${site.tagline}` : `${title} · ${site.name}`;
 ---
 
 <!doctype html>
@@ -30,39 +29,22 @@ const isHome = currentPath === '/';
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,650;1,6..72,400&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,650&family=Sora:wght@400;500;600&display=swap"
 			rel="stylesheet"
 		/>
 		<title>{pageTitle}</title>
 	</head>
 	<body>
-		<div class="site-shell">
-			<header class="masthead">
-				<p class="section__kicker">{site.handle}</p>
-				{
-					isHome ? (
-						<h1 class="masthead__brand">
-							<a href="/" class="masthead__brand-link">
-								{site.name}
-							</a>
-						</h1>
-					) : (
-						<p class="masthead__brand">
-							<a href="/" class="masthead__brand-link">
-								{site.name}
-							</a>
-						</p>
-					)
-				}
-				<p class="masthead__deck">{site.tagline}</p>
+		<header class="topbar">
+			<div class="shell topbar__inner">
+				<a class="brand" href="/">{site.name.split(' ')[0]} <span>Ramos</span></a>
 				<nav class="nav" aria-label="Principal">
 					{
 						nav.map((item) => {
 							const pathOnly = item.href.split('#')[0] || '/';
 							const current =
-								pathOnly === '/'
-									? currentPath === '/'
-									: currentPath === pathOnly || currentPath.startsWith(`${pathOnly}/`);
+								pathOnly !== '/' &&
+								(currentPath === pathOnly || currentPath.startsWith(`${pathOnly}/`));
 							return (
 								<a href={item.href} aria-current={current ? 'page' : undefined}>
 									{item.label}
@@ -71,16 +53,16 @@ const isHome = currentPath === '/';
 						})
 					}
 				</nav>
-			</header>
+			</div>
+		</header>
 
-			<main>
-				<slot />
-			</main>
+		<main class="shell">
+			<slot />
+		</main>
 
-			<footer class="site-footer">
-				<span>{site.name} · cuaderno público</span>
-				<span>Escrito en Markdown · Publicado con Astro</span>
-			</footer>
-		</div>
+		<footer class="shell footer">
+			<span>{site.handle}</span>
+			<span>Hecho con Astro</span>
+		</footer>
 	</body>
 </html>
