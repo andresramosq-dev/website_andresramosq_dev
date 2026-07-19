@@ -16,10 +16,10 @@ export const site = {
 	consoleSlug: 'andres-ramos-console',
 	description:
 		'Personal console of Andrés Ramos. Backend development, APIs, microservices, and notes on the craft.',
-	bio: 'Senior software developer with 4+ years in backend work — JavaScript, TypeScript, Node.js, Python, PostgreSQL, AWS, Docker, and Git. Passionate about clean code and modular architecture.',
+	bio: 'Senior software developer with 4+ years in backend work — JavaScript, TypeScript, Node.js, Python, PostgreSQL, AWS, Docker, and Git. I have built software at an insurance fintech: payment gateways, SOAT product sales, and keeping codebases healthy over time. I have also built systems from scratch — including a VCC platform with IAM, call handling, CRM, and more. Passionate about clean code and modular architecture.',
 	bioPersonal: [
 		'Lately I have been playing a lot with AI — this site was built with it (I am not great at web design 😉).',
-		'Right now I am looking for that kind of challenge: building software or growing strong teams. Got something for me? Get in touch.',
+		'I am looking for my next challenge right now — not just writing code, but building software products or growing strong teams. If you have that kind of challenge or a proposal for me, get in touch.',
 		'This site is in English — not my strongest language, but I am working on getting better at it.',
 	],
 	about: [],
