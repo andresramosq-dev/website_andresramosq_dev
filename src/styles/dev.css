@@ -482,6 +482,20 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	font-weight: 600;
 	color: var(--term-amber);
 }
+.bio__quote {
+	margin: 0.15rem 0 0;
+	color: var(--ink);
+	font-family: var(--mono);
+	font-size: 0.86rem;
+	font-weight: 500;
+	line-height: 1.65;
+	letter-spacing: -0.015em;
+}
+.bio__quote-prefix {
+	color: var(--muted);
+	font-weight: 400;
+	margin-right: 0.2rem;
+}
 
 /* notes.txt — primary note carries the CTA weight */
 .bio-notes {
