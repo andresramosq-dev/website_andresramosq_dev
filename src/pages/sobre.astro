@@ -8,35 +8,37 @@ import { site, techTimeline, music } from '../data/site';
 	<header class="page-head">
 		<p class="intro__label"><Icon name="user" size={16} /> Sobre</p>
 		<h1>{site.name}</h1>
-		<p>{site.bio}</p>
+		<p class="about-lead">{site.bio}</p>
 	</header>
 
 	<div class="about-block">
-		<ul class="about-meta">
-			<li>
-				<span>Rol</span>
-				<strong>{site.role}</strong>
-			</li>
-			<li>
-				<span>Ubicación</span>
-				<strong>{site.location}</strong>
-			</li>
-			<li>
-				<span>Contacto</span>
-				<strong>
-					{
-						site.links.map((link, i) => (
-							<span>
-								{i > 0 ? ' · ' : ''}
-								<a href={link.href}>{link.label}</a>
-							</span>
-						))
-					}
-				</strong>
-			</li>
-		</ul>
+		<div class="about-panel">
+			<ul class="about-meta">
+				<li>
+					<span>Rol</span>
+					<strong>{site.role}</strong>
+				</li>
+				<li>
+					<span>Ubicación</span>
+					<strong>{site.location}</strong>
+				</li>
+				<li>
+					<span>Contacto</span>
+					<strong>
+						{
+							site.links.map((link, i) => (
+								<span>
+									{i > 0 ? ' · ' : ''}
+									<a href={link.href}>{link.label}</a>
+								</span>
+							))
+						}
+					</strong>
+				</li>
+			</ul>
+		</div>
 
-		<section aria-labelledby="stack-title">
+		<section class="about-panel" aria-labelledby="stack-title">
 			<h2 class="section__title" id="stack-title">Stack en el tiempo</h2>
 			<div class="timeline">
 				{
@@ -53,7 +55,7 @@ import { site, techTimeline, music } from '../data/site';
 			</div>
 		</section>
 
-		<section aria-labelledby="music-title">
+		<section class="about-panel" aria-labelledby="music-title">
 			<h2 class="section__title" id="music-title">
 				<Icon name="music" size={18} />
 				Música

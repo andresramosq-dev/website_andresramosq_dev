@@ -1,25 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" fill="none" aria-hidden="true">
-  <!-- desk -->
-  <rect width="560" height="360" fill="#F7F6F3"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="sky" x1="80" y1="40" x2="560" y2="380" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E7EEF7"/>
+      <stop offset="1" stop-color="#F7F1E8"/>
+    </linearGradient>
+    <linearGradient id="page" x1="180" y1="70" x2="420" y2="330" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F4F7FB"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="420" rx="28" fill="url(#sky)"/>
+  <!-- soft blobs -->
+  <circle cx="520" cy="90" r="70" fill="#DCE7F5" fill-opacity=".9"/>
+  <circle cx="120" cy="320" r="90" fill="#F0E4D4" fill-opacity=".75"/>
   <!-- notebook -->
-  <rect x="96" y="58" width="280" height="244" rx="10" fill="#FFFFFF" stroke="#171717" stroke-width="3"/>
-  <path d="M166 58v244" stroke="#171717" stroke-width="3"/>
-  <circle cx="146" cy="120" r="5" fill="#171717"/>
-  <circle cx="146" cy="160" r="5" fill="#171717"/>
-  <circle cx="146" cy="200" r="5" fill="#171717"/>
-  <!-- written lines -->
-  <path d="M196 118h140" stroke="#171717" stroke-width="6" stroke-linecap="round"/>
-  <path d="M196 150h118" stroke="#171717" stroke-width="4" stroke-linecap="round" opacity=".45"/>
-  <path d="M196 178h132" stroke="#171717" stroke-width="4" stroke-linecap="round" opacity=".45"/>
-  <path d="M196 206h96" stroke="#171717" stroke-width="4" stroke-linecap="round" opacity=".35"/>
-  <path d="M196 234h110" stroke="#171717" stroke-width="4" stroke-linecap="round" opacity=".28"/>
-  <!-- pen -->
-  <g transform="translate(360 210) rotate(-28)">
-    <rect x="0" y="0" width="110" height="18" rx="9" fill="#171717"/>
-    <path d="M110 0 132 9 110 18Z" fill="#171717"/>
-    <rect x="14" y="4" width="28" height="10" rx="5" fill="#F7F6F3"/>
+  <g transform="translate(150 68)">
+    <rect x="18" y="18" width="250" height="270" rx="18" fill="#0F1720" opacity=".08"/>
+    <rect width="250" height="270" rx="18" fill="url(#page)" stroke="#142033" stroke-width="2.5"/>
+    <path d="M62 0v270" stroke="#142033" stroke-width="2.5"/>
+    <circle cx="42" cy="70" r="4.5" fill="#142033"/>
+    <circle cx="42" cy="110" r="4.5" fill="#142033"/>
+    <circle cx="42" cy="150" r="4.5" fill="#142033"/>
+    <circle cx="42" cy="190" r="4.5" fill="#142033"/>
+    <path d="M88 72h120" stroke="#142033" stroke-width="8" stroke-linecap="round"/>
+    <path d="M88 108h136" stroke="#142033" stroke-width="5" stroke-linecap="round" opacity=".35"/>
+    <path d="M88 138h112" stroke="#142033" stroke-width="5" stroke-linecap="round" opacity=".28"/>
+    <path d="M88 168h128" stroke="#142033" stroke-width="5" stroke-linecap="round" opacity=".22"/>
+    <path d="M88 198h90" stroke="#142033" stroke-width="5" stroke-linecap="round" opacity=".18"/>
+    <rect x="88" y="224" width="74" height="22" rx="11" fill="#1D4E89"/>
   </g>
-  <!-- small mark -->
-  <rect x="400" y="72" width="52" height="52" rx="8" fill="#171717"/>
-  <path d="M414 98h24M414 110h16" stroke="#F7F6F3" stroke-width="4" stroke-linecap="round"/>
+  <!-- pen -->
+  <g transform="translate(430 210) rotate(-26)">
+    <rect y="8" width="128" height="20" rx="10" fill="#142033"/>
+    <path d="M128 8 156 18 128 28Z" fill="#142033"/>
+    <rect x="18" y="12" width="34" height="12" rx="6" fill="#E7EEF7"/>
+    <rect x="70" y="12" width="18" height="12" rx="6" fill="#1D4E89"/>
+  </g>
+  <!-- floating note -->
+  <rect x="448" y="78" width="96" height="96" rx="16" fill="#FFFFFF" stroke="#142033" stroke-width="2.5"/>
+  <path d="M470 112h52M470 132h36" stroke="#142033" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="520" cy="154" r="8" fill="#1D4E89"/>
 </svg>

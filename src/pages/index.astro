@@ -10,26 +10,36 @@ import { site } from '../data/site';
 		<div>
 			<p class="intro__label">
 				<Icon name="pen" size={16} />
-				Blog
+				Blog personal
 			</p>
 			<h1 class="intro__title">{site.name}</h1>
 			<p class="intro__text">{site.tagline}</p>
+			<div class="intro__actions">
+				<a class="btn btn--solid" href="#escritos">
+					Ver escritos
+					<Icon name="arrow" size={18} />
+				</a>
+				<a class="btn btn--ghost" href="/sobre">Sobre mí</a>
+			</div>
 		</div>
 		<div class="intro__art">
 			<img
 				src="/images/hero-blog.svg"
-				alt="Ilustración de un cuaderno y un lápiz"
-				width="560"
-				height="360"
+				alt="Ilustración de un cuaderno, notas y lápiz"
+				width="640"
+				height="420"
 			/>
 		</div>
 	</section>
 
-	<section class="section" aria-labelledby="escritos-title">
-		<h2 class="section__title" id="escritos-title">
-			<Icon name="book" size={20} />
-			Escritos
-		</h2>
+	<section class="section" id="escritos" aria-labelledby="escritos-title">
+		<div class="section__head">
+			<h2 class="section__title" id="escritos-title">
+				<Icon name="book" size={22} />
+				Escritos
+			</h2>
+			<p class="section__note">Lo más reciente primero</p>
+		</div>
 		<PostList />
 	</section>
 </BaseLayout>

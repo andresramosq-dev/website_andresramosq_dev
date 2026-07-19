@@ -21,7 +21,7 @@ const date = post.data.pubDate.toLocaleDateString('es-ES', {
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} currentPath="/blog">
-	<article class="shell--narrow article" style="width: min(100%, 720px);">
+	<article class="article">
 		<a class="back" href="/"><Icon name="arrow" size={16} /> Todos los escritos</a>
 		<h1 class="article__title">{post.data.title}</h1>
 		<p class="article__desc">{post.data.description}</p>
