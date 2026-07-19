@@ -8,20 +8,19 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.year - 
 
 <BaseLayout title="Proyectos" description="Trabajo seleccionado." currentPath="/proyectos">
 	<header class="page-head">
-		<p class="intro__label"><Icon name="folder" size={16} /> Proyectos</p>
+		<p class="hero__kicker"><Icon name="folder" size={16} /> Portfolio</p>
 		<h1>Proyectos</h1>
-		<p>Una selección corta. El centro del sitio sigue siendo el blog.</p>
+		<p>Una selección corta de trabajo. El centro del sitio es el blog.</p>
 	</header>
-
 	<div class="project-list">
 		{
 			projects.map((project) => (
 				<article class="project-card" id={project.id}>
-					<p class="project-card__meta">
+					<p class="post-card__meta">
 						{project.data.year} · {project.data.status}
 					</p>
-					<h2 class="project-card__title">{project.data.title}</h2>
-					<p class="project-card__desc">{project.data.description}</p>
+					<h2>{project.data.title}</h2>
+					<p>{project.data.description}</p>
 					<div class="project-card__stack">
 						{project.data.stack.map((tech) => (
 							<span>{tech}</span>

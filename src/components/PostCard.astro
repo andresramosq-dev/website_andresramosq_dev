@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import CategoryBadge from './CategoryBadge.astro';
+import { categories } from '../data/site';
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const category = categories.find((item) => item.id === post.data.category)!;
+const iconName = category.icon;
+---
+
+<a class="post-card" href={`/blog/${post.id}`}>
+	<div class={`post-card__icon post-card__icon--${post.data.category}`}>
+		<Icon name={iconName} size={18} />
+	</div>
+	<div class="post-card__meta">
+		<CategoryBadge id={post.data.category} />
+		<span>
+			<Icon name="clock" size={14} />
+			{post.data.minutes} min
+		</span>
+	</div>
+	<h3 class="post-card__title">{post.data.title}</h3>
+	<p class="post-card__desc">{post.data.description}</p>
+</a>

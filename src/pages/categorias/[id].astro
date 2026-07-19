@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import PostCard from '../../components/PostCard.astro';
+import { categories } from '../../data/site';
+
+export function getStaticPaths() {
+	return categories.map((category) => ({
+		params: { id: category.id },
+		props: { category },
+	}));
+}
+
+const { category } = Astro.props;
+const posts = (await getCollection('blog', ({ data }) => !data.draft && data.category === category.id)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout
+	title={category.label}
+	description={category.description}
+	currentPath="/categorias"
+>
+	<header class="page-head">
+		<a class="back" href="/categorias"><Icon name="arrow" size={16} /> Todas las categorías</a>
+		<p class="hero__kicker">
+			<Icon name={category.icon} size={16} />
+			Categoría
+		</p>
+		<h1>{category.label}</h1>
+		<p>{category.description}</p>
+	</header>
+	{
+		posts.length > 0 ? (
+			<div class="post-grid" style="padding-bottom: 2rem;">
+				{posts.map((post) => (
+					<PostCard post={post} />
+				))}
+			</div>
+		) : (
+			<p style="color: var(--muted); padding-bottom: 2rem;">Aún no hay artículos en esta categoría.</p>
+		)
+	}
+</BaseLayout>

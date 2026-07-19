@@ -9,8 +9,10 @@ const blog = defineCollection({
 		description: z.string(),
 		pubDate: z.coerce.date(),
 		updatedDate: z.coerce.date().optional(),
-		section: z.string().default('Notas'),
+		category: z.enum(['diseno', 'codigo', 'oficio', 'metodo']),
+		featured: z.boolean().default(false),
 		draft: z.boolean().default(false),
+		minutes: z.number().default(4),
 	}),
 });
 

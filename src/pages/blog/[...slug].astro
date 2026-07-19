@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Icon from '../../components/Icon.astro';
+import CategoryBadge from '../../components/CategoryBadge.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -22,10 +23,17 @@ const date = post.data.pubDate.toLocaleDateString('es-ES', {
 
 <BaseLayout title={post.data.title} description={post.data.description} currentPath="/blog">
 	<article class="article">
-		<a class="back" href="/"><Icon name="arrow" size={16} /> Todos los escritos</a>
+		<a class="back" href="/blog"><Icon name="arrow" size={16} /> Volver al blog</a>
+		<div class="article__meta">
+			<CategoryBadge id={post.data.category} />
+			<span>{date}</span>
+			<span>
+				<Icon name="clock" size={14} />
+				{post.data.minutes} min
+			</span>
+		</div>
 		<h1 class="article__title">{post.data.title}</h1>
 		<p class="article__desc">{post.data.description}</p>
-		<p class="article__meta">{post.data.section} · {date}</p>
 		<div class="prose">
 			<Content />
 		</div>

@@ -1,10 +1,13 @@
 # andres_ramos_dev
 
-Blog personal con Astro. Simple, limpio y enfocado en escritos.
+Blog personal moderno con Astro.
 
-## Rama
+## Secciones
 
-`dev_cursor`
+- Inicio: hero, destacado, últimos posts, categorías, sobre
+- Blog: archivo completo
+- Categorías: filtros por tema
+- Proyectos y Sobre
 
 ## Comandos
 
@@ -15,6 +18,6 @@ npm run dev
 
 ## Contenido
 
-- Escritos: `src/content/blog/*.md`
+- Posts: `src/content/blog/*.md`
 - Proyectos: `src/content/projects/*.md`
-- Perfil / stack / música: `src/data/site.ts`
+- Datos del sitio: `src/data/site.ts`

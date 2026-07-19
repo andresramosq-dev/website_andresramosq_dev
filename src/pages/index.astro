@@ -1,45 +1,146 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PostList from '../components/PostList.astro';
 import Icon from '../components/Icon.astro';
-import { site } from '../data/site';
+import CategoryBadge from '../components/CategoryBadge.astro';
+import PostCard from '../components/PostCard.astro';
+import { site, categories } from '../data/site';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const featured = posts.find((post) => post.data.featured) ?? posts[0];
+const latest = posts.filter((post) => post.id !== featured.id).slice(0, 3);
 ---
 
 <BaseLayout title={site.name} description={site.tagline} currentPath="/">
-	<section class="intro">
+	<section class="hero">
 		<div>
-			<p class="intro__label">
-				<Icon name="pen" size={16} />
+			<p class="hero__kicker">
+				<Icon name="book" size={16} />
 				Blog personal
 			</p>
-			<h1 class="intro__title">{site.name}</h1>
-			<p class="intro__text">{site.tagline}</p>
-			<div class="intro__actions">
-				<a class="btn btn--solid" href="#escritos">
-					Ver escritos
+			<h1 class="hero__title">
+				Ideas claras.<br />
+				<em>Código con criterio.</em>
+			</h1>
+			<p class="hero__text">{site.tagline}</p>
+			<div class="hero__actions">
+				<a class="btn btn--coral" href="/blog">
+					Ir al blog
 					<Icon name="arrow" size={18} />
 				</a>
-				<a class="btn btn--ghost" href="/sobre">Sobre mí</a>
+				<a class="btn btn--ghost" href="/categorias">Explorar categorías</a>
 			</div>
 		</div>
-		<div class="intro__art">
+		<div class="hero__art">
 			<img
 				src="/images/hero-blog.svg"
-				alt="Ilustración de un cuaderno, notas y lápiz"
-				width="640"
-				height="420"
+				alt="Ilustración artística de un cuaderno, notas y lápiz"
+				width="720"
+				height="480"
 			/>
 		</div>
 	</section>
 
-	<section class="section" id="escritos" aria-labelledby="escritos-title">
+	<section class="section" aria-labelledby="featured-title">
 		<div class="section__head">
-			<h2 class="section__title" id="escritos-title">
-				<Icon name="book" size={22} />
-				Escritos
+			<h2 class="section__title" id="featured-title">
+				<Icon name="spark" size={22} />
+				Destacado
 			</h2>
-			<p class="section__note">Lo más reciente primero</p>
 		</div>
-		<PostList />
+		<a class="featured" href={`/blog/${featured.id}`}>
+			<div>
+				<div class="featured__meta">
+					<CategoryBadge id={featured.data.category} />
+					<span>
+						{featured.data.pubDate.toLocaleDateString('es-ES', {
+							year: 'numeric',
+							month: 'short',
+							day: 'numeric',
+						})}
+					</span>
+					<span>{featured.data.minutes} min</span>
+				</div>
+				<h3 class="featured__title">{featured.data.title}</h3>
+				<p class="featured__desc">{featured.data.description}</p>
+				<span class="featured__cta">
+					Leer ahora
+					<Icon name="arrow" size={16} />
+				</span>
+			</div>
+			<div class="featured__art">
+				<img src="/images/mark-featured.svg" alt="" width="240" height="180" />
+			</div>
+		</a>
+	</section>
+
+	<section class="section" aria-labelledby="latest-title">
+		<div class="section__head">
+			<h2 class="section__title" id="latest-title">
+				<Icon name="pen" size={22} />
+				Últimos posts
+			</h2>
+			<a class="section__link" href="/blog">
+				Ver todos
+				<Icon name="arrow" size={16} />
+			</a>
+		</div>
+		<div class="post-grid">
+			{latest.map((post) => <PostCard post={post} />)}
+		</div>
+	</section>
+
+	<section class="section" aria-labelledby="cats-title">
+		<div class="section__head">
+			<h2 class="section__title" id="cats-title">
+				<Icon name="tag" size={22} />
+				Categorías
+			</h2>
+			<a class="section__link" href="/categorias">
+				Ver categorías
+				<Icon name="arrow" size={16} />
+			</a>
+		</div>
+		<div class="cat-grid">
+			{
+				categories.map((category) => (
+					<a class={`cat-card cat-card--${category.color}`} href={`/categorias/${category.id}`}>
+						<div class="cat-card__icon">
+							<Icon name={category.icon} size={18} />
+						</div>
+						<h3 class="cat-card__title">{category.label}</h3>
+						<p class="cat-card__desc">{category.description}</p>
+					</a>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="about-band" aria-labelledby="about-band-title">
+		<div>
+			<h2 id="about-band-title">Sobre este blog</h2>
+			<p>{site.bio}</p>
+			<a class="btn btn--ghost" href="/sobre">
+				Conóceme
+				<Icon name="arrow" size={18} />
+			</a>
+		</div>
+		<div class="about-band__stats">
+			<div class="stat">
+				<strong>{posts.length}</strong>
+				<span>artículos publicados</span>
+			</div>
+			<div class="stat">
+				<strong>{categories.length}</strong>
+				<span>categorías activas</span>
+			</div>
+			<div class="stat">
+				<strong>Astro</strong>
+				<span>stack del sitio</span>
+			</div>
+		</div>
 	</section>
 </BaseLayout>

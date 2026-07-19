@@ -1,11 +1,11 @@
 ---
 interface Props {
-	name: 'pen' | 'book' | 'folder' | 'user' | 'arrow' | 'github' | 'mail' | 'music';
+	name: 'spark' | 'code' | 'compass' | 'pen' | 'arrow' | 'book' | 'user' | 'folder' | 'mail' | 'tag' | 'clock' | 'home';
 	size?: number;
 	class?: string;
 }
 
-const { name, size = 20, class: className } = Astro.props;
+const { name, size = 22, class: className } = Astro.props;
 ---
 
 <svg
@@ -18,9 +18,54 @@ const { name, size = 20, class: className } = Astro.props;
 	aria-hidden="true"
 >
 	{
+		name === 'spark' && (
+			<path
+				d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Zm6 10 1 2.8L22 17l-3 1.2L18 21l-1-2.8L14 17l3-1.2L18 13Z"
+				stroke="currentColor"
+				stroke-width="1.7"
+				stroke-linejoin="round"
+			/>
+		)
+	}
+	{
+		name === 'code' && (
+			<path
+				d="M8 8 4 12l4 4M16 8l4 4-4 4M13 5l-2 14"
+				stroke="currentColor"
+				stroke-width="1.7"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			/>
+		)
+	}
+	{
+		name === 'compass' && (
+			<>
+				<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7" />
+				<path
+					d="m15.5 8.5-2.2 5.8-5.8 2.2 2.2-5.8 5.8-2.2Z"
+					stroke="currentColor"
+					stroke-width="1.7"
+					stroke-linejoin="round"
+				/>
+			</>
+		)
+	}
+	{
 		name === 'pen' && (
 			<path
 				d="m12 20 8-8-4-4-8 8-1 4 5-1Zm4-12 4 4"
+				stroke="currentColor"
+				stroke-width="1.7"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			/>
+		)
+	}
+	{
+		name === 'arrow' && (
+			<path
+				d="M5 12h12m-5-5 5 5-5 5"
 				stroke="currentColor"
 				stroke-width="1.7"
 				stroke-linecap="round"
@@ -40,16 +85,6 @@ const { name, size = 20, class: className } = Astro.props;
 		)
 	}
 	{
-		name === 'folder' && (
-			<path
-				d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"
-				stroke="currentColor"
-				stroke-width="1.7"
-				stroke-linejoin="round"
-			/>
-		)
-	}
-	{
 		name === 'user' && (
 			<>
 				<circle cx="12" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7" />
@@ -63,12 +98,11 @@ const { name, size = 20, class: className } = Astro.props;
 		)
 	}
 	{
-		name === 'arrow' && (
+		name === 'folder' && (
 			<path
-				d="M5 12h12m-5-5 5 5-5 5"
+				d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"
 				stroke="currentColor"
 				stroke-width="1.7"
-				stroke-linecap="round"
 				stroke-linejoin="round"
 			/>
 		)
@@ -88,26 +122,37 @@ const { name, size = 20, class: className } = Astro.props;
 		)
 	}
 	{
-		name === 'github' && (
+		name === 'tag' && (
 			<path
-				fill="currentColor"
-				d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"
+				d="M3 12V4h8l10 10-8 8L3 12Z"
+				stroke="currentColor"
+				stroke-width="1.7"
+				stroke-linejoin="round"
 			/>
 		)
 	}
 	{
-		name === 'music' && (
+		name === 'clock' && (
 			<>
+				<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7" />
 				<path
-					d="M9 18V6l11-2v12"
+					d="M12 7v5l3 2"
 					stroke="currentColor"
 					stroke-width="1.7"
 					stroke-linecap="round"
 					stroke-linejoin="round"
 				/>
-				<circle cx="7" cy="18" r="2.4" stroke="currentColor" stroke-width="1.7" />
-				<circle cx="18" cy="16" r="2.4" stroke="currentColor" stroke-width="1.7" />
 			</>
+		)
+	}
+	{
+		name === 'home' && (
+			<path
+				d="m4 11 8-7 8 7v9a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9Z"
+				stroke="currentColor"
+				stroke-width="1.7"
+				stroke-linejoin="round"
+			/>
 		)
 	}
 </svg>
