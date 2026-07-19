@@ -93,17 +93,52 @@ export const stack = {
 	] as const,
 };
 
+type PhilosophyTone = 'text' | 'amber' | 'cyan';
+
+type PhilosophyPart = { tone: PhilosophyTone; text: string };
+
 export const workPhilosophy = {
-	lead:
-		'I build clear, useful software with simplicity and quality, and I take the time to understand the problem before I write code.',
-	rules: [
-		'I consider myself critical, analytical, and direct. When I identify a problem, I prefer to understand its cause and work through possible solutions while we still have room to fix it properly.',
-		'I usually question assumptions, compare alternatives, and choose the path that makes the most sense for the context. I do not like sticking with the first answer, so I observe, try, and adjust until something really works.',
-		'I like taking part in defining and evolving projects, not only in technical implementation. I enjoy analyzing needs, proposing improvements, and thinking about solutions that can hold up over time.',
-		'I believe in continuous improvement and in learning during the process. I build step by step, move forward with criteria, review what we are doing, and strengthen the solution as we gain more information.',
-		'I work with a modular mindset and break problems into smaller, manageable parts. That helps me build maintainable software, reduce complexity, and collaborate better, with a base that is clear and easy to evolve without improvised decisions.',
-		'I value teams with open communication, respect, and honest feedback, where people think, propose, correct, and build together.',
-	] as const,
+	lead: 'I build clear, useful software.',
+	passages: [
+		[
+			{ tone: 'text', text: 'I work with ' },
+			{ tone: 'amber', text: 'simplicity and quality' },
+			{ tone: 'text', text: '.' },
+		],
+		[
+			{ tone: 'text', text: 'I ' },
+			{ tone: 'amber', text: 'understand the problem before I write code' },
+			{ tone: 'text', text: '.' },
+		],
+		[
+			{ tone: 'text', text: 'I am critical, analytical, and direct. When I see a problem, I go to the cause and ' },
+			{ tone: 'amber', text: 'work through solutions with the team' },
+			{ tone: 'text', text: '.' },
+		],
+		[
+			{ tone: 'text', text: 'I question assumptions, compare options, and ' },
+			{ tone: 'amber', text: 'do not keep the first answer' },
+			{ tone: 'text', text: '. I observe, try, and adjust until something works.' },
+		],
+		[
+			{ tone: 'text', text: 'I take part in ' },
+			{ tone: 'amber', text: 'defining and evolving the product' },
+			{ tone: 'text', text: ', not only in implementation.' },
+		],
+		[
+			{ tone: 'text', text: 'I improve step by step: review, learn, and strengthen what we build.' },
+		],
+		[
+			{ tone: 'text', text: 'I think in ' },
+			{ tone: 'cyan', text: 'modules' },
+			{ tone: 'text', text: ' so the system stays maintainable and can grow without improvised decisions.' },
+		],
+		[
+			{ tone: 'text', text: 'I value ' },
+			{ tone: 'amber', text: 'open communication and honest feedback' },
+			{ tone: 'text', text: ' in the team.' },
+		],
+	] as const satisfies readonly PhilosophyPart[][],
 };
 
 export const tastes = {

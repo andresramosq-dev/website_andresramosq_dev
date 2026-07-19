@@ -1,14 +1,24 @@
 ---
 import { workPhilosophy } from '../data/site';
+
+const toneClass = {
+	text: '',
+	amber: 'philosophy__amber',
+	cyan: 'philosophy__cyan',
+} as const;
 ---
 
 <div class="philosophy">
-	<p class="philosophy__lead">{workPhilosophy.lead}</p>
-	<div class="philosophy__body">
-		{workPhilosophy.rules.map((rule, index) => (
-			<p class="philosophy__line">
-				<span class="philosophy__lineno">{String(index + 1).padStart(2, '0')}</span>
-				<span class="philosophy__text">{rule}</span>
+	<p class="philosophy__head">
+		<span class="philosophy__hash"># </span>
+		{workPhilosophy.lead}
+	</p>
+	<div class="philosophy__passages">
+		{workPhilosophy.passages.map((passage) => (
+			<p class="philosophy__passage">
+				{passage.map((part) => (
+					<span class={toneClass[part.tone]}>{part.text}</span>
+				))}
 			</p>
 		))}
 	</div>
