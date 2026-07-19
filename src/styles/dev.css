@@ -560,15 +560,14 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .site-about__idea {
 	color: var(--term-amber);
 }
-.site-about__out-inline,
 .site-about__lang {
 	color: var(--text);
 }
 .site-about__build .bio__tag {
 	color: var(--term-cyan);
 }
-.site-about__build .tag-box__text {
-	color: var(--text);
+.site-about__build .site-about__out-inline {
+	color: inherit;
 }
 
 .principles { display: grid; gap: 0; }
