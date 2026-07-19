@@ -549,44 +549,67 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	color: inherit;
 }
 
-/* craft / personal — terminal tables */
-.craft,
-.personal {
+/* craft / personal — key/value sheets (whoami-style) */
+.kv-sheet {
 	display: grid;
-	gap: 0.85rem;
+	gap: 1rem;
 	font-family: var(--mono);
 	font-size: 0.86rem;
+	font-weight: 400;
 	line-height: 1.5;
+	letter-spacing: -0.01em;
 }
-.term-table {
-	width: 100%;
-	border-collapse: collapse;
-	font-size: 0.84rem;
-	line-height: 1.5;
+.kv-sheet__block {
+	display: grid;
+	gap: 0.45rem;
+	padding-top: 0.15rem;
 }
-.term-table th,
-.term-table td {
-	padding: 0.4rem 0.65rem;
-	text-align: left;
-	vertical-align: top;
-	border: 1px solid var(--border2);
+.kv-sheet__block + .kv-sheet__block {
+	padding-top: 0.85rem;
+	border-top: 1px dashed var(--border2);
 }
-.term-table th {
-	color: var(--prompt);
+.kv-sheet__heading {
+	margin: 0;
+	font-size: 0.68rem;
 	font-weight: 500;
-	background: var(--panel2);
-	font-size: 0.72rem;
+	color: var(--prompt);
+	letter-spacing: 0.02em;
 }
-.term-table td {
+.kv-sheet__list {
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.35rem;
+}
+.kv-sheet__row {
+	display: grid;
+	grid-template-columns: 6.25rem 1fr;
+	gap: 0.75rem;
+	align-items: baseline;
+	margin: 0;
+}
+.kv-sheet__row dt {
+	margin: 0;
+	color: var(--prompt);
+	font-size: 0.86rem;
+	font-weight: 400;
+}
+.kv-sheet__row dt::after {
+	content: ':';
+	color: var(--muted);
+	margin-left: 0.08rem;
+}
+.kv-sheet__row dd {
+	margin: 0;
 	color: var(--text);
+	min-width: 0;
+	overflow-wrap: anywhere;
+	font-size: 0.86rem;
+	font-weight: 400;
+	line-height: 1.55;
 }
-.term-table__key {
-	color: var(--ink);
-	white-space: nowrap;
-	width: 7.5rem;
-}
-.term-table__stack {
-	color: var(--term-cyan);
+.kv-sheet__stack {
+	color: var(--cmd);
 }
 
 .ftr {
@@ -702,18 +725,20 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	.now-grid { grid-template-columns: 1fr; }
 	.now-item { padding: 0.65rem 0.7rem; }
 	.now-item dd { font-size: 0.82rem; }
+	.kv-sheet { font-size: 0.82rem; }
+	.kv-sheet__row {
+		grid-template-columns: 5.25rem 1fr;
+		gap: 0.55rem;
+	}
+	.kv-sheet__row dt,
+	.kv-sheet__row dd {
+		font-size: 0.82rem;
+	}
 	.ls-out { font-size: 0.78rem; }
 	.ls-out--nested { padding-left: 0.85rem; }
 	.ls-out__perm {
 		min-width: 0;
 		font-size: 0.65rem;
-	}
-	.term-table { font-size: 0.78rem; }
-	.term-table th,
-	.term-table td { padding: 0.35rem 0.5rem; }
-	.term-table__key {
-		white-space: normal;
-		width: 5.5rem;
 	}
 	.ftr {
 		padding: 0.55rem 0.85rem;

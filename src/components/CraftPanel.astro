@@ -2,38 +2,28 @@
 import { craft } from '../data/site';
 ---
 
-<div class="craft">
-	<table class="term-table">
-		<thead>
-			<tr>
-				<th>principle</th>
-				<th>meaning</th>
-			</tr>
-		</thead>
-		<tbody>
+<div class="kv-sheet">
+	<section class="kv-sheet__block">
+		<h3 class="kv-sheet__heading">philosophy</h3>
+		<dl class="kv-sheet__list">
 			{craft.principles.map((row) => (
-				<tr>
-					<td class="term-table__key">{row.key}</td>
-					<td>{row.value}</td>
-				</tr>
+				<div class="kv-sheet__row">
+					<dt>{row.key}</dt>
+					<dd>{row.value}</dd>
+				</div>
 			))}
-		</tbody>
-	</table>
+		</dl>
+	</section>
 
-	<table class="term-table">
-		<thead>
-			<tr>
-				<th>area</th>
-				<th>stack</th>
-			</tr>
-		</thead>
-		<tbody>
+	<section class="kv-sheet__block">
+		<h3 class="kv-sheet__heading">stack</h3>
+		<dl class="kv-sheet__list">
 			{craft.skills.map((row) => (
-				<tr>
-					<td class="term-table__key">{row.area}</td>
-					<td class="term-table__stack">{row.items}</td>
-				</tr>
+				<div class="kv-sheet__row">
+					<dt>{row.area}</dt>
+					<dd class="kv-sheet__stack">{row.items}</dd>
+				</div>
 			))}
-		</tbody>
-	</table>
+		</dl>
+	</section>
 </div>
