@@ -14,6 +14,7 @@ function joinItems(items: readonly string[]) {
 <div class="bio">
 	<p class="bio__out">
 		Senior software developer with 4+ years in backend work —
+		{' '}
 		{joinItems(site.bioStack).map(({ item, sep }) => (
 			<>
 				{sep}<BioTag label={item} />
