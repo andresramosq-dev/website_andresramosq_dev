@@ -144,7 +144,8 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	font-size: 1rem;
 }
 .console-title__line {
-	white-space: nowrap;
+	white-space: normal;
+	overflow-wrap: anywhere;
 }
 .console-title__sig {
 	color: var(--muted);
