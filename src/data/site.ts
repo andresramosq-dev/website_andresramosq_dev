@@ -26,12 +26,7 @@ export const site = {
 };
 
 export const nav = [
-	{ label: '~', href: '/' },
 	{ label: 'sobre', href: '/andres' },
-	{ label: 'blog', href: '/blog' },
-	{ label: 'experiencia', href: '/experiencia' },
-	{ label: 'proyectos', href: '/proyectos' },
-	{ label: 'notas', href: '/notas' },
 ] as const;
 
 export const now = {

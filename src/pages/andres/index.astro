@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import TermPath from '../../components/TermPath.astro';
 import TermPanel from '../../components/TermPanel.astro';
 import ProfilePhoto from '../../components/ProfilePhoto.astro';
-import { site, skills, timeline, now, principles } from '../../data/site';
+import { site, skills, now } from '../../data/site';
 ---
 
 <BaseLayout title="sobre mí" path="/andres">
@@ -53,33 +53,4 @@ import { site, skills, timeline, now, principles } from '../../data/site';
       {skills.map((s) => <span>{s}</span>)}
     </p>
   </TermPanel>
-
-  <TermPanel label="principles.txt">
-    <div class="principles">
-      {principles.map((p) => (
-        <div class="principle">
-          <p class="principle__title">{p.title}</p>
-          <p class="principle__desc">{p.desc}</p>
-        </div>
-      ))}
-    </div>
-  </TermPanel>
-
-  <TermPanel label="timeline.log">
-    <ul class="timeline">
-      {timeline.map((t) => (
-        <li>
-          <span class="timeline__year">{t.year}</span>
-          <div>
-            <p class="timeline__title">{t.title}</p>
-            <p class="timeline__desc">{t.desc}</p>
-          </div>
-        </li>
-      ))}
-    </ul>
-  </TermPanel>
-
-  <p class="cross-link">
-    <a href="/experiencia">~/experiencia →</a> trayectoria laboral
-  </p>
 </BaseLayout>

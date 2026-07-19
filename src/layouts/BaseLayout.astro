@@ -10,7 +10,7 @@ interface Props {
 	path?: string;
 }
 
-const { title, description, path = '/' } = Astro.props;
+const { title, description, path = '/andres' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
 const segment = pathToSegment(path);
 ---
@@ -23,7 +23,6 @@ const segment = pathToSegment(path);
     <meta name="description" content={description ?? site.description} />
     <meta name="author" content={site.name} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="alternate" type="application/rss+xml" title={`${site.domain} — RSS`} href="/rss.xml" />
     <title>{pageTitle}</title>
   </head>
   <body>
@@ -34,7 +33,7 @@ const segment = pathToSegment(path);
         <header class="term-hd">
           <nav class="nav" aria-label="Rutas">
             {nav.map((item) => (
-              <a href={item.href} aria-current={path === item.href || (item.href !== '/' && path.startsWith(item.href)) ? 'page' : undefined}>
+              <a href={item.href} aria-current={path === item.href || path.startsWith(item.href) ? 'page' : undefined}>
                 {item.label}
               </a>
             ))}
@@ -54,8 +53,6 @@ const segment = pathToSegment(path);
                 <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">{l.label}</a>
               </>
             ))}
-            {' · '}<a href="/categorias">tags</a>
-            {' · '}<a href="/rss.xml">rss</a>
           </div>
         </footer>
       </TerminalShell>
