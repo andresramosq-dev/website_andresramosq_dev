@@ -582,7 +582,10 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .stack-lane__chips {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.35rem;
+	gap: 0.35rem 0.45rem;
+}
+.stack-lane__chips .bio__tag {
+	white-space: nowrap;
 }
 .philosophy {
 	display: grid;

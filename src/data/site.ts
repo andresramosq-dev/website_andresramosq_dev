@@ -67,6 +67,8 @@ export const stack = {
 		{
 			label: 'backend',
 			items: [
+				'JavaScript',
+				'TypeScript',
 				'Node.js',
 				'NestJS',
 				'Python',
@@ -81,7 +83,7 @@ export const stack = {
 		},
 		{
 			label: 'frontend',
-			items: ['TypeScript', 'React', 'Next.js'],
+			items: ['React', 'Next.js'],
 		},
 		{
 			label: 'craft',
@@ -93,14 +95,14 @@ export const stack = {
 
 export const workPhilosophy = {
 	lead:
-		'I like building clear, useful software with simplicity and quality. For me, understanding the problem comes before writing code.',
+		'I build clear, useful software with simplicity and quality. First I understand the problem; then I write code.',
 	rules: [
-		'When something breaks, I look for the cause and talk about solutions — I do not like to ignore it or let it slide.',
-		'I question assumptions, compare options, and choose what makes sense in context.',
-		'I do not stay with the first answer: I observe, try, and adjust until the solution really works.',
-		'I work in a modular way — smaller parts, less complexity, and code that is easier to maintain and evolve.',
-		'I care about taking part in how a project is defined and improved, not only in implementation.',
-		'I build step by step, review what we are doing, and improve as we learn.',
+		'When something fails, I go to the root before excuses or a fix that only hides the symptom.',
+		'If something is off, I say it plainly and we look at real options — I do not pretend it is fine.',
+		'I do not keep the first idea just because it is fast: I try, check, and change when the evidence says so.',
+		'I split the work into modules so complexity stays manageable and the system can grow without improvising every call.',
+		'I want to help shape the product, not only close tasks in the backlog.',
+		'I move in short cycles: ship, review what happened, learn, and make the next version sturdier.',
 	] as const,
 };
 
