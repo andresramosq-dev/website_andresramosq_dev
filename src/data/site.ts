@@ -11,7 +11,7 @@ export const site = {
 	since: 2020,
 	avatar: '/images/avatar.svg',
 	avatarPath: '~/about/avatar.jpg',
-	tagline: 'I work on the part of the product that only gets noticed when it breaks.',
+	tagline: 'Looking for a product worth building — I bring the backend that can carry it.',
 	pillars: ['Clean', 'Solid', 'Scalable'] as const,
 	consoleSlug: 'andres-ramos-console',
 	description:
