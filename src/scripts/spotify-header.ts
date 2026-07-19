@@ -197,6 +197,23 @@ function bindUi() {
 	}
 }
 
+function pinHostOffScreen(host: HTMLElement) {
+	Object.assign(host.style, {
+		position: 'fixed',
+		left: '-10000px',
+		top: '0',
+		width: '300px',
+		height: '80px',
+		opacity: '0',
+		overflow: 'hidden',
+		pointerEvents: 'none',
+		zIndex: '-1',
+		border: '0',
+		margin: '0',
+		padding: '0',
+	});
+}
+
 function init() {
 	const host = document.getElementById('spotify-header-embed-host');
 	const uri = host?.dataset.spotifyUri;
@@ -204,9 +221,15 @@ function init() {
 
 	if (!host || (!uri && !playlistUrl)) return;
 
+	pinHostOffScreen(host);
+
 	bindUi();
 	ensureEmbed(host, playlistUrl, uri);
 }
 
 init();
 document.addEventListener('astro:page-load', init);
+document.addEventListener('astro:after-swap', () => {
+	const host = document.getElementById('spotify-header-embed-host');
+	if (host) pinHostOffScreen(host);
+});

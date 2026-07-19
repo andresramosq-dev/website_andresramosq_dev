@@ -268,24 +268,27 @@ a.twin__name:hover {
 		opacity: 1;
 	}
 }
-.spotify-header-sink {
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	width: 300px;
-	height: 80px;
-	overflow: hidden;
-	clip: rect(0 0 0 0);
-	clip-path: inset(50%);
-	white-space: nowrap;
+/* Off-screen only — clip-path does not hide cross-origin Spotify iframes */
+#spotify-header-embed-host.spotify-header-sink {
+	position: fixed !important;
+	left: -10000px !important;
+	top: 0 !important;
+	width: 300px !important;
+	height: 80px !important;
+	overflow: hidden !important;
+	opacity: 0 !important;
+	visibility: visible;
+	pointer-events: none !important;
+	z-index: -1 !important;
 	border: 0;
-	pointer-events: none;
-	z-index: 0;
+	margin: 0;
+	padding: 0;
 }
-.spotify-header-sink iframe {
+#spotify-header-embed-host.spotify-header-sink iframe {
+	display: block;
+	width: 300px !important;
+	height: 80px !important;
 	border: 0;
-	width: 300px;
-	height: 80px;
 }
 .hdr-eq {
 	display: inline-flex;
