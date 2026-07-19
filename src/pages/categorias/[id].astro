@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import IdeaNode from '../../components/IdeaNode.astro';
 import { categories } from '../../data/site';
 
 export function getStaticPaths() {
@@ -16,28 +17,28 @@ const posts = (
 ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<BaseLayout title={category.label} description={category.description} currentPath="/categorias">
-	<header class="page-head">
-		<a class="back" href="/categorias">← Temas</a>
-		<h1>{category.label}</h1>
-		<p>{category.description}</p>
-	</header>
+<BaseLayout title={category.label} description={category.description}>
+	<section class="board-section">
+		<a class="board-back" href="/categorias">← temas</a>
+		<h1 class="board-section__title">{category.label}</h1>
+		<p style="color: var(--chalk-dim); font-size: 1.2rem; margin: -1rem 0 1.5rem;">{category.description}</p>
 
-	<section class="writing" style="border-top: 0; padding-top: 0;">
-		{
-			posts.map((post) => (
-				<a class="entry" href={`/blog/${post.id}`}>
-					<span class="entry__date">
-						{post.data.pubDate.toLocaleDateString('es-ES', {
-							year: 'numeric',
+		<div class="board-cluster__nodes">
+			{
+				posts.map((post, i) => (
+					<IdeaNode
+						href={`/blog/${post.id}`}
+						title={post.data.title}
+						subtitle={post.data.pubDate.toLocaleDateString('es-ES', {
+							day: 'numeric',
 							month: 'short',
 						})}
-					</span>
-					<span class="entry__title">{post.data.title}</span>
-					<span class="entry__cat">{category.label}</span>
-					<span class="entry__desc">{post.data.description}</span>
-				</a>
-			))
-		}
+						icon={category.icon}
+						size="sm"
+						frame={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5}
+					/>
+				))
+			}
+		</div>
 	</section>
 </BaseLayout>

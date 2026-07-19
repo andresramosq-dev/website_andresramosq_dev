@@ -1,43 +1,49 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import IdeaNode from '../../components/IdeaNode.astro';
+import BoardLines from '../../components/BoardLines.astro';
 import { getCollection } from 'astro:content';
-import { categoryLabel } from '../../data/site';
+import { categories } from '../../data/site';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+const iconByCategory = Object.fromEntries(
+  categories.map((c) => [c.id, c.icon])
+) as Record<string, 'spark' | 'code' | 'compass' | 'pen'>;
+
+const wallLines = [
+  { d: 'M8 15 C20 25, 40 20, 55 30' },
+  { d: 'M55 30 C70 40, 85 35, 92 45' },
+  { d: 'M30 55 C45 50, 60 58, 75 52' },
+  { d: 'M75 52 C88 48, 95 60, 92 75', dashed: true },
+  { d: 'M20 80 C35 72, 50 78, 65 70' },
+];
 ---
 
 <BaseLayout title="Escritos" description="Artículos del blog">
-  <div class="chalk-page">
-    <header class="chalk-page-head">
-      <p class="chalk-page-kicker">pizarra</p>
-      <h1 class="chalk-page-title">Escritos</h1>
-      <p class="chalk-page-lead">Notas sueltas sobre diseño, código y oficio — como si estuvieran escritas a tiza.</p>
+  <section class="board-wall">
+    <BoardLines lines={wallLines} />
+
+    <header class="board-wall__head">
+      <h1 class="board-wall__title">Escritos</h1>
+      <p class="board-wall__sub">notas sueltas conectadas en la pizarra</p>
     </header>
 
-    <div class="chalk-stream">
+    <div class="board-wall__grid">
       {
-        posts.map((post) => (
-          <article class="chalk-item">
-            <div class="chalk-item-meta">
-              <time datetime={post.data.pubDate.toISOString()}>
-                {post.data.pubDate.toLocaleDateString('es-ES', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric',
-                })}
-              </time>
-              <span>{categoryLabel[post.data.category]}</span>
-              <span>{post.data.minutes} min</span>
-            </div>
-            <h2 class="chalk-item-title">
-              <a href={`/blog/${post.id}`}>{post.data.title}</a>
-            </h2>
-            <p class="chalk-item-desc">{post.data.description}</p>
-          </article>
+        posts.map((post, i) => (
+          <IdeaNode
+            href={`/blog/${post.id}`}
+            title={post.data.title}
+            subtitle={`${post.data.minutes} min · ${post.data.pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}`}
+            icon={iconByCategory[post.data.category]}
+            size="sm"
+            frame={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5}
+          />
         ))
       }
     </div>
-  </div>
+  </section>
 </BaseLayout>

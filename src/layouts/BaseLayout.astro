@@ -1,5 +1,5 @@
 ---
-import '../styles/chalk.css';
+import '../styles/board.css';
 import { site, nav } from '../data/site';
 
 interface Props {
@@ -21,12 +21,12 @@ const pageDescription = description ?? site.description;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{pageTitle}</title>
   </head>
-  <body class="is-chalk">
+  <body class="is-board">
     <a class="skip" href="#main">Saltar al contenido</a>
 
-    <header class="chalk-top">
-      <a class="chalk-brand" href="/">{site.name}</a>
-      <nav class="chalk-nav" aria-label="Principal">
+    <header class="board-top">
+      <a class="board-brand" href="/">{site.name}</a>
+      <nav class="board-nav" aria-label="Principal">
         {nav.map((item) => (
           <a href={item.href}>{item.label}</a>
         ))}
@@ -37,9 +37,9 @@ const pageDescription = description ?? site.description;
       <slot />
     </main>
 
-    <footer class="chalk-foot">
+    <footer class="board-foot">
       <p>© {new Date().getFullYear()} {site.name}</p>
-      <p class="chalk-foot-note">Blog artístico · pizarra · tiza · dibujo</p>
+      <p>pizarra de ideas</p>
     </footer>
   </body>
 </html>

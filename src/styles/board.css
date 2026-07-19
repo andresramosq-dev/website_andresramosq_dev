@@ -1,0 +1,573 @@
+/* Pizarra de ideas: monocroma, nodos dibujados a mano, conexiones */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Literata:opsz,wght@7..72,400;7..72,500&display=swap');
+
+:root {
+	--board: #1c1e22;
+	--board-light: #262a30;
+	--chalk: #ebe6dc;
+	--chalk-dim: rgba(235, 230, 220, 0.55);
+	--chalk-faint: rgba(235, 230, 220, 0.22);
+	--hand: 'Caveat', cursive;
+	--read: 'Literata', Georgia, serif;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+}
+
+body.is-board {
+	color: var(--chalk);
+	font-family: var(--hand);
+	background: var(--board);
+	background-image:
+		radial-gradient(ellipse 120% 80% at 50% 0%, rgba(255, 255, 255, 0.03), transparent 55%),
+		url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E");
+	background-blend-mode: soft-light;
+}
+
+.skip {
+	position: absolute;
+	left: -9999px;
+	z-index: 100;
+	padding: 0.5rem 1rem;
+	background: var(--chalk);
+	color: var(--board);
+}
+
+.skip:focus {
+	left: 0.5rem;
+	top: 0.5rem;
+}
+
+/* Header mínimo */
+.board-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	flex-wrap: wrap;
+	width: min(100% - 1.5rem, 1280px);
+	margin: 0 auto;
+	padding: 0.75rem 0;
+}
+
+.board-brand {
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: var(--chalk);
+	text-decoration: none;
+	opacity: 0.85;
+}
+
+.board-brand:hover {
+	opacity: 1;
+}
+
+.board-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem 1.1rem;
+	font-size: 1.15rem;
+}
+
+.board-nav a {
+	color: var(--chalk-dim);
+	text-decoration: none;
+}
+
+.board-nav a:hover {
+	color: var(--chalk);
+	text-decoration: underline;
+	text-decoration-style: wavy;
+	text-underline-offset: 0.15em;
+}
+
+.board-foot {
+	width: min(100% - 1.5rem, 1280px);
+	margin: 0 auto;
+	padding: 1rem 0 2rem;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	font-size: 1.1rem;
+	color: var(--chalk-dim);
+}
+
+/* ===== Nodo de idea (recuadro dibujado a mano) ===== */
+.idea {
+	position: relative;
+	display: block;
+	color: var(--chalk);
+	text-decoration: none;
+	transition: transform 180ms ease, filter 180ms ease;
+}
+
+.idea:hover {
+	transform: scale(1.04) rotate(0deg) !important;
+	filter: drop-shadow(0 0 12px rgba(235, 230, 220, 0.15));
+}
+
+.idea__frame {
+	position: absolute;
+	inset: -6px -8px;
+	width: calc(100% + 16px);
+	height: calc(100% + 12px);
+	color: var(--chalk);
+	opacity: 0.75;
+	pointer-events: none;
+}
+
+.idea__body {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 0.15rem;
+	padding: 0.85rem 1rem 1rem;
+}
+
+.idea__icon {
+	display: flex;
+	opacity: 0.8;
+	margin-bottom: 0.15rem;
+}
+
+.idea__title {
+	font-weight: 700;
+	line-height: 1;
+}
+
+.idea__sub {
+	font-size: 0.72em;
+	color: var(--chalk-dim);
+	font-weight: 500;
+	line-height: 1.1;
+	max-width: 14ch;
+}
+
+.idea--lg .idea__title {
+	font-size: clamp(2rem, 4.5vw, 3rem);
+}
+
+.idea--lg .idea__sub {
+	font-size: 1.15rem;
+	max-width: 20ch;
+}
+
+.idea--md .idea__title {
+	font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+}
+
+.idea--sm .idea__title {
+	font-size: clamp(1.1rem, 2vw, 1.4rem);
+}
+
+.idea--sm .idea__body {
+	padding: 0.6rem 0.75rem 0.7rem;
+}
+
+/* ===== Lienzo de ideas conectadas ===== */
+.idea-board {
+	position: relative;
+	width: min(100% - 1rem, 1280px);
+	margin: 0 auto;
+	min-height: min(82vh, 780px);
+	padding: 0.5rem 0 2rem;
+}
+
+.board-lines {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	color: var(--chalk);
+	pointer-events: none;
+	z-index: 0;
+}
+
+.board-doodles {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 0;
+	opacity: 0.35;
+}
+
+/* posiciones home — mapa de ideas */
+.idea--hub {
+	position: absolute;
+	top: 38%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(-1deg);
+	z-index: 4;
+	width: min(280px, 42vw);
+}
+
+.idea--escritos {
+	position: absolute;
+	top: 14%;
+	left: 10%;
+	transform: rotate(-4deg);
+	z-index: 3;
+	width: min(200px, 30vw);
+}
+
+.idea--proyectos {
+	position: absolute;
+	top: 10%;
+	right: 8%;
+	transform: rotate(3deg);
+	z-index: 3;
+	width: min(190px, 28vw);
+}
+
+.idea--temas {
+	position: absolute;
+	bottom: 12%;
+	right: 10%;
+	transform: rotate(-2.5deg);
+	z-index: 3;
+	width: min(185px, 28vw);
+}
+
+.idea--sobre {
+	position: absolute;
+	bottom: 16%;
+	left: 8%;
+	transform: rotate(2deg);
+	z-index: 3;
+	width: min(175px, 26vw);
+}
+
+.idea--post-1 {
+	position: absolute;
+	top: 62%;
+	left: 28%;
+	transform: rotate(-3deg);
+	z-index: 2;
+	width: min(210px, 32vw);
+}
+
+.idea--post-2 {
+	position: absolute;
+	top: 22%;
+	left: 42%;
+	transform: rotate(2.5deg);
+	z-index: 2;
+	width: min(200px, 30vw);
+}
+
+.idea--post-3 {
+	position: absolute;
+	top: 48%;
+	right: 6%;
+	transform: rotate(-1.5deg);
+	z-index: 2;
+	width: min(195px, 29vw);
+}
+
+.board-hint {
+	position: relative;
+	z-index: 1;
+	text-align: center;
+	margin-top: 0.5rem;
+	font-size: 1.2rem;
+	color: var(--chalk-dim);
+}
+
+/* ===== Muro de escritos (blog) ===== */
+.board-wall {
+	position: relative;
+	width: min(100% - 1.5rem, 1100px);
+	margin: 0 auto;
+	padding: 1.5rem 0 3rem;
+	min-height: 60vh;
+}
+
+.board-wall__head {
+	text-align: center;
+	margin-bottom: 2rem;
+}
+
+.board-wall__title {
+	font-size: clamp(2.5rem, 6vw, 3.8rem);
+	font-weight: 700;
+	margin: 0;
+}
+
+.board-wall__sub {
+	margin: 0.3rem 0 0;
+	color: var(--chalk-dim);
+	font-size: 1.2rem;
+}
+
+.board-wall__grid {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	gap: 1.2rem;
+	min-height: 500px;
+}
+
+.board-wall__grid .idea {
+	position: relative;
+}
+
+/* posiciones orgánicas por índice */
+.board-wall__grid .idea:nth-child(12n + 1) {
+	grid-column: 1 / span 4;
+	transform: rotate(-2.5deg);
+}
+.board-wall__grid .idea:nth-child(12n + 2) {
+	grid-column: 5 / span 4;
+	transform: rotate(1.8deg);
+	margin-top: 1.5rem;
+}
+.board-wall__grid .idea:nth-child(12n + 3) {
+	grid-column: 9 / span 4;
+	transform: rotate(-1.2deg);
+}
+.board-wall__grid .idea:nth-child(12n + 4) {
+	grid-column: 2 / span 3;
+	transform: rotate(3deg);
+	margin-top: -0.5rem;
+}
+.board-wall__grid .idea:nth-child(12n + 5) {
+	grid-column: 6 / span 4;
+	transform: rotate(-2deg);
+}
+.board-wall__grid .idea:nth-child(12n + 6) {
+	grid-column: 10 / span 3;
+	transform: rotate(2.2deg);
+	margin-top: 0.8rem;
+}
+.board-wall__grid .idea:nth-child(12n + 7) {
+	grid-column: 1 / span 3;
+	transform: rotate(1.5deg);
+}
+.board-wall__grid .idea:nth-child(12n + 8) {
+	grid-column: 4 / span 5;
+	transform: rotate(-3deg);
+	margin-top: 1rem;
+}
+.board-wall__grid .idea:nth-child(12n + 9) {
+	grid-column: 9 / span 4;
+	transform: rotate(0.8deg);
+}
+.board-wall__grid .idea:nth-child(12n + 10) {
+	grid-column: 2 / span 4;
+	transform: rotate(-1.8deg);
+}
+.board-wall__grid .idea:nth-child(12n + 11) {
+	grid-column: 7 / span 3;
+	transform: rotate(2.5deg);
+	margin-top: -0.3rem;
+}
+.board-wall__grid .idea:nth-child(12n) {
+	grid-column: 10 / span 3;
+	transform: rotate(-2.2deg);
+}
+
+/* ===== Páginas simples ===== */
+.board-section {
+	width: min(100% - 1.5rem, 900px);
+	margin: 0 auto;
+	padding: 1.5rem 0 3rem;
+}
+
+.board-section__title {
+	font-size: clamp(2.2rem, 5vw, 3.2rem);
+	font-weight: 700;
+	margin: 0 0 1.5rem;
+}
+
+.board-cluster {
+	margin-bottom: 2.5rem;
+}
+
+.board-cluster__label {
+	font-size: 1.8rem;
+	color: var(--chalk-dim);
+	margin: 0 0 1rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.board-cluster__nodes {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.2rem 1.5rem;
+}
+
+.board-cluster__nodes .idea {
+	width: min(220px, 100%);
+}
+
+.board-cluster__nodes .idea:nth-child(odd) {
+	transform: rotate(-2deg);
+}
+.board-cluster__nodes .idea:nth-child(even) {
+	transform: rotate(1.5deg);
+}
+
+/* ===== Artículo ===== */
+.board-article {
+	width: min(100% - 1.5rem, 680px);
+	margin: 0 auto;
+	padding: 1rem 0 3rem;
+}
+
+.board-article__node {
+	margin-bottom: 1.5rem;
+	transform: rotate(-0.5deg);
+}
+
+.board-article__node .idea__body {
+	align-items: flex-start;
+	text-align: left;
+	padding: 1.2rem 1.4rem;
+}
+
+.board-article__node .idea__title {
+	font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+.board-article__meta {
+	font-size: 1.1rem;
+	color: var(--chalk-dim);
+	margin-top: 0.3rem;
+}
+
+.board-read {
+	position: relative;
+	padding: 1.8rem 1.9rem;
+	background: var(--chalk);
+	color: #1a1a1a;
+	border-radius: 2px 14px 4px 18px;
+	transform: rotate(0.3deg);
+	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.board-read::before {
+	content: '';
+	position: absolute;
+	top: -7px;
+	left: 28px;
+	width: 56px;
+	height: 18px;
+	background: rgba(235, 230, 220, 0.2);
+	border: 1.5px solid var(--chalk-faint);
+	transform: rotate(-3deg);
+}
+
+.board-prose {
+	font-family: var(--read);
+	font-size: 1.08rem;
+	line-height: 1.75;
+}
+
+.board-prose h2,
+.board-prose h3 {
+	font-family: var(--read);
+	font-size: 1.25rem;
+	margin: 1.4rem 0 0.5rem;
+}
+
+.board-prose p,
+.board-prose ul,
+.board-prose ol {
+	margin: 0 0 0.9rem;
+}
+
+.board-prose code {
+	background: #ddd8ce;
+	padding: 0.1em 0.35em;
+	font-size: 0.88em;
+}
+
+.board-prose pre {
+	background: var(--board);
+	color: var(--chalk);
+	padding: 1rem;
+	overflow-x: auto;
+	margin: 0 0 1rem;
+}
+
+.board-prose pre code {
+	background: transparent;
+}
+
+.board-back {
+	display: inline-block;
+	margin-bottom: 1rem;
+	font-size: 1.15rem;
+	color: var(--chalk-dim);
+	text-decoration: none;
+}
+
+.board-back:hover {
+	color: var(--chalk);
+}
+
+@media (max-width: 768px) {
+	.idea-board {
+		min-height: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.8rem;
+		padding-bottom: 1rem;
+	}
+
+	.board-lines,
+	.board-doodles {
+		display: none;
+	}
+
+	.idea--hub,
+	.idea--escritos,
+	.idea--proyectos,
+	.idea--temas,
+	.idea--sobre,
+	.idea--post-1,
+	.idea--post-2,
+	.idea--post-3 {
+		position: relative;
+		top: auto;
+		left: auto;
+		right: auto;
+		bottom: auto;
+		transform: rotate(-0.5deg) !important;
+		width: min(100%, 320px);
+	}
+
+	.board-wall__grid {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.board-wall__grid .idea {
+		width: min(100%, 340px);
+		transform: rotate(-0.5deg) !important;
+		margin-top: 0 !important;
+	}
+}

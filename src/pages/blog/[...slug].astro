@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import IdeaNode from '../../components/IdeaNode.astro';
 import { getCollection, render } from 'astro:content';
-import { categoryLabel } from '../../data/site';
+import { categoryLabel, categories } from '../../data/site';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -13,35 +14,36 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const catIcon = categories.find((c) => c.id === post.data.category)?.icon ?? 'pen';
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
-  <article class="chalk-article">
-    <header class="chalk-article-head">
-      <p class="chalk-page-kicker">{categoryLabel[post.data.category]}</p>
-      <h1 class="chalk-article-title">{post.data.title}</h1>
-      <div class="chalk-article-meta">
-        <time datetime={post.data.pubDate.toISOString()}>
-          {
-            post.data.pubDate.toLocaleDateString('es-ES', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric',
-            })
-          }
-        </time>
-        <span>{post.data.minutes} min de lectura</span>
-      </div>
-    </header>
+  <article class="board-article">
+    <a class="board-back" href="/blog">← volver al muro</a>
 
-    <div class="chalk-paper">
-      <div class="chalk-prose">
+    <div class="board-article__node">
+      <IdeaNode
+        title={post.data.title}
+        subtitle={post.data.description}
+        icon={catIcon}
+        size="md"
+        frame={3}
+      />
+      <p class="board-article__meta">
+        {categoryLabel[post.data.category]} ·{' '}
+        {post.data.pubDate.toLocaleDateString('es-ES', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        })}{' '}
+        · {post.data.minutes} min
+      </p>
+    </div>
+
+    <div class="board-read">
+      <div class="board-prose">
         <Content />
       </div>
     </div>
-
-    <footer class="chalk-article-foot">
-      <a href="/blog">← Volver a escritos</a>
-    </footer>
   </article>
 </BaseLayout>

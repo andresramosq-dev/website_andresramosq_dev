@@ -1,51 +1,97 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import IdeaNode from '../components/IdeaNode.astro';
+import BoardLines from '../components/BoardLines.astro';
 import { getCollection } from 'astro:content';
 import { site } from '../data/site';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
+
+const connections = [
+  { d: 'M50 42 C35 30, 18 22, 14 18' },
+  { d: 'M50 42 C62 28, 78 16, 88 14' },
+  { d: 'M50 42 C58 58, 72 72, 88 82' },
+  { d: 'M50 42 C38 58, 22 68, 12 78' },
+  { d: 'M50 42 C42 52, 35 58, 30 62' },
+  { d: 'M50 42 C55 32, 48 26, 46 24' },
+  { d: 'M50 42 C62 48, 78 50, 88 48' },
+  { d: 'M14 18 C22 20, 46 22, 46 24', dashed: true },
+  { d: 'M88 14 C80 20, 52 22, 46 24', dashed: true },
+  { d: 'M12 78 C20 72, 28 66, 30 62', dashed: true },
+];
 ---
 
 <BaseLayout>
-  <section class="chalk-canvas" aria-label="Inicio artístico">
-    <img class="chalk-scene" src="/images/chalk-scene.svg" alt="" width="1200" height="900" />
+  <section class="idea-board" aria-label="Mapa de ideas">
+    <BoardLines lines={connections} />
 
-    <a class="chalk-write w-title" href="/">
-      <span class="chalk-write-main">{site.name}</span>
-      <span class="chalk-write-sub">{site.tagline}</span>
-    </a>
+    <img class="board-doodles" src="/images/board-doodles.svg" alt="" width="1280" height="780" />
 
-    <a class="chalk-write w-about" href="/sobre">
-      <span class="chalk-write-main">Sobre mí</span>
-      <span class="chalk-write-sub">quién escribe aquí</span>
-    </a>
+    <IdeaNode
+      class="idea--hub"
+      href="/"
+      title={site.name}
+      subtitle={site.tagline}
+      icon="pen"
+      size="lg"
+      frame={1}
+    />
 
-    <a class="chalk-write w-blog" href="/blog">
-      <span class="chalk-write-main">Escritos</span>
-      <span class="chalk-write-sub">ideas, notas, reflexiones</span>
-    </a>
+    <IdeaNode
+      class="idea--escritos"
+      href="/blog"
+      title="Escritos"
+      subtitle="ideas y reflexiones"
+      icon="book"
+      frame={2}
+    />
 
-    <a class="chalk-write w-cat" href="/categorias">
-      <span class="chalk-write-main">Temas</span>
-      <span class="chalk-write-sub">diseño · código · oficio</span>
-    </a>
+    <IdeaNode
+      class="idea--proyectos"
+      href="/proyectos"
+      title="Proyectos"
+      subtitle="lo que construyo"
+      icon="folder"
+      frame={3}
+    />
 
-    <a class="chalk-write w-proj" href="/proyectos">
-      <span class="chalk-write-main">Proyectos</span>
-      <span class="chalk-write-sub">cosas que construyo</span>
-    </a>
+    <IdeaNode
+      class="idea--temas"
+      href="/categorias"
+      title="Temas"
+      subtitle="rutas de lectura"
+      icon="tag"
+      frame={4}
+    />
+
+    <IdeaNode
+      class="idea--sobre"
+      href="/sobre"
+      title="Sobre mí"
+      subtitle="quién escribe"
+      icon="user"
+      frame={5}
+    />
 
     {
       posts.map((post, i) => (
-        <a class={`chalk-write w-post-${i + 1}`} href={`/blog/${post.id}`}>
-          <span class="chalk-write-main">{post.data.title}</span>
-          <span class="chalk-write-sub">
-            {post.data.pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}
-          </span>
-        </a>
+        <IdeaNode
+          class={`idea--post-${i + 1}`}
+          href={`/blog/${post.id}`}
+          title={post.data.title}
+          subtitle={post.data.pubDate.toLocaleDateString('es-ES', {
+            day: 'numeric',
+            month: 'short',
+          })}
+          icon={i === 0 ? 'spark' : i === 1 ? 'code' : 'compass'}
+          size="sm"
+          frame={((i + 2) % 5) + 1 as 1 | 2 | 3 | 4 | 5}
+        />
       ))
     }
+
+    <p class="board-hint">ideas conectadas · haz clic en cualquier nota</p>
   </section>
 </BaseLayout>

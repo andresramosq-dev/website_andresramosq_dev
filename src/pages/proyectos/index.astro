@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import IdeaNode from '../../components/IdeaNode.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects')).sort(
@@ -8,36 +9,22 @@ const projects = (await getCollection('projects')).sort(
 ---
 
 <BaseLayout title="Proyectos" description="Proyectos personales">
-  <div class="chalk-page">
-    <header class="chalk-page-head">
-      <p class="chalk-page-kicker">proyectos</p>
-      <h1 class="chalk-page-title">Lo que construyo</h1>
-      <p class="chalk-page-lead">Herramientas, experimentos y cosas que dejo en la pizarra.</p>
-    </header>
+  <section class="board-section">
+    <h1 class="board-section__title">Proyectos</h1>
 
-    <div class="chalk-stream">
+    <div class="board-cluster__nodes" style="margin-top: 1rem;">
       {
-        projects.map((project) => (
-          <article class="chalk-item">
-            <div class="chalk-item-meta">
-              <span>{project.data.year}</span>
-              {project.data.stack.map((tech) => (
-                <span>{tech}</span>
-              ))}
-            </div>
-            <h2 class="chalk-item-title">
-              {project.data.url ? (
-                <a href={project.data.url} target="_blank" rel="noreferrer">
-                  {project.data.title}
-                </a>
-              ) : (
-                project.data.title
-              )}
-            </h2>
-            <p class="chalk-item-desc">{project.data.description}</p>
-          </article>
+        projects.map((project, i) => (
+          <IdeaNode
+            href={project.data.url}
+            title={project.data.title}
+            subtitle={`${project.data.year} · ${project.data.stack.slice(0, 2).join(', ')}`}
+            icon="folder"
+            size="md"
+            frame={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5}
+          />
         ))
       }
     </div>
-  </div>
+  </section>
 </BaseLayout>

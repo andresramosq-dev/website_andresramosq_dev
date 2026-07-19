@@ -1,30 +1,28 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import IdeaNode from '../components/IdeaNode.astro';
 import { site } from '../data/site';
 ---
 
 <BaseLayout title="Sobre" description="Sobre el autor del blog">
-  <div class="chalk-page">
-    <header class="chalk-page-head">
-      <p class="chalk-page-kicker">sobre</p>
-      <h1 class="chalk-page-title">Quién escribe</h1>
-    </header>
+  <section class="board-section">
+    <div style="max-width: 420px; margin-bottom: 2rem; transform: rotate(-1deg);">
+      <IdeaNode title="Sobre mí" subtitle={site.role} icon="user" size="lg" frame={2} />
+    </div>
 
-    <div class="chalk-paper chalk-paper--about">
-      <div class="chalk-prose">
+    <div class="board-read">
+      <div class="board-prose">
         <p>
-          Soy <strong>{site.name}</strong>. Este sitio es un blog artístico: una pizarra donde dejo
-          notas sobre diseño, código y oficio — con tiza, dibujos y composición libre.
+          Soy <strong>{site.name}</strong>. {site.bio}
         </p>
         <p>
-          No es una plantilla de tarjetas ni un diario corporativo. Es un lienzo donde el contenido
-          importa tanto como la forma en que se presenta.
+          Este sitio es una pizarra de ideas: notas sueltas, conectadas, con dibujos e iconos — no un
+          blog de plantilla.
         </p>
         <p>
-          Si quieres leer, empieza por los <a href="/blog">escritos</a> o explora los{' '}
-          <a href="/proyectos">proyectos</a>.
+          Explora los <a href="/blog">escritos</a> o mira los <a href="/proyectos">proyectos</a>.
         </p>
       </div>
     </div>
-  </div>
+  </section>
 </BaseLayout>

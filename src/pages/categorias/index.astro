@@ -1,12 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import IdeaNode from '../../components/IdeaNode.astro';
 import { getCollection } from 'astro:content';
 import { categories } from '../../data/site';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
 const grouped = categories.map((cat) => ({
-  key: cat.id,
-  label: cat.label,
+  ...cat,
   posts: posts
     .filter((p) => p.data.category === cat.id)
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
@@ -14,33 +14,33 @@ const grouped = categories.map((cat) => ({
 ---
 
 <BaseLayout title="Temas" description="Categorías del blog">
-  <div class="chalk-page">
-    <header class="chalk-page-head">
-      <p class="chalk-page-kicker">temas</p>
-      <h1 class="chalk-page-title">Por tema</h1>
-      <p class="chalk-page-lead">Rutas de lectura — sin cajas, solo tiza agrupada por asunto.</p>
-    </header>
+  <section class="board-section">
+    <h1 class="board-section__title">Temas</h1>
 
     {
-      grouped.map((group) => (
-        <section class="chalk-group">
-          <h2 class="chalk-group-title">{group.label}</h2>
-          <div class="chalk-stream">
+      grouped.map((group, gi) => (
+        <div class="board-cluster">
+          <h2 class="board-cluster__label">
+            <span>{group.label}</span>
+          </h2>
+          <div class="board-cluster__nodes">
             {group.posts.length === 0 ? (
-              <p class="chalk-empty">Aún no hay notas en este tema.</p>
+              <p style="color: var(--chalk-dim); font-size: 1.2rem;">sin notas aún</p>
             ) : (
-              group.posts.map((post) => (
-                <article class="chalk-item">
-                  <h3 class="chalk-item-title">
-                    <a href={`/blog/${post.id}`}>{post.data.title}</a>
-                  </h3>
-                  <p class="chalk-item-desc">{post.data.description}</p>
-                </article>
+              group.posts.map((post, pi) => (
+                <IdeaNode
+                  href={`/blog/${post.id}`}
+                  title={post.data.title}
+                  subtitle={group.description}
+                  icon={group.icon}
+                  size="sm"
+                  frame={(((gi + pi) % 5) + 1) as 1 | 2 | 3 | 4 | 5}
+                />
               ))
             )}
           </div>
-        </section>
+        </div>
       ))
     }
-  </div>
+  </section>
 </BaseLayout>
