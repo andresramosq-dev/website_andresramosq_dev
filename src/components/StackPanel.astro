@@ -2,18 +2,18 @@
 import { stack } from '../data/site';
 ---
 
-<div class="console-doc console-doc--stack">
+<div class="stack-blocks">
 	{stack.groups.map((group) => (
-		<p class="stack-line">
-			<span class="stack-line__key">{group.label}</span>
-			<span class="stack-line__val">
+		<div class="stack-block">
+			<p class="stack-block__key">{group.label}</p>
+			<p class="stack-block__tags">
 				{group.items.map((item) => (
 					<span class="stack-tag">
 						<span class="stack-tag__hash">#</span>
 						{item}
 					</span>
 				))}
-			</span>
-		</p>
+			</p>
+		</div>
 	))}
 </div>
