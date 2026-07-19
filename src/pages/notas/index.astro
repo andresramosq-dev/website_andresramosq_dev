@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TermSection from '../../components/TermSection.astro';
 import { getCollection } from 'astro:content';
 
 const notes = (await getCollection('notes', ({ data }) => !data.draft))
@@ -8,27 +9,27 @@ const notes = (await getCollection('notes', ({ data }) => !data.draft))
 
 <BaseLayout title="notas" description="Notas cortas" path="/notas">
   <p class="crumb"><a href="/">~</a> / notas</p>
-  <h1 class="pg-title">Notas</h1>
-  <p class="pg-desc">
-    Ideas breves, pensamientos rápidos y enlaces. Más cortas que los artículos del blog.
-  </p>
+  <h1 class="pg-title">notas/</h1>
+  <p class="pg-desc">Ideas breves y pensamientos rápidos.</p>
 
-  <ul class="notes">
-    {
-      notes.map((note) => (
-        <li>
-          <a href={`/notas/${note.id}`}>
-            <span class="notes__title">{note.data.title}</span>
-            <span class="notes__date">
-              {note.data.pubDate.toLocaleDateString('es-ES', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric',
-              })}
-            </span>
-          </a>
-        </li>
-      ))
-    }
-  </ul>
+  <TermSection cmd={`ls notas/ (${notes.length})`}>
+    <ul class="notes">
+      {
+        notes.map((note) => (
+          <li>
+            <a href={`/notas/${note.id}`}>
+              <span class="notes__title">{note.data.title}</span>
+              <span class="notes__date">
+                {note.data.pubDate.toLocaleDateString('es-ES', {
+                  day: '2-digit',
+                  month: 'short',
+                  year: 'numeric',
+                })}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </TermSection>
 </BaseLayout>

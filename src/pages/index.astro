@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Terminal from '../components/Terminal.astro';
-import AsciiLogo from '../components/AsciiLogo.astro';
+import ProfilePhoto from '../components/ProfilePhoto.astro';
+import TermSection from '../components/TermSection.astro';
 import CategoryDot from '../components/CategoryDot.astro';
 import { getCollection } from 'astro:content';
-import { site, now, skills, categories } from '../data/site';
+import { site, now, skills } from '../data/site';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -19,70 +20,41 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.year - 
 ---
 
 <BaseLayout path="/">
-  <AsciiLogo />
+  <div class="hero">
+    <Terminal title="~/andres — login">
+      <div class="term__hero">
+        <ProfilePhoto />
+        <div class="term__content">
+          <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">whoami</span></p>
+          <p class="term__out">{site.name}</p>
+          <p class="term__out term__out--role">{site.role} · {site.location}</p>
 
-  <div class="stats">
-    <div class="stat">
-      <span class="stat__num">{posts.length}</span>
-      <span class="stat__label">artículos</span>
-    </div>
-    <div class="stat">
-      <span class="stat__num">{projects.length}</span>
-      <span class="stat__label">proyectos</span>
-    </div>
-    <div class="stat">
-      <span class="stat__num">{notes.length}</span>
-      <span class="stat__label">notas</span>
-    </div>
+          <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">cat about.txt</span></p>
+          <p class="term__out">{site.bio}</p>
+
+          <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">ls skills/</span></p>
+          <p class="term__out term__skills">{skills.join('  ')}</p>
+
+          <p class="term__line">
+            <span class="term__prompt">$ </span><span class="term__cursor"></span>
+          </p>
+        </div>
+      </div>
+    </Terminal>
   </div>
 
-  <Terminal title="~/andres — zsh">
-    <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">whoami</span></p>
-    <p class="term__out">{site.name} — {site.role}</p>
-
-    <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">cat intro.txt</span></p>
-    <p class="term__out">{site.bio}</p>
-
-    <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">ls --skills</span></p>
-    <p class="term__out">
-      {skills.map((s) => (
-        <span style="margin-right:0.75rem;color:var(--blue)">{s}</span>
-      ))}
-    </p>
-
-    <p class="term__line">
-      <span class="term__prompt">$ </span><span class="term__cursor"></span>
-    </p>
-  </Terminal>
-
-  <section class="sec">
-    <div class="sec__head">
-      <h2 class="sec__title">now</h2>
-    </div>
+  <TermSection cmd="cat now.txt">
     <div class="now">
       <dl>
-        <div>
-          <dt>working_on</dt>
-          <dd>{now.working}</dd>
-        </div>
-        <div>
-          <dt>learning</dt>
-          <dd>{now.learning}</dd>
-        </div>
-        <div>
-          <dt>reading</dt>
-          <dd>{now.reading}</dd>
-        </div>
+        <div><dt>working_on</dt><dd>{now.working}</dd></div>
+        <div><dt>learning</dt><dd>{now.learning}</dd></div>
+        <div><dt>reading</dt><dd>{now.reading}</dd></div>
       </dl>
     </div>
-  </section>
+  </TermSection>
 
   {pinned.length > 0 && (
-    <section class="sec">
-      <div class="sec__head">
-        <h2 class="sec__title">pinned</h2>
-        <a class="sec__link" href="/blog">blog →</a>
-      </div>
+    <TermSection cmd="ls pinned/" link={{ href: '/blog', label: 'blog →' }}>
       <ul class="posts posts--pinned">
         {pinned.map((post) => (
           <li>
@@ -99,14 +71,10 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.year - 
           </li>
         ))}
       </ul>
-    </section>
+    </TermSection>
   )}
 
-  <section class="sec">
-    <div class="sec__head">
-      <h2 class="sec__title">posts</h2>
-      <a class="sec__link" href="/blog">ver todos →</a>
-    </div>
+  <TermSection cmd="ls blog/" link={{ href: '/blog', label: 'ver todos →' }}>
     <ul class="posts">
       {recent.map((post) => (
         <li>
@@ -123,13 +91,9 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.year - 
         </li>
       ))}
     </ul>
-  </section>
+  </TermSection>
 
-  <section class="sec">
-    <div class="sec__head">
-      <h2 class="sec__title">notas</h2>
-      <a class="sec__link" href="/notas">ver todas →</a>
-    </div>
+  <TermSection cmd="ls notas/" link={{ href: '/notas', label: 'ver todas →' }}>
     <ul class="notes">
       {recentNotes.map((note) => (
         <li>
@@ -142,42 +106,29 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.year - 
         </li>
       ))}
     </ul>
-  </section>
+  </TermSection>
 
-  <section class="sec">
-    <div class="sec__head">
-      <h2 class="sec__title">projects</h2>
-      <a class="sec__link" href="/proyectos">ver todos →</a>
-    </div>
+  <TermSection cmd="ls proyectos/" link={{ href: '/proyectos', label: 'ver todos →' }}>
     {projects.map((p) => (
       <a class="proj" href={`/proyectos/${p.id}`}>
         <span class="proj__year">{p.data.year}</span>
         <div>
           <p class="proj__title">{p.data.title}</p>
           <p class="proj__desc">{p.data.description}</p>
-          <div class="proj__stack">
-            {p.data.stack.map((t) => <span class="tag">{t}</span>)}
-          </div>
         </div>
       </a>
     ))}
-  </section>
+  </TermSection>
 
-  <section class="sec">
-    <div class="sec__head">
-      <h2 class="sec__title">find_me</h2>
-    </div>
+  <TermSection cmd="cat links.txt">
     <div class="tags">
       {site.links.map((l) => (
         <a class="tag" href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
           {l.label}
         </a>
       ))}
-      {categories.map((c) => (
-        <a class="tag tag--cat" href={`/categorias/${c.id}`} style={`--cat: ${c.color}`}>
-          #{c.label}
-        </a>
-      ))}
+      <a class="tag" href="/sobre">sobre</a>
+      <a class="tag" href="/categorias">tags</a>
     </div>
-  </section>
+  </TermSection>
 </BaseLayout>

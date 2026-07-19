@@ -1,0 +1,22 @@
+---
+import { site } from '../data/site';
+
+interface Props {
+	size?: 'sm' | 'md';
+}
+
+const { size = 'md' } = Astro.props;
+---
+
+<figure class:list={['avatar', size === 'sm' && 'avatar--sm']}>
+	<div class="avatar__frame">
+		<img
+			src={site.avatar}
+			alt={`Foto de ${site.name}`}
+			width="140"
+			height="140"
+			loading="eager"
+		/>
+	</div>
+	<figcaption class="avatar__path">{site.avatarPath}</figcaption>
+</figure>

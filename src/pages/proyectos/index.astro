@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TermSection from '../../components/TermSection.astro';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year);
@@ -7,26 +8,25 @@ const projects = (await getCollection('projects')).sort((a, b) => b.data.year - 
 
 <BaseLayout title="proyectos" path="/proyectos">
   <p class="crumb"><a href="/">~</a> / proyectos</p>
-  <h1 class="pg-title">Proyectos</h1>
-  <p class="pg-desc">Cosas que construyo, experimentos y herramientas. Cada uno con su ficha detallada.</p>
+  <h1 class="pg-title">proyectos/</h1>
+  <p class="pg-desc">Cosas que construyo y experimentos.</p>
 
-  {
-    projects.map((p) => (
-      <a class="proj" href={`/proyectos/${p.id}`}>
-        <span class="proj__year">{p.data.year}</span>
-        <div>
-          <p class="proj__title">
-            {p.data.title}
-            <span style="color:var(--muted);font-weight:400;font-size:0.78rem;margin-left:0.5rem">
-              [{p.data.status}]
-            </span>
-          </p>
-          <p class="proj__desc">{p.data.description}</p>
-          <div class="proj__stack">
-            {p.data.stack.map((t) => <span class="tag">{t}</span>)}
+  <TermSection cmd={`ls proyectos/ (${projects.length})`}>
+    {
+      projects.map((p) => (
+        <a class="proj" href={`/proyectos/${p.id}`}>
+          <span class="proj__year">{p.data.year}</span>
+          <div>
+            <p class="proj__title">
+              {p.data.title}
+              <span style="color:var(--muted);font-weight:400;font-size:0.72rem;margin-left:0.4rem">
+                [{p.data.status}]
+              </span>
+            </p>
+            <p class="proj__desc">{p.data.description}</p>
           </div>
-        </div>
-      </a>
-    ))
-  }
+        </a>
+      ))
+    }
+  </TermSection>
 </BaseLayout>

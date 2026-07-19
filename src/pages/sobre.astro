@@ -1,13 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Terminal from '../components/Terminal.astro';
+import ProfilePhoto from '../components/ProfilePhoto.astro';
+import TermSection from '../components/TermSection.astro';
 import { site, skills, timeline, now, principles } from '../data/site';
 ---
 
 <BaseLayout title="sobre" path="/sobre">
   <p class="crumb"><a href="/">~</a> / sobre</p>
-  <h1 class="pg-title">Sobre mí</h1>
-  <p class="pg-desc">{site.tagline}</p>
+
+  <div class="about-top">
+    <ProfilePhoto size="sm" />
+    <div class="about-top__text">
+      <h1 class="pg-title">{site.name}</h1>
+      <p class="pg-desc">{site.tagline}</p>
+    </div>
+  </div>
 
   <Terminal title="~/sobre/me.json">
     <p class="term__line"><span class="term__prompt">$ </span><span class="term__cmd">cat me.json</span></p>
@@ -23,48 +31,38 @@ import { site, skills, timeline, now, principles } from '../data/site';
     </p>
   </Terminal>
 
-  <section class="sec">
-    <h2 class="sec__title">bio</h2>
+  <TermSection cmd="cat bio.txt">
     {site.about.map((p) => (
-      <p style="margin:0.75rem 0 0;line-height:1.75;color:var(--text)">{p}</p>
+      <p style="margin:0 0 0.85rem;line-height:1.75;font-size:0.82rem">{p}</p>
     ))}
-  </section>
+  </TermSection>
 
-  <div class="about-grid">
-    <section class="sec" style="margin:0">
-      <h2 class="sec__title">now</h2>
-      <div class="now" style="margin-top:0.75rem">
-        <dl>
-          <div><dt>working_on</dt><dd>{now.working}</dd></div>
-          <div><dt>learning</dt><dd>{now.learning}</dd></div>
-          <div><dt>reading</dt><dd>{now.reading}</dd></div>
-        </dl>
-      </div>
-    </section>
-
-    <section class="sec" style="margin:0">
-      <h2 class="sec__title">skills</h2>
-      <div class="tags" style="margin-top:0.75rem">
-        {skills.map((s) => <span class="tag tag--skill">{s}</span>)}
-      </div>
-    </section>
-  </div>
-
-  <section class="sec">
-    <h2 class="sec__title">principios</h2>
-    <div class="principles" style="margin-top:0.75rem">
-      {principles.map((p) => (
-        <div class="principle">
-          <p class="principle__title">{p.title}</p>
-          <p class="principle__desc">{p.desc}</p>
-        </div>
-      ))}
+  <TermSection cmd="cat now.txt">
+    <div class="now">
+      <dl>
+        <div><dt>working_on</dt><dd>{now.working}</dd></div>
+        <div><dt>learning</dt><dd>{now.learning}</dd></div>
+        <div><dt>reading</dt><dd>{now.reading}</dd></div>
+      </dl>
     </div>
-  </section>
+  </TermSection>
 
-  <section class="sec">
-    <h2 class="sec__title">timeline</h2>
-    <ul class="timeline" style="margin-top:0.75rem">
+  <TermSection cmd="ls skills/">
+    <div class="tags">
+      {skills.map((s) => <span class="tag tag--skill">{s}</span>)}
+    </div>
+  </TermSection>
+
+  <TermSection cmd="cat principles.txt">
+    <ul class="term-list">
+      {principles.map((p) => (
+        <li><strong>{p.title}</strong> — <span>{p.desc}</span></li>
+      ))}
+    </ul>
+  </TermSection>
+
+  <TermSection cmd="cat timeline.log">
+    <ul class="timeline">
       {timeline.map((t) => (
         <li>
           <span class="timeline__year">{t.year}</span>
@@ -75,11 +73,10 @@ import { site, skills, timeline, now, principles } from '../data/site';
         </li>
       ))}
     </ul>
-  </section>
+  </TermSection>
 
-  <section class="sec">
-    <h2 class="sec__title">contact</h2>
-    <div class="tags" style="margin-top:0.75rem">
+  <TermSection cmd="cat contact.txt">
+    <div class="tags">
       {site.links.map((l) => (
         <a class="tag" href={l.href}>{l.label}</a>
       ))}
@@ -87,5 +84,5 @@ import { site, skills, timeline, now, principles } from '../data/site';
       <a class="tag" href="/notas">notas</a>
       <a class="tag" href="/proyectos">proyectos</a>
     </div>
-  </section>
+  </TermSection>
 </BaseLayout>

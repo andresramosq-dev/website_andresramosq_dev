@@ -5,6 +5,9 @@ export const site = {
 	location: 'Latinoamérica',
 	email: 'andfera201@gmail.com',
 	since: 2020,
+	/** Pon tu foto en public/images/avatar.jpg y cambia esta ruta */
+	avatar: '/images/avatar.svg',
+	avatarPath: '~/avatar.jpg',
 	tagline: 'Interfaces, código y oficio — documentado en público.',
 	description:
 		'Blog de Andrés Ramos. Desarrollo de software, diseño de interfaces y reflexiones sobre el oficio.',
