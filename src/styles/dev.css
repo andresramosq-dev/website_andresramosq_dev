@@ -535,6 +535,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .site-about__lead,
 .site-about__desc,
+.site-about__out,
 .site-about__idea,
 .site-about__lang,
 .site-about__out-inline,
@@ -560,6 +561,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .site-about__idea {
 	color: var(--term-amber);
 }
+.site-about__out,
 .site-about__lang {
 	color: var(--text);
 }
