@@ -778,14 +778,8 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	.console-doc__line {
 		font-size: 0.82rem;
 	}
-	.stack-block {
-		padding: 0.5rem 0.6rem;
-	}
-	.stack-block__key {
-		font-size: 0.68rem;
-	}
-	.stack-tag {
-		white-space: normal;
+	.stack-chip {
+		font-size: 0.78rem;
 	}
 	.tastes__lead,
 	.persona,
