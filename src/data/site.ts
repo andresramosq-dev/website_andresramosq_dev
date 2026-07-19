@@ -2,7 +2,7 @@ export const site = {
 	domain: 'andresramosq.dev',
 	consoleUser: 'website',
 	user: 'andres',
-	name: 'Andrés Ramos Q Dev',
+	name: 'Andrés Ramos',
 	handle: '@andresramosq-dev',
 	role: 'Senior Software Developer',
 	location: 'Pitalito, Huila · remote',

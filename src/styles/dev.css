@@ -93,7 +93,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	text-underline-offset: 3px;
 }
 .twin__identity {
-	color: var(--ink);
+	color: var(--host);
 	margin-left: 0.55rem;
 }
 .twin__body {
