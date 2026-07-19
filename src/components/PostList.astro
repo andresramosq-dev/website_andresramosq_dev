@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+	limit?: number;
+}
+
+const { limit } = Astro.props;
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, limit ?? Infinity);
+---
+
+<div class="post-list">
+	{
+		posts.map((post) => (
+			<a class="post-item" href={`/blog/${post.id}`}>
+				<div class="post-item__meta">
+					<span>
+						{post.data.pubDate.toLocaleDateString('es-ES', {
+							year: 'numeric',
+							month: 'short',
+							day: 'numeric',
+						})}
+					</span>
+					<span>{post.data.section}</span>
+				</div>
+				<h3 class="post-item__title">{post.data.title}</h3>
+				<p class="post-item__desc">{post.data.description}</p>
+			</a>
+		))
+	}
+</div>

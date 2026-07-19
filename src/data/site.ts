@@ -4,53 +4,26 @@ export const site = {
 	role: 'Desarrollador',
 	location: 'Latinoamérica',
 	email: 'andfera201@gmail.com',
-	tagline: 'Diseño y código con claridad.',
-	bio: 'Construyo interfaces rápidas y legibles. Este sitio es mi espacio para proyectos, notas y música.',
+	tagline: 'Notas sobre código, diseño y oficio.',
+	bio: 'Escribo sobre lo que construyo: interfaces, aprendizaje y proceso.',
 	links: [
-		{ label: 'GitHub', href: 'https://github.com/ramos-andres-dev', icon: 'github' },
-		{ label: 'Email', href: 'mailto:andfera201@gmail.com', icon: 'mail' },
+		{ label: 'GitHub', href: 'https://github.com/ramos-andres-dev' },
+		{ label: 'Email', href: 'mailto:andfera201@gmail.com' },
 	],
 };
 
 export const nav = [
-	{ label: 'Sobre mí', href: '/#sobre' },
-	{ label: 'Stack', href: '/#stack' },
-	{ label: 'Proyectos', href: '/#proyectos' },
-	{ label: 'Blog', href: '/blog' },
-	{ label: 'Música', href: '/#musica' },
+	{ label: 'Blog', href: '/' },
+	{ label: 'Proyectos', href: '/proyectos' },
+	{ label: 'Sobre', href: '/sobre' },
 ];
 
 export const techTimeline = [
-	{
-		period: '2021',
-		title: 'Fundamentos',
-		items: ['HTML', 'CSS', 'JavaScript', 'Git'],
-		icon: 'code',
-	},
-	{
-		period: '2022',
-		title: 'Frontend',
-		items: ['TypeScript', 'React', 'Vite'],
-		icon: 'layers',
-	},
-	{
-		period: '2023',
-		title: 'Producto',
-		items: ['Next.js', 'Node', 'PostgreSQL'],
-		icon: 'box',
-	},
-	{
-		period: '2024',
-		title: 'Calidad',
-		items: ['Testing', 'CI/CD', 'A11y'],
-		icon: 'check',
-	},
-	{
-		period: '2025',
-		title: 'Contenido',
-		items: ['Astro', 'Markdown', 'Performance'],
-		icon: 'pen',
-	},
+	{ period: '2021', title: 'Fundamentos', items: ['HTML', 'CSS', 'JavaScript', 'Git'] },
+	{ period: '2022', title: 'Frontend', items: ['TypeScript', 'React', 'Vite'] },
+	{ period: '2023', title: 'Producto', items: ['Next.js', 'Node', 'PostgreSQL'] },
+	{ period: '2024', title: 'Calidad', items: ['Testing', 'CI/CD', 'A11y'] },
+	{ period: '2025', title: 'Contenido', items: ['Astro', 'Markdown', 'Performance'] },
 ];
 
 export const music = [

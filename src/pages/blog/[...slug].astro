@@ -21,12 +21,12 @@ const date = post.data.pubDate.toLocaleDateString('es-ES', {
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} currentPath="/blog">
-	<article class="page-hero" style="padding-bottom: 2rem;">
-		<a class="back-link" href="/blog"><Icon name="arrow" size={16} /> Blog</a>
-		<h1>{post.data.title}</h1>
-		<p>{post.data.description}</p>
-		<p class="post-meta">{post.data.section} · {date}</p>
-		<div class="prose panel" style="padding: 1.2rem;">
+	<article class="shell--narrow article" style="width: min(100%, 720px);">
+		<a class="back" href="/"><Icon name="arrow" size={16} /> Todos los escritos</a>
+		<h1 class="article__title">{post.data.title}</h1>
+		<p class="article__desc">{post.data.description}</p>
+		<p class="article__meta">{post.data.section} · {date}</p>
+		<div class="prose">
 			<Content />
 		</div>
 	</article>

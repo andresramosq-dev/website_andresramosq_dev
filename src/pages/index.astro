@@ -1,19 +1,35 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import AboutSection from '../components/AboutSection.astro';
-import StackSection from '../components/StackSection.astro';
-import ProjectsSection from '../components/ProjectsSection.astro';
-import BlogSection from '../components/BlogSection.astro';
-import MusicSection from '../components/MusicSection.astro';
+import PostList from '../components/PostList.astro';
+import Icon from '../components/Icon.astro';
 import { site } from '../data/site';
 ---
 
-<BaseLayout title={site.name} description={`${site.tagline} ${site.bio}`} currentPath="/">
-	<Hero />
-	<AboutSection />
-	<StackSection />
-	<ProjectsSection />
-	<BlogSection />
-	<MusicSection />
+<BaseLayout title={site.name} description={site.tagline} currentPath="/">
+	<section class="intro">
+		<div>
+			<p class="intro__label">
+				<Icon name="pen" size={16} />
+				Blog
+			</p>
+			<h1 class="intro__title">{site.name}</h1>
+			<p class="intro__text">{site.tagline}</p>
+		</div>
+		<div class="intro__art">
+			<img
+				src="/images/hero-blog.svg"
+				alt="Ilustración de un cuaderno y un lápiz"
+				width="560"
+				height="360"
+			/>
+		</div>
+	</section>
+
+	<section class="section" aria-labelledby="escritos-title">
+		<h2 class="section__title" id="escritos-title">
+			<Icon name="book" size={20} />
+			Escritos
+		</h2>
+		<PostList />
+	</section>
 </BaseLayout>

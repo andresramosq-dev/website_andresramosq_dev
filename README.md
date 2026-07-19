@@ -1,6 +1,6 @@
 # andres_ramos_dev
 
-Sitio personal con Astro: diseño moderno tipo pizarra artística.
+Blog personal con Astro. Simple, limpio y enfocado en escritos.
 
 ## Rama
 
@@ -15,6 +15,6 @@ npm run dev
 
 ## Contenido
 
-- Blog: `src/content/blog/`
-- Proyectos: `src/content/projects/`
-- Datos: `src/data/site.ts`
+- Escritos: `src/content/blog/*.md`
+- Proyectos: `src/content/projects/*.md`
+- Perfil / stack / música: `src/data/site.ts`

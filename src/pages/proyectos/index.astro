@@ -6,27 +6,25 @@ import Icon from '../../components/Icon.astro';
 const projects = (await getCollection('projects')).sort((a, b) => b.data.year - a.data.year);
 ---
 
-<BaseLayout title="Proyectos" description="Selección de trabajo." currentPath="/proyectos">
-	<section class="page-hero">
-		<a class="back-link" href="/"><Icon name="arrow" size={16} /> Inicio</a>
+<BaseLayout title="Proyectos" description="Trabajo seleccionado." currentPath="/proyectos">
+	<header class="page-head">
+		<p class="intro__label"><Icon name="folder" size={16} /> Proyectos</p>
 		<h1>Proyectos</h1>
-		<p>Fichas cortas con stack y estado.</p>
-	</section>
-	<div class="card-grid list-stack">
+		<p>Una selección corta de trabajo. El foco del sitio sigue siendo el blog.</p>
+	</header>
+
+	<div class="project-list">
 		{
 			projects.map((project) => (
-				<article class="card" id={project.id}>
-					<div class="card__mark">
-						<Icon name="box" size={18} />
-					</div>
-					<p class="card__meta">
+				<article class="project-card" id={project.id}>
+					<p class="project-card__meta">
 						{project.data.year} · {project.data.status}
 					</p>
-					<h2 class="card__title">{project.data.title}</h2>
-					<p class="card__text">{project.data.description}</p>
-					<div class="card__foot">
+					<h2 class="project-card__title">{project.data.title}</h2>
+					<p class="project-card__desc">{project.data.description}</p>
+					<div class="project-card__stack">
 						{project.data.stack.map((tech) => (
-							<span class="chip">{tech}</span>
+							<span>{tech}</span>
 						))}
 					</div>
 				</article>

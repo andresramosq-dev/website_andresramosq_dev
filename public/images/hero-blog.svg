@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" fill="none" aria-hidden="true">
+  <!-- desk -->
+  <rect width="560" height="360" fill="#F7F6F3"/>
+  <!-- notebook -->
+  <rect x="96" y="58" width="280" height="244" rx="10" fill="#FFFFFF" stroke="#171717" stroke-width="3"/>
+  <path d="M166 58v244" stroke="#171717" stroke-width="3"/>
+  <circle cx="146" cy="120" r="5" fill="#171717"/>
+  <circle cx="146" cy="160" r="5" fill="#171717"/>
+  <circle cx="146" cy="200" r="5" fill="#171717"/>
+  <!-- written lines -->
+  <path d="M196 118h140" stroke="#171717" stroke-width="6" stroke-linecap="round"/>
+  <path d="M196 150h118" stroke="#171717" stroke-width="4" stroke-linecap="round" opacity=".45"/>
+  <path d="M196 178h132" stroke="#171717" stroke-width="4" stroke-linecap="round" opacity=".45"/>
+  <path d="M196 206h96" stroke="#171717" stroke-width="4" stroke-linecap="round" opacity=".35"/>
+  <path d="M196 234h110" stroke="#171717" stroke-width="4" stroke-linecap="round" opacity=".28"/>
+  <!-- pen -->
+  <g transform="translate(360 210) rotate(-28)">
+    <rect x="0" y="0" width="110" height="18" rx="9" fill="#171717"/>
+    <path d="M110 0 132 9 110 18Z" fill="#171717"/>
+    <rect x="14" y="4" width="28" height="10" rx="5" fill="#F7F6F3"/>
+  </g>
+  <!-- small mark -->
+  <rect x="400" y="72" width="52" height="52" rx="8" fill="#171717"/>
+  <path d="M414 98h24M414 110h16" stroke="#F7F6F3" stroke-width="4" stroke-linecap="round"/>
+</svg>
