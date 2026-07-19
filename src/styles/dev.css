@@ -185,56 +185,50 @@ a.twin__name:hover {
 	line-height: 1;
 }
 .hdr-music__link {
-	color: var(--ink);
+	color: var(--prompt);
 	text-decoration: none;
 	white-space: nowrap;
 }
 .hdr-music__link:hover {
 	color: var(--link-hover);
 }
-.hdr-music__btn {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: 1.35rem;
-	height: 1.35rem;
-	padding: 0;
+.hdr-music__play-wrap {
+	position: relative;
+	flex-shrink: 0;
+	width: 1.4rem;
+	height: 1.4rem;
 	border: 1px solid var(--prompt);
 	border-radius: 50%;
 	background: var(--panel2);
-	cursor: pointer;
+	overflow: hidden;
 }
-.hdr-music__btn:disabled {
-	opacity: 0.55;
-	cursor: wait;
+.hdr-music__play-wrap:hover {
+	background: #142016;
 }
-.hdr-music__btn:not(:disabled):hover {
-	background: var(--panel);
-	border-color: var(--prompt);
-}
-.hdr-music__icon {
-	display: block;
+.hdr-music__play-wrap .hdr-music__icon {
+	position: absolute;
+	inset: 0;
+	margin: auto;
 	width: 0;
 	height: 0;
 	border-style: solid;
 	border-color: transparent transparent transparent var(--prompt);
 	border-width: 0.26rem 0 0.26rem 0.44rem;
-	margin-left: 0.12rem;
+	margin-left: 0.58rem;
+	pointer-events: none;
+	z-index: 1;
 }
-.hdr-music__btn[aria-pressed='true'] .hdr-music__icon {
-	border-width: 0;
-	width: 0.3rem;
-	height: 0.38rem;
-	margin-left: 0;
-	background: linear-gradient(
-		to right,
-		var(--prompt) 0,
-		var(--prompt) 38%,
-		transparent 38%,
-		transparent 62%,
-		var(--prompt) 62%,
-		var(--prompt) 100%
-	);
+.hdr-music__iframe {
+	position: absolute;
+	left: -252px;
+	top: -30px;
+	border: 0;
+	z-index: 2;
+	opacity: 0;
+	cursor: pointer;
+}
+.hdr-music__btn {
+	display: none;
 }
 .hdr-eq {
 	display: inline-flex;
@@ -269,29 +263,6 @@ a.twin__name:hover {
 }
 .hdr-eq--active span:nth-child(5) {
 	animation-delay: 0.07s;
-}
-.spotify-sink {
-	position: fixed;
-	left: -9999px;
-	top: 0;
-	width: 300px;
-	height: 80px;
-	overflow: hidden;
-	z-index: -1;
-	margin: 0;
-	padding: 0;
-	pointer-events: none;
-}
-.spotify-sink iframe {
-	display: block;
-	border: 0;
-}
-.hdr-music__btn--loading {
-	opacity: 0.65;
-	cursor: wait;
-}
-.hdr-music__btn:not(.hdr-music__btn--loading) {
-	cursor: pointer;
 }
 @keyframes hdr-eq-bar {
 	0%,
