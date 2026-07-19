@@ -377,7 +377,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .bio__out {
 	margin: 0;
-	color: var(--text);
+	color: var(--ink);
 	font-size: 0.86rem;
 	line-height: 1.75;
 }
