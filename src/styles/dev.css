@@ -135,21 +135,27 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .console-title {
 	display: flex;
 	flex-direction: column;
-	gap: 0.2rem;
+	gap: 0.1rem;
 	margin: 0 0 1.35rem;
 	font-weight: 500;
-	line-height: 1.4;
+	line-height: 1.45;
 	letter-spacing: -0.01em;
 }
 .console-title__prompt,
 .console-title__cmd {
-	display: block;
+	display: flex;
+	align-items: baseline;
+	gap: 0.4rem;
 	margin: 0;
 	font-size: 0.84rem;
 }
 .console-title__cmd {
 	font-size: 0.92rem;
-	padding-left: 0.1rem;
+}
+.console-title__conn {
+	color: var(--muted);
+	flex-shrink: 0;
+	user-select: none;
 }
 .console-title__user { color: var(--prompt); }
 .console-title__at,
@@ -163,7 +169,6 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .console-title__page {
 	color: var(--ink);
 	font-weight: 600;
-	margin-left: 0.35rem;
 }
 
 /* Bloque comando + salida */
