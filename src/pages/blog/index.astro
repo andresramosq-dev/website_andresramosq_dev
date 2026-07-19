@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogCard from '../../components/BlogCard.astro';
+import PostEntry from '../../components/PostEntry.astro';
 import { getCollection } from 'astro:content';
 import { categories } from '../../data/site';
 
@@ -18,10 +18,10 @@ const iconByCategory = Object.fromEntries(categories.map((c) => [c.id, c.icon]))
       <p>Artículos sobre diseño, código y oficio.</p>
     </header>
 
-    <div class="card-grid">
+    <ul class="post-list">
       {
         posts.map((post) => (
-          <BlogCard
+          <PostEntry
             href={`/blog/${post.id}`}
             title={post.data.title}
             description={post.data.description}
@@ -32,6 +32,6 @@ const iconByCategory = Object.fromEntries(categories.map((c) => [c.id, c.icon]))
           />
         ))
       }
-    </div>
+    </ul>
   </div>
 </BaseLayout>

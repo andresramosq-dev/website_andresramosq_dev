@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BlogCard from '../components/BlogCard.astro';
-import ArtIcon from '../components/ArtIcon.astro';
+import PostEntry from '../components/PostEntry.astro';
 import Icon from '../components/Icon.astro';
 import { getCollection } from 'astro:content';
 import { site, categories } from '../data/site';
@@ -10,83 +9,70 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
-const latest = posts.slice(0, 3);
+const latest = posts.slice(0, 5);
+const iconByCat = Object.fromEntries(categories.map((c) => [c.id, c.icon]));
 ---
 
 <BaseLayout>
   <div class="wrap">
     <section class="hero">
-      <div class="hero__content">
-        <p class="hero__label">Blog personal</p>
+      <div>
+        <p class="hero__eyebrow">Blog</p>
         <h1>{site.name}</h1>
-        <p class="hero__tagline">{site.tagline}</p>
-        <div class="hero__actions">
-          <a class="btn btn--primary" href="/blog">
-            <Icon name="book" size={18} />
-            Leer el blog
-          </a>
-          <a class="btn btn--outline" href="/proyectos">
-            <Icon name="folder" size={18} />
-            Proyectos
-          </a>
+        <p class="hero__lead">{site.tagline}</p>
+        <div class="hero__links">
+          <a class="text-link" href="/blog">Leer artículos</a>
+          <a class="text-link" href="/sobre">Sobre mí</a>
         </div>
       </div>
-
-      <div class="hero__visual">
-        <img class="hero-art" src="/images/hero-art.svg" alt="" width="480" height="400" />
-        <div class="hero__float">
-          <ArtIcon name="spark" color={categories[0].color} />
-          <ArtIcon name="code" color={categories[1].color} />
-          <ArtIcon name="pen" color={categories[3].color} />
-        </div>
+      <div class="hero__mark">
+        <img src="/images/mark.svg" alt="" width="400" height="280" />
       </div>
     </section>
-  </div>
 
-  <section class="section section--soft">
-    <div class="wrap">
+    <section class="section">
       <div class="section-head">
-        <h2 class="section-title">Últimos artículos</h2>
-        <a class="section-link" href="/blog">Ver todos →</a>
+        <h2 class="section-title">Artículos recientes</h2>
+        <p class="section-sub"><a href="/blog" class="text-link" style="font-size:0.9rem">Ver todos</a></p>
       </div>
-      <div class="card-grid">
+      <ul class="post-list">
         {
-          latest.map((post) => {
-            const cat = categories.find((c) => c.id === post.data.category)!;
-            return (
-              <BlogCard
-                href={`/blog/${post.id}`}
-                title={post.data.title}
-                description={post.data.description}
-                date={post.data.pubDate}
-                minutes={post.data.minutes}
-                category={post.data.category}
-                icon={cat.icon}
-              />
-            );
-          })
-        }
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 class="section-title">Categorías</h2>
-        <a class="section-link" href="/categorias">Ver todas →</a>
-      </div>
-      <div class="cat-grid">
-        {
-          categories.map((cat) => (
-            <a class="cat-card" href={`/categorias/${cat.id}`} style={`--cat-color: ${cat.color}`}>
-              <ArtIcon name={cat.icon} color={cat.color} size="lg" />
-              <p class="cat-card__label">{cat.label}</p>
-              <p class="cat-card__desc">{cat.description}</p>
-            </a>
+          latest.map((post) => (
+            <PostEntry
+              href={`/blog/${post.id}`}
+              title={post.data.title}
+              description={post.data.description}
+              date={post.data.pubDate}
+              minutes={post.data.minutes}
+              category={post.data.category}
+              icon={iconByCat[post.data.category]}
+            />
           ))
         }
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Categorías</h2>
       </div>
-    </div>
-  </section>
+      <ul class="topic-list">
+        {
+          categories.map((cat) => (
+            <li class="topic-item">
+              <a href={`/categorias/${cat.id}`}>
+                <span class="topic-item__icon">
+                  <Icon name={cat.icon} size={22} />
+                </span>
+                <div>
+                  <p class="topic-item__label">{cat.label}</p>
+                  <p class="topic-item__desc">{cat.description}</p>
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
 </BaseLayout>

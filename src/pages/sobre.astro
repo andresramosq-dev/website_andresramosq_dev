@@ -1,29 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ArtIcon from '../components/ArtIcon.astro';
 import { site } from '../data/site';
 ---
 
-<BaseLayout title="Sobre" description="Sobre el autor del blog">
+<BaseLayout title="Sobre" description="Sobre el autor">
   <div class="wrap">
     <header class="page-head">
       <h1>Sobre mí</h1>
     </header>
 
-    <div class="about-panel">
-      <ArtIcon name="user" color="#e07a5f" size="lg" />
-      <div>
-        <h2>{site.name}</h2>
-        <p class="role">{site.role}</p>
-        <p>{site.bio}</p>
-        <p>
-          {
-            site.links.map((link) => (
-              <a href={link.href} style="margin-right:1.25rem;">{link.label}</a>
-            ))
-          }
-        </p>
-      </div>
+    <div class="about">
+      <h2>{site.name}</h2>
+      <p class="role">{site.role}</p>
+      <p>{site.bio}</p>
+      <p>
+        {
+          site.links.map((link) => (
+            <a href={link.href} style="margin-right:1.25rem;">{link.label}</a>
+          ))
+        }
+      </p>
     </div>
   </div>
 </BaseLayout>

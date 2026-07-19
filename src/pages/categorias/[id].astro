@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogCard from '../../components/BlogCard.astro';
+import PostEntry from '../../components/PostEntry.astro';
+import Icon from '../../components/Icon.astro';
 import { categories } from '../../data/site';
 
 export function getStaticPaths() {
@@ -25,10 +26,10 @@ const posts = (
 			<p>{category.description}</p>
 		</header>
 
-		<div class="card-grid">
+		<ul class="post-list">
 			{
 				posts.map((post) => (
-					<BlogCard
+					<PostEntry
 						href={`/blog/${post.id}`}
 						title={post.data.title}
 						description={post.data.description}
@@ -39,6 +40,6 @@ const posts = (
 					/>
 				))
 			}
-		</div>
+		</ul>
 	</div>
 </BaseLayout>

@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogCard from '../../components/BlogCard.astro';
-import ArtIcon from '../../components/ArtIcon.astro';
+import PostEntry from '../../components/PostEntry.astro';
+import Icon from '../../components/Icon.astro';
 import { getCollection } from 'astro:content';
 import { categories } from '../../data/site';
 
@@ -18,22 +18,23 @@ const grouped = categories.map((cat) => ({
   <div class="wrap">
     <header class="page-head">
       <h1>Categorías</h1>
-      <p>Artículos organizados por tema.</p>
+      <p>Artículos por tema.</p>
     </header>
 
     {
       grouped.map((group) => (
         <section class="cluster">
-          <h2 style={`--cluster-color: ${group.color}`}>
-            <ArtIcon name={group.icon} color={group.color} size="sm" />
+          <h2>
+            <Icon name={group.icon} size={20} />
             {group.label}
           </h2>
+          <p class="section-sub">{group.description}</p>
           {group.posts.length === 0 ? (
-            <p class="empty">No hay artículos en esta categoría.</p>
+            <p class="empty">Sin artículos.</p>
           ) : (
-            <div class="card-grid">
+            <ul class="post-list">
               {group.posts.map((post) => (
-                <BlogCard
+                <PostEntry
                   href={`/blog/${post.id}`}
                   title={post.data.title}
                   description={post.data.description}
@@ -43,7 +44,7 @@ const grouped = categories.map((cat) => ({
                   icon={group.icon}
                 />
               ))}
-            </div>
+            </ul>
           )}
         </section>
       ))
