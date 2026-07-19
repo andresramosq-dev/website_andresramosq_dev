@@ -608,79 +608,137 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	font-size: inherit;
 	font-weight: 500;
 }
-/* tastes.txt — console sections */
-.tastes-doc {
-	gap: 0.45rem;
-}
-.tastes-doc__cmd {
-	margin: 0.55rem 0 0.15rem;
+/* tastes.txt — pane layout */
+.favorites {
+	display: grid;
+	gap: 0.55rem;
+	font-family: var(--mono);
 	font-size: 0.86rem;
-	color: var(--muted);
+	line-height: 1.6;
 }
-.tastes-doc__sig {
-	color: var(--prompt);
-	margin-right: 0.35rem;
-}
-.tastes-doc__key {
+.favorites__lead {
+	margin: 0 0 0.15rem;
 	color: var(--ink);
 }
-.tastes-doc__sep {
+.fav-pane {
+	margin: 0;
+	padding: 0.65rem 0.75rem;
+	background: var(--panel2);
+	border: 1px solid var(--border2);
+	border-radius: 4px;
+}
+.fav-pane__title {
+	margin: 0 0 0.45rem;
+	font-size: 0.86rem;
+	font-weight: 400;
+	color: var(--prompt);
+}
+.fav-pane__title::before {
+	content: '> ';
 	color: var(--muted);
 }
-.tastes-doc__movie {
+.fav-pane__figures,
+.fav-pane__movies {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 	display: grid;
-	grid-template-columns: 1.75rem 1fr auto;
-	gap: 0.5rem 0.65rem;
-	align-items: baseline;
+	gap: 0.35rem;
 }
-.tastes-doc__rank {
-	color: var(--perm);
-	font-size: 0.86rem;
-}
-.tastes-doc__movie-title {
+.fav-pane__figures li,
+.fav-pane__movies li {
 	color: var(--text);
 }
-.tastes-doc__movie-year {
-	color: var(--muted);
-	font-size: 0.86rem;
+.fav-pane__name {
+	color: var(--ink);
 }
-.tastes-doc__series {
+.fav-pane__sep {
+	color: var(--muted);
+}
+.fav-pane__movies li {
+	display: grid;
+	grid-template-columns: 1.35rem 1fr auto;
+	gap: 0.45rem 0.65rem;
+	align-items: baseline;
+}
+.fav-pane__rank {
+	color: var(--perm);
+}
+.fav-pane__movie {
+	color: var(--text);
+}
+.fav-pane__year {
+	color: var(--muted);
+}
+.fav-pane__chips {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.4rem;
-	align-items: center;
 }
-.taste-chip {
+.fav-chip {
 	display: inline-block;
 	padding: 0.22rem 0.55rem;
-	border: 1px solid var(--border2);
-	background: var(--panel2);
+	border: 1px solid var(--border);
+	background: var(--bg);
 	color: var(--text);
 	font-size: 0.86rem;
 	line-height: 1.5;
 	border-radius: 3px;
 }
-.tastes-doc__spotify {
-	margin: 0.15rem 0 0;
+.fav-pane--spotify {
+	border-left: 3px solid #1db954;
+}
+.fav-pane__note {
+	margin: 0 0 0.5rem;
+	color: var(--text);
+	font-size: 0.86rem;
+}
+.fav-pane__note strong {
+	color: var(--ink);
+	font-weight: 500;
+}
+.fav-pane__actions {
+	margin: 0 0 0.55rem;
+}
+.fav-pane__btn {
+	display: inline-block;
+	padding: 0.35rem 0.65rem;
+	border: 1px solid var(--border2);
+	border-radius: 4px;
+	background: var(--bg);
+	color: var(--cmd);
+	font-size: 0.86rem;
+	font-weight: 500;
+	text-decoration: none;
+}
+.fav-pane__btn:hover {
+	border-color: #1db954;
+	color: #6ee7a0;
+	text-decoration: none;
+}
+.fav-pane__hint {
+	margin: 0;
+	color: var(--muted);
+	font-size: 0.86rem;
+	line-height: 1.55;
+}
+.fav-spotify-player {
+	margin: 0;
 	border-radius: 8px;
 	overflow: hidden;
 	border: 1px solid var(--border2);
 }
-.tastes-doc__spotify iframe {
+.fav-spotify-player__label {
+	margin: 0;
+	padding: 0.35rem 0.55rem;
+	font-size: 0.72rem;
+	color: var(--muted);
+	background: var(--bg);
+	border-bottom: 1px solid var(--border2);
+}
+.fav-spotify-player iframe {
 	display: block;
 	border: 0;
-}
-.tastes-doc__link {
-	color: var(--cmd);
-	font-weight: 500;
-	text-decoration: none;
-}
-.tastes-doc__link:hover {
-	text-decoration: underline;
-}
-.tastes-doc__hint {
-	color: var(--muted);
-	font-size: 0.86rem;
 }
 .persona {
 	display: grid;
@@ -817,15 +875,17 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	.stack-groups {
 		font-size: 0.82rem;
 	}
-	.tastes-doc__cmd,
-	.tastes-doc__hint,
-	.taste-chip,
-	.tastes-doc__movie-year,
-	.tastes-doc__rank {
+	.favorites,
+	.favorites__lead,
+	.fav-pane__title,
+	.fav-chip,
+	.fav-pane__note,
+	.fav-pane__hint,
+	.fav-pane__btn {
 		font-size: 0.82rem;
 	}
-	.tastes-doc__movie {
-		grid-template-columns: 1.5rem 1fr auto;
+	.fav-pane__movies li {
+		grid-template-columns: 1.25rem 1fr auto;
 	}
 	.persona,
 	.persona p {
