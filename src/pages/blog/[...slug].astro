@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import IdeaNode from '../../components/IdeaNode.astro';
+import Icon from '../../components/Icon.astro';
 import { getCollection, render } from 'astro:content';
-import { categoryLabel, categories } from '../../data/site';
+import { categoryLabel, categoryColor, categories, site } from '../../data/site';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -14,36 +14,34 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const catIcon = categories.find((c) => c.id === post.data.category)?.icon ?? 'pen';
+const cat = categories.find((c) => c.id === post.data.category)!;
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description}>
-  <article class="board-article">
-    <a class="board-back" href="/blog">← volver al muro</a>
+  <article class="article">
+    <a class="article__back" href="/blog">← escritos</a>
 
-    <div class="board-article__node">
-      <IdeaNode
-        title={post.data.title}
-        subtitle={post.data.description}
-        icon={catIcon}
-        size="md"
-        frame={3}
-      />
-      <p class="board-article__meta">
-        {categoryLabel[post.data.category]} ·{' '}
+    <span class="article__badge" style={`--badge-color: ${categoryColor[post.data.category]}`}>
+      <Icon name={cat.icon} size={14} />
+      {categoryLabel[post.data.category]}
+    </span>
+
+    <h1 class="article__title">{post.data.title}</h1>
+
+    <div class="article__meta">
+      <time datetime={post.data.pubDate.toISOString()}>
         {post.data.pubDate.toLocaleDateString('es-ES', {
           day: 'numeric',
           month: 'long',
           year: 'numeric',
-        })}{' '}
-        · {post.data.minutes} min
-      </p>
+        })}
+      </time>
+      <span>{post.data.minutes} min read</span>
+      <span>{site.handle}</span>
     </div>
 
-    <div class="board-read">
-      <div class="board-prose">
-        <Content />
-      </div>
+    <div class="article__body">
+      <Content />
     </div>
   </article>
 </BaseLayout>

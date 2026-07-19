@@ -1,13 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import IdeaNode from '../components/IdeaNode.astro';
+import BlogCard from '../components/BlogCard.astro';
 import BoardLines from '../components/BoardLines.astro';
+import Icon from '../components/Icon.astro';
 import { getCollection } from 'astro:content';
-import { site } from '../data/site';
+import { site, categories } from '../data/site';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const latest = posts.slice(0, 3);
+const boardPosts = latest;
 
 const connections = [
   { d: 'M50 42 C35 30, 18 22, 14 18' },
@@ -17,81 +22,139 @@ const connections = [
   { d: 'M50 42 C42 52, 35 58, 30 62' },
   { d: 'M50 42 C55 32, 48 26, 46 24' },
   { d: 'M50 42 C62 48, 78 50, 88 48' },
-  { d: 'M14 18 C22 20, 46 22, 46 24', dashed: true },
-  { d: 'M88 14 C80 20, 52 22, 46 24', dashed: true },
-  { d: 'M12 78 C20 72, 28 66, 30 62', dashed: true },
 ];
 ---
 
 <BaseLayout>
   <section class="idea-board" aria-label="Mapa de ideas">
+    <img class="board-art" src="/images/dev-art.svg" alt="" width="1200" height="500" />
     <BoardLines lines={connections} />
-
-    <img class="board-doodles" src="/images/board-doodles.svg" alt="" width="1280" height="780" />
 
     <IdeaNode
       class="idea--hub"
       href="/"
       title={site.name}
       subtitle={site.tagline}
-      icon="pen"
+      icon="code"
+      color="#e6edf3"
       size="lg"
-      frame={1}
     />
 
     <IdeaNode
       class="idea--escritos"
       href="/blog"
-      title="Escritos"
-      subtitle="ideas y reflexiones"
+      title="escritos"
+      subtitle="blog / notas"
       icon="book"
-      frame={2}
+      color="#56d4dd"
     />
 
     <IdeaNode
       class="idea--proyectos"
       href="/proyectos"
-      title="Proyectos"
-      subtitle="lo que construyo"
+      title="proyectos"
+      subtitle="build / ship"
       icon="folder"
-      frame={3}
+      color="#bc8cff"
     />
 
     <IdeaNode
       class="idea--temas"
       href="/categorias"
-      title="Temas"
-      subtitle="rutas de lectura"
+      title="temas"
+      subtitle="tags / rutas"
       icon="tag"
-      frame={4}
+      color="#e3b341"
     />
 
     <IdeaNode
       class="idea--sobre"
       href="/sobre"
-      title="Sobre mí"
-      subtitle="quién escribe"
+      title="sobre"
+      subtitle="about / me"
       icon="user"
-      frame={5}
+      color="#ff7b72"
     />
 
     {
-      posts.map((post, i) => (
-        <IdeaNode
-          class={`idea--post-${i + 1}`}
-          href={`/blog/${post.id}`}
-          title={post.data.title}
-          subtitle={post.data.pubDate.toLocaleDateString('es-ES', {
-            day: 'numeric',
-            month: 'short',
-          })}
-          icon={i === 0 ? 'spark' : i === 1 ? 'code' : 'compass'}
-          size="sm"
-          frame={((i + 2) % 5) + 1 as 1 | 2 | 3 | 4 | 5}
-        />
-      ))
+      boardPosts.map((post, i) => {
+        const cat = categories.find((c) => c.id === post.data.category)!;
+        return (
+          <IdeaNode
+            class={`idea--post-${i + 1}`}
+            href={`/blog/${post.id}`}
+            title={post.data.title}
+            subtitle={post.data.pubDate.toLocaleDateString('es-ES', {
+              day: 'numeric',
+              month: 'short',
+            })}
+            icon={cat.icon}
+            color={cat.color}
+            size="sm"
+          />
+        );
+      })
     }
-
-    <p class="board-hint">ideas conectadas · haz clic en cualquier nota</p>
   </section>
+
+  <div class="blog-wrap">
+    <section class="blog-section">
+      <div class="blog-section__head">
+        <div>
+          <p class="blog-section__kicker">// blog</p>
+          <h2 class="blog-section__title">Últimos escritos</h2>
+        </div>
+        <a class="blog-section__link" href="/blog">ver todos →</a>
+      </div>
+
+      <div class="blog-grid">
+        {
+          latest.map((post, i) => {
+            const cat = categories.find((c) => c.id === post.data.category)!;
+            return (
+              <BlogCard
+                href={`/blog/${post.id}`}
+                title={post.data.title}
+                description={post.data.description}
+                date={post.data.pubDate}
+                minutes={post.data.minutes}
+                category={post.data.category}
+                icon={cat.icon}
+                tilt={i % 2 === 0 ? -0.6 : 0.6}
+              />
+            );
+          })
+        }
+      </div>
+    </section>
+
+    <section class="blog-section">
+      <div class="blog-section__head">
+        <div>
+          <p class="blog-section__kicker">// explore</p>
+          <h2 class="blog-section__title">Temas</h2>
+        </div>
+      </div>
+
+      <div class="topic-grid">
+        {
+          categories.map((cat) => (
+            <a
+              class="topic-tile"
+              href={`/categorias/${cat.id}`}
+              style={`--tile-color: ${cat.color}`}
+            >
+              <span class="topic-tile__icon">
+                <Icon name={cat.icon} size={20} />
+              </span>
+              <div>
+                <p class="topic-tile__label">{cat.label}</p>
+                <p class="topic-tile__desc">{cat.description}</p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </div>
 </BaseLayout>

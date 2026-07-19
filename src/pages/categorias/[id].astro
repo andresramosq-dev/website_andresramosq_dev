@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import IdeaNode from '../../components/IdeaNode.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Icon from '../../components/Icon.astro';
 import { categories } from '../../data/site';
 
 export function getStaticPaths() {
@@ -18,27 +19,32 @@ const posts = (
 ---
 
 <BaseLayout title={category.label} description={category.description}>
-	<section class="board-section">
-		<a class="board-back" href="/categorias">← temas</a>
-		<h1 class="board-section__title">{category.label}</h1>
-		<p style="color: var(--chalk-dim); font-size: 1.2rem; margin: -1rem 0 1.5rem;">{category.description}</p>
+	<header class="page-head">
+		<a class="article__back" href="/categorias">← temas</a>
+		<span class="article__badge" style={`--badge-color: ${category.color}`}>
+			<Icon name={category.icon} size={14} />
+			{category.label}
+		</span>
+		<h1 class="page-head__title">{category.label}</h1>
+		<p class="page-head__sub">{category.description}</p>
+	</header>
 
-		<div class="board-cluster__nodes">
+	<div class="blog-wrap">
+		<div class="blog-grid">
 			{
 				posts.map((post, i) => (
-					<IdeaNode
+					<BlogCard
 						href={`/blog/${post.id}`}
 						title={post.data.title}
-						subtitle={post.data.pubDate.toLocaleDateString('es-ES', {
-							day: 'numeric',
-							month: 'short',
-						})}
+						description={post.data.description}
+						date={post.data.pubDate}
+						minutes={post.data.minutes}
+						category={post.data.category}
 						icon={category.icon}
-						size="sm"
-						frame={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5}
+						tilt={i % 2 === 0 ? -0.5 : 0.5}
 					/>
 				))
 			}
 		</div>
-	</section>
+	</div>
 </BaseLayout>

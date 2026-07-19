@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import IdeaNode from '../../components/IdeaNode.astro';
-import BoardLines from '../../components/BoardLines.astro';
+import BlogCard from '../../components/BlogCard.astro';
 import { getCollection } from 'astro:content';
 import { categories } from '../../data/site';
 
@@ -9,41 +8,34 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
-const iconByCategory = Object.fromEntries(
-  categories.map((c) => [c.id, c.icon])
-) as Record<string, 'spark' | 'code' | 'compass' | 'pen'>;
-
-const wallLines = [
-  { d: 'M8 15 C20 25, 40 20, 55 30' },
-  { d: 'M55 30 C70 40, 85 35, 92 45' },
-  { d: 'M30 55 C45 50, 60 58, 75 52' },
-  { d: 'M75 52 C88 48, 95 60, 92 75', dashed: true },
-  { d: 'M20 80 C35 72, 50 78, 65 70' },
-];
+const iconByCategory = Object.fromEntries(categories.map((c) => [c.id, c.icon]));
 ---
 
 <BaseLayout title="Escritos" description="Artículos del blog">
-  <section class="board-wall">
-    <BoardLines lines={wallLines} />
+  <header class="page-head">
+    <p class="page-head__kicker">// escritos</p>
+    <h1 class="page-head__title">Blog</h1>
+    <p class="page-head__sub">
+      Notas sobre diseño, código y oficio — publicadas como un blog de desarrollador, con mapa de ideas en la portada.
+    </p>
+  </header>
 
-    <header class="board-wall__head">
-      <h1 class="board-wall__title">Escritos</h1>
-      <p class="board-wall__sub">notas sueltas conectadas en la pizarra</p>
-    </header>
-
-    <div class="board-wall__grid">
+  <div class="blog-wrap">
+    <div class="blog-grid">
       {
         posts.map((post, i) => (
-          <IdeaNode
+          <BlogCard
             href={`/blog/${post.id}`}
             title={post.data.title}
-            subtitle={`${post.data.minutes} min · ${post.data.pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}`}
+            description={post.data.description}
+            date={post.data.pubDate}
+            minutes={post.data.minutes}
+            category={post.data.category}
             icon={iconByCategory[post.data.category]}
-            size="sm"
-            frame={((i % 5) + 1) as 1 | 2 | 3 | 4 | 5}
+            tilt={i % 3 === 0 ? -0.5 : i % 3 === 1 ? 0.5 : 0}
           />
         ))
       }
     </div>
-  </section>
+  </div>
 </BaseLayout>

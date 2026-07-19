@@ -1,0 +1,40 @@
+---
+import Icon from './Icon.astro';
+import { categoryLabel, categoryColor, type CategoryId } from '../data/site';
+
+interface Props {
+	href: string;
+	title: string;
+	description: string;
+	date: Date;
+	minutes: number;
+	category: CategoryId;
+	icon?: 'spark' | 'code' | 'compass' | 'pen' | 'arrow' | 'book' | 'user' | 'folder' | 'mail' | 'tag' | 'clock' | 'home';
+	tilt?: number;
+}
+
+const { href, title, description, date, minutes, category, icon, tilt = 0 } = Astro.props;
+const color = categoryColor[category];
+---
+
+<a class="blog-card" href={href} style={`--card-accent: ${color}; --card-tilt: ${tilt}deg`}>
+	<div class="blog-card__accent" aria-hidden="true" />
+	<div class="blog-card__icon" aria-hidden="true">
+		{icon && <Icon name={icon} size={22} />}
+	</div>
+	<div class="blog-card__body">
+		<div class="blog-card__meta">
+			<span class="blog-card__cat">{categoryLabel[category]}</span>
+			<time datetime={date.toISOString()}>
+				{date.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
+			</time>
+			<span>{minutes} min</span>
+		</div>
+		<h2 class="blog-card__title">{title}</h2>
+		<p class="blog-card__desc">{description}</p>
+	</div>
+	<svg class="blog-card__doodle" viewBox="0 0 80 80" aria-hidden="true">
+		<circle cx="60" cy="20" r="14" fill={color} opacity="0.15" />
+		<path d="M10 65c20-10 35-25 50-40" stroke={color} stroke-width="2" opacity="0.35" fill="none" />
+	</svg>
+</a>

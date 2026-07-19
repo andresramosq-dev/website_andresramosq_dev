@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import IdeaNode from '../../components/IdeaNode.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import Icon from '../../components/Icon.astro';
 import { getCollection } from 'astro:content';
 import { categories } from '../../data/site';
 
@@ -14,33 +15,40 @@ const grouped = categories.map((cat) => ({
 ---
 
 <BaseLayout title="Temas" description="Categorías del blog">
-  <section class="board-section">
-    <h1 class="board-section__title">Temas</h1>
+  <header class="page-head">
+    <p class="page-head__kicker">// temas</p>
+    <h1 class="page-head__title">Explorar por tema</h1>
+    <p class="page-head__sub">Rutas de lectura con colores planos e iconos por categoría.</p>
+  </header>
 
+  <div class="blog-wrap">
     {
-      grouped.map((group, gi) => (
-        <div class="board-cluster">
-          <h2 class="board-cluster__label">
-            <span>{group.label}</span>
+      grouped.map((group) => (
+        <section class="blog-section">
+          <h2 class="cluster-title" style={`--tile-color: ${group.color}`}>
+            <Icon name={group.icon} size={18} />
+            {group.label}
           </h2>
-          <div class="board-cluster__nodes">
-            {group.posts.length === 0 ? (
-              <p style="color: var(--chalk-dim); font-size: 1.2rem;">sin notas aún</p>
-            ) : (
-              group.posts.map((post, pi) => (
-                <IdeaNode
+          {group.posts.length === 0 ? (
+            <p style="color: var(--muted); font-family: var(--mono); font-size: 0.85rem;">sin posts aún</p>
+          ) : (
+            <div class="blog-grid">
+              {group.posts.map((post, i) => (
+                <BlogCard
                   href={`/blog/${post.id}`}
                   title={post.data.title}
-                  subtitle={group.description}
+                  description={post.data.description}
+                  date={post.data.pubDate}
+                  minutes={post.data.minutes}
+                  category={post.data.category}
                   icon={group.icon}
-                  size="sm"
-                  frame={(((gi + pi) % 5) + 1) as 1 | 2 | 3 | 4 | 5}
+                  tilt={i % 2 === 0 ? -0.4 : 0.4}
                 />
-              ))
-            )}
-          </div>
-        </div>
+              ))}
+            </div>
+          )}
+        </section>
       ))
     }
-  </section>
+  </div>
 </BaseLayout>

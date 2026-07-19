@@ -1,28 +1,43 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import IdeaNode from '../components/IdeaNode.astro';
+import Icon from '../components/Icon.astro';
 import { site } from '../data/site';
 ---
 
 <BaseLayout title="Sobre" description="Sobre el autor del blog">
-  <section class="board-section">
-    <div style="max-width: 420px; margin-bottom: 2rem; transform: rotate(-1deg);">
-      <IdeaNode title="Sobre mí" subtitle={site.role} icon="user" size="lg" frame={2} />
+  <header class="page-head">
+    <p class="page-head__kicker">// about</p>
+    <h1 class="page-head__title">Sobre mí</h1>
+  </header>
+
+  <div class="blog-wrap" style="max-width: var(--read);">
+    <div class="about-panel">
+      <p>
+        <strong>{site.name}</strong> — {site.role}. {site.bio}
+      </p>
+      <p>
+        Este blog combina un mapa de ideas artístico en la portada con escritos sobre diseño, código y
+        oficio. Tipografía de desarrollador, colores planos, iconos y SVG.
+      </p>
+      <p>
+        Lee los <a href="/blog">escritos</a> o explora los <a href="/proyectos">proyectos</a>.
+      </p>
     </div>
 
-    <div class="board-read">
-      <div class="board-prose">
-        <p>
-          Soy <strong>{site.name}</strong>. {site.bio}
-        </p>
-        <p>
-          Este sitio es una pizarra de ideas: notas sueltas, conectadas, con dibujos e iconos — no un
-          blog de plantilla.
-        </p>
-        <p>
-          Explora los <a href="/blog">escritos</a> o mira los <a href="/proyectos">proyectos</a>.
-        </p>
-      </div>
+    <div class="topic-grid" style="margin-top: 1.5rem;">
+      {
+        site.links.map((link) => (
+          <a class="topic-tile" href={link.href} style="--tile-color: var(--cyan)">
+            <span class="topic-tile__icon">
+              <Icon name={link.label === 'GitHub' ? 'code' : 'mail'} size={20} />
+            </span>
+            <div>
+              <p class="topic-tile__label">{link.label}</p>
+              <p class="topic-tile__desc">{link.href.replace('mailto:', '')}</p>
+            </div>
+          </a>
+        ))
+      }
     </div>
-  </section>
+  </div>
 </BaseLayout>

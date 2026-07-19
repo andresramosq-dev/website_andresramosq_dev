@@ -26,24 +26,28 @@ export const categories = [
 		label: 'Diseño',
 		description: 'Interfaces, jerarquía y criterio visual.',
 		icon: 'spark',
+		color: '#ff7b72',
 	},
 	{
 		id: 'codigo',
 		label: 'Código',
 		description: 'Frontend, arquitectura y herramientas.',
 		icon: 'code',
+		color: '#56d4dd',
 	},
 	{
 		id: 'oficio',
 		label: 'Oficio',
 		description: 'Carrera, hábitos y aprendizaje continuo.',
 		icon: 'compass',
+		color: '#e3b341',
 	},
 	{
 		id: 'metodo',
 		label: 'Método',
 		description: 'Cómo escribo, publico y organizo ideas.',
 		icon: 'pen',
+		color: '#bc8cff',
 	},
 ] as const;
 
@@ -51,4 +55,8 @@ export type CategoryId = (typeof categories)[number]['id'];
 
 export const categoryLabel: Record<CategoryId, string> = Object.fromEntries(
 	categories.map((c) => [c.id, c.label])
+) as Record<CategoryId, string>;
+
+export const categoryColor: Record<CategoryId, string> = Object.fromEntries(
+	categories.map((c) => [c.id, c.color])
 ) as Record<CategoryId, string>;
