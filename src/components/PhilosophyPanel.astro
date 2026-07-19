@@ -4,12 +4,12 @@ import { workPhilosophy } from '../data/site';
 
 <div class="philosophy">
 	<p class="philosophy__lead">{workPhilosophy.lead}</p>
-	<ul class="philosophy__rules">
-		{workPhilosophy.rules.map((rule) => (
-			<li>
-				<span class="philosophy__mark" aria-hidden="true">›</span>
-				<span>{rule}</span>
-			</li>
+	<div class="philosophy__body">
+		{workPhilosophy.rules.map((rule, index) => (
+			<p class="philosophy__line">
+				<span class="philosophy__lineno">{String(index + 1).padStart(2, '0')}</span>
+				<span class="philosophy__text">{rule}</span>
+			</p>
 		))}
-	</ul>
+	</div>
 </div>
