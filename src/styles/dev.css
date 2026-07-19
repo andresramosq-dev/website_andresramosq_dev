@@ -523,6 +523,44 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .now-item dt { font-size: 0.68rem; color: var(--prompt); margin: 0 0 0.3rem; }
 .now-item dd { margin: 0; font-size: 0.85rem; line-height: 1.55; color: var(--text); }
 
+/* site.txt — one size; hierarchy by color only */
+.site-about {
+	display: grid;
+	gap: 0.65rem;
+	font-family: var(--mono);
+	font-size: 0.86rem;
+	font-weight: 400;
+	line-height: 1.6;
+	letter-spacing: -0.01em;
+}
+.site-about__lead,
+.site-about__built,
+.site-about__lang,
+.site-about__lead-text,
+.site-about__out-inline,
+.site-about__handle {
+	margin: 0;
+	font-size: 0.86rem;
+	font-weight: 400;
+	line-height: 1.6;
+	letter-spacing: inherit;
+}
+.site-about__lead-text {
+	color: var(--ink);
+}
+.site-about__handle {
+	color: #7a9a7a;
+}
+.site-about__out-inline {
+	color: var(--text);
+}
+.site-about__built .bio__tag {
+	color: var(--term-cyan);
+}
+.site-about__lang {
+	color: var(--text);
+}
+
 .principles { display: grid; gap: 0; }
 .principle {
 	padding: 0.65rem 0;

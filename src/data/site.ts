@@ -35,6 +35,15 @@ export const site = {
 		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramosq-dev' },
 		{ label: 'Email', href: 'mailto:andresramosq.dev@gmail.com' },
 	],
+	aboutSite: {
+		leadBefore: 'This is the personal site of',
+		leadAfter: ' — a place to publish things about software, technology, my work, and more.',
+		builtBefore: 'Built with',
+		builtWith: ['Astro', 'Cursor'] as const,
+		builtAfter: '.',
+		language:
+			'Written in English — not my strongest language, but I am practicing.',
+	},
 };
 
 export const nav = [{ label: 'about', href: '/about' }] as const;

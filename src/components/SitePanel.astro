@@ -1,0 +1,33 @@
+---
+import { site } from '../data/site';
+import BioTag from './BioTag.astro';
+
+function joinItems(items: readonly string[]) {
+	return items.map((item, i) => ({
+		item,
+		sep: i === 0 ? '' : i === items.length - 1 ? ' and ' : ', ',
+	}));
+}
+
+const { aboutSite } = site;
+---
+
+<div class="site-about">
+	<p class="site-about__lead">
+		<span class="site-about__lead-text">{aboutSite.leadBefore}</span>{' '}
+		<span class="site-about__handle">{site.handle}</span>
+		<span class="site-about__lead-text">{aboutSite.leadAfter}</span>
+	</p>
+
+	<p class="site-about__built">
+		<span class="site-about__out-inline">{aboutSite.builtBefore}</span>{' '}
+		{joinItems(aboutSite.builtWith).map(({ item, sep }) => (
+			<>
+				{sep}<BioTag label={item} />
+			</>
+		))}
+		<span class="site-about__out-inline">{aboutSite.builtAfter}</span>
+	</p>
+
+	<p class="site-about__lang">{aboutSite.language}</p>
+</div>
