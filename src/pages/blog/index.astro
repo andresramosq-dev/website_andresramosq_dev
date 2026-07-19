@@ -9,11 +9,11 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 );
 ---
 
-<BaseLayout title="Blog" description="Todos los artículos del blog." currentPath="/blog">
+<BaseLayout title="Escritos" description="Todos los artículos del blog." currentPath="/blog">
 	<header class="page-head">
-		<p class="hero__kicker"><Icon name="book" size={16} /> Archivo</p>
-		<h1>Blog</h1>
-		<p>Todos los escritos, del más reciente al más antiguo.</p>
+		<p class="hero__kicker"><Icon name="book" size={15} /> Archivo</p>
+		<h1>Escritos</h1>
+		<p>Todos los artículos, del más reciente al más antiguo.</p>
 	</header>
 	<div class="post-grid" style="padding-bottom: 2rem;">
 		{posts.map((post) => <PostCard post={post} />)}

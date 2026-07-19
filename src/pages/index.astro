@@ -11,45 +11,41 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 );
 
 const featured = posts.find((post) => post.data.featured) ?? posts[0];
-const latest = posts.filter((post) => post.id !== featured.id).slice(0, 3);
+const latest = posts.filter((post) => post.id !== featured.id).slice(0, 4);
 ---
 
 <BaseLayout title={site.name} description={site.tagline} currentPath="/">
 	<section class="hero">
 		<div>
 			<p class="hero__kicker">
-				<Icon name="book" size={16} />
-				Blog personal
+				<Icon name="book" size={15} />
+				Blog
 			</p>
 			<h1 class="hero__title">
-				Ideas claras.<br />
-				<em>Código con criterio.</em>
+				{site.name}
 			</h1>
-			<p class="hero__text">{site.tagline}</p>
+			<p class="hero__text">{site.tagline} {site.bio}</p>
 			<div class="hero__actions">
-				<a class="btn btn--coral" href="/blog">
-					Ir al blog
-					<Icon name="arrow" size={18} />
+				<a class="btn btn--solid" href="/blog">
+					Ver escritos
+					<Icon name="arrow" size={17} />
 				</a>
-				<a class="btn btn--ghost" href="/categorias">Explorar categorías</a>
+				<a class="btn btn--ghost" href="/sobre">Sobre mí</a>
 			</div>
 		</div>
 		<div class="hero__art">
 			<img
 				src="/images/hero-blog.svg"
-				alt="Ilustración artística de un cuaderno, notas y lápiz"
-				width="720"
-				height="480"
+				alt="Ilustración de un cuaderno y una planta"
+				width="640"
+				height="420"
 			/>
 		</div>
 	</section>
 
 	<section class="section" aria-labelledby="featured-title">
 		<div class="section__head">
-			<h2 class="section__title" id="featured-title">
-				<Icon name="spark" size={22} />
-				Destacado
-			</h2>
+			<h2 class="section__title" id="featured-title">Destacado</h2>
 		</div>
 		<a class="featured" href={`/blog/${featured.id}`}>
 			<div>
@@ -67,25 +63,22 @@ const latest = posts.filter((post) => post.id !== featured.id).slice(0, 3);
 				<h3 class="featured__title">{featured.data.title}</h3>
 				<p class="featured__desc">{featured.data.description}</p>
 				<span class="featured__cta">
-					Leer ahora
+					Leer artículo
 					<Icon name="arrow" size={16} />
 				</span>
 			</div>
 			<div class="featured__art">
-				<img src="/images/mark-featured.svg" alt="" width="240" height="180" />
+				<img src="/images/mark-featured.svg" alt="" width="220" height="160" />
 			</div>
 		</a>
 	</section>
 
 	<section class="section" aria-labelledby="latest-title">
 		<div class="section__head">
-			<h2 class="section__title" id="latest-title">
-				<Icon name="pen" size={22} />
-				Últimos posts
-			</h2>
+			<h2 class="section__title" id="latest-title">Últimos escritos</h2>
 			<a class="section__link" href="/blog">
-				Ver todos
-				<Icon name="arrow" size={16} />
+				Archivo
+				<Icon name="arrow" size={15} />
 			</a>
 		</div>
 		<div class="post-grid">
@@ -95,21 +88,18 @@ const latest = posts.filter((post) => post.id !== featured.id).slice(0, 3);
 
 	<section class="section" aria-labelledby="cats-title">
 		<div class="section__head">
-			<h2 class="section__title" id="cats-title">
-				<Icon name="tag" size={22} />
-				Categorías
-			</h2>
+			<h2 class="section__title" id="cats-title">Temas</h2>
 			<a class="section__link" href="/categorias">
-				Ver categorías
-				<Icon name="arrow" size={16} />
+				Ver todos
+				<Icon name="arrow" size={15} />
 			</a>
 		</div>
 		<div class="cat-grid">
 			{
 				categories.map((category) => (
-					<a class={`cat-card cat-card--${category.color}`} href={`/categorias/${category.id}`}>
+					<a class="cat-card" href={`/categorias/${category.id}`}>
 						<div class="cat-card__icon">
-							<Icon name={category.icon} size={18} />
+							<Icon name={category.icon} size={17} />
 						</div>
 						<h3 class="cat-card__title">{category.label}</h3>
 						<p class="cat-card__desc">{category.description}</p>
@@ -124,22 +114,22 @@ const latest = posts.filter((post) => post.id !== featured.id).slice(0, 3);
 			<h2 id="about-band-title">Sobre este blog</h2>
 			<p>{site.bio}</p>
 			<a class="btn btn--ghost" href="/sobre">
-				Conóceme
-				<Icon name="arrow" size={18} />
+				Más sobre mí
+				<Icon name="arrow" size={17} />
 			</a>
 		</div>
 		<div class="about-band__stats">
 			<div class="stat">
 				<strong>{posts.length}</strong>
-				<span>artículos publicados</span>
+				<span>artículos</span>
 			</div>
 			<div class="stat">
 				<strong>{categories.length}</strong>
-				<span>categorías activas</span>
+				<span>temas</span>
 			</div>
 			<div class="stat">
 				<strong>Astro</strong>
-				<span>stack del sitio</span>
+				<span>publicado con</span>
 			</div>
 		</div>
 	</section>

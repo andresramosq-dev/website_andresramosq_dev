@@ -13,23 +13,23 @@ const counts = Object.fromEntries(
 );
 ---
 
-<BaseLayout title="Categorías" description="Explora el blog por temas." currentPath="/categorias">
+<BaseLayout title="Temas" description="Explora el blog por temas." currentPath="/categorias">
 	<header class="page-head">
-		<p class="hero__kicker"><Icon name="tag" size={16} /> Temas</p>
-		<h1>Categorías</h1>
-		<p>Elige un tema y lee solo lo que te interesa.</p>
+		<p class="hero__kicker"><Icon name="tag" size={15} /> Temas</p>
+		<h1>Temas</h1>
+		<p>Lee por categoría, sin ruido.</p>
 	</header>
-	<div class="cat-grid" style="padding-bottom: 2rem;">
+	<div class="cat-grid" style="padding: 1.2rem 0 2rem;">
 		{
 			categories.map((category) => (
-				<a class={`cat-card cat-card--${category.color}`} href={`/categorias/${category.id}`}>
+				<a class="cat-card" href={`/categorias/${category.id}`}>
 					<div class="cat-card__icon">
-						<Icon name={category.icon} size={18} />
+						<Icon name={category.icon} size={17} />
 					</div>
 					<h2 class="cat-card__title">{category.label}</h2>
 					<p class="cat-card__desc">{category.description}</p>
 					<p class="cat-card__desc">
-						<strong>{counts[category.id]}</strong> artículo{counts[category.id] === 1 ? '' : 's'}
+						{counts[category.id]} artículo{counts[category.id] === 1 ? '' : 's'}
 					</p>
 				</a>
 			))

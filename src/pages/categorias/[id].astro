@@ -13,21 +13,17 @@ export function getStaticPaths() {
 }
 
 const { category } = Astro.props;
-const posts = (await getCollection('blog', ({ data }) => !data.draft && data.category === category.id)).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = (
+	await getCollection('blog', ({ data }) => !data.draft && data.category === category.id)
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<BaseLayout
-	title={category.label}
-	description={category.description}
-	currentPath="/categorias"
->
+<BaseLayout title={category.label} description={category.description} currentPath="/categorias">
 	<header class="page-head">
-		<a class="back" href="/categorias"><Icon name="arrow" size={16} /> Todas las categorías</a>
+		<a class="back" href="/categorias"><Icon name="arrow" size={15} /> Todos los temas</a>
 		<p class="hero__kicker">
-			<Icon name={category.icon} size={16} />
-			Categoría
+			<Icon name={category.icon} size={15} />
+			Tema
 		</p>
 		<h1>{category.label}</h1>
 		<p>{category.description}</p>
@@ -40,7 +36,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft && data.cat
 				))}
 			</div>
 		) : (
-			<p style="color: var(--muted); padding-bottom: 2rem;">Aún no hay artículos en esta categoría.</p>
+			<p style="color: var(--muted); padding: 1.2rem 0 2rem;">Aún no hay artículos en este tema.</p>
 		)
 	}
 </BaseLayout>

@@ -6,7 +6,7 @@ import { site } from '../data/site';
 
 <BaseLayout title="Sobre" description={site.bio} currentPath="/sobre">
 	<header class="page-head">
-		<p class="hero__kicker"><Icon name="user" size={16} /> Autor</p>
+		<p class="hero__kicker"><Icon name="user" size={15} /> Sobre</p>
 		<h1>{site.name}</h1>
 		<p>{site.bio}</p>
 	</header>
@@ -38,16 +38,13 @@ import { site } from '../data/site';
 	</div>
 
 	<div class="about-panel">
-		<h2 class="section__title" style="margin-bottom: 0.7rem;">
-			<Icon name="mail" size={20} />
-			Escribirme
-		</h2>
+		<h2 class="section__title" style="margin-bottom: 0.65rem;">Escribirme</h2>
 		<p style="color: var(--muted); margin-bottom: 1rem;">
 			Si quieres comentar un artículo o proponer un tema, escríbeme.
 		</p>
-		<a class="btn btn--coral" href={`mailto:${site.email}`}>
+		<a class="btn btn--solid" href={`mailto:${site.email}`}>
 			{site.email}
-			<Icon name="arrow" size={18} />
+			<Icon name="arrow" size={17} />
 		</a>
 	</div>
 </BaseLayout>
