@@ -3,7 +3,8 @@ import ProfilePhoto from './ProfilePhoto.astro';
 import Icon from './Icon.astro';
 import { site } from '../data/site';
 
-const echoText = `${site.tagline} ${site.pillars.map((p) => `· ${p}`).join(' ')}`;
+const echoLead = site.tagline.charAt(0).toLowerCase() + site.tagline.slice(1);
+const echoPillars = site.pillars.map((p) => `· ${p}`).join('  ');
 ---
 
 <div class="whoami">
@@ -16,7 +17,7 @@ const echoText = `${site.tagline} ${site.pillars.map((p) => `· ${p}`).join(' ')
 			</p>
 			<p class="whoami__role">{site.role}</p>
 			<p class="whoami__links-line">
-				<span class="whoami__sig">@</span><span class="whoami__cmd"> links -all</span>
+				<span class="whoami__sig">@</span><span class="whoami__cmd"> social -all</span>
 				<span class="whoami__icons">
 					{site.social.map((s) => (
 						<a
@@ -34,7 +35,12 @@ const echoText = `${site.tagline} ${site.pillars.map((p) => `· ${p}`).join(' ')
 		</div>
 	</div>
 
-	<p class="whoami__tagline">
-		<span class="whoami__sig">@</span><span class="whoami__cmd"> echo "{echoText}"</span>
-	</p>
+	<div class="whoami__echo">
+		<p class="whoami__echo-line">
+			<span class="whoami__sig">@</span><span class="whoami__cmd"> echo "</span><span class="whoami__echo-text">{echoLead}</span>
+		</p>
+		<p class="whoami__echo-line whoami__echo-line--cont">
+			<span class="whoami__echo-text">{echoPillars}</span><span class="whoami__cmd">"</span>
+		</p>
+	</div>
 </div>

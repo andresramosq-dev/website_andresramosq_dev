@@ -151,7 +151,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	font-weight: 400;
 }
 .console-title__command,
-.console-title__flag,
+.console-title__echo,
 .console-title__quote {
 	color: var(--ink);
 	font-weight: 600;
@@ -304,24 +304,32 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	opacity: 1;
 	text-decoration: none;
 }
-.whoami__tagline {
+.whoami__echo {
 	margin: 0;
-	padding: 0.6rem 0.75rem;
+	padding: 0.65rem 0.75rem;
 	background: var(--panel2);
 	border: 1px solid var(--border2);
 	font-size: 0.82rem;
-	color: var(--text);
 	line-height: 1.55;
-	word-break: break-word;
 }
-.whoami__tagline .whoami__sig,
-.whoami__tagline .whoami__cmd {
-	color: var(--ink);
-	font-weight: 600;
+.whoami__echo-line {
+	margin: 0;
 }
-.whoami__tagline .whoami__sig {
+.whoami__echo-line--cont {
+	padding-left: 1.45rem;
+	margin-top: 0.1rem;
+}
+.whoami__echo-text {
+	color: var(--text);
+	font-weight: 400;
+}
+.whoami__echo .whoami__sig {
 	color: var(--muted);
 	font-weight: 400;
+}
+.whoami__echo .whoami__cmd {
+	color: var(--ink);
+	font-weight: 600;
 }
 
 .about-hero {
