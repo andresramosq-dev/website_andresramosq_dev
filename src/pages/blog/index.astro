@@ -7,52 +7,31 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-const stripArt: Record<string, string> = {
-	diseno: '/images/strips/strip-diseno.svg',
-	codigo: '/images/strips/strip-codigo.svg',
-	oficio: '/images/strips/strip-oficio.svg',
-	metodo: '/images/strips/strip-metodo.svg',
-};
+const label = (id: string) => categories.find((item) => item.id === id)?.label ?? id;
 ---
 
-<BaseLayout title="Escritos" description="Muro de escritos del blog." currentPath="/blog" mural>
+<BaseLayout title="Escritos" description="Archivo del blog." currentPath="/blog">
 	<header class="page-head">
-		<p class="hero__kicker">muro de escritos</p>
-		<h1>Blog</h1>
-		<p>Cada pieza es un dibujo de tiza + una nota. No es una lista de tarjetas.</p>
+		<h1>Escritos</h1>
+		<p>Notas ordenadas por fecha. Tipografía primero, sin tarjetas.</p>
 	</header>
 
-	<div class="strips">
+	<section class="writing" style="border-top: 0; padding-top: 0;">
 		{
-			posts.map((post) => {
-				const cat = categories.find((item) => item.id === post.data.category);
-				return (
-					<a class="strip" href={`/blog/${post.id}`}>
-						<div class="strip__art">
-							<img
-								src={stripArt[post.data.category]}
-								alt=""
-								width="420"
-								height="320"
-							/>
-						</div>
-						<div class="strip__body">
-							<p class="strip__label">{cat?.label ?? post.data.category}</p>
-							<h2 class="strip__title">{post.data.title}</h2>
-							<p class="strip__text">{post.data.description}</p>
-							<p class="strip__meta">
-								{post.data.pubDate.toLocaleDateString('es-ES', {
-									year: 'numeric',
-									month: 'short',
-									day: 'numeric',
-								})}
-								{' · '}
-								{post.data.minutes} min
-							</p>
-						</div>
-					</a>
-				);
-			})
+			posts.map((post) => (
+				<a class="entry" href={`/blog/${post.id}`}>
+					<span class="entry__date">
+						{post.data.pubDate.toLocaleDateString('es-ES', {
+							year: 'numeric',
+							month: 'short',
+							day: 'numeric',
+						})}
+					</span>
+					<span class="entry__title">{post.data.title}</span>
+					<span class="entry__cat">{label(post.data.category)}</span>
+					<span class="entry__desc">{post.data.description}</span>
+				</a>
+			))
 		}
-	</div>
+	</section>
 </BaseLayout>

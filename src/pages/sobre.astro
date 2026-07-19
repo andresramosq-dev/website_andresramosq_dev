@@ -1,17 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Icon from '../components/Icon.astro';
 import { site } from '../data/site';
 ---
 
 <BaseLayout title="Sobre" description={site.bio} currentPath="/sobre">
 	<header class="page-head">
-		<p class="hero__kicker"><Icon name="user" size={15} /> Sobre</p>
 		<h1>{site.name}</h1>
 		<p>{site.bio}</p>
 	</header>
 
-	<div class="about-panel">
+	<div class="about-block">
+		<img src="/images/art-mark.svg" alt="" width="120" height="120" style="margin-bottom: 1rem;" />
 		<ul class="about-meta">
 			<li>
 				<span>Rol</span>
@@ -28,23 +27,14 @@ import { site } from '../data/site';
 						site.links.map((link, i) => (
 							<span>
 								{i > 0 ? ' · ' : ''}
-								<a href={link.href}>{link.label}</a>
+								<a class="link-plain" href={link.href}>
+									{link.label}
+								</a>
 							</span>
 						))
 					}
 				</strong>
 			</li>
 		</ul>
-	</div>
-
-	<div class="about-panel">
-		<h2 class="section__title" style="margin-bottom: 0.65rem;">Escribirme</h2>
-		<p style="color: var(--muted); margin-bottom: 1rem;">
-			Si quieres comentar un artículo o proponer un tema, escríbeme.
-		</p>
-		<a class="btn btn--solid" href={`mailto:${site.email}`}>
-			{site.email}
-			<Icon name="arrow" size={17} />
-		</a>
 	</div>
 </BaseLayout>

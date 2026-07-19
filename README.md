@@ -1,13 +1,10 @@
 # andres_ramos_dev
 
-Blog personal moderno con Astro.
+Blog personal artístico y tipográfico, hecho con Astro.
 
-## Secciones
+## Idea
 
-- Inicio: hero, destacado, últimos posts, categorías, sobre
-- Blog: archivo completo
-- Categorías: filtros por tema
-- Proyectos y Sobre
+Tipografía + ilustración. Sin tarjetas ni recuadros como estructura.
 
 ## Comandos
 
@@ -19,5 +16,4 @@ npm run dev
 ## Contenido
 
 - Posts: `src/content/blog/*.md`
-- Proyectos: `src/content/projects/*.md`
-- Datos del sitio: `src/data/site.ts`
+- Datos: `src/data/site.ts`

@@ -4,8 +4,8 @@ export const site = {
 	role: 'Desarrollador',
 	location: 'Latinoamérica',
 	email: 'andfera201@gmail.com',
-	tagline: 'Notas sobre código, diseño y oficio.',
-	bio: 'Escribo para pensar mejor. Aquí van aprendizajes de producto, interfaces y el proceso detrás de lo que construyo.',
+	tagline: 'Escribo sobre código, diseño y oficio.',
+	bio: 'Construyo interfaces y escribo para pensar mejor. Este espacio es mi cuaderno público: ideas claras, sin ruido.',
 	links: [
 		{ label: 'GitHub', href: 'https://github.com/ramos-andres-dev' },
 		{ label: 'Email', href: 'mailto:andfera201@gmail.com' },
@@ -13,7 +13,7 @@ export const site = {
 };
 
 export const nav = [
-	{ label: 'Blog', href: '/blog' },
+	{ label: 'Escritos', href: '/blog' },
 	{ label: 'Temas', href: '/categorias' },
 	{ label: 'Proyectos', href: '/proyectos' },
 	{ label: 'Sobre', href: '/sobre' },

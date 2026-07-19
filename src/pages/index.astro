@@ -6,85 +6,74 @@ import { site, categories } from '../data/site';
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-
-const featured = posts.find((post) => post.data.featured) ?? posts[0];
-const rest = posts.filter((post) => post.id !== featured.id);
 ---
 
-<BaseLayout title={site.name} description={site.tagline} currentPath="/" mural>
-	<div class="mural-page">
-		<div class="mural" role="region" aria-label="Pizarra artística del blog">
-			<img
-				class="mural__art"
-				src="/images/chalk-mural.svg"
-				alt="Mural de pizarra artística con dibujos de tiza: planta, café, libro, bombilla y flechas"
-				width="1600"
-				height="1100"
-			/>
-
-			<div class="mural__hotspots">
-				<div class="chalk-write chalk-write--brand">
-					<span class="chalk-write__label">pizarra artística</span>
-					<span class="chalk-write__title">{site.name}</span>
-					<span class="chalk-write__hint">{site.tagline}</span>
-				</div>
-
-				<a class="chalk-write chalk-write--feat" href={`/blog/${featured.id}`}>
-					<span class="chalk-write__label">★ empieza aquí</span>
-					<span class="chalk-write__title">{featured.data.title}</span>
-					<span class="chalk-write__hint">{featured.data.minutes} min</span>
-				</a>
-
-				{
-					rest[0] && (
-						<a class="chalk-write chalk-write--p1" href={`/blog/${rest[0].id}`}>
-							<span class="chalk-write__label">nota</span>
-							<span class="chalk-write__title">{rest[0].data.title}</span>
-						</a>
-					)
-				}
-
-				{
-					rest[1] && (
-						<a class="chalk-write chalk-write--p2" href={`/blog/${rest[1].id}`}>
-							<span class="chalk-write__label">nota</span>
-							<span class="chalk-write__title">{rest[1].data.title}</span>
-						</a>
-					)
-				}
-
-				{
-					rest[2] && (
-						<a class="chalk-write chalk-write--p3" href={`/blog/${rest[2].id}`}>
-							<span class="chalk-write__label">nota</span>
-							<span class="chalk-write__title">{rest[2].data.title}</span>
-						</a>
-					)
-				}
-
-				<a class="chalk-write chalk-write--about" href="/sobre">
-					<span class="chalk-write__label">sobre</span>
-					<span class="chalk-write__title">quién escribe</span>
-					<span class="chalk-write__hint">bio + contacto</span>
-				</a>
-
-				<div class="chalk-write chalk-write--topics">
-					<span class="chalk-write__label">temas en la pizarra</span>
-					<span class="chalk-write__title">categorías</span>
-					<div class="topic-row">
-						{
-							categories.map((category) => (
-								<a href={`/categorias/${category.id}`}>{category.label}</a>
-							))
-						}
-					</div>
-				</div>
+<BaseLayout title={site.name} description={site.tagline} currentPath="/">
+	<section class="hero">
+		<div>
+			<p class="hero__eyebrow">cuaderno personal</p>
+			<h1 class="hero__title">
+				Andrés<br />
+				<span>Ramos</span>
+			</h1>
+			<p class="hero__lead">{site.bio}</p>
+			<div class="hero__actions">
+				<a class="link-plain" href="/blog">Leer escritos</a>
+				<a class="link-soft" href="/sobre">Sobre mí</a>
 			</div>
 		</div>
+		<div class="hero__art">
+			<img
+				src="/images/art-hero.svg"
+				alt="Ilustración artística abstracta con gestos de tinta, planta y lápiz"
+				width="800"
+				height="700"
+			/>
+		</div>
+	</section>
 
-		<p class="mural-caption">
-			<span>el dibujo es la navegación — toca lo que está escrito con tiza</span>
-			<a href="/blog">ver muro de escritos →</a>
-		</p>
-	</div>
+	<section class="writing" aria-labelledby="writing-title">
+		<div class="writing__head">
+			<h2 class="writing__title" id="writing-title">Escritos</h2>
+			<a class="link-soft" href="/blog">Ver todos</a>
+		</div>
+
+		{
+			posts.slice(0, 5).map((post) => (
+				<a class="entry" href={`/blog/${post.id}`}>
+					<span class="entry__date">
+						{post.data.pubDate.toLocaleDateString('es-ES', {
+							year: 'numeric',
+							month: 'short',
+						})}
+					</span>
+					<span class="entry__title">{post.data.title}</span>
+					<span class="entry__cat">{post.data.category}</span>
+					<span class="entry__desc">{post.data.description}</span>
+				</a>
+			))
+		}
+	</section>
+
+	<section class="topics" aria-labelledby="topics-title">
+		<h2 class="topics__title" id="topics-title">Temas</h2>
+		<ul class="topics__list">
+			{
+				categories.map((category) => (
+					<li>
+						<a href={`/categorias/${category.id}`}>{category.label}</a>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+
+	<section class="about-flow">
+		<img class="about-flow__mark" src="/images/art-mark.svg" alt="" width="120" height="120" />
+		<div>
+			<h2>Hecho a mano, pensado con calma</h2>
+			<p>{site.tagline} Sin ruido visual: tipografía, ilustración y lectura.</p>
+			<a class="link-plain" href="/sobre">Conocer al autor</a>
+		</div>
+	</section>
 </BaseLayout>

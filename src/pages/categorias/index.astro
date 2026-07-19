@@ -1,38 +1,35 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Icon from '../../components/Icon.astro';
 import { categories } from '../../data/site';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
-const counts = Object.fromEntries(
-	categories.map((category) => [
-		category.id,
-		posts.filter((post) => post.data.category === category.id).length,
-	]),
-);
 ---
 
-<BaseLayout title="Temas" description="Explora el blog por temas." currentPath="/categorias">
+<BaseLayout title="Temas" description="Explora por tema." currentPath="/categorias">
 	<header class="page-head">
-		<p class="hero__kicker"><Icon name="tag" size={15} /> Temas</p>
 		<h1>Temas</h1>
-		<p>Lee por categoría, sin ruido.</p>
+		<p>Una lista simple. Elige y lee.</p>
 	</header>
-	<div class="cat-grid" style="padding: 1.2rem 0 2rem;">
-		{
-			categories.map((category) => (
-				<a class="cat-card" href={`/categorias/${category.id}`}>
-					<div class="cat-card__icon">
-						<Icon name={category.icon} size={17} />
-					</div>
-					<h2 class="cat-card__title">{category.label}</h2>
-					<p class="cat-card__desc">{category.description}</p>
-					<p class="cat-card__desc">
-						{counts[category.id]} artículo{counts[category.id] === 1 ? '' : 's'}
-					</p>
-				</a>
-			))
-		}
-	</div>
+
+	<section class="topics" style="padding-top: 0.5rem;">
+		<ul class="topics__list">
+			{
+				categories.map((category) => {
+					const count = posts.filter((post) => post.data.category === category.id).length;
+					return (
+						<li>
+							<a href={`/categorias/${category.id}`}>
+								{category.label}
+								<span style="font-style: normal; color: var(--muted); font-family: var(--sans); font-size: 0.95rem;">
+									{' '}
+									({count})
+								</span>
+							</a>
+						</li>
+					);
+				})
+			}
+		</ul>
+	</section>
 </BaseLayout>
