@@ -53,31 +53,20 @@ export const site = {
 
 export const nav = [
 	{ label: 'about', href: '/about' },
+	{ label: 'blog', href: '/blog' },
+	{ label: 'notas', href: '/notas' },
+	{ label: 'posts', href: '/posts' },
+	{ label: 'archive', href: '/archive' },
+	{ label: 'tags', href: '/tags' },
+	{ label: 'subscribe', href: '/subscribe' },
+	{ label: 'contact', href: '/contact' },
+	{ label: 'uses', href: '/uses' },
+	{ label: 'search', href: '/search' },
+	{ label: 'rss', href: '/rss' },
 	{ label: 'stacks', href: '/stacks' },
 	{ label: 'tastes', href: '/tastes' },
 	{ label: 'site', href: '/site' },
 ] as const;
-
-/** Footer link groups — not duplicated in main nav. */
-export const footer = {
-	site: [
-		{ label: 'about', href: '/about' },
-		{ label: 'stacks', href: '/stacks' },
-		{ label: 'site', href: '/site' },
-		{ label: 'contact', href: '/contact' },
-	] as const,
-	write: [
-		{ label: 'blog', href: '/blog' },
-		{ label: 'notas', href: '/notas' },
-		{ label: 'posts', href: '/posts' },
-		{ label: 'projects', href: '/proyectos' },
-	] as const,
-	more: [
-		{ label: 'subscribe', href: '/subscribe' },
-		{ label: 'archive', href: '/archive' },
-		{ label: 'uses', href: '/uses' },
-	] as const,
-} as const;
 
 export const now = {
 	focused_on:
