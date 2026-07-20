@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ConsoleTitle from '../../components/ConsoleTitle.astro';
+import AboutLs from '../../components/AboutLs.astro';
 import CmdBlock from '../../components/CmdBlock.astro';
 import WhoamiPanel from '../../components/WhoamiPanel.astro';
 import BioPanel from '../../components/BioPanel.astro';
@@ -10,6 +11,7 @@ import { now } from '../../data/site';
 
 <BaseLayout title="about me" path="/about">
 	<ConsoleTitle />
+	<AboutLs />
 
 	<CmdBlock cmd="whoami" id="profile">
 		<WhoamiPanel />

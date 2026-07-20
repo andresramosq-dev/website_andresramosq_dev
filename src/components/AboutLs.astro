@@ -1,0 +1,75 @@
+---
+import { site } from '../data/site';
+
+const entries = [
+	{ label: '.', target: 'about-top' },
+	{ label: 'whoami', target: 'profile' },
+	{ label: 'bio.txt', target: 'bio' },
+	{ label: 'now.txt', target: 'now' },
+] as const;
+---
+
+<div class="about-ls" data-about-ls>
+	<form class="about-ls__form cmd-block__line console-prompt" data-about-ls-form>
+		<span class="cmd-block__path">
+			<span class="cmd-block__user">{site.consoleUser}</span>@<span class="cmd-block__host">{site.domain}</span><span class="cmd-block__colon">:</span><span class="cmd-block__cwd">~/about</span>
+		</span>
+		<span class="cmd-block__sig"> @</span>
+		<span class="cmd-block__cmd">ls</span>
+		<button class="console-prompt__run" type="submit">execute</button>
+	</form>
+	<div class="about-ls__out cmd-block__out" data-about-ls-out hidden>
+		<ul class="ls-out about-ls__list">
+			{entries.map((entry) => (
+				<li>
+					<button type="button" class="about-ls__item" data-about-ls-target={entry.target}>
+						{entry.label}
+					</button>
+				</li>
+			))}
+		</ul>
+	</div>
+</div>
+
+<script>
+	function bindAboutLs(root: HTMLElement) {
+		if (root.dataset.bound === '1') return;
+		root.dataset.bound = '1';
+
+		const form = root.querySelector<HTMLFormElement>('[data-about-ls-form]');
+		const out = root.querySelector<HTMLElement>('[data-about-ls-out]');
+		if (!form || !out) return;
+
+		const close = () => {
+			out.hidden = true;
+		};
+
+		form.addEventListener('submit', (e) => {
+			e.preventDefault();
+			if (!out.hidden) {
+				close();
+				return;
+			}
+			out.hidden = false;
+		});
+
+		root.querySelectorAll<HTMLButtonElement>('[data-about-ls-target]').forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const id = btn.dataset.aboutLsTarget;
+				if (id) {
+					if (id === 'about-top') {
+						window.scrollTo({ top: 0, behavior: 'smooth' });
+					} else {
+						document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+					}
+				}
+				close();
+			});
+		});
+	}
+
+	document.querySelectorAll<HTMLElement>('[data-about-ls]').forEach(bindAboutLs);
+	document.addEventListener('astro:page-load', () => {
+		document.querySelectorAll<HTMLElement>('[data-about-ls]').forEach(bindAboutLs);
+	});
+</script>

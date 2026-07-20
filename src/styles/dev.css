@@ -579,6 +579,37 @@ a.twin__name:hover {
 	border-color: #7a9a7a;
 }
 
+.about-ls {
+	margin: -0.65rem 0 1.25rem;
+}
+.about-ls__form {
+	margin-bottom: 0.35rem;
+}
+.about-ls__out {
+	margin-top: 0;
+	padding: 0.65rem 0.85rem;
+}
+.about-ls__list {
+	gap: 0.15rem;
+}
+.about-ls__item {
+	appearance: none;
+	border: 0;
+	background: none;
+	padding: 0.15rem 0;
+	font: inherit;
+	font-size: inherit;
+	font-weight: 500;
+	color: var(--cmd);
+	cursor: pointer;
+	text-align: left;
+}
+.about-ls__item:hover {
+	color: var(--link-hover);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
 .cursor {
 	display: inline-block;
 	width: 8px;

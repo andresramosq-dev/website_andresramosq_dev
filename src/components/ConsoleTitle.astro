@@ -8,7 +8,7 @@ interface Props {
 const { title = site.name } = Astro.props;
 ---
 
-<header class="console-title">
+<header class="console-title" id="about-top">
 	<p class="console-title__prompt">
 		<span class="console-title__user">{site.consoleUser}</span><span class="console-title__at">@</span><span class="console-title__host">{site.domain}</span><span class="console-title__colon">:</span><span class="console-title__path">~/about</span><span class="console-title__sig"> @</span>		<span class="console-title__cmd"> about -title</span>
 	</p>
