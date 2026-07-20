@@ -1,6 +1,7 @@
 ---
 import '../styles/dev.css';
 import { ClientRouter } from 'astro:transitions';
+import SiteFooter from '../components/SiteFooter.astro';
 import TerminalShell from '../components/TerminalShell.astro';
 import SpotifyFloatPanel from '../components/SpotifyFloatPanel.astro';
 import { site, nav, tastes } from '../data/site';
@@ -59,17 +60,7 @@ const spotifyEmbedSrc = spotifyPlaylistEmbedSrc(tastes.spotify.playlistUrl);
           <slot />
         </main>
 
-        <footer class="ftr" role="contentinfo">
-          <span>© {new Date().getFullYear()} {site.domain}</span>
-          <div>
-            {site.links.map((l, i) => (
-              <>
-                {i > 0 && ' · '}
-                <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">{l.label}</a>
-              </>
-            ))}
-          </div>
-        </footer>
+        <SiteFooter />
       </TerminalShell>
     </div>
   </body>

@@ -8,4 +8,5 @@ export const placeholderRoutes = [
 	{ path: '/contact', title: 'contact' },
 	{ path: '/uses', title: 'uses' },
 	{ path: '/search', title: 'search' },
+	{ path: '/privacy', title: 'privacy' },
 ] as const;

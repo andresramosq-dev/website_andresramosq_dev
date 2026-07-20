@@ -58,6 +58,27 @@ export const nav = [
 	{ label: 'site', href: '/site' },
 ] as const;
 
+/** Footer link groups — not duplicated in main nav. */
+export const footer = {
+	site: [
+		{ label: 'about', href: '/about' },
+		{ label: 'stacks', href: '/stacks' },
+		{ label: 'site', href: '/site' },
+		{ label: 'contact', href: '/contact' },
+	] as const,
+	write: [
+		{ label: 'blog', href: '/blog' },
+		{ label: 'notas', href: '/notas' },
+		{ label: 'posts', href: '/posts' },
+		{ label: 'projects', href: '/proyectos' },
+	] as const,
+	more: [
+		{ label: 'subscribe', href: '/subscribe' },
+		{ label: 'archive', href: '/archive' },
+		{ label: 'uses', href: '/uses' },
+	] as const,
+} as const;
+
 export const now = {
 	focused_on:
 		'Experimenting with AI, deepening architecture skills, leading product ideas, and strengthening my English.',

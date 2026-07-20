@@ -1,0 +1,68 @@
+---
+import Icon from './Icon.astro';
+import { site, footer } from '../data/site';
+
+const year = new Date().getFullYear();
+
+const social = site.social.filter((s) => s.href && s.id !== 'cv');
+
+type FooterGroup = { key: string; label: string; links: readonly { label: string; href: string }[] };
+
+const groups: FooterGroup[] = [
+	{ key: 'site', label: 'site', links: footer.site },
+	{ key: 'write', label: 'write', links: footer.write },
+	{ key: 'more', label: 'more', links: footer.more },
+];
+---
+
+<footer class="ftr" role="contentinfo">
+	<div class="ftr__head">
+		<code class="ftr__cmd">
+			<span class="ftr__prompt">$</span> ls <span class="ftr__path">~/footer</span>
+		</code>
+	</div>
+
+	<div class="ftr__grid">
+		{groups.map((group) => (
+			<div class="ftr__col">
+				<span class="ftr__key">{group.label}</span>
+				<ul class="ftr__list">
+					{group.links.map((link) => (
+						<li>
+							<a href={link.href}>{link.label}</a>
+						</li>
+					))}
+				</ul>
+			</div>
+		))}
+
+		<div class="ftr__col ftr__col--connect">
+			<span class="ftr__key">connect</span>
+			<div class="ftr__social">
+				{social.map((s) => (
+					<a
+						class="ftr__icon"
+						href={s.href}
+						aria-label={s.label}
+						data-label={s.label}
+						target={s.href.startsWith('http') ? '_blank' : undefined}
+						rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
+					>
+						<Icon name={s.icon} size={18} />
+					</a>
+				))}
+			</div>
+		</div>
+	</div>
+
+	<div class="ftr__bar">
+		<span class="ftr__copy">
+			© {year} <span class="ftr__name">{site.name}</span>
+		</span>
+		<span class="ftr__meta">
+			<a href="/rss.xml">rss</a>
+			<span class="ftr__dot" aria-hidden="true">·</span>
+			<a href="/privacy">privacy</a>
+		</span>
+	</div>
+</footer>
