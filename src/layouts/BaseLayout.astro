@@ -48,11 +48,18 @@ const spotifyEmbedSrc = spotifyPlaylistEmbedSrc(tastes.spotify.playlistUrl);
       <TerminalShell>
         <header class="term-hd">
           <nav class="nav" aria-label="Routes">
-            {nav.map((item) => (
-              <a href={item.href} aria-current={path === item.href || path.startsWith(item.href) ? 'page' : undefined}>
-                {item.label}
-              </a>
-            ))}
+            {nav.map((item) => {
+              const current =
+                path === item.href || (item.href.length > 1 && path.startsWith(`${item.href}/`));
+              return (
+                <span
+                  class:list={['nav__item', current && 'nav__item--current']}
+                  aria-current={current ? 'page' : undefined}
+                >
+                  {item.label}
+                </span>
+              );
+            })}
           </nav>
         </header>
 

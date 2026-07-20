@@ -15,13 +15,39 @@ const { aboutSite } = site;
 <div class="site-about">
 	<p class="site-about__lead">
 		<span class="site-about__desc">{aboutSite.leadBefore}</span>{' '}
-		<a class="site-about__domain" href="#profile">{site.domain}</a>
+		<a class="site-about__domain" href="/about">{site.domain}</a>
 		<span class="site-about__desc">{aboutSite.leadAfter}</span>
 	</p>
 
 	{aboutSite.body.map((line) => (
 		<p class="site-about__out">{line}</p>
 	))}
+
+	<div class="tag-box tag-box--c site-about__box">
+		<div class="tag-box__key">here</div>
+		<ul class="site-about__map">
+			{aboutSite.findHere.map((entry) => (
+				<li>
+					<a class="site-about__map-link" href={entry.href}>
+						<span class="site-about__map-label">{entry.label}</span>
+					</a>
+					<span class="site-about__map-note">{entry.note}</span>
+				</li>
+			))}
+		</ul>
+	</div>
+
+	<div class="tag-box tag-box--c site-about__box">
+		<div class="tag-box__key">soon</div>
+		<ul class="site-about__map site-about__map--idle">
+			{aboutSite.comingSoon.map((entry) => (
+				<li>
+					<span class="site-about__map-label site-about__map-label--idle">{entry.label}</span>
+					<span class="site-about__map-note">{entry.note}</span>
+				</li>
+			))}
+		</ul>
+	</div>
 
 	<div class="tag-box tag-box--c site-about__build">
 		<div class="tag-box__key">build</div>
@@ -44,4 +70,16 @@ const { aboutSite } = site;
 
 	<p class="site-about__idea">{aboutSite.design}</p>
 	<p class="site-about__lang">{aboutSite.language}</p>
+
+	<div class="tag-box tag-box--c site-about__box">
+		<div class="tag-box__key">legal</div>
+		<ul class="site-about__map site-about__map--inline">
+			{aboutSite.legal.map((entry, i) => (
+				<li>
+					{i > 0 && <span class="site-about__sep" aria-hidden="true">·</span>}
+					<a class="site-about__map-link" href={entry.href}>{entry.label}</a>
+				</li>
+			))}
+		</ul>
+	</div>
 </div>

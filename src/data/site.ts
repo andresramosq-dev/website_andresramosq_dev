@@ -48,11 +48,31 @@ export const site = {
 			'The terminal look comes from how much I like simple design — and because this is my workspace, I wanted it to feel a bit like my day to day: open consoles, test runs, and the next error to fix.',
 		language:
 			'I write everything in English. It is not my strongest language yet, but practicing here is part of the point: clearer thinking, shorter sentences, and the habit of writing in public.',
+		findHere: [
+			{ label: 'about', href: '/about', note: 'profile, bio, and what I am focused on now' },
+			{ label: 'blog', href: '/blog', note: 'long-form writing' },
+			{ label: 'notas', href: '/notas', note: 'short notes and drafts' },
+			{ label: 'stacks', href: '/stacks', note: 'tools and stack' },
+			{ label: 'tastes', href: '/tastes', note: 'books, film, music' },
+			{ label: 'projects', href: '/proyectos', note: 'things I have shipped' },
+		] as const,
+		comingSoon: [
+			{ label: 'posts', note: 'unified feed' },
+			{ label: 'subscribe', note: 'newsletter' },
+			{ label: 'archive', note: 'by date' },
+			{ label: 'tags', note: 'topics' },
+		] as const,
+		legal: [
+			{ label: 'privacy', href: '/privacy' },
+			{ label: 'subscribe', href: '/subscribe' },
+			{ label: 'rss', href: '/rss.xml' },
+		] as const,
 	},
 };
 
 export const nav = [
 	{ label: 'about', href: '/about' },
+	{ label: 'site', href: '/site' },
 	{ label: 'blog', href: '/blog' },
 	{ label: 'notas', href: '/notas' },
 	{ label: 'posts', href: '/posts' },
@@ -65,7 +85,6 @@ export const nav = [
 	{ label: 'rss', href: '/rss' },
 	{ label: 'stacks', href: '/stacks' },
 	{ label: 'tastes', href: '/tastes' },
-	{ label: 'site', href: '/site' },
 ] as const;
 
 export const now = {

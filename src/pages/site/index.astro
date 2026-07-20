@@ -1,10 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ConsoleTitle from '../../components/ConsoleTitle.astro';
 import CmdBlock from '../../components/CmdBlock.astro';
 import SitePanel from '../../components/SitePanel.astro';
 ---
 
 <BaseLayout title="site" path="/site">
+	<ConsoleTitle title="about this site" segment="site" cmd="site -title" />
+
 	<CmdBlock cmd="cat site.txt" id="site">
 		<SitePanel />
 	</CmdBlock>
