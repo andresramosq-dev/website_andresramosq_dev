@@ -46,10 +46,6 @@ declare global {
 
 const EMBED_WIDTH = 860;
 const EMBED_HEIGHT = 380;
-const BOOT_TIMEOUT_MS = 15000;
-
-let layoutObserver: ResizeObserver | null = null;
-let reflowHandler: (() => void) | null = null;
 
 function globalState(): SpotifyGlobal {
 	if (!window.__spotifyGlobal) {
@@ -156,23 +152,12 @@ function ensureHostInVault(host: HTMLElement, vault: HTMLElement) {
 	}
 }
 
-function resetHost(host: HTMLElement, g: SpotifyGlobal) {
-	host.innerHTML = '';
-	host.removeAttribute('data-spotify-ready');
-	g.controller = null;
-	g.embedReady = false;
-	g.booting = false;
-}
-
 function ensureEmbed(host: HTMLElement, playlistUrl: string | undefined, uri: string | undefined) {
 	const g = globalState();
 
-	if (g.controller) return;
-
-	if (g.booting) {
-		if (Date.now() - g.bootStartedAt < BOOT_TIMEOUT_MS) return;
-		resetHost(host, g);
-	}
+	if (g.controller || g.embedReady) return;
+	if (g.booting && host.querySelector('iframe')) return;
+	if (g.booting) return;
 
 	g.booting = true;
 	g.bootStartedAt = Date.now();
@@ -194,8 +179,8 @@ function ensureEmbed(host: HTMLElement, playlistUrl: string | undefined, uri: st
 
 function togglePlayback(g: SpotifyGlobal) {
 	if (!g.controller) return;
+	setUiState('loading', g);
 	if (g.lastPaused) {
-		setUiState('loading', g);
 		g.controller.resume();
 	} else {
 		g.controller.pause();
@@ -244,66 +229,29 @@ function vaultEl() {
 	return document.getElementById('spotify-audio-vault');
 }
 
-function clearPlacementWatch() {
-	layoutObserver?.disconnect();
-	layoutObserver = null;
-	if (reflowHandler) {
-		window.removeEventListener('scroll', reflowHandler);
-		window.removeEventListener('resize', reflowHandler);
-		reflowHandler = null;
-	}
+function anchorEl() {
+	return document.getElementById('spotify-vault-anchor');
 }
 
-/** In viewport but off-screen — Spotify often skips `ready` when parked at left:-10000px */
-function hideVault(vault: HTMLElement) {
+function dockVaultHidden(vault: HTMLElement) {
+	const anchor = anchorEl();
+	if (anchor && vault.parentElement !== anchor) {
+		anchor.appendChild(vault);
+	}
 	vault.classList.add('spotify-audio-vault--hidden');
 	vault.classList.remove('spotify-audio-vault--music');
 	vault.setAttribute('aria-hidden', 'true');
-	Object.assign(vault.style, {
-		position: 'fixed',
-		left: '0',
-		bottom: '0',
-		top: 'auto',
-		width: `${EMBED_WIDTH}px`,
-		height: `${EMBED_HEIGHT}px`,
-		maxWidth: '100vw',
-		transform: 'translateY(calc(100% + 32px))',
-		opacity: '0.01',
-		pointerEvents: 'none',
-		zIndex: '-1',
-		overflow: 'hidden',
-	});
+	vault.removeAttribute('style');
 }
 
-function positionVaultOnMusic(vault: HTMLElement, mount: HTMLElement) {
-	const place = () => {
-		const rect = mount.getBoundingClientRect();
-		const width = Math.max(rect.width, 280);
-		Object.assign(vault.style, {
-			position: 'fixed',
-			left: `${rect.left}px`,
-			top: `${rect.top}px`,
-			bottom: 'auto',
-			width: `${width}px`,
-			height: `${EMBED_HEIGHT}px`,
-			maxWidth: '100vw',
-			transform: 'none',
-			opacity: '1',
-			pointerEvents: 'auto',
-			zIndex: '20',
-		});
-	};
-
-	place();
-	if (!layoutObserver) {
-		layoutObserver = new ResizeObserver(place);
-		layoutObserver.observe(mount);
+function dockVaultOnMusic(vault: HTMLElement, mount: HTMLElement) {
+	if (vault.parentElement !== mount) {
+		mount.appendChild(vault);
 	}
-	if (!reflowHandler) {
-		reflowHandler = place;
-		window.addEventListener('scroll', reflowHandler, { passive: true });
-		window.addEventListener('resize', reflowHandler);
-	}
+	vault.classList.remove('spotify-audio-vault--hidden');
+	vault.classList.add('spotify-audio-vault--music');
+	vault.setAttribute('aria-hidden', 'false');
+	vault.removeAttribute('style');
 }
 
 function syncVaultPlacement() {
@@ -314,15 +262,19 @@ function syncVaultPlacement() {
 	if (!vault || !host) return;
 
 	ensureHostInVault(host, vault);
-	clearPlacementWatch();
+
+	const apply = () => {
+		if (mount) {
+			dockVaultOnMusic(vault, mount);
+		} else {
+			dockVaultHidden(vault);
+		}
+	};
 
 	if (mount) {
-		vault.classList.remove('spotify-audio-vault--hidden');
-		vault.classList.add('spotify-audio-vault--music');
-		vault.setAttribute('aria-hidden', 'false');
-		positionVaultOnMusic(vault, mount);
+		requestAnimationFrame(() => requestAnimationFrame(apply));
 	} else {
-		hideVault(vault);
+		apply();
 	}
 }
 
@@ -334,7 +286,6 @@ function init() {
 
 	if (!host || !vault || (!uri && !playlistUrl)) return;
 
-	ensureHostInVault(host, vault);
 	syncVaultPlacement();
 	ensureEmbed(host, playlistUrl, uri);
 	bindUi();
@@ -344,5 +295,3 @@ window.__spotifyRunInit = init;
 
 init();
 document.addEventListener('astro:page-load', init);
-document.addEventListener('astro:after-swap', init);
-document.addEventListener('astro:before-swap', clearPlacementWatch);
