@@ -193,17 +193,54 @@ a.twin__name:hover {
 	text-decoration: none;
 	white-space: nowrap;
 }
-.hdr-music__icon {
-	flex-shrink: 0;
-	color: #7a9a7a;
-}
-.hdr-music__link:hover .hdr-music__icon {
-	color: #7a9a7a;
-}
 .hdr-music__link:hover {
 	color: var(--link-hover);
 	text-decoration: underline;
 	text-underline-offset: 3px;
+}
+.hdr-eq {
+	display: inline-flex;
+	align-items: flex-end;
+	gap: 2px;
+	width: 0.86rem;
+	flex: 0 0 0.86rem;
+	height: 0.9rem;
+	padding-bottom: 0.05rem;
+}
+.hdr-eq span {
+	display: block;
+	width: 2px;
+	border-radius: 1px;
+	background: #7a9a7a;
+	height: 0.26rem;
+	opacity: 0.85;
+}
+.hdr-eq--live span {
+	animation: hdr-eq-bar 0.75s ease-in-out infinite;
+}
+.hdr-eq--live span:nth-child(1) {
+	animation-delay: 0s;
+}
+.hdr-eq--live span:nth-child(2) {
+	animation-delay: 0.11s;
+}
+.hdr-eq--live span:nth-child(3) {
+	animation-delay: 0.22s;
+}
+.hdr-eq--live span:nth-child(4) {
+	animation-delay: 0.14s;
+}
+.hdr-eq--live span:nth-child(5) {
+	animation-delay: 0.07s;
+}
+@keyframes hdr-eq-bar {
+	0%,
+	100% {
+		height: 0.2rem;
+	}
+	50% {
+		height: 0.85rem;
+	}
 }
 
 .music-page {
@@ -314,6 +351,7 @@ a.twin__name:hover {
 .spotify-float__hint a {
 	color: var(--link);
 	text-decoration: none;
+	white-space: nowrap;
 }
 .spotify-float__hint a:hover {
 	text-decoration: underline;

@@ -1,13 +1,14 @@
 ---
 import { tastes } from '../data/site';
-import Icon from './Icon.astro';
 
 const linkLabel = tastes.spotify.playerLinkLabel;
 ---
 
 <div class="hdr-music" aria-label="Music">
 	<a class="hdr-music__link" href="#" data-spotify-open>
-		<Icon name="music" size={14} class="hdr-music__icon" />
+		<span class="hdr-eq hdr-eq--live" aria-hidden="true">
+			<span /><span /><span /><span /><span />
+		</span>
 		<span>{linkLabel}</span>
 	</a>
 </div>
