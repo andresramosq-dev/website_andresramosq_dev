@@ -4,7 +4,6 @@ import ConsoleTitle from '../../components/ConsoleTitle.astro';
 import CmdBlock from '../../components/CmdBlock.astro';
 import WhoamiPanel from '../../components/WhoamiPanel.astro';
 import BioPanel from '../../components/BioPanel.astro';
-import AboutDir from '../../components/AboutDir.astro';
 import ConsolePrompt from '../../components/ConsolePrompt.astro';
 import { now } from '../../data/site';
 ---
@@ -35,10 +34,6 @@ import { now } from '../../data/site';
 				<dd>{now.philosophy}</dd>
 			</div>
 		</dl>
-	</CmdBlock>
-
-	<CmdBlock cmd="ls ~/" plain id="more">
-		<AboutDir />
 	</CmdBlock>
 
 	<ConsolePrompt />
