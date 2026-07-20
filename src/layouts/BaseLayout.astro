@@ -43,17 +43,18 @@ const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
         </script>
         <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
       </>
-    ) : (
-      <>
-        <link rel="preconnect" href="https://open.spotify.com" />
-        <link rel="dns-prefetch" href="https://open.spotify.com" />
-      </>
-    )}
+    ) : null}
   </head>
   <body>
     {spotifyUri ? (
       <>
-        <div class="spotify-global-root" transition:persist="spotify-global-root" aria-hidden="true">
+        <div id="spotify-global-anchor" class="spotify-global-anchor" aria-hidden="true"></div>
+        <div
+          id="spotify-global-root"
+          class="spotify-global-root spotify-global-root--dock"
+          transition:persist="spotify-global-root"
+          aria-hidden="true"
+        >
           <div
             id="spotify-global-host"
             data-spotify-url={tastes.spotify.playlistUrl}

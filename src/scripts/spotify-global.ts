@@ -7,7 +7,6 @@ type PlaybackData = {
 type SpotifyEmbedController = {
 	resume: () => void;
 	pause: () => void;
-	togglePlay: () => void;
 	addListener: (event: string, cb: (payload: { data?: PlaybackData }) => void) => void;
 };
 
@@ -24,7 +23,7 @@ type PlayerState = 'paused' | 'playing' | 'loading';
 type SpotifyGlobal = {
 	controller: SpotifyEmbedController | null;
 	embedReady: boolean;
-	started: boolean;
+	booting: boolean;
 	pendingPlay: boolean;
 	lastPaused: boolean;
 	uiAbort: AbortController | null;
@@ -40,15 +39,15 @@ declare global {
 	}
 }
 
-const W = 300;
-const H = 80;
+const EMBED_WIDTH = 860;
+const EMBED_HEIGHT = 380;
 
-function g(): SpotifyGlobal {
+function state(): SpotifyGlobal {
 	if (!window.__spotifyGlobal) {
 		window.__spotifyGlobal = {
 			controller: null,
 			embedReady: false,
-			started: false,
+			booting: false,
 			pendingPlay: false,
 			lastPaused: true,
 			uiAbort: null,
@@ -64,7 +63,7 @@ function whenApi(): Promise<SpotifyIFrameAPI> {
 	});
 }
 
-function paused(data?: PlaybackData): boolean | null {
+function isPaused(data?: PlaybackData): boolean | null {
 	if (!data) return null;
 	if (typeof data.isPaused === 'boolean') return data.isPaused;
 	if (typeof data.is_paused === 'boolean') return data.is_paused;
@@ -78,40 +77,41 @@ function ui() {
 	};
 }
 
-function setEq(on: boolean) {
+function setEq(playing: boolean) {
 	const { eq } = ui();
-	if (eq) eq.classList.toggle('hdr-eq--active', on);
+	if (eq) eq.classList.toggle('hdr-eq--active', playing);
 }
 
-function setState(state: PlayerState) {
+function setUi(playerState: PlayerState) {
 	const { btn } = ui();
 	if (!btn) return;
-	btn.dataset.state = state;
+	btn.dataset.state = playerState;
 	const label =
-		state === 'playing' ? 'Pause' : state === 'loading' ? 'Connecting' : 'Play';
+		playerState === 'playing' ? 'Pause' : playerState === 'loading' ? 'Connecting' : 'Play';
 	btn.setAttribute('aria-label', label);
-	btn.setAttribute('aria-busy', state === 'loading' ? 'true' : 'false');
-	setEq(state === 'playing');
+	btn.setAttribute('aria-busy', playerState === 'loading' ? 'true' : 'false');
+	setEq(playerState === 'playing');
 }
 
-function applyPaused(isPaused: boolean) {
-	const state = g();
-	state.lastPaused = isPaused;
-	state.pendingPlay = false;
-	setState(isPaused ? 'paused' : 'playing');
+function applyPaused(paused: boolean) {
+	const s = state();
+	s.lastPaused = paused;
+	s.pendingPlay = false;
+	setUi(paused ? 'paused' : 'playing');
 }
 
 function wire(ctrl: SpotifyEmbedController) {
-	const state = g();
-	state.controller = ctrl;
+	const s = state();
+	s.controller = ctrl;
 
 	ctrl.addListener('ready', () => {
-		state.embedReady = true;
-		if (state.pendingPlay) {
-			setState('loading');
+		s.embedReady = true;
+		s.booting = false;
+		if (s.pendingPlay) {
+			setUi('loading');
 			ctrl.resume();
 		} else {
-			applyPaused(state.lastPaused);
+			applyPaused(s.lastPaused);
 		}
 	});
 
@@ -119,71 +119,95 @@ function wire(ctrl: SpotifyEmbedController) {
 
 	ctrl.addListener('playback_update', (e) => {
 		if (e.data?.isBuffering) {
-			setState('loading');
+			setUi('loading');
 			return;
 		}
-		const p = paused(e.data);
+		const p = isPaused(e.data);
 		if (p !== null) applyPaused(p);
 	});
 }
 
-function bootEmbed(host: HTMLElement) {
-	const state = g();
-	if (state.started) return;
-	state.started = true;
+function ensurePlayer(host: HTMLElement) {
+	const s = state();
+	if (s.controller || s.booting) return;
 
+	s.booting = true;
 	const url = host.dataset.spotifyUrl;
 	const uri = host.dataset.spotifyUri;
 	const options: { width: number; height: number; uri?: string; url?: string } = {
-		width: W,
-		height: H,
+		width: EMBED_WIDTH,
+		height: EMBED_HEIGHT,
 	};
 	if (url) options.url = url;
 	else if (uri) options.uri = uri;
 
 	void whenApi().then((api) => {
+		if (s.controller) return;
 		api.createController(host, options, wire);
 	});
 }
 
+function placeGlobalRoot() {
+	const root = document.getElementById('spotify-global-root');
+	const anchor = document.getElementById('spotify-global-anchor');
+	const slot = document.querySelector('[data-spotify-global-slot]');
+	if (!root) return;
+
+	if (slot) {
+		slot.appendChild(root);
+		root.classList.add('spotify-global-root--page');
+		root.classList.remove('spotify-global-root--dock');
+		root.setAttribute('aria-hidden', 'false');
+		return;
+	}
+
+	if (anchor) {
+		anchor.appendChild(root);
+		root.classList.add('spotify-global-root--dock');
+		root.classList.remove('spotify-global-root--page');
+		root.setAttribute('aria-hidden', 'true');
+	}
+}
+
 function bindUi() {
-	const state = g();
+	const s = state();
 	const { btn } = ui();
 	if (!btn) return;
 
-	state.uiAbort?.abort();
-	state.uiAbort = new AbortController();
+	s.uiAbort?.abort();
+	s.uiAbort = new AbortController();
 
 	btn.addEventListener(
 		'click',
-		(e) => {
-			e.preventDefault();
+		() => {
 			const host = document.getElementById('spotify-global-host');
-			if (host) bootEmbed(host);
+			if (host) ensurePlayer(host);
 
-			if (!state.controller || !state.embedReady) {
-				state.pendingPlay = true;
-				setState('loading');
+			if (!s.controller || !s.embedReady) {
+				s.pendingPlay = true;
+				setUi('loading');
 				return;
 			}
 
-			if (state.lastPaused) {
-				setState('loading');
-				state.controller.resume();
+			if (s.lastPaused) {
+				setUi('loading');
+				s.controller.resume();
 			} else {
-				state.controller.pause();
+				s.controller.pause();
 			}
 		},
-		{ signal: state.uiAbort.signal },
+		{ signal: s.uiAbort.signal },
 	);
 
-	setState(state.embedReady ? (state.lastPaused ? 'paused' : 'playing') : 'paused');
+	setUi(s.embedReady ? (s.lastPaused ? 'paused' : 'playing') : 'paused');
 }
 
 function init() {
 	const host = document.getElementById('spotify-global-host');
 	if (!host) return;
-	bootEmbed(host);
+
+	placeGlobalRoot();
+	ensurePlayer(host);
 	bindUi();
 }
 
