@@ -340,9 +340,9 @@ a.twin__name:hover {
 .spotify-float__panel .spotify-float__close {
 	appearance: none;
 	flex-shrink: 0;
-	border: 1px solid var(--prompt);
+	border: 1px solid #7a9a7a;
 	background: var(--panel2);
-	color: var(--prompt);
+	color: #7a9a7a;
 	width: 1.6rem;
 	height: 1.6rem;
 	border-radius: 4px;
@@ -370,9 +370,10 @@ a.twin__name:hover {
 .spotify-float__hint a.spotify-float__link,
 .spotify-float__hint a.spotify-float__link:visited {
 	color: var(--link);
+	text-decoration: none;
 }
 .spotify-float__hint a.spotify-float__link:hover {
-	color: var(--link-hover);
+	color: var(--prompt);
 	text-decoration: underline;
 	text-underline-offset: 3px;
 }
