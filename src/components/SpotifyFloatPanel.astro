@@ -1,5 +1,4 @@
 ---
-import { tastes } from '../data/site';
 import SpotifyEmbed from './SpotifyEmbed.astro';
 ---
 
@@ -12,7 +11,10 @@ import SpotifyEmbed from './SpotifyEmbed.astro';
 >
 	<div class="spotify-float__panel" role="dialog" aria-label="Music player">
 		<div class="spotify-float__bar">
-			<code class="spotify-float__cmd">play &quot;I&apos;m a programmer&quot;</code>
+			<div class="spotify-float__titles">
+				<p class="spotify-float__cover">I&apos;m programming cover</p>
+				<p class="spotify-float__track">I&apos;m programming</p>
+			</div>
 			<button
 				type="button"
 				class="spotify-float__close"
@@ -23,17 +25,20 @@ import SpotifyEmbed from './SpotifyEmbed.astro';
 			</button>
 		</div>
 		<div class="spotify-float__body">
-			<p class="music-page__notice" role="note">
-				You need an active Spotify session in this browser to play music here. Log in at
-				<a href="https://open.spotify.com" target="_blank" rel="noreferrer">open.spotify.com</a>
-				if playback is limited to previews.
+			<p class="spotify-float__notice" role="note">
+				<span class="spotify-float__notice-label">note</span>
+				<span class="spotify-float__notice-text">
+					You need an active Spotify session in this browser to play music here.
+					<span class="spotify-float__notice-line">
+						Log in at
+						<a href="https://open.spotify.com" target="_blank" rel="noreferrer">open.spotify.com</a>
+						if playback is limited to previews.
+					</span>
+				</span>
 			</p>
-			<p class="music-page__line">
-				<span class="music-page__key">playlist</span>
-				<span class="music-page__sep">=</span>
-				<span class="music-page__val">{tastes.spotify.playlistLabel}</span>
-			</p>
-			<SpotifyEmbed />
+			<div class="spotify-float__player cmd-block__out">
+				<SpotifyEmbed />
+			</div>
 		</div>
 	</div>
 </div>
