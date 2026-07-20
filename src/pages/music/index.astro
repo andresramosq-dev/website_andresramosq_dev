@@ -12,12 +12,7 @@ import { tastes } from '../../data/site';
 				<span class="music-page__sep">=</span>
 				<span class="music-page__val">{tastes.spotify.playlistLabel}</span>
 			</p>
-			<p class="music-page__hint">
-				Use the play control in the title bar while you browse.{' '}
-				<a href={tastes.spotify.playlistUrl} target="_blank" rel="noreferrer">
-					Open in Spotify
-				</a>
-			</p>
+			<div class="music-page__player" data-spotify-page-player></div>
 		</div>
 	</CmdBlock>
 </BaseLayout>

@@ -265,38 +265,51 @@ a.twin__name:hover {
 		opacity: 1;
 	}
 }
-/* Spotify iframe: off-screen + opacity 0 (must keep real 300×80 or embed fails) */
+/* Hidden global player (same instance moves to /music when visible) */
 .spotify-audio-vault {
+	position: fixed;
+	left: -10000px;
+	top: 0;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	pointer-events: none;
+}
+.spotify-header-sink--hidden {
 	position: fixed !important;
 	left: -10000px !important;
 	top: 0 !important;
-	width: 300px !important;
-	height: 80px !important;
+	width: 860px !important;
+	height: 380px !important;
 	overflow: hidden !important;
 	opacity: 0 !important;
 	pointer-events: none !important;
 	z-index: -1 !important;
-	border: 0;
-	margin: 0;
-	padding: 0;
 }
-#spotify-header-embed-host.spotify-header-sink {
-	width: 300px !important;
-	height: 80px !important;
-	overflow: hidden !important;
+.spotify-header-sink--hidden iframe {
+	width: 860px !important;
+	height: 380px !important;
 	opacity: 0 !important;
 	pointer-events: none !important;
 	border: 0;
-	margin: 0;
-	padding: 0;
 }
-#spotify-header-embed-host.spotify-header-sink iframe,
-.spotify-audio-vault iframe {
-	width: 300px !important;
-	height: 80px !important;
-	border: 0 !important;
-	opacity: 0 !important;
-	pointer-events: none !important;
+.spotify-header-sink--page {
+	width: 100%;
+	min-height: 380px;
+	line-height: 0;
+	background: #121212;
+	border: 1px solid var(--border2);
+	border-radius: 10px;
+	overflow: hidden;
+}
+.spotify-header-sink--page iframe {
+	display: block;
+	width: 100% !important;
+	height: 380px !important;
+	border: 0;
+}
+.music-page__player {
+	max-width: 100%;
 }
 .hdr-eq {
 	display: inline-flex;

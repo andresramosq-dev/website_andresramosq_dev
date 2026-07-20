@@ -42,6 +42,9 @@ declare global {
 	}
 }
 
+const EMBED_WIDTH = 860;
+const EMBED_HEIGHT = 380;
+
 function globalState(): SpotifyGlobal {
 	if (!window.__spotifyGlobal) {
 		window.__spotifyGlobal = {
@@ -147,8 +150,8 @@ function ensureEmbed(host: HTMLElement, playlistUrl: string | undefined, uri: st
 	g.booting = true;
 
 	const options: { width: number; height: number; uri?: string; url?: string } = {
-		width: 300,
-		height: 80,
+		width: EMBED_WIDTH,
+		height: EMBED_HEIGHT,
 	};
 	if (playlistUrl) options.url = playlistUrl;
 	else if (uri) options.uri = uri;
@@ -195,66 +198,45 @@ function bindUi() {
 	}
 }
 
-/** Keep Spotify in DOM but off-screen — do not scale to ~0 (breaks the embed). */
-function pinVault(vault: HTMLElement | null) {
-	if (!vault) return;
-	Object.assign(vault.style, {
-		position: 'fixed',
-		left: '-10000px',
-		top: '0',
-		width: '300px',
-		height: '80px',
-		overflow: 'hidden',
-		opacity: '0',
-		pointerEvents: 'none',
-		zIndex: '-1',
-		border: '0',
-		margin: '0',
-		padding: '0',
-	});
+function musicMount() {
+	return document.querySelector<HTMLElement>('[data-spotify-page-player]');
 }
 
-function pinHostOffScreen(host: HTMLElement) {
-	Object.assign(host.style, {
-		width: '300px',
-		height: '80px',
-		opacity: '0',
-		overflow: 'hidden',
-		pointerEvents: 'none',
-		border: '0',
-		margin: '0',
-		padding: '0',
-	});
+function vaultEl() {
+	return document.getElementById('spotify-audio-vault');
+}
+
+function pinHostHidden(host: HTMLElement) {
+	host.classList.add('spotify-header-sink--hidden');
+	host.classList.remove('spotify-header-sink--page');
+	host.setAttribute('aria-hidden', 'true');
+	host.style.cssText = '';
+}
+
+function showHostOnMusicPage(host: HTMLElement) {
+	host.classList.remove('spotify-header-sink--hidden');
+	host.classList.add('spotify-header-sink--page');
+	host.setAttribute('aria-hidden', 'false');
+	host.style.cssText = '';
 	for (const frame of host.querySelectorAll('iframe')) {
-		Object.assign(frame.style, {
-			width: '300px',
-			height: '80px',
-			border: '0',
-			opacity: '0',
-			pointerEvents: 'none',
-		});
-		frame.setAttribute('aria-hidden', 'true');
-		frame.setAttribute('tabindex', '-1');
+		frame.removeAttribute('style');
 	}
 }
 
-function watchEmbed(host: HTMLElement) {
-	const vault = host.closest('.spotify-audio-vault');
-	pinVault(vault instanceof HTMLElement ? vault : null);
-	pinHostOffScreen(host);
+function placeHost(host: HTMLElement) {
+	const mount = musicMount();
+	const vault = vaultEl();
 
-	if (host.dataset.spotifyWatch === '1') return;
-	host.dataset.spotifyWatch = '1';
+	if (mount) {
+		mount.appendChild(host);
+		showHostOnMusicPage(host);
+		return;
+	}
 
-	const observer = new MutationObserver((mutations) => {
-		const addedFrame = mutations.some((m) =>
-			[...m.addedNodes].some((n) => n instanceof HTMLIFrameElement),
-		);
-		if (!addedFrame) return;
-		pinVault(vault instanceof HTMLElement ? vault : null);
-		pinHostOffScreen(host);
-	});
-	observer.observe(host, { childList: true, subtree: true });
+	if (vault) {
+		vault.appendChild(host);
+		pinHostHidden(host);
+	}
 }
 
 function init() {
@@ -264,17 +246,11 @@ function init() {
 
 	if (!host || (!uri && !playlistUrl)) return;
 
-	watchEmbed(host);
+	placeHost(host);
 	bindUi();
 	ensureEmbed(host, playlistUrl, uri);
 }
 
 init();
 document.addEventListener('astro:page-load', init);
-document.addEventListener('astro:after-swap', () => {
-	const host = document.getElementById('spotify-header-embed-host');
-	if (!host) return;
-	pinVault(host.closest('.spotify-audio-vault'));
-	pinHostOffScreen(host);
-	bindUi();
-});
+document.addEventListener('astro:after-swap', init);

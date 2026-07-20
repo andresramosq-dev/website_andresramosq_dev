@@ -47,14 +47,15 @@ const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
   </head>
   <body>
     {spotifyUri ? (
-      <div class="spotify-audio-vault" transition:persist="spotify-global-player" aria-hidden="true">
-        <div
-          id="spotify-header-embed-host"
-          class="spotify-header-sink"
-          data-spotify-uri={spotifyUri}
-          data-spotify-url={tastes.spotify.playlistUrl}
-        ></div>
-      </div>
+      <div id="spotify-audio-vault" class="spotify-audio-vault" aria-hidden="true"></div>
+      <div
+        id="spotify-header-embed-host"
+        class="spotify-header-sink spotify-header-sink--hidden"
+        data-spotify-uri={spotifyUri}
+        data-spotify-url={tastes.spotify.playlistUrl}
+        transition:persist="spotify-global-player"
+        aria-hidden="true"
+      ></div>
     ) : null}
 
     <a class="skip" href="#main">Skip to content</a>
