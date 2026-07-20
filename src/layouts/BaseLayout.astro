@@ -2,7 +2,8 @@
 import '../styles/dev.css';
 import { ClientRouter } from 'astro:transitions';
 import TerminalShell from '../components/TerminalShell.astro';
-import { site, nav } from '../data/site';
+import { site, nav, tastes } from '../data/site';
+import { spotifyPlaylistUri } from '../lib/spotify';
 
 interface Props {
 	title?: string;
@@ -12,6 +13,7 @@ interface Props {
 
 const { title, description, path = '/about' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
+const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
 ---
 
 <!doctype html>
@@ -24,10 +26,44 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{pageTitle}</title>
     <ClientRouter />
-    <link rel="preconnect" href="https://open.spotify.com" />
-    <link rel="dns-prefetch" href="https://open.spotify.com" />
+    {spotifyUri ? (
+      <>
+        <link rel="preconnect" href="https://open.spotify.com" />
+        <link rel="dns-prefetch" href="https://open.spotify.com" />
+        <script is:inline>
+          window.__spotifyHdrBoot = window.__spotifyHdrBoot || [];
+          if (!window.onSpotifyIframeApiReady) {
+            window.onSpotifyIframeApiReady = function (api) {
+              window.__spotifyIframeApi = api;
+              (window.__spotifyHdrBoot || []).forEach(function (fn) { fn(api); });
+              window.__spotifyHdrBoot = [];
+              window.__spotifyGlobalInit && window.__spotifyGlobalInit();
+            };
+          }
+        </script>
+        <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
+      </>
+    ) : (
+      <>
+        <link rel="preconnect" href="https://open.spotify.com" />
+        <link rel="dns-prefetch" href="https://open.spotify.com" />
+      </>
+    )}
   </head>
   <body>
+    {spotifyUri ? (
+      <>
+        <div class="spotify-global-root" transition:persist="spotify-global-root" aria-hidden="true">
+          <div
+            id="spotify-global-host"
+            data-spotify-url={tastes.spotify.playlistUrl}
+            data-spotify-uri={spotifyUri}
+          ></div>
+        </div>
+        <script src="../scripts/spotify-global.ts"></script>
+      </>
+    ) : null}
+
     <a class="skip" href="#main">Skip to content</a>
 
     <div class="desk">
