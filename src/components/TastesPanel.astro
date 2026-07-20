@@ -1,6 +1,3 @@
----
-import { tastes } from '../data/site';
----
 
 <div class="console-doc tastes">
 	<section class="tastes__section">
@@ -48,11 +45,9 @@ import { tastes } from '../data/site';
 
 	<section class="tastes__section" id="music">
 		<p class="stack-group__label">music</p>
-		<p class="console-doc__line">
-			playlist <span class="tastes__muted">→</span>{' '}
-			<a class="tastes__link" href={tastes.spotify.playlistUrl} target="_blank" rel="noreferrer">
-				{tastes.spotify.playlistLabel}
-			</a>
+		<p class="tastes__figure">
+			<span class="tastes__name">play</span><span class="tastes__colon">:</span>
+			<a class="tastes__link" href="#" data-spotify-open>Open the music player</a>
 		</p>
 	</section>
 </div>
