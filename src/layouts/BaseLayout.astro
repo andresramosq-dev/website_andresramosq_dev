@@ -2,7 +2,9 @@
 import '../styles/dev.css';
 import { ClientRouter } from 'astro:transitions';
 import TerminalShell from '../components/TerminalShell.astro';
-import { site, nav } from '../data/site';
+import SpotifyFloatPanel from '../components/SpotifyFloatPanel.astro';
+import { site, nav, tastes } from '../data/site';
+import { spotifyPlaylistEmbedSrc } from '../lib/spotify';
 
 interface Props {
 	title?: string;
@@ -12,6 +14,7 @@ interface Props {
 
 const { title, description, path = '/about' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
+const spotifyEmbedSrc = spotifyPlaylistEmbedSrc(tastes.spotify.playlistUrl);
 ---
 
 <!doctype html>
@@ -23,8 +26,21 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
     <meta name="author" content={site.name} />
     <title>{pageTitle}</title>
     <ClientRouter />
+    {spotifyEmbedSrc ? (
+      <>
+        <link rel="preconnect" href="https://open.spotify.com" />
+        <link rel="dns-prefetch" href="https://open.spotify.com" />
+      </>
+    ) : null}
   </head>
   <body>
+    {spotifyEmbedSrc ? (
+      <>
+        <SpotifyFloatPanel />
+        <script src="../scripts/spotify-panel.ts"></script>
+      </>
+    ) : null}
+
     <a class="skip" href="#main">Skip to content</a>
 
     <div class="desk">

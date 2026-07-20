@@ -1,12 +1,11 @@
 ---
 import { tastes } from '../data/site';
 
-const playerHref = tastes.spotify.playerHref;
 const linkLabel = tastes.spotify.playerLinkLabel;
 ---
 
 <div class="hdr-music" aria-label="Music">
-	<a class="hdr-music__link" href={playerHref}>
+	<a class="hdr-music__link" href="#" data-spotify-open>
 		{linkLabel}
 	</a>
 </div>
