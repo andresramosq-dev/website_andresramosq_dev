@@ -50,7 +50,7 @@ function globalState(): SpotifyGlobal {
 			booting: false,
 			pendingPlay: false,
 			lastPaused: true,
-			lastState: 'loading',
+			lastState: 'paused',
 			uiAbort: null,
 		};
 	}
@@ -121,6 +121,7 @@ function wireController(ctrl: SpotifyEmbedController, host: HTMLElement, g: Spot
 
 	ctrl.addListener('ready', () => {
 		g.embedReady = true;
+		g.booting = false;
 		host.dataset.spotifyReady = 'true';
 		if (g.pendingPlay) {
 			setUiState('loading', g);
@@ -144,7 +145,6 @@ function ensureEmbed(host: HTMLElement, playlistUrl: string | undefined, uri: st
 	if (g.controller || g.booting) return;
 
 	g.booting = true;
-	setUiState('loading', g);
 
 	const options: { width: number; height: number; uri?: string; url?: string } = {
 		width: 300,
@@ -190,50 +190,32 @@ function bindUi() {
 
 	if (g.embedReady) {
 		setUiState(g.lastPaused ? 'paused' : 'playing', g);
-	} else if (!g.booting) {
-		setUiState('loading', g);
 	} else {
-		setUiState(g.lastState, g);
+		setUiState('paused', g);
 	}
 }
 
-function pinIframe(frame: HTMLIFrameElement) {
-	Object.assign(frame.style, {
-		position: 'absolute',
-		left: '0',
-		top: '0',
-		width: '300px',
-		height: '80px',
-		opacity: '0',
-		border: '0',
-		pointerEvents: 'none',
-		transform: 'scale(0.001)',
-		transformOrigin: '0 0',
-	});
-	frame.setAttribute('aria-hidden', 'true');
-	frame.setAttribute('tabindex', '-1');
-}
-
+/** Keep Spotify in DOM but off-screen — do not scale to ~0 (breaks the embed). */
 function pinVault(vault: HTMLElement | null) {
 	if (!vault) return;
 	Object.assign(vault.style, {
 		position: 'fixed',
 		left: '-10000px',
 		top: '0',
-		width: '0',
-		height: '0',
+		width: '300px',
+		height: '80px',
 		overflow: 'hidden',
 		opacity: '0',
 		pointerEvents: 'none',
-		zIndex: '-2147483647',
+		zIndex: '-1',
+		border: '0',
+		margin: '0',
+		padding: '0',
 	});
 }
 
 function pinHostOffScreen(host: HTMLElement) {
 	Object.assign(host.style, {
-		position: 'absolute',
-		left: '0',
-		top: '0',
 		width: '300px',
 		height: '80px',
 		opacity: '0',
@@ -242,10 +224,18 @@ function pinHostOffScreen(host: HTMLElement) {
 		border: '0',
 		margin: '0',
 		padding: '0',
-		transform: 'scale(0.001)',
-		transformOrigin: '0 0',
 	});
-	host.querySelectorAll('iframe').forEach((frame) => pinIframe(frame));
+	for (const frame of host.querySelectorAll('iframe')) {
+		Object.assign(frame.style, {
+			width: '300px',
+			height: '80px',
+			border: '0',
+			opacity: '0',
+			pointerEvents: 'none',
+		});
+		frame.setAttribute('aria-hidden', 'true');
+		frame.setAttribute('tabindex', '-1');
+	}
 }
 
 function watchEmbed(host: HTMLElement) {
@@ -256,16 +246,15 @@ function watchEmbed(host: HTMLElement) {
 	if (host.dataset.spotifyWatch === '1') return;
 	host.dataset.spotifyWatch = '1';
 
-	const observer = new MutationObserver(() => {
+	const observer = new MutationObserver((mutations) => {
+		const addedFrame = mutations.some((m) =>
+			[...m.addedNodes].some((n) => n instanceof HTMLIFrameElement),
+		);
+		if (!addedFrame) return;
 		pinVault(vault instanceof HTMLElement ? vault : null);
 		pinHostOffScreen(host);
 	});
-	observer.observe(host, {
-		childList: true,
-		subtree: true,
-		attributes: true,
-		attributeFilter: ['style', 'class'],
-	});
+	observer.observe(host, { childList: true, subtree: true });
 }
 
 function init() {
@@ -276,7 +265,6 @@ function init() {
 	if (!host || (!uri && !playlistUrl)) return;
 
 	watchEmbed(host);
-
 	bindUi();
 	ensureEmbed(host, playlistUrl, uri);
 }
@@ -286,6 +274,7 @@ document.addEventListener('astro:page-load', init);
 document.addEventListener('astro:after-swap', () => {
 	const host = document.getElementById('spotify-header-embed-host');
 	if (!host) return;
-	watchEmbed(host);
 	pinVault(host.closest('.spotify-audio-vault'));
+	pinHostOffScreen(host);
+	bindUi();
 });
