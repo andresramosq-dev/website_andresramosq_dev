@@ -3,7 +3,7 @@ import { workPhilosophy } from '../data/site';
 ---
 
 <ul class="console-doc console-doc--dash">
-	{workPhilosophy.paragraphs.map((paragraph, index) => (
-		<li class:list={['console-doc__line', index === 0 && 'console-doc__line--open']}>{paragraph}</li>
+	{workPhilosophy.paragraphs.map((paragraph) => (
+		<li class="console-doc__line">{paragraph}</li>
 	))}
 </ul>
