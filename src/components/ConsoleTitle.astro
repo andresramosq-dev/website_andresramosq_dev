@@ -10,7 +10,10 @@ const { title = site.name } = Astro.props;
 
 <header class="console-title">
 	<p class="console-title__prompt">
-		<span class="console-title__user">{site.consoleUser}</span><span class="console-title__at">@</span><span class="console-title__host">{site.domain}</span><span class="console-title__colon">:</span><span class="console-title__path">~/about</span><span class="console-title__sig"> @</span><span class="console-title__cmd"> about -tittle</span>
+		<span class="console-title__user">{site.consoleUser}</span><span class="console-title__at">@</span><span class="console-title__host">{site.domain}</span><span class="console-title__colon">:</span><span class="console-title__path">~/about</span><span class="console-title__sig"> @</span>		<span class="console-title__cmd"> about -title</span>
 	</p>
-	<h1 class="console-title__headline">{title}</h1>
+	<h1 class="console-title__headline">
+		<span class="console-title__headline-at" aria-hidden="true">@</span>
+		{title}
+	</h1>
 </header>

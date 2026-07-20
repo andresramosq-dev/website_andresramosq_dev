@@ -447,11 +447,19 @@ a.twin__name:hover {
 }
 .console-title__headline {
 	margin: 0;
-	font-size: clamp(1.65rem, 4.5vw, 2.15rem);
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.35rem;
+	font-size: clamp(1.35rem, 3.6vw, 1.72rem);
 	font-weight: 600;
-	line-height: 1.2;
+	line-height: 1.25;
 	letter-spacing: -0.02em;
 	color: var(--ink);
+}
+.console-title__headline-at {
+	color: #7a9a7a;
+	font-weight: 500;
 }
 .console-title__sig {
 	color: var(--muted);
