@@ -198,6 +198,9 @@ a.twin__name:hover {
 	text-decoration: underline;
 	text-underline-offset: 3px;
 }
+.hdr-music__at {
+	color: #7a9a7a;
+}
 .hdr-eq {
 	display: inline-flex;
 	align-items: flex-end;
@@ -206,14 +209,14 @@ a.twin__name:hover {
 	flex: 0 0 0.86rem;
 	height: 0.9rem;
 	padding-bottom: 0.05rem;
+	margin-left: 0.15rem;
 }
 .hdr-eq span {
 	display: block;
 	width: 2px;
 	border-radius: 1px;
-	background: #7a9a7a;
+	background: var(--prompt);
 	height: 0.26rem;
-	opacity: 0.85;
 }
 .hdr-eq--live span {
 	animation: hdr-eq-bar 0.75s ease-in-out infinite;
