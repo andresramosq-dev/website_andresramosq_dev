@@ -6,7 +6,6 @@ import WhoamiPanel from '../../components/WhoamiPanel.astro';
 import BioPanel from '../../components/BioPanel.astro';
 import SitePanel from '../../components/SitePanel.astro';
 import StackPanel from '../../components/StackPanel.astro';
-import PhilosophyPanel from '../../components/PhilosophyPanel.astro';
 import TastesPanel from '../../components/TastesPanel.astro';
 import ConsolePrompt from '../../components/ConsolePrompt.astro';
 import { site, now } from '../../data/site';
@@ -42,10 +41,6 @@ import { site, now } from '../../data/site';
 
   <CmdBlock cmd="cat site.txt" id="site">
     <SitePanel />
-  </CmdBlock>
-
-  <CmdBlock cmd="cat philosophy.txt" id="philosophy">
-    <PhilosophyPanel />
   </CmdBlock>
 
   <CmdBlock cmd="stacks" id="stack">
