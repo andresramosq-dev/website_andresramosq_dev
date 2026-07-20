@@ -4,6 +4,7 @@ import ConsoleTitle from '../../components/ConsoleTitle.astro';
 import SiteLs from '../../components/SiteLs.astro';
 import CmdBlock from '../../components/CmdBlock.astro';
 import SitePanel from '../../components/SitePanel.astro';
+import ConsolePrompt from '../../components/ConsolePrompt.astro';
 ---
 
 <BaseLayout title="AndresRamos.Dev" path="/site">
@@ -17,4 +18,6 @@ import SitePanel from '../../components/SitePanel.astro';
 	<CmdBlock cmd="cat meta.txt" cwd="~/site" id="site-meta">
 		<SitePanel part="meta" />
 	</CmdBlock>
+
+	<ConsolePrompt cwd="~/site" />
 </BaseLayout>

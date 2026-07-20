@@ -1,10 +1,16 @@
 ---
 import { site } from '../data/site';
+
+interface Props {
+	cwd?: string;
+}
+
+const { cwd = '~/about' } = Astro.props;
 ---
 
 <form class="console-prompt cmd-block__line cmd-block__line--idle" data-console-prompt>
 	<span class="cmd-block__path">
-		<span class="cmd-block__user">{site.consoleUser}</span>@<span class="cmd-block__host">{site.domain}</span><span class="cmd-block__colon">:</span><span class="cmd-block__cwd">~/about</span>
+		<span class="cmd-block__user">{site.consoleUser}</span>@<span class="cmd-block__host">{site.domain}</span><span class="cmd-block__colon">:</span><span class="cmd-block__cwd">{cwd}</span>
 	</span>
 	<span class="cmd-block__sig"> @</span>
 	<input
