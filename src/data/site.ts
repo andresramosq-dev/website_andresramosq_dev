@@ -148,7 +148,7 @@ export const tastes = {
 		profileUrl: 'https://open.spotify.com/user/12163431588',
 		playlistUrl: 'https://open.spotify.com/playlist/6LLHq6QhG5QlEDSW3yUtOl',
 		playlistLabel: 'favorites',
-		playerHref: '#',
+		playerHref: '/music',
 		playerLinkLabel: "Andres' music",
 		tracks: [] as readonly string[],
 	},

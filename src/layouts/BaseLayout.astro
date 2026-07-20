@@ -2,8 +2,7 @@
 import '../styles/dev.css';
 import { ClientRouter } from 'astro:transitions';
 import TerminalShell from '../components/TerminalShell.astro';
-import { site, nav, tastes } from '../data/site';
-import { spotifyPlaylistEmbedSrc, spotifyPlaylistUri } from '../lib/spotify';
+import { site, nav } from '../data/site';
 
 interface Props {
 	title?: string;
@@ -13,8 +12,6 @@ interface Props {
 
 const { title, description, path = '/about' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
-const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
-const spotifyEmbedSrc = spotifyPlaylistEmbedSrc(tastes.spotify.playlistUrl);
 ---
 
 <!doctype html>
@@ -26,68 +23,8 @@ const spotifyEmbedSrc = spotifyPlaylistEmbedSrc(tastes.spotify.playlistUrl);
     <meta name="author" content={site.name} />
     <title>{pageTitle}</title>
     <ClientRouter />
-    {spotifyUri ? (
-      <>
-        <link rel="preconnect" href="https://open.spotify.com" />
-        <link rel="dns-prefetch" href="https://open.spotify.com" />
-        <script is:inline>
-          window.__spotifyHdrBoot = window.__spotifyHdrBoot || [];
-          if (!window.onSpotifyIframeApiReady) {
-            window.onSpotifyIframeApiReady = function (api) {
-              window.__spotifyIframeApi = api;
-              (window.__spotifyHdrBoot || []).forEach(function (fn) { fn(api); });
-              window.__spotifyHdrBoot = [];
-              window.__spotifyGlobalInit && window.__spotifyGlobalInit();
-            };
-          }
-        </script>
-        <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
-      </>
-    ) : null}
   </head>
   <body>
-    {spotifyUri && spotifyEmbedSrc ? (
-      <>
-        <div
-          id="spotify-api-host"
-          class="spotify-api-host"
-          transition:persist="spotify-api-host"
-          data-spotify-url={tastes.spotify.playlistUrl}
-          data-spotify-uri={spotifyUri}
-          aria-hidden="true"
-        ></div>
-        <div
-          id="spotify-global-root"
-          class="spotify-float"
-          transition:persist="spotify-global-root"
-          data-open="false"
-          aria-hidden="true"
-        >
-          <div class="spotify-float__panel" role="dialog" aria-label="Spotify player">
-            <div class="spotify-float__bar">
-              <span class="spotify-float__title">{tastes.spotify.playlistLabel}</span>
-              <button type="button" class="spotify-float__close" data-spotify-float-close aria-label="Ocultar reproductor">
-                ×
-              </button>
-            </div>
-            <div class="spotify-embed spotify-float__embed">
-              <iframe
-                class="spotify-embed__frame"
-                title={`Spotify: ${tastes.spotify.playlistLabel}`}
-                src={spotifyEmbedSrc}
-                width="100%"
-                height="380"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-                referrerpolicy="strict-origin-when-cross-origin"
-              />
-            </div>
-          </div>
-        </div>
-        <script src="../scripts/spotify-global.ts"></script>
-      </>
-    ) : null}
-
     <a class="skip" href="#main">Skip to content</a>
 
     <div class="desk">

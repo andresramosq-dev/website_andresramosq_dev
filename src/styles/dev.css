@@ -195,200 +195,34 @@ a.twin__name:hover {
 	text-decoration: underline;
 	text-underline-offset: 3px;
 }
-.hdr-music__btn {
-	position: relative;
-	flex: 0 0 1.4rem;
-	width: 1.4rem;
-	height: 1.4rem;
-	padding: 0;
-	border: 1px solid var(--prompt);
-	border-radius: 50%;
-	background: var(--panel2);
-	cursor: pointer;
-	transition: background 0.12s ease;
-	text-decoration: none;
-	box-sizing: border-box;
+
+.music-page {
+	display: grid;
+	gap: 0.85rem;
+	max-width: 100%;
 }
-.hdr-music__btn:hover {
-	background: #142016;
-}
-.hdr-music__btn:focus-visible {
-	outline: 2px solid var(--link-hover);
-	outline-offset: 2px;
-}
-.hdr-music__btn[data-state='loading'] .hdr-music__icon--play {
-	opacity: 0.55;
-	animation: hdr-music-pulse 0.9s ease-in-out infinite;
-}
-.hdr-music__icon {
-	position: absolute;
-	inset: 0;
-	margin: auto;
-	pointer-events: none;
-}
-.hdr-music__icon--play {
-	width: 0;
-	height: 0;
-	border-style: solid;
-	border-color: transparent transparent transparent var(--prompt);
-	border-width: 0.26rem 0 0.26rem 0.44rem;
-	margin-left: 0.58rem;
-}
-.hdr-music__icon--pause {
-	width: 0.44rem;
-	height: 0.5rem;
-	background:
-		linear-gradient(
-			to right,
-			var(--prompt) 0,
-			var(--prompt) 38%,
-			transparent 38%,
-			transparent 62%,
-			var(--prompt) 62%,
-			var(--prompt) 100%
-		);
-	display: none;
-}
-.hdr-music__btn[data-state='playing'] .hdr-music__icon--play {
-	display: none;
-}
-.hdr-music__btn[data-state='playing'] .hdr-music__icon--pause {
-	display: block;
-}
-.hdr-music__btn[data-state='loading'] .hdr-music__icon--pause {
-	display: none;
-}
-@keyframes hdr-music-pulse {
-	0%,
-	100% {
-		opacity: 0.45;
-	}
-	50% {
-		opacity: 1;
-	}
-}
-.spotify-float {
-	position: fixed;
-	z-index: 300;
-	right: 0;
-	bottom: 0;
-	width: 0;
-	height: 0;
-	pointer-events: none;
-}
-.spotify-float__panel {
-	position: fixed;
-	right: max(0.75rem, env(safe-area-inset-right));
-	bottom: max(0.75rem, env(safe-area-inset-bottom));
-	width: min(100vw - 1.5rem, 420px);
-	background: #121212;
-	border: 1px solid var(--border2);
-	border-radius: 12px;
-	box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
-	overflow: hidden;
-	transform: translate3d(0, calc(100% + 2rem), 0);
-	opacity: 0;
-	pointer-events: none;
-	transition:
-		transform 0.22s ease,
-		opacity 0.22s ease;
-}
-.spotify-float[data-open='true'] .spotify-float__panel {
-	transform: translate3d(0, 0, 0);
-	opacity: 1;
-	pointer-events: auto;
-}
-.spotify-float__bar {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 0.5rem;
-	padding: 0.45rem 0.55rem 0.45rem 0.75rem;
-	border-bottom: 1px solid var(--border2);
-	font-family: var(--mono);
-	font-size: 0.72rem;
-	color: var(--prompt);
-}
-.spotify-float__close {
-	appearance: none;
-	border: 1px solid var(--border2);
-	background: #0a0d0a;
+.music-page__notice {
+	margin: 0;
+	font-size: 0.84rem;
 	color: var(--muted);
-	width: 1.65rem;
-	height: 1.65rem;
-	border-radius: 6px;
-	cursor: pointer;
-	font-size: 1.1rem;
-	line-height: 1;
+	line-height: 1.55;
 }
-.spotify-float__close:hover {
+.music-page__notice a {
+	color: var(--link);
+}
+.music-page__line {
+	margin: 0;
+	font-size: 0.86rem;
+	color: var(--muted);
+}
+.music-page__key {
+	color: var(--perm);
+}
+.music-page__sep {
+	margin: 0 0.35rem;
+}
+.music-page__val {
 	color: var(--ink);
-	border-color: var(--border);
-}
-.spotify-float__embed {
-	line-height: 0;
-}
-.spotify-float__embed iframe {
-	display: block;
-	width: 100% !important;
-	height: 380px !important;
-	border: 0;
-}
-.spotify-api-host {
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	width: 320px;
-	height: 152px;
-	overflow: hidden;
-	transform: translate3d(-120%, 0, 0);
-	pointer-events: none;
-	z-index: 0;
-}
-.hdr-eq {
-	display: inline-flex;
-	align-items: flex-end;
-	gap: 2px;
-	width: 0.86rem;
-	flex: 0 0 0.86rem;
-	height: 0.9rem;
-	padding-bottom: 0.05rem;
-}
-.hdr-eq span {
-	display: block;
-	width: 2px;
-	border-radius: 1px;
-	background: var(--prompt);
-	height: 0.26rem;
-	opacity: 0.35;
-}
-.hdr-eq--active span {
-	opacity: 0.9;
-	animation: hdr-eq-bar 0.75s ease-in-out infinite;
-}
-.hdr-eq--active span:nth-child(1) {
-	animation-delay: 0s;
-}
-.hdr-eq--active span:nth-child(2) {
-	animation-delay: 0.11s;
-}
-.hdr-eq--active span:nth-child(3) {
-	animation-delay: 0.22s;
-}
-.hdr-eq--active span:nth-child(4) {
-	animation-delay: 0.14s;
-}
-.hdr-eq--active span:nth-child(5) {
-	animation-delay: 0.07s;
-}
-@keyframes hdr-eq-bar {
-	0%,
-	100% {
-		height: 0.2rem;
-	}
-	50% {
-		height: 0.85rem;
-	}
 }
 
 .tastes__link {
