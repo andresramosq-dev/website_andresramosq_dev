@@ -428,15 +428,19 @@ a.twin__name:hover {
 	padding: 1.25rem 1.4rem 2.5rem;
 }
 
-/* Título consola — una línea */
+/* Título consola — path + print */
 .console-title {
 	margin: 0 0 1.5rem;
 	font-weight: 500;
 	line-height: 1.45;
 	letter-spacing: -0.01em;
-	font-size: 1rem;
+	font-size: 1.12rem;
+	display: grid;
+	gap: 0.35rem;
 }
 .console-title__line {
+	display: block;
+	font-size: inherit;
 	white-space: normal;
 	overflow-wrap: anywhere;
 }
