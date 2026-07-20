@@ -55,8 +55,6 @@ export const nav = [
 	{ label: 'about', href: '/about', navigate: true },
 	{ label: 'site', href: '/site', navigate: true },
 	{ label: 'blog', href: '/blog', navigate: true },
-	{ label: 'notas', href: '/notas', navigate: false },
-	{ label: 'posts', href: '/posts', navigate: false },
 	{ label: 'archive', href: '/archive', navigate: false },
 	{ label: 'tags', href: '/tags', navigate: false },
 	{ label: 'subscribe', href: '/subscribe', navigate: false },

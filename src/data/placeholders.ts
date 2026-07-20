@@ -1,6 +1,5 @@
 /** Reserved routes — stubs only; content and nav TBD. */
 export const placeholderRoutes = [
-	{ path: '/posts', title: 'posts' },
 	{ path: '/subscribe', title: 'subscribe' },
 	{ path: '/rss', title: 'rss' },
 	{ path: '/archive', title: 'archive' },
