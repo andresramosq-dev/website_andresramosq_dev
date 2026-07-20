@@ -147,26 +147,47 @@ function ensurePlayer(host: HTMLElement) {
 	});
 }
 
-function placeGlobalRoot() {
+let layoutBound = false;
+let positionRaf = 0;
+
+/** Keep the iframe in one DOM parent; only move it visually (reparenting stops playback). */
+function syncPlayerLayout() {
 	const root = document.getElementById('spotify-global-root');
 	const anchor = document.getElementById('spotify-global-anchor');
-	const slot = document.querySelector('[data-spotify-global-slot]');
-	if (!root) return;
+	const slot = document.querySelector<HTMLElement>('[data-spotify-global-slot]');
+	if (!root || !anchor) return;
+
+	if (root.parentElement !== anchor) anchor.appendChild(root);
 
 	if (slot) {
-		slot.appendChild(root);
+		const r = slot.getBoundingClientRect();
 		root.classList.add('spotify-global-root--page');
 		root.classList.remove('spotify-global-root--dock');
+		root.style.top = `${Math.round(r.top)}px`;
+		root.style.left = `${Math.round(r.left)}px`;
+		root.style.width = `${Math.round(r.width)}px`;
 		root.setAttribute('aria-hidden', 'false');
-		return;
-	}
-
-	if (anchor) {
-		anchor.appendChild(root);
+	} else {
 		root.classList.add('spotify-global-root--dock');
 		root.classList.remove('spotify-global-root--page');
+		root.style.top = '';
+		root.style.left = '';
+		root.style.width = '';
 		root.setAttribute('aria-hidden', 'true');
 	}
+}
+
+function schedulePlayerLayout() {
+	cancelAnimationFrame(positionRaf);
+	positionRaf = requestAnimationFrame(syncPlayerLayout);
+}
+
+function bindLayoutListeners() {
+	if (layoutBound) return;
+	layoutBound = true;
+	window.addEventListener('resize', schedulePlayerLayout, { passive: true });
+	window.addEventListener('scroll', schedulePlayerLayout, { passive: true });
+	document.addEventListener('astro:page-load', schedulePlayerLayout);
 }
 
 function bindUi() {
@@ -206,7 +227,8 @@ function init() {
 	const host = document.getElementById('spotify-global-host');
 	if (!host) return;
 
-	placeGlobalRoot();
+	bindLayoutListeners();
+	schedulePlayerLayout();
 	ensurePlayer(host);
 	bindUi();
 }

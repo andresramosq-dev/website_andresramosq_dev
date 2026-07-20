@@ -293,13 +293,16 @@ a.twin__name:hover {
 	z-index: -1;
 }
 .spotify-global-root--page {
-	position: relative;
-	width: 100%;
+	position: fixed;
+	height: 380px;
+	max-width: 100vw;
 	opacity: 1;
 	pointer-events: auto;
+	z-index: 20;
 	background: #121212;
 	border: 1px solid var(--border2);
 	border-radius: 10px;
+	box-sizing: border-box;
 }
 .spotify-global-root iframe {
 	display: block;
