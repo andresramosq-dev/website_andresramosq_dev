@@ -197,9 +197,19 @@ a.twin__name:hover {
 	line-height: inherit;
 }
 .hdr-music__link:hover {
+	text-decoration: none;
+}
+.hdr-music__link:hover .hdr-music__label {
 	color: var(--link-hover);
 	text-decoration: underline;
 	text-underline-offset: 3px;
+}
+.hdr-music__link:hover .hdr-music__at {
+	color: #7a9a7a;
+	text-decoration: none;
+}
+.hdr-music__label {
+	color: var(--prompt);
 }
 .hdr-music__at {
 	color: #7a9a7a;
@@ -327,12 +337,12 @@ a.twin__name:hover {
 	color: var(--prompt);
 	letter-spacing: 0.01em;
 }
-.spotify-float__close {
+.spotify-float__panel .spotify-float__close {
 	appearance: none;
 	flex-shrink: 0;
-	border: 1px solid var(--border2);
-	background: transparent;
-	color: var(--muted);
+	border: 1px solid var(--prompt);
+	background: var(--panel2);
+	color: var(--prompt);
 	width: 1.6rem;
 	height: 1.6rem;
 	border-radius: 4px;
@@ -341,9 +351,10 @@ a.twin__name:hover {
 	line-height: 1;
 	font-family: var(--mono);
 }
-.spotify-float__close:hover {
-	color: var(--ink);
-	border-color: var(--border);
+.spotify-float__panel .spotify-float__close:hover {
+	color: var(--prompt);
+	border-color: var(--prompt);
+	background: #142016;
 }
 .spotify-float__body {
 	padding: 0.7rem 0.75rem 0.8rem;
@@ -356,11 +367,12 @@ a.twin__name:hover {
 	line-height: 1.45;
 	color: var(--muted);
 }
-.spotify-float__hint a {
+.spotify-float__hint a.spotify-float__link,
+.spotify-float__hint a.spotify-float__link:visited {
 	color: var(--link);
-	text-decoration: none;
 }
-.spotify-float__hint a:hover {
+.spotify-float__hint a.spotify-float__link:hover {
+	color: var(--link-hover);
 	text-decoration: underline;
 	text-underline-offset: 3px;
 }
