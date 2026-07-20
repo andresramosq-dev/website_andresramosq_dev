@@ -149,24 +149,35 @@ function ensurePlayer(host: HTMLElement) {
 
 let layoutBound = false;
 let positionRaf = 0;
+let slotObserver: ResizeObserver | null = null;
 
-/** Keep the iframe in one DOM parent; only move it visually (reparenting stops playback). */
+function mountRootOnBody() {
+	const root = document.getElementById('spotify-global-root');
+	if (!root || root.parentElement === document.body) return;
+	document.body.appendChild(root);
+}
+
+/** One iframe on <body>; on /music align over the slot (never inside a clipped wrapper). */
 function syncPlayerLayout() {
 	const root = document.getElementById('spotify-global-root');
-	const anchor = document.getElementById('spotify-global-anchor');
 	const slot = document.querySelector<HTMLElement>('[data-spotify-global-slot]');
-	if (!root || !anchor) return;
+	if (!root) return;
 
-	if (root.parentElement !== anchor) anchor.appendChild(root);
+	mountRootOnBody();
 
 	if (slot) {
 		const r = slot.getBoundingClientRect();
+		if (r.width < 8) {
+			schedulePlayerLayout();
+			return;
+		}
 		root.classList.add('spotify-global-root--page');
 		root.classList.remove('spotify-global-root--dock');
 		root.style.top = `${Math.round(r.top)}px`;
 		root.style.left = `${Math.round(r.left)}px`;
 		root.style.width = `${Math.round(r.width)}px`;
 		root.setAttribute('aria-hidden', 'false');
+		document.body.dataset.spotifyView = 'music';
 	} else {
 		root.classList.add('spotify-global-root--dock');
 		root.classList.remove('spotify-global-root--page');
@@ -174,7 +185,17 @@ function syncPlayerLayout() {
 		root.style.left = '';
 		root.style.width = '';
 		root.setAttribute('aria-hidden', 'true');
+		delete document.body.dataset.spotifyView;
 	}
+}
+
+function watchMusicSlot() {
+	const slot = document.querySelector<HTMLElement>('[data-spotify-global-slot]');
+	slotObserver?.disconnect();
+	slotObserver = null;
+	if (!slot) return;
+	slotObserver = new ResizeObserver(() => schedulePlayerLayout());
+	slotObserver.observe(slot);
 }
 
 function schedulePlayerLayout() {
@@ -187,7 +208,10 @@ function bindLayoutListeners() {
 	layoutBound = true;
 	window.addEventListener('resize', schedulePlayerLayout, { passive: true });
 	window.addEventListener('scroll', schedulePlayerLayout, { passive: true });
-	document.addEventListener('astro:page-load', schedulePlayerLayout);
+	document.addEventListener('astro:page-load', () => {
+		schedulePlayerLayout();
+		watchMusicSlot();
+	});
 }
 
 function bindUi() {
@@ -228,7 +252,10 @@ function init() {
 	if (!host) return;
 
 	bindLayoutListeners();
-	schedulePlayerLayout();
+	watchMusicSlot();
+	requestAnimationFrame(() => {
+		requestAnimationFrame(schedulePlayerLayout);
+	});
 	ensurePlayer(host);
 	bindUi();
 }

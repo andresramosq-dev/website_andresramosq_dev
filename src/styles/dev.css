@@ -267,14 +267,6 @@ a.twin__name:hover {
 		opacity: 1;
 	}
 }
-.spotify-global-anchor {
-	position: absolute;
-	width: 0;
-	height: 0;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	pointer-events: none;
-}
 .spotify-global-root {
 	box-sizing: border-box;
 	line-height: 0;
@@ -287,18 +279,19 @@ a.twin__name:hover {
 	width: 860px;
 	height: 380px;
 	max-width: 100vw;
-	transform: translateY(calc(100% + 32px));
-	opacity: 0.01;
+	transform: translate3d(0, calc(100% + 48px), 0);
 	pointer-events: none;
-	z-index: -1;
+	z-index: 0;
 }
 .spotify-global-root--page {
 	position: fixed;
 	height: 380px;
 	max-width: 100vw;
+	transform: none;
+	visibility: visible;
 	opacity: 1;
 	pointer-events: auto;
-	z-index: 20;
+	z-index: 200;
 	background: #121212;
 	border: 1px solid var(--border2);
 	border-radius: 10px;
