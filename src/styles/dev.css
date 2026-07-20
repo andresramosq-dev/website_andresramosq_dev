@@ -179,11 +179,12 @@ a.twin__name:hover {
 .hdr-music {
 	display: inline-flex;
 	align-items: center;
-	gap: 0.4rem;
 	flex-shrink: 0;
-	font-size: 0.72rem;
-	line-height: 1;
-	min-height: 1.4rem;
+	font-family: var(--mono);
+	font-size: 0.82rem;
+	font-weight: 400;
+	line-height: 1.35;
+	min-height: 0;
 }
 .hdr-music__link {
 	display: inline-flex;
@@ -192,6 +193,8 @@ a.twin__name:hover {
 	color: var(--prompt);
 	text-decoration: none;
 	white-space: nowrap;
+	font-size: inherit;
+	line-height: inherit;
 }
 .hdr-music__link:hover {
 	color: var(--link-hover);
@@ -200,6 +203,8 @@ a.twin__name:hover {
 }
 .hdr-music__at {
 	color: #7a9a7a;
+	font-size: inherit;
+	line-height: inherit;
 }
 .hdr-eq {
 	display: inline-flex;
@@ -354,7 +359,6 @@ a.twin__name:hover {
 .spotify-float__hint a {
 	color: var(--link);
 	text-decoration: none;
-	white-space: nowrap;
 }
 .spotify-float__hint a:hover {
 	text-decoration: underline;
