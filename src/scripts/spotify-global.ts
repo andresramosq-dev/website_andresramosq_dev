@@ -40,8 +40,9 @@ declare global {
 	}
 }
 
-const EMBED_WIDTH = 860;
-const EMBED_HEIGHT = 352;
+/** Compact bar for header play/pause only (panel uses full official iframe). */
+const API_EMBED_WIDTH = 320;
+const API_EMBED_HEIGHT = 152;
 
 function state(): SpotifyGlobal {
 	if (!window.__spotifyGlobal) {
@@ -82,6 +83,10 @@ function ui() {
 	};
 }
 
+function apiHost(): HTMLElement | null {
+	return document.getElementById('spotify-api-host');
+}
+
 function setEq(playing: boolean) {
 	const { eq } = ui();
 	if (eq) eq.classList.toggle('hdr-eq--active', playing);
@@ -105,6 +110,11 @@ function setFloatOpen(open: boolean) {
 	if (!root) return;
 	root.dataset.open = open ? 'true' : 'false';
 	root.setAttribute('aria-hidden', open ? 'false' : 'true');
+
+	if (open && s.controller && !s.lastPaused) {
+		s.controller.pause();
+		applyPaused(true);
+	}
 }
 
 function applyPaused(paused: boolean) {
@@ -112,7 +122,6 @@ function applyPaused(paused: boolean) {
 	s.lastPaused = paused;
 	s.pendingPlay = false;
 	setUi(paused ? 'paused' : 'playing');
-	if (!paused) setFloatOpen(true);
 }
 
 function wire(ctrl: SpotifyEmbedController) {
@@ -127,7 +136,6 @@ function wire(ctrl: SpotifyEmbedController) {
 			ctrl.resume();
 		} else {
 			applyPaused(s.lastPaused);
-			if (s.panelOpen) setFloatOpen(true);
 		}
 	});
 
@@ -143,16 +151,17 @@ function wire(ctrl: SpotifyEmbedController) {
 	});
 }
 
-function ensurePlayer(host: HTMLElement) {
+function ensureApiPlayer() {
+	const host = apiHost();
 	const s = state();
-	if (s.controller || s.booting) return;
+	if (!host || s.controller || s.booting) return;
 
 	s.booting = true;
 	const url = host.dataset.spotifyUrl;
 	const uri = host.dataset.spotifyUri;
 	const options: { width: number; height: number; uri?: string; url?: string } = {
-		width: EMBED_WIDTH,
-		height: EMBED_HEIGHT,
+		width: API_EMBED_WIDTH,
+		height: API_EMBED_HEIGHT,
 	};
 	if (url) options.url = url;
 	else if (uri) options.uri = uri;
@@ -165,19 +174,16 @@ function ensurePlayer(host: HTMLElement) {
 
 function togglePlay() {
 	const s = state();
-	const host = document.getElementById('spotify-global-host');
-	if (host) ensurePlayer(host);
+	ensureApiPlayer();
 
 	if (!s.controller || !s.embedReady) {
 		s.pendingPlay = true;
 		setUi('loading');
-		setFloatOpen(true);
 		return;
 	}
 
 	if (s.lastPaused) {
 		setUi('loading');
-		setFloatOpen(true);
 		s.controller.resume();
 	} else {
 		s.controller.pause();
@@ -194,21 +200,13 @@ function bindUi() {
 
 	btn?.addEventListener('click', togglePlay, { signal });
 
-	close?.addEventListener(
-		'click',
-		() => {
-			setFloatOpen(false);
-		},
-		{ signal },
-	);
+	close?.addEventListener('click', () => setFloatOpen(false), { signal });
 
 	openLink?.addEventListener(
 		'click',
 		(e) => {
 			e.preventDefault();
 			setFloatOpen(true);
-			const host = document.getElementById('spotify-global-host');
-			if (host) ensurePlayer(host);
 		},
 		{ signal },
 	);
@@ -218,10 +216,7 @@ function bindUi() {
 }
 
 function init() {
-	const host = document.getElementById('spotify-global-host');
-	if (!host) return;
-
-	ensurePlayer(host);
+	if (!apiHost()) return;
 	bindUi();
 }
 

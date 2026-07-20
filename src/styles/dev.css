@@ -269,12 +269,12 @@ a.twin__name:hover {
 }
 .spotify-float {
 	position: fixed;
-	inset: 0;
 	z-index: 300;
+	right: 0;
+	bottom: 0;
+	width: 0;
+	height: 0;
 	pointer-events: none;
-}
-.spotify-float[data-open='true'] {
-	pointer-events: auto;
 }
 .spotify-float__panel {
 	position: fixed;
@@ -331,8 +331,19 @@ a.twin__name:hover {
 .spotify-float__embed iframe {
 	display: block;
 	width: 100% !important;
-	height: 352px !important;
+	height: 380px !important;
 	border: 0;
+}
+.spotify-api-host {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 320px;
+	height: 152px;
+	overflow: hidden;
+	transform: translate3d(-120%, 0, 0);
+	pointer-events: none;
+	z-index: 0;
 }
 .hdr-eq {
 	display: inline-flex;

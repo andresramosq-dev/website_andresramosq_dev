@@ -3,7 +3,7 @@ import '../styles/dev.css';
 import { ClientRouter } from 'astro:transitions';
 import TerminalShell from '../components/TerminalShell.astro';
 import { site, nav, tastes } from '../data/site';
-import { spotifyPlaylistUri } from '../lib/spotify';
+import { spotifyPlaylistEmbedSrc, spotifyPlaylistUri } from '../lib/spotify';
 
 interface Props {
 	title?: string;
@@ -14,6 +14,7 @@ interface Props {
 const { title, description, path = '/about' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
 const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
+const spotifyEmbedSrc = spotifyPlaylistEmbedSrc(tastes.spotify.playlistUrl);
 ---
 
 <!doctype html>
@@ -45,8 +46,16 @@ const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
     ) : null}
   </head>
   <body>
-    {spotifyUri ? (
+    {spotifyUri && spotifyEmbedSrc ? (
       <>
+        <div
+          id="spotify-api-host"
+          class="spotify-api-host"
+          transition:persist="spotify-api-host"
+          data-spotify-url={tastes.spotify.playlistUrl}
+          data-spotify-uri={spotifyUri}
+          aria-hidden="true"
+        ></div>
         <div
           id="spotify-global-root"
           class="spotify-float"
@@ -61,12 +70,18 @@ const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
                 ×
               </button>
             </div>
-            <div
-              id="spotify-global-host"
-              class="spotify-float__embed"
-              data-spotify-url={tastes.spotify.playlistUrl}
-              data-spotify-uri={spotifyUri}
-            ></div>
+            <div class="spotify-embed spotify-float__embed">
+              <iframe
+                class="spotify-embed__frame"
+                title={`Spotify: ${tastes.spotify.playlistLabel}`}
+                src={spotifyEmbedSrc}
+                width="100%"
+                height="380"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+              />
+            </div>
           </div>
         </div>
         <script src="../scripts/spotify-global.ts"></script>
