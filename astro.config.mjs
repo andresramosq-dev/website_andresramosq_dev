@@ -8,5 +8,6 @@ export default defineConfig({
 		'/sobre': '/about',
 		'/andres': '/about',
 		'/andres-ramos': '/about',
+		'/data': '/privacy',
 	},
 });

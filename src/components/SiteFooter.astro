@@ -22,11 +22,13 @@ const social = site.social.filter((s) => s.href && s.id !== 'cv');
 			))}
 		</div>
 
-		<p class="ftr__copy">© {year} {site.domain}</p>
+		<p class="ftr__copy">
+			<span class="ftr__copy-mark" aria-hidden="true">©</span>
+			{year} {site.domain}
+		</p>
 
 		<nav class="ftr__menu" aria-label="Footer">
 			<a href="/privacy">privacy</a>
-			<a href="/data">data treatment</a>
 			<a href="/subscribe">subscribe</a>
 		</nav>
 	</div>
