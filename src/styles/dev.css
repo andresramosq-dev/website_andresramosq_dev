@@ -378,29 +378,6 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	text-decoration: underline;
 	text-underline-offset: 3px;
 }
-.spotify-float__open {
-	margin: 0;
-	font-size: 0.72rem;
-	line-height: 1.45;
-	color: var(--muted);
-}
-.spotify-float__open a.spotify-float__link,
-.spotify-float__open a.spotify-float__link:visited {
-	color: var(--cmd);
-	text-decoration: none;
-}
-.spotify-float__open a.spotify-float__link:hover {
-	color: var(--prompt);
-	text-decoration: underline;
-	text-underline-offset: 3px;
-}
-.spotify-float__open-note {
-	margin-left: 0.35rem;
-}
-.spotify-float__hint strong {
-	color: var(--text);
-	font-weight: 500;
-}
 .spotify-float .spotify-embed {
 	line-height: 0;
 	border-radius: 8px;
