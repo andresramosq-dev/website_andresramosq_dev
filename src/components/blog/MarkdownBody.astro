@@ -1,0 +1,25 @@
+---
+import 'github-markdown-css/github-markdown-dark.css';
+
+interface Props {
+	class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={['markdown-body', 'article-md', className]}>
+	<slot />
+</div>
+
+<style>
+	.article-md {
+		background: transparent;
+		color-scheme: dark;
+	}
+	.article-md.markdown-body {
+		background-color: transparent;
+		font-family: var(--mono);
+		font-size: 0.88rem;
+	}
+</style>

@@ -1,0 +1,49 @@
+---
+import { categories } from '../../data/site';
+import type { CategoryId } from '../../data/site';
+
+interface Props {
+	activeCategory: CategoryId | 'all';
+	activeTag: string | 'all';
+	allTags: string[];
+}
+
+const { activeCategory, activeTag, allTags } = Astro.props;
+---
+
+<nav class="blog-tags" aria-label="Filter posts">
+	<p class="blog-tags__label">tags</p>
+	<ul class="blog-tags__list">
+		<li>
+			<a
+				href="/blog"
+				class:list={['blog-tags__chip', activeCategory === 'all' && activeTag === 'all' && 'blog-tags__chip--on']}
+				data-blog-filter="all"
+			>
+				all
+			</a>
+		</li>
+		{categories.map((cat) => (
+			<li>
+				<a
+					href={`/blog?category=${cat.id}`}
+					class:list={['blog-tags__chip', activeCategory === cat.id && activeTag === 'all' && 'blog-tags__chip--on']}
+					data-blog-filter-category={cat.id}
+				>
+					{cat.label}
+				</a>
+			</li>
+		))}
+		{allTags.map((tag) => (
+			<li>
+				<a
+					href={`/blog?tag=${encodeURIComponent(tag)}`}
+					class:list={['blog-tags__chip', 'blog-tags__chip--tag', activeTag === tag && 'blog-tags__chip--on']}
+					data-blog-filter-tag={tag}
+				>
+					#{tag}
+				</a>
+			</li>
+		))}
+	</ul>
+</nav>

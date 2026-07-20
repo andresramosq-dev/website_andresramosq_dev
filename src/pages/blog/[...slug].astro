@@ -1,55 +1,79 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import TermPath from '../../components/TermPath.astro';
-import TermPanel from '../../components/TermPanel.astro';
+import ConsoleTitle from '../../components/ConsoleTitle.astro';
+import CmdBlock from '../../components/CmdBlock.astro';
+import ConsolePrompt from '../../components/ConsolePrompt.astro';
+import MarkdownBody from '../../components/blog/MarkdownBody.astro';
+import BlogComments from '../../components/blog/BlogComments.astro';
 import { getCollection, render } from 'astro:content';
 import { categoryLabel } from '../../data/site';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
-  const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-  return sorted.map((post, i) => ({
-    params: { slug: post.id },
-    props: {
-      post,
-      prev: sorted[i + 1] ?? null,
-      next: sorted[i - 1] ?? null,
-    },
-  }));
+	const posts = await getCollection('blog', ({ data }) => !data.draft);
+	return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
 }
 
-const { post, prev, next } = Astro.props;
+const { post } = Astro.props;
 const { Content } = await render(post);
-const date = post.data.pubDate.toLocaleDateString('es-ES', {
-  day: 'numeric', month: 'long', year: 'numeric',
+const date = post.data.pubDate.toLocaleDateString('en-US', {
+	day: 'numeric',
+	month: 'long',
+	year: 'numeric',
 });
 const fullPath = `/blog/${post.id}`;
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} path={fullPath}>
-  <TermPath path={fullPath} />
+	<ConsoleTitle id="article-top" title={post.data.title} segment="blog" cmd={`post ${post.id}`} />
 
-  <TermPanel label={post.data.title}>
-    <p class="article__meta">{date} · {categoryLabel[post.data.category]}</p>
-    <div class="article__body">
-      <Content />
-    </div>
+	<CmdBlock cmd="cat meta.json" cwd="~/blog" id="article-meta">
+		<dl class="article-meta">
+			<div class="article-meta__row">
+				<dt>published</dt>
+				<dd>
+					<time datetime={post.data.pubDate.toISOString()}>{date}</time>
+				</dd>
+			</div>
+			<div class="article-meta__row">
+				<dt>category</dt>
+				<dd>{categoryLabel[post.data.category]}</dd>
+			</div>
+			<div class="article-meta__row">
+				<dt>read</dt>
+				<dd>{post.data.minutes} min</dd>
+			</div>
+			<div class="article-meta__row article-meta__row--wide">
+				<dt>summary</dt>
+				<dd>{post.data.description}</dd>
+			</div>
+			{post.data.tags.length > 0 && (
+				<div class="article-meta__row article-meta__row--wide">
+					<dt>tags</dt>
+					<dd class="article-meta__tags">
+						{post.data.tags.map((tag) => (
+							<a class="article-meta__tag" href={`/blog?tag=${encodeURIComponent(tag)}`}>
+								#{tag}
+							</a>
+						))}
+					</dd>
+				</div>
+			)}
+		</dl>
+	</CmdBlock>
 
-    {(prev || next) && (
-      <nav class="post-nav" aria-label="Artículos">
-        {prev ? (
-          <a href={`/blog/${prev.id}`}>
-            <span class="post-nav__label">← anterior</span>
-            <p class="post-nav__title">{prev.data.title}</p>
-          </a>
-        ) : <div />}
-        {next ? (
-          <a class="post-nav__next" href={`/blog/${next.id}`}>
-            <span class="post-nav__label">siguiente →</span>
-            <p class="post-nav__title">{next.data.title}</p>
-          </a>
-        ) : <div />}
-      </nav>
-    )}
-  </TermPanel>
+	<CmdBlock cmd={`cat ${post.id}.md`} cwd="~/blog" id="article-body">
+		<MarkdownBody>
+			<Content />
+		</MarkdownBody>
+	</CmdBlock>
+
+	<CmdBlock cmd="comments --thread" cwd="~/blog" id="article-comments" plain>
+		<BlogComments postId={post.id} />
+	</CmdBlock>
+
+	<p class="article-back">
+		<a href="/blog">← back to blog</a>
+	</p>
+
+	<ConsolePrompt cwd="~/blog" />
 </BaseLayout>

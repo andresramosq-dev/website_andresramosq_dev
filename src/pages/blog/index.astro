@@ -1,26 +1,44 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import TermPath from '../../components/TermPath.astro';
-import TermPanel from '../../components/TermPanel.astro';
-import FeedList from '../../components/FeedList.astro';
+import ConsoleTitle from '../../components/ConsoleTitle.astro';
+import CmdBlock from '../../components/CmdBlock.astro';
+import ConsolePrompt from '../../components/ConsolePrompt.astro';
+import BlogTagNav from '../../components/blog/BlogTagNav.astro';
+import BlogPostList from '../../components/blog/BlogPostList.astro';
 import { getCollection } from 'astro:content';
+import type { CategoryId } from '../../data/site';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 
-const fmt = (d: Date) => d.toLocaleDateString('es-ES', { month: 'short', year: 'numeric' });
+const categoryParam = Astro.url.searchParams.get('category');
+const tagParam = Astro.url.searchParams.get('tag');
+const activeCategory =
+	categoryParam === 'diseno' ||
+	categoryParam === 'codigo' ||
+	categoryParam === 'oficio' ||
+	categoryParam === 'metodo'
+		? (categoryParam as CategoryId)
+		: 'all';
+const activeTag = tagParam ?? 'all';
+
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
+
+const filteredPosts = posts.filter((p) => {
+	if (activeCategory !== 'all' && p.data.category !== activeCategory) return false;
+	if (activeTag !== 'all' && !p.data.tags.includes(activeTag)) return false;
+	return true;
+});
 ---
 
 <BaseLayout title="blog" path="/blog">
-  <TermPath path="/blog" />
+	<ConsoleTitle id="blog-top" title="blog" segment="blog" cmd="blog -ls" />
 
-  <TermPanel label="blog/">
-    <FeedList
-      items={posts.map((p) => ({
-        href: `/blog/${p.id}`,
-        title: p.data.title,
-        meta: fmt(p.data.pubDate),
-      }))}
-    />
-  </TermPanel>
+	<CmdBlock cmd="ls posts/" cwd="~/blog" id="blog-list">
+		<BlogTagNav activeCategory={activeCategory} activeTag={activeTag} allTags={allTags} />
+		<BlogPostList posts={filteredPosts} />
+	</CmdBlock>
+
+	<ConsolePrompt cwd="~/blog" />
 </BaseLayout>

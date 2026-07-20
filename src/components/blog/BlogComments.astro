@@ -1,0 +1,195 @@
+---
+import { blogCommentsSeed, type BlogComment } from '../../data/blog-comments';
+
+interface Props {
+	postId: string;
+}
+
+const { postId } = Astro.props;
+
+const seed = blogCommentsSeed.filter((c) => c.postId === postId);
+const seedJson = JSON.stringify(seed);
+---
+
+<section class="blog-comments" id="comments" data-blog-comments data-post-id={postId} data-seed={seedJson}>
+	<header class="blog-comments__hdr">
+		<h2 class="blog-comments__title">comments</h2>
+		<p class="blog-comments__hint">Name and email required to post. Demo only — any email works for now.</p>
+	</header>
+
+	<div class="blog-comments__list" data-comment-list role="list"></div>
+
+	<form class="blog-comments__form" data-comment-form novalidate>
+		<p class="blog-comments__form-title">leave a comment</p>
+		<div class="blog-comments__fields">
+			<label class="blog-comments__field">
+				<span>name</span>
+				<input type="text" name="author" required autocomplete="name" />
+			</label>
+			<label class="blog-comments__field">
+				<span>email</span>
+				<input type="email" name="email" required autocomplete="email" />
+			</label>
+		</div>
+		<label class="blog-comments__field blog-comments__field--full">
+			<span>comment</span>
+			<textarea name="body" rows="4" required></textarea>
+		</label>
+		<input type="hidden" name="parentId" value="" />
+		<div class="blog-comments__actions">
+			<button type="submit" class="console-prompt__run">post</button>
+			<button type="button" class="blog-comments__cancel" data-comment-cancel hidden>
+				cancel reply
+			</button>
+		</div>
+	</form>
+</section>
+
+<script>
+	type BlogComment = {
+		id: string;
+		postId: string;
+		parentId: string | null;
+		author: string;
+		email: string;
+		body: string;
+		createdAt: string;
+	};
+
+	function parseSeed(root: HTMLElement): BlogComment[] {
+		try {
+			return JSON.parse(root.dataset.seed ?? '[]') as BlogComment[];
+		} catch {
+			return [];
+		}
+	}
+
+	function storageKey(postId: string) {
+		return `blog-comments-${postId}`;
+	}
+
+	function loadComments(postId: string, seed: BlogComment[]): BlogComment[] {
+		try {
+			const raw = localStorage.getItem(storageKey(postId));
+			if (!raw) return [...seed];
+			const extra = JSON.parse(raw) as BlogComment[];
+			return [...seed, ...extra];
+		} catch {
+			return [...seed];
+		}
+	}
+
+	function saveComment(postId: string, comment: BlogComment) {
+		const raw = localStorage.getItem(storageKey(postId));
+		const extra: BlogComment[] = raw ? JSON.parse(raw) : [];
+		extra.push(comment);
+		localStorage.setItem(storageKey(postId), JSON.stringify(extra));
+	}
+
+	function fmtDate(iso: string) {
+		return new Date(iso).toLocaleDateString('en-US', {
+			day: 'numeric',
+			month: 'short',
+			year: 'numeric',
+		});
+	}
+
+	function renderComments(root: HTMLElement, comments: BlogComment[]) {
+		const list = root.querySelector('[data-comment-list]');
+		if (!list) return;
+		list.innerHTML = '';
+		const top = comments.filter((c) => !c.parentId);
+		const byParent = new Map<string, BlogComment[]>();
+		comments.filter((c) => c.parentId).forEach((c) => {
+			const pid = c.parentId!;
+			if (!byParent.has(pid)) byParent.set(pid, []);
+			byParent.get(pid)!.push(c);
+		});
+
+		const renderOne = (c: BlogComment, depth: number) => {
+			const el = document.createElement('article');
+			el.className = 'blog-comment';
+			el.dataset.commentId = c.id;
+			el.style.setProperty('--depth', String(depth));
+			el.innerHTML = `
+				<header class="blog-comment__hdr">
+					<strong class="blog-comment__author">${escapeHtml(c.author)}</strong>
+					<time class="blog-comment__time" datetime="${c.createdAt}">${fmtDate(c.createdAt)}</time>
+				</header>
+				<p class="blog-comment__body">${escapeHtml(c.body)}</p>
+				<button type="button" class="blog-comment__reply" data-reply-to="${c.id}">reply</button>
+			`;
+			list.appendChild(el);
+			(byParent.get(c.id) ?? []).forEach((child) => renderOne(child, depth + 1));
+		};
+
+		top.forEach((c) => renderOne(c, 0));
+	}
+
+	function escapeHtml(s: string) {
+		return s
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;');
+	}
+
+	function bindComments(root: HTMLElement) {
+		if (root.dataset.bound === '1') return;
+		root.dataset.bound = '1';
+		const postId = root.dataset.postId ?? '';
+		const seed = parseSeed(root);
+		let comments = loadComments(postId, seed);
+		renderComments(root, comments);
+
+		const form = root.querySelector<HTMLFormElement>('[data-comment-form]');
+		const cancel = root.querySelector<HTMLButtonElement>('[data-comment-cancel]');
+		const parentInput = form?.querySelector<HTMLInputElement>('input[name="parentId"]');
+
+		root.addEventListener('click', (e) => {
+			const t = e.target as HTMLElement;
+			const replyBtn = t.closest<HTMLButtonElement>('[data-reply-to]');
+			if (replyBtn && form && parentInput) {
+				parentInput.value = replyBtn.dataset.replyTo ?? '';
+				cancel?.removeAttribute('hidden');
+				form.querySelector<HTMLTextAreaElement>('textarea[name="body"]')?.focus();
+			}
+		});
+
+		cancel?.addEventListener('click', () => {
+			if (parentInput) parentInput.value = '';
+			cancel.setAttribute('hidden', '');
+		});
+
+		form?.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const fd = new FormData(form);
+			const author = String(fd.get('author') ?? '').trim();
+			const email = String(fd.get('email') ?? '').trim();
+			const body = String(fd.get('body') ?? '').trim();
+			const parentId = String(fd.get('parentId') ?? '').trim() || null;
+			if (!author || !email || !body) return;
+
+			const comment: BlogComment = {
+				id: `local-${Date.now()}`,
+				postId,
+				parentId,
+				author,
+				email,
+				body,
+				createdAt: new Date().toISOString(),
+			};
+			saveComment(postId, comment);
+			comments = loadComments(postId, seed);
+			renderComments(root, comments);
+			form.reset();
+			if (parentInput) parentInput.value = '';
+			cancel?.setAttribute('hidden', '');
+		});
+	}
+
+	document.querySelectorAll<HTMLElement>('[data-blog-comments]').forEach(bindComments);
+	document.addEventListener('astro:page-load', () => {
+		document.querySelectorAll<HTMLElement>('[data-blog-comments]').forEach(bindComments);
+	});
+</script>
