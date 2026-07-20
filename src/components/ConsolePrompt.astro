@@ -3,20 +3,22 @@ import { site } from '../data/site';
 ---
 
 <form class="console-prompt cmd-block__line cmd-block__line--idle" data-console-prompt>
-	<span class="cmd-block__path">
+	<span class="cmd-block__path console-prompt__path">
 		<span class="cmd-block__user">{site.consoleUser}</span>@<span class="cmd-block__host">{site.domain}</span><span class="cmd-block__colon">:</span><span class="cmd-block__cwd">~/about</span>
 	</span>
-	<span class="cmd-block__sig"> @</span>
-	<input
-		class="console-prompt__input"
-		type="text"
-		name="cmd"
-		value="top"
-		spellcheck="false"
-		autocomplete="off"
-		aria-label="Command"
-	/>
-	<button class="console-prompt__run" type="submit">execute</button>
+	<span class="console-prompt__cmd">
+		<span class="cmd-block__sig">@</span>
+		<input
+			class="console-prompt__input"
+			type="text"
+			name="cmd"
+			value="top"
+			spellcheck="false"
+			autocomplete="off"
+			aria-label="Command"
+		/>
+		<button class="console-prompt__run" type="submit">execute</button>
+	</span>
 </form>
 
 <script>
