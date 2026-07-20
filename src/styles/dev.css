@@ -268,27 +268,50 @@ a.twin__name:hover {
 		opacity: 1;
 	}
 }
-/* Off-screen only — clip-path does not hide cross-origin Spotify iframes */
-#spotify-header-embed-host.spotify-header-sink {
+/* Spotify must stay in DOM for audio; never show its UI */
+.spotify-audio-vault {
 	position: fixed !important;
 	left: -10000px !important;
+	top: 0 !important;
+	width: 0 !important;
+	height: 0 !important;
+	overflow: hidden !important;
+	opacity: 0 !important;
+	pointer-events: none !important;
+	z-index: -2147483647 !important;
+	clip: rect(0 0 0 0) !important;
+	clip-path: inset(100%) !important;
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+#spotify-header-embed-host.spotify-header-sink {
+	position: absolute !important;
+	left: 0 !important;
 	top: 0 !important;
 	width: 300px !important;
 	height: 80px !important;
 	overflow: hidden !important;
 	opacity: 0 !important;
-	visibility: visible;
 	pointer-events: none !important;
-	z-index: -1 !important;
 	border: 0;
 	margin: 0;
 	padding: 0;
+	transform: scale(0.001) !important;
+	transform-origin: 0 0 !important;
 }
-#spotify-header-embed-host.spotify-header-sink iframe {
-	display: block;
+#spotify-header-embed-host.spotify-header-sink iframe,
+.spotify-audio-vault iframe {
+	position: absolute !important;
+	left: 0 !important;
+	top: 0 !important;
 	width: 300px !important;
 	height: 80px !important;
-	border: 0;
+	opacity: 0 !important;
+	border: 0 !important;
+	pointer-events: none !important;
+	transform: scale(0.001) !important;
+	transform-origin: 0 0 !important;
 }
 .hdr-eq {
 	display: inline-flex;

@@ -197,20 +197,74 @@ function bindUi() {
 	}
 }
 
-function pinHostOffScreen(host: HTMLElement) {
-	Object.assign(host.style, {
+function pinIframe(frame: HTMLIFrameElement) {
+	Object.assign(frame.style, {
+		position: 'absolute',
+		left: '0',
+		top: '0',
+		width: '300px',
+		height: '80px',
+		opacity: '0',
+		border: '0',
+		pointerEvents: 'none',
+		transform: 'scale(0.001)',
+		transformOrigin: '0 0',
+	});
+	frame.setAttribute('aria-hidden', 'true');
+	frame.setAttribute('tabindex', '-1');
+}
+
+function pinVault(vault: HTMLElement | null) {
+	if (!vault) return;
+	Object.assign(vault.style, {
 		position: 'fixed',
 		left: '-10000px',
+		top: '0',
+		width: '0',
+		height: '0',
+		overflow: 'hidden',
+		opacity: '0',
+		pointerEvents: 'none',
+		zIndex: '-2147483647',
+	});
+}
+
+function pinHostOffScreen(host: HTMLElement) {
+	Object.assign(host.style, {
+		position: 'absolute',
+		left: '0',
 		top: '0',
 		width: '300px',
 		height: '80px',
 		opacity: '0',
 		overflow: 'hidden',
 		pointerEvents: 'none',
-		zIndex: '-1',
 		border: '0',
 		margin: '0',
 		padding: '0',
+		transform: 'scale(0.001)',
+		transformOrigin: '0 0',
+	});
+	host.querySelectorAll('iframe').forEach((frame) => pinIframe(frame));
+}
+
+function watchEmbed(host: HTMLElement) {
+	const vault = host.closest('.spotify-audio-vault');
+	pinVault(vault instanceof HTMLElement ? vault : null);
+	pinHostOffScreen(host);
+
+	if (host.dataset.spotifyWatch === '1') return;
+	host.dataset.spotifyWatch = '1';
+
+	const observer = new MutationObserver(() => {
+		pinVault(vault instanceof HTMLElement ? vault : null);
+		pinHostOffScreen(host);
+	});
+	observer.observe(host, {
+		childList: true,
+		subtree: true,
+		attributes: true,
+		attributeFilter: ['style', 'class'],
 	});
 }
 
@@ -221,7 +275,7 @@ function init() {
 
 	if (!host || (!uri && !playlistUrl)) return;
 
-	pinHostOffScreen(host);
+	watchEmbed(host);
 
 	bindUi();
 	ensureEmbed(host, playlistUrl, uri);
@@ -231,5 +285,7 @@ init();
 document.addEventListener('astro:page-load', init);
 document.addEventListener('astro:after-swap', () => {
 	const host = document.getElementById('spotify-header-embed-host');
-	if (host) pinHostOffScreen(host);
+	if (!host) return;
+	watchEmbed(host);
+	pinVault(host.closest('.spotify-audio-vault'));
 });
