@@ -536,6 +536,47 @@ a.twin__name:hover {
 	padding: 0.2rem 0 0;
 }
 
+.console-prompt {
+	align-items: center;
+	gap: 0.45rem;
+}
+.console-prompt__input {
+	flex: 1 1 6rem;
+	min-width: 4.5rem;
+	max-width: 14rem;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	font: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	color: var(--ink);
+	caret-color: var(--prompt);
+}
+.console-prompt__input:focus {
+	outline: none;
+}
+.console-prompt__input::placeholder {
+	color: var(--muted);
+}
+.console-prompt__run {
+	flex-shrink: 0;
+	font-family: var(--mono);
+	font-size: 0.72rem;
+	line-height: 1.2;
+	color: var(--prompt);
+	background: transparent;
+	border: 1px solid var(--prompt);
+	border-radius: 4px;
+	padding: 0.2rem 0.55rem;
+	cursor: pointer;
+}
+.console-prompt__run:hover {
+	color: #7a9a7a;
+	border-color: #7a9a7a;
+}
+
 .cursor {
 	display: inline-block;
 	width: 8px;

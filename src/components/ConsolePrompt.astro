@@ -1,0 +1,57 @@
+---
+import { site } from '../data/site';
+---
+
+<form class="console-prompt cmd-block__line cmd-block__line--idle" data-console-prompt>
+	<span class="cmd-block__path">
+		<span class="cmd-block__user">{site.consoleUser}</span>@<span class="cmd-block__host">{site.domain}</span><span class="cmd-block__colon">:</span><span class="cmd-block__cwd">~/about</span>
+	</span>
+	<span class="cmd-block__sig"> @</span>
+	<input
+		class="console-prompt__input"
+		type="text"
+		name="cmd"
+		value="top"
+		spellcheck="false"
+		autocomplete="off"
+		aria-label="Command"
+	/>
+	<button class="console-prompt__run" type="submit">execute</button>
+</form>
+
+<script>
+	function runCommand(raw: string) {
+		const cmd = raw.trim().toLowerCase();
+		if (cmd === 'top' || cmd === 'scroll-top' || cmd === 'goto top') {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+			return;
+		}
+		const anchors: Record<string, string> = {
+			tastes: 'tastes',
+			stacks: 'stack',
+			stack: 'stack',
+			whoami: 'profile',
+			bio: 'bio',
+			philosophy: 'philosophy',
+		};
+		const id = anchors[cmd];
+		if (id) {
+			document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}
+	}
+
+	function bindPrompt(root: HTMLFormElement) {
+		if (root.dataset.bound === '1') return;
+		root.dataset.bound = '1';
+		const input = root.querySelector<HTMLInputElement>('.console-prompt__input');
+		root.addEventListener('submit', (e) => {
+			e.preventDefault();
+			runCommand(input?.value ?? '');
+		});
+	}
+
+	document.querySelectorAll<HTMLFormElement>('[data-console-prompt]').forEach(bindPrompt);
+	document.addEventListener('astro:page-load', () => {
+		document.querySelectorAll<HTMLFormElement>('[data-console-prompt]').forEach(bindPrompt);
+	});
+</script>
