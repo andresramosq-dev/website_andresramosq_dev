@@ -2,18 +2,15 @@
 import { site } from '../data/site';
 
 interface Props {
-	path?: string;
 	title?: string;
 }
 
-const { path = '~/about', title = 'Andrés Ramos Q' } = Astro.props;
+const { title = site.name } = Astro.props;
 ---
 
-<h1 class="console-title">
-	<span class="console-title__line">
-		<span class="console-title__user">{site.consoleUser}</span><span class="console-title__at">@</span><span class="console-title__host">{site.domain}</span><span class="console-title__colon">:</span><span class="console-title__path">{path}</span>
-	</span>
-	<span class="console-title__line">
-		<span class="console-title__sig">@</span><span class="console-title__print"> print</span><span class="console-title__quote"> "{title}"</span>
-	</span>
-</h1>
+<header class="console-title">
+	<p class="console-title__prompt">
+		<span class="console-title__user">{site.consoleUser}</span><span class="console-title__at">@</span><span class="console-title__host">{site.domain}</span><span class="console-title__colon">:</span><span class="console-title__path">~/</span><span class="console-title__sig"> @</span><span class="console-title__cmd"> about about -title</span>
+	</p>
+	<h1 class="console-title__headline">{title}</h1>
+</header>

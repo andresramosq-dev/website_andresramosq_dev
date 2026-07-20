@@ -428,21 +428,30 @@ a.twin__name:hover {
 	padding: 1.25rem 1.4rem 2.5rem;
 }
 
-/* Título consola — path + print */
+/* Título consola — comando + salida grande */
 .console-title {
 	margin: 0 0 1.5rem;
-	font-weight: 500;
-	line-height: 1.45;
-	letter-spacing: -0.01em;
-	font-size: 1.12rem;
 	display: grid;
-	gap: 0.35rem;
+	gap: 0.65rem;
 }
-.console-title__line {
-	display: block;
-	font-size: inherit;
-	white-space: normal;
-	overflow-wrap: anywhere;
+.console-title__prompt {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.35rem;
+	margin: 0;
+	font-size: 0.84rem;
+	line-height: 1.5;
+	font-weight: 400;
+	color: var(--muted);
+}
+.console-title__headline {
+	margin: 0;
+	font-size: clamp(1.65rem, 4.5vw, 2.15rem);
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+	color: var(--ink);
 }
 .console-title__sig {
 	color: var(--muted);
@@ -455,10 +464,9 @@ a.twin__name:hover {
 	color: var(--cmd);
 	font-weight: 600;
 }
-.console-title__print,
-.console-title__quote {
+.console-title__cmd {
 	color: var(--ink);
-	font-weight: 600;
+	font-weight: 500;
 }
 .console-title__user { color: var(--prompt); }
 .console-title__at { color: var(--muted); font-weight: 400; }
@@ -988,11 +996,13 @@ a.twin__name:hover {
 	.main { padding: 1rem 0.85rem 2rem; }
 	.console-title {
 		margin-bottom: 1.15rem;
-		font-size: 0.9rem;
+		gap: 0.5rem;
 	}
-	.console-title__line {
-		white-space: normal;
-		overflow-wrap: anywhere;
+	.console-title__prompt {
+		font-size: 0.8rem;
+	}
+	.console-title__headline {
+		font-size: clamp(1.45rem, 6vw, 1.85rem);
 	}
 	.cmd-block { margin-bottom: 1.25rem; }
 	.cmd-block__line {
