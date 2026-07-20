@@ -405,6 +405,22 @@ a.twin__name:hover {
 	display: grid;
 	gap: 0.35rem;
 }
+.tastes__figures {
+	display: grid;
+	gap: 0.35rem;
+}
+.tastes__figure {
+	margin: 0;
+	font-size: inherit;
+	line-height: 1.65;
+}
+.tastes__figure .tastes__colon {
+	color: #7a9a7a;
+	margin: 0 0.35rem;
+}
+.tastes__figure .tastes__desc {
+	color: var(--muted);
+}
 .tastes__lines {
 	list-style: none;
 	margin: 0;

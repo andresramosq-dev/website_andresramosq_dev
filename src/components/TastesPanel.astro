@@ -5,14 +5,14 @@ import { tastes } from '../data/site';
 <div class="console-doc tastes">
 	<section class="tastes__section">
 		<p class="stack-group__label">figures</p>
-		<ul class="tastes__lines">
+		<div class="tastes__figures">
 			{tastes.figures.map((figure) => (
-				<li>
-					<span class="tastes__name">{figure.name}</span>
-					<span class="tastes__muted"> — {figure.text}</span>
-				</li>
+				<p class="tastes__figure">
+					<span class="tastes__name">{figure.name}</span><span class="tastes__colon">:</span>
+					<span class="tastes__desc">{figure.text}</span>
+				</p>
 			))}
-		</ul>
+		</div>
 	</section>
 
 	<section class="tastes__section">
