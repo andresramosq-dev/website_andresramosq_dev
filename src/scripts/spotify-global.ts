@@ -26,6 +26,7 @@ type SpotifyGlobal = {
 	booting: boolean;
 	pendingPlay: boolean;
 	lastPaused: boolean;
+	panelOpen: boolean;
 	uiAbort: AbortController | null;
 };
 
@@ -40,7 +41,7 @@ declare global {
 }
 
 const EMBED_WIDTH = 860;
-const EMBED_HEIGHT = 380;
+const EMBED_HEIGHT = 352;
 
 function state(): SpotifyGlobal {
 	if (!window.__spotifyGlobal) {
@@ -50,6 +51,7 @@ function state(): SpotifyGlobal {
 			booting: false,
 			pendingPlay: false,
 			lastPaused: true,
+			panelOpen: false,
 			uiAbort: null,
 		};
 	}
@@ -74,6 +76,9 @@ function ui() {
 	return {
 		btn: document.querySelector<HTMLButtonElement>('[data-hdr-play]'),
 		eq: document.querySelector<HTMLElement>('[data-eq]'),
+		close: document.querySelector<HTMLButtonElement>('[data-spotify-float-close]'),
+		openLink: document.querySelector<HTMLAnchorElement>('[data-spotify-open]'),
+		root: document.getElementById('spotify-global-root'),
 	};
 }
 
@@ -93,11 +98,21 @@ function setUi(playerState: PlayerState) {
 	setEq(playerState === 'playing');
 }
 
+function setFloatOpen(open: boolean) {
+	const s = state();
+	const { root } = ui();
+	s.panelOpen = open;
+	if (!root) return;
+	root.dataset.open = open ? 'true' : 'false';
+	root.setAttribute('aria-hidden', open ? 'false' : 'true');
+}
+
 function applyPaused(paused: boolean) {
 	const s = state();
 	s.lastPaused = paused;
 	s.pendingPlay = false;
 	setUi(paused ? 'paused' : 'playing');
+	if (!paused) setFloatOpen(true);
 }
 
 function wire(ctrl: SpotifyEmbedController) {
@@ -112,6 +127,7 @@ function wire(ctrl: SpotifyEmbedController) {
 			ctrl.resume();
 		} else {
 			applyPaused(s.lastPaused);
+			if (s.panelOpen) setFloatOpen(true);
 		}
 	});
 
@@ -147,117 +163,69 @@ function ensurePlayer(host: HTMLElement) {
 	});
 }
 
-let layoutBound = false;
-let positionRaf = 0;
-let slotObserver: ResizeObserver | null = null;
+function togglePlay() {
+	const s = state();
+	const host = document.getElementById('spotify-global-host');
+	if (host) ensurePlayer(host);
 
-function mountRootOnBody() {
-	const root = document.getElementById('spotify-global-root');
-	if (!root || root.parentElement === document.body) return;
-	document.body.appendChild(root);
-}
-
-/** One iframe on <body>; on /music align over the slot (never inside a clipped wrapper). */
-function syncPlayerLayout() {
-	const root = document.getElementById('spotify-global-root');
-	const slot = document.querySelector<HTMLElement>('[data-spotify-global-slot]');
-	if (!root) return;
-
-	mountRootOnBody();
-
-	if (slot) {
-		const r = slot.getBoundingClientRect();
-		if (r.width < 8) {
-			schedulePlayerLayout();
-			return;
-		}
-		root.classList.add('spotify-global-root--page');
-		root.classList.remove('spotify-global-root--dock');
-		root.style.top = `${Math.round(r.top)}px`;
-		root.style.left = `${Math.round(r.left)}px`;
-		root.style.width = `${Math.round(r.width)}px`;
-		root.setAttribute('aria-hidden', 'false');
-		document.body.dataset.spotifyView = 'music';
-	} else {
-		root.classList.add('spotify-global-root--dock');
-		root.classList.remove('spotify-global-root--page');
-		root.style.top = '';
-		root.style.left = '';
-		root.style.width = '';
-		root.setAttribute('aria-hidden', 'true');
-		delete document.body.dataset.spotifyView;
+	if (!s.controller || !s.embedReady) {
+		s.pendingPlay = true;
+		setUi('loading');
+		setFloatOpen(true);
+		return;
 	}
-}
 
-function watchMusicSlot() {
-	const slot = document.querySelector<HTMLElement>('[data-spotify-global-slot]');
-	slotObserver?.disconnect();
-	slotObserver = null;
-	if (!slot) return;
-	slotObserver = new ResizeObserver(() => schedulePlayerLayout());
-	slotObserver.observe(slot);
-}
-
-function schedulePlayerLayout() {
-	cancelAnimationFrame(positionRaf);
-	positionRaf = requestAnimationFrame(syncPlayerLayout);
-}
-
-function bindLayoutListeners() {
-	if (layoutBound) return;
-	layoutBound = true;
-	window.addEventListener('resize', schedulePlayerLayout, { passive: true });
-	window.addEventListener('scroll', schedulePlayerLayout, { passive: true });
-	document.addEventListener('astro:page-load', () => {
-		schedulePlayerLayout();
-		watchMusicSlot();
-	});
+	if (s.lastPaused) {
+		setUi('loading');
+		setFloatOpen(true);
+		s.controller.resume();
+	} else {
+		s.controller.pause();
+	}
 }
 
 function bindUi() {
 	const s = state();
-	const { btn } = ui();
-	if (!btn) return;
+	const { btn, close, openLink } = ui();
 
 	s.uiAbort?.abort();
 	s.uiAbort = new AbortController();
+	const { signal } = s.uiAbort;
 
-	btn.addEventListener(
+	btn?.addEventListener('click', togglePlay, { signal });
+
+	close?.addEventListener(
 		'click',
 		() => {
+			setFloatOpen(false);
+		},
+		{ signal },
+	);
+
+	openLink?.addEventListener(
+		'click',
+		() => {
+			setFloatOpen(true);
 			const host = document.getElementById('spotify-global-host');
 			if (host) ensurePlayer(host);
-
-			if (!s.controller || !s.embedReady) {
-				s.pendingPlay = true;
-				setUi('loading');
-				return;
-			}
-
-			if (s.lastPaused) {
-				setUi('loading');
-				s.controller.resume();
-			} else {
-				s.controller.pause();
-			}
 		},
-		{ signal: s.uiAbort.signal },
+		{ signal },
 	);
 
 	setUi(s.embedReady ? (s.lastPaused ? 'paused' : 'playing') : 'paused');
+	setFloatOpen(s.panelOpen);
 }
 
 function init() {
 	const host = document.getElementById('spotify-global-host');
 	if (!host) return;
 
-	bindLayoutListeners();
-	watchMusicSlot();
-	requestAnimationFrame(() => {
-		requestAnimationFrame(schedulePlayerLayout);
-	});
 	ensurePlayer(host);
 	bindUi();
+
+	if (window.location.pathname.startsWith('/music')) {
+		setFloatOpen(true);
+	}
 }
 
 window.__spotifyGlobalInit = init;

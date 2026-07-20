@@ -49,15 +49,25 @@ const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
       <>
         <div
           id="spotify-global-root"
-          class="spotify-global-root spotify-global-root--dock"
+          class="spotify-float"
           transition:persist="spotify-global-root"
+          data-open="false"
           aria-hidden="true"
         >
-          <div
-            id="spotify-global-host"
-            data-spotify-url={tastes.spotify.playlistUrl}
-            data-spotify-uri={spotifyUri}
-          ></div>
+          <div class="spotify-float__panel" role="dialog" aria-label="Spotify player">
+            <div class="spotify-float__bar">
+              <span class="spotify-float__title">{tastes.spotify.playlistLabel}</span>
+              <button type="button" class="spotify-float__close" data-spotify-float-close aria-label="Ocultar reproductor">
+                ×
+              </button>
+            </div>
+            <div
+              id="spotify-global-host"
+              class="spotify-float__embed"
+              data-spotify-url={tastes.spotify.playlistUrl}
+              data-spotify-uri={spotifyUri}
+            ></div>
+          </div>
         </div>
         <script src="../scripts/spotify-global.ts"></script>
       </>

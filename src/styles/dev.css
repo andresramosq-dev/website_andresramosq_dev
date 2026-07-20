@@ -267,45 +267,77 @@ a.twin__name:hover {
 		opacity: 1;
 	}
 }
-.spotify-global-root {
-	box-sizing: border-box;
-	line-height: 0;
-	overflow: hidden;
-}
-.spotify-global-root--dock {
+.spotify-float {
 	position: fixed;
-	left: 0;
-	bottom: 0;
-	width: 860px;
-	height: 380px;
-	max-width: 100vw;
-	transform: translate3d(0, calc(100% + 48px), 0);
+	inset: 0;
+	z-index: 300;
 	pointer-events: none;
-	z-index: 0;
 }
-.spotify-global-root--page {
-	position: fixed;
-	height: 380px;
-	max-width: 100vw;
-	transform: none;
-	visibility: visible;
-	opacity: 1;
+.spotify-float[data-open='true'] {
 	pointer-events: auto;
-	z-index: 200;
+}
+.spotify-float__panel {
+	position: fixed;
+	right: max(0.75rem, env(safe-area-inset-right));
+	bottom: max(0.75rem, env(safe-area-inset-bottom));
+	width: min(100vw - 1.5rem, 420px);
 	background: #121212;
 	border: 1px solid var(--border2);
-	border-radius: 10px;
-	box-sizing: border-box;
+	border-radius: 12px;
+	box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+	overflow: hidden;
+	transform: translate3d(0, calc(100% + 2rem), 0);
+	opacity: 0;
+	pointer-events: none;
+	transition:
+		transform 0.22s ease,
+		opacity 0.22s ease;
 }
-.spotify-global-root iframe {
+.spotify-float[data-open='true'] .spotify-float__panel {
+	transform: translate3d(0, 0, 0);
+	opacity: 1;
+	pointer-events: auto;
+}
+.spotify-float__bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	padding: 0.45rem 0.55rem 0.45rem 0.75rem;
+	border-bottom: 1px solid var(--border2);
+	font-family: var(--mono);
+	font-size: 0.72rem;
+	color: var(--prompt);
+}
+.spotify-float__close {
+	appearance: none;
+	border: 1px solid var(--border2);
+	background: #0a0d0a;
+	color: var(--muted);
+	width: 1.65rem;
+	height: 1.65rem;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 1.1rem;
+	line-height: 1;
+}
+.spotify-float__close:hover {
+	color: var(--ink);
+	border-color: var(--border);
+}
+.spotify-float__embed {
+	line-height: 0;
+}
+.spotify-float__embed iframe {
 	display: block;
 	width: 100% !important;
-	height: 380px !important;
+	height: 352px !important;
 	border: 0;
 }
-.music-page__player {
-	width: 100%;
-	min-height: 380px;
+.music-page__hint {
+	margin: 0;
+	font-size: 0.88rem;
+	color: var(--muted);
 }
 .music-page {
 	display: grid;
