@@ -4,52 +4,42 @@ import ConsoleTitle from '../../components/ConsoleTitle.astro';
 import CmdBlock from '../../components/CmdBlock.astro';
 import WhoamiPanel from '../../components/WhoamiPanel.astro';
 import BioPanel from '../../components/BioPanel.astro';
-import SitePanel from '../../components/SitePanel.astro';
-import StackPanel from '../../components/StackPanel.astro';
-import TastesPanel from '../../components/TastesPanel.astro';
+import AboutDir from '../../components/AboutDir.astro';
 import ConsolePrompt from '../../components/ConsolePrompt.astro';
-import { site, now } from '../../data/site';
+import { now } from '../../data/site';
 ---
 
 <BaseLayout title="about me" path="/about">
-  <ConsoleTitle />
+	<ConsoleTitle />
 
-  <CmdBlock cmd="whoami" id="profile">
-    <WhoamiPanel />
-  </CmdBlock>
+	<CmdBlock cmd="whoami" id="profile">
+		<WhoamiPanel />
+	</CmdBlock>
 
-  <CmdBlock cmd="cat bio.txt" id="bio">
-    <BioPanel />
-  </CmdBlock>
+	<CmdBlock cmd="cat bio.txt" id="bio">
+		<BioPanel />
+	</CmdBlock>
 
-  <CmdBlock cmd="cat now.txt" id="now">
-    <dl class="now-grid">
-      <div class="now-item">
-        <dt>focused_on</dt>
-        <dd>{now.focused_on}</dd>
-      </div>
-      <div class="now-item">
-        <dt>looking_for</dt>
-        <dd>{now.looking_for}</dd>
-      </div>
-      <div class="now-item">
-        <dt>philosophy</dt>
-        <dd>{now.philosophy}</dd>
-      </div>
-    </dl>
-  </CmdBlock>
+	<CmdBlock cmd="cat now.txt" id="now">
+		<dl class="now-grid">
+			<div class="now-item">
+				<dt>focused_on</dt>
+				<dd>{now.focused_on}</dd>
+			</div>
+			<div class="now-item">
+				<dt>looking_for</dt>
+				<dd>{now.looking_for}</dd>
+			</div>
+			<div class="now-item">
+				<dt>philosophy</dt>
+				<dd>{now.philosophy}</dd>
+			</div>
+		</dl>
+	</CmdBlock>
 
-  <CmdBlock cmd="cat site.txt" id="site">
-    <SitePanel />
-  </CmdBlock>
+	<CmdBlock cmd="ls ~/" plain id="more">
+		<AboutDir />
+	</CmdBlock>
 
-  <CmdBlock cmd="stacks" id="stack">
-    <StackPanel />
-  </CmdBlock>
-
-  <CmdBlock cmd="tastes" id="tastes">
-    <TastesPanel />
-  </CmdBlock>
-
-  <ConsolePrompt />
+	<ConsolePrompt />
 </BaseLayout>

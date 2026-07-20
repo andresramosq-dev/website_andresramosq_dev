@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CmdBlock from '../../components/CmdBlock.astro';
+import SitePanel from '../../components/SitePanel.astro';
+---
+
+<BaseLayout title="site" path="/site">
+	<CmdBlock cmd="cat site.txt" id="site">
+		<SitePanel />
+	</CmdBlock>
+</BaseLayout>

@@ -51,7 +51,12 @@ export const site = {
 	},
 };
 
-export const nav = [{ label: 'about', href: '/about' }] as const;
+export const nav = [
+	{ label: 'about', href: '/about' },
+	{ label: 'stacks', href: '/stacks' },
+	{ label: 'tastes', href: '/tastes' },
+	{ label: 'site', href: '/site' },
+] as const;
 
 export const now = {
 	focused_on:
