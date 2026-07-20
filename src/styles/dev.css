@@ -112,12 +112,6 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .twin__handle {
 	color: #7a9a7a;
 	margin-left: 0.55rem;
-	text-decoration: none;
-}
-a.twin__handle:hover {
-	color: var(--link-hover);
-	text-decoration: underline;
-	text-underline-offset: 3px;
 }
 .twin__name {
 	color: var(--ink);
@@ -1212,4 +1206,14 @@ a.twin__name:hover {
 		align-items: flex-start;
 		gap: 0.35rem;
 	}
+}
+
+.route-stub {
+	margin: 0;
+	font-size: 0.86rem;
+	color: var(--muted);
+}
+.route-stub__muted {
+	color: var(--prompt);
+	margin-right: 0.35rem;
 }

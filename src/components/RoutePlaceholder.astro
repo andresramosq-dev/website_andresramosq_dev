@@ -1,0 +1,20 @@
+---
+import TermPath from './TermPath.astro';
+import TermPanel from './TermPanel.astro';
+
+interface Props {
+	path: string;
+	label?: string;
+}
+
+const { path, label } = Astro.props;
+const panelLabel = label ?? `${path.replace(/^\//, '')}/`;
+---
+
+<TermPath path={path} />
+
+<TermPanel label={panelLabel}>
+	<p class="route-stub">
+		<span class="route-stub__muted">#</span> empty for now
+	</p>
+</TermPanel>
