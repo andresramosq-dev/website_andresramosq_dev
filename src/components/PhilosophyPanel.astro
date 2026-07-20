@@ -2,8 +2,8 @@
 import { workPhilosophy } from '../data/site';
 ---
 
-<div class="console-doc">
+<ul class="console-doc console-doc--dash">
 	{workPhilosophy.paragraphs.map((paragraph, index) => (
-		<p class:list={['console-doc__line', index === 0 && 'console-doc__line--open']}>{paragraph}</p>
+		<li class:list={['console-doc__line', index === 0 && 'console-doc__line--open']}>{paragraph}</li>
 	))}
-</div>
+</ul>

@@ -861,6 +861,15 @@ a.twin__name:hover {
 	line-height: 1.65;
 	letter-spacing: -0.01em;
 }
+.console-doc--dash {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.console-doc--dash .console-doc__line::before {
+	content: '- ';
+	color: #7a9a7a;
+}
 .console-doc__line {
 	margin: 0;
 	color: var(--text);
@@ -1010,7 +1019,7 @@ a.twin__name:hover {
 		font-size: 0.8rem;
 	}
 	.console-title__headline {
-		font-size: clamp(1.45rem, 6vw, 1.85rem);
+		font-size: clamp(1.22rem, 5vw, 1.5rem);
 	}
 	.cmd-block { margin-bottom: 1.25rem; }
 	.cmd-block__line {
