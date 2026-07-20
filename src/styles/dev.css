@@ -538,7 +538,9 @@ a.twin__name:hover {
 }
 
 .console-prompt {
-	align-items: center;
+	align-items: baseline;
+	flex-wrap: wrap;
+	justify-content: flex-start;
 	gap: 0.35rem 0.65rem;
 	width: 100%;
 	max-width: 100%;
@@ -546,25 +548,25 @@ a.twin__name:hover {
 	box-sizing: border-box;
 }
 .console-prompt__path {
-	flex: 1 1 auto;
+	flex: 0 1 auto;
 	min-width: 0;
 }
 .console-prompt__cmd {
 	display: inline-flex;
-	align-items: center;
-	flex: 1 1 11rem;
+	align-items: baseline;
+	flex: 0 1 auto;
 	gap: 0.35rem;
-	min-width: min(100%, 11rem);
+	width: auto;
 	max-width: 100%;
 }
 .console-prompt__cmd .cmd-block__sig {
 	margin-right: 0.15rem;
 }
 .console-prompt__input {
-	flex: 1 1 4rem;
-	min-width: 3.5rem;
-	width: auto;
-	max-width: none;
+	flex: 0 0 auto;
+	width: 5ch;
+	min-width: 3ch;
+	max-width: 100%;
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -573,7 +575,9 @@ a.twin__name:hover {
 	font-size: inherit;
 	line-height: inherit;
 	color: var(--ink);
+	text-align: left;
 	caret-color: var(--prompt);
+	field-sizing: content;
 }
 .console-prompt__input:focus {
 	outline: none;
