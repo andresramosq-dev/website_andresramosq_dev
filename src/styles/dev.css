@@ -195,11 +195,10 @@ a.twin__name:hover {
 }
 .hdr-music__icon {
 	flex-shrink: 0;
-	color: color-mix(in srgb, var(--prompt) 42%, var(--muted));
-	opacity: 0.92;
+	color: #7a9a7a;
 }
 .hdr-music__link:hover .hdr-music__icon {
-	color: color-mix(in srgb, var(--prompt) 58%, var(--muted));
+	color: #7a9a7a;
 }
 .hdr-music__link:hover {
 	color: var(--link-hover);
