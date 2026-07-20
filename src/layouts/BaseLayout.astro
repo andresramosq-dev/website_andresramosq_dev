@@ -2,8 +2,7 @@
 import '../styles/dev.css';
 import { ClientRouter } from 'astro:transitions';
 import TerminalShell from '../components/TerminalShell.astro';
-import { site, nav, tastes } from '../data/site';
-import { spotifyPlaylistUri } from '../lib/spotify';
+import { site, nav } from '../data/site';
 
 interface Props {
 	title?: string;
@@ -13,7 +12,6 @@ interface Props {
 
 const { title, description, path = '/about' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
-const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
 ---
 
 <!doctype html>
@@ -26,48 +24,10 @@ const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{pageTitle}</title>
     <ClientRouter />
-    {spotifyUri ? (
-      <>
-        <link rel="preconnect" href="https://open.spotify.com" />
-        <link rel="dns-prefetch" href="https://open.spotify.com" />
-        <link rel="preload" href="https://open.spotify.com/embed/iframe-api/v1" as="script" />
-        <script is:inline>
-          window.__spotifyHdrBoot = window.__spotifyHdrBoot || [];
-          if (!window.onSpotifyIframeApiReady) {
-            window.onSpotifyIframeApiReady = function (api) {
-              window.__spotifyIframeApi = api;
-              (window.__spotifyHdrBoot || []).forEach(function (fn) { fn(api); });
-              window.__spotifyHdrBoot = [];
-              window.__spotifyRunInit && window.__spotifyRunInit();
-            };
-          }
-        </script>
-        <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
-      </>
-    ) : null}
+    <link rel="preconnect" href="https://open.spotify.com" />
+    <link rel="dns-prefetch" href="https://open.spotify.com" />
   </head>
   <body>
-    {spotifyUri ? (
-      <>
-        <div id="spotify-vault-anchor" class="spotify-vault-anchor" aria-hidden="true">
-          <div
-            id="spotify-audio-vault"
-            class="spotify-audio-vault spotify-audio-vault--hidden"
-            transition:persist="spotify-global-player"
-            aria-hidden="true"
-          >
-            <div
-              id="spotify-header-embed-host"
-              class="spotify-header-sink"
-              data-spotify-uri={spotifyUri}
-              data-spotify-url={tastes.spotify.playlistUrl}
-            ></div>
-          </div>
-        </div>
-        <script src="../scripts/spotify-header.ts"></script>
-      </>
-    ) : null}
-
     <a class="skip" href="#main">Skip to content</a>
 
     <div class="desk">
@@ -99,6 +59,5 @@ const spotifyUri = spotifyPlaylistUri(tastes.spotify.playlistUrl);
         </footer>
       </TerminalShell>
     </div>
-
   </body>
 </html>

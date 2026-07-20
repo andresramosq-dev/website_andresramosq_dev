@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CmdBlock from '../../components/CmdBlock.astro';
+import SpotifyEmbed from '../../components/SpotifyEmbed.astro';
 import { tastes } from '../../data/site';
 ---
 
@@ -12,11 +13,9 @@ import { tastes } from '../../data/site';
 				<span class="music-page__sep">=</span>
 				<span class="music-page__val">{tastes.spotify.playlistLabel}</span>
 			</p>
-			<div
-				class="music-page__player spotify-embed"
-				data-spotify-page-player
-				aria-label="Spotify playlist player"
-			></div>
+			<div id="spotify-player" class="music-page__player">
+				<SpotifyEmbed />
+			</div>
 		</div>
 	</CmdBlock>
 </BaseLayout>
