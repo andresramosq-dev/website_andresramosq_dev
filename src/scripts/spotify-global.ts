@@ -204,7 +204,8 @@ function bindUi() {
 
 	openLink?.addEventListener(
 		'click',
-		() => {
+		(e) => {
+			e.preventDefault();
 			setFloatOpen(true);
 			const host = document.getElementById('spotify-global-host');
 			if (host) ensurePlayer(host);
@@ -222,10 +223,6 @@ function init() {
 
 	ensurePlayer(host);
 	bindUi();
-
-	if (window.location.pathname.startsWith('/music')) {
-		setFloatOpen(true);
-	}
 }
 
 window.__spotifyGlobalInit = init;

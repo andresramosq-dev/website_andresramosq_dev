@@ -334,16 +334,6 @@ a.twin__name:hover {
 	height: 352px !important;
 	border: 0;
 }
-.music-page__hint {
-	margin: 0;
-	font-size: 0.88rem;
-	color: var(--muted);
-}
-.music-page {
-	display: grid;
-	gap: 0.85rem;
-	max-width: 100%;
-}
 .hdr-eq {
 	display: inline-flex;
 	align-items: flex-end;
@@ -388,35 +378,6 @@ a.twin__name:hover {
 	50% {
 		height: 0.85rem;
 	}
-}
-
-.music-page {
-	display: grid;
-	gap: 0.85rem;
-	max-width: 32rem;
-}
-.music-page__line {
-	margin: 0;
-	font-size: 0.86rem;
-	color: var(--muted);
-}
-.music-page__key {
-	color: var(--perm);
-}
-.music-page__sep {
-	margin: 0 0.35rem;
-}
-.music-page__val {
-	color: var(--ink);
-}
-.music-page__hint {
-	margin: 0;
-	font-size: 0.84rem;
-	color: var(--muted);
-	line-height: 1.6;
-}
-.music-page__hint a {
-	color: var(--link);
 }
 
 .tastes__link {
