@@ -12,7 +12,11 @@ import { tastes } from '../../data/site';
 				<span class="music-page__sep">=</span>
 				<span class="music-page__val">{tastes.spotify.playlistLabel}</span>
 			</p>
-			<div class="music-page__player" data-spotify-page-player></div>
+			<div
+				class="music-page__player spotify-embed"
+				data-spotify-page-player
+				aria-label="Spotify playlist player"
+			></div>
 		</div>
 	</CmdBlock>
 </BaseLayout>

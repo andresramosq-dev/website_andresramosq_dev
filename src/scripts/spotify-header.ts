@@ -45,6 +45,9 @@ declare global {
 const EMBED_WIDTH = 860;
 const EMBED_HEIGHT = 380;
 
+let layoutObserver: ResizeObserver | null = null;
+let reflowHandler: (() => void) | null = null;
+
 function globalState(): SpotifyGlobal {
 	if (!window.__spotifyGlobal) {
 		window.__spotifyGlobal = {
@@ -143,6 +146,12 @@ function wireController(ctrl: SpotifyEmbedController, host: HTMLElement, g: Spot
 	});
 }
 
+function ensureHostInVault(host: HTMLElement, vault: HTMLElement) {
+	if (host.parentElement !== vault) {
+		vault.appendChild(host);
+	}
+}
+
 function ensureEmbed(host: HTMLElement, playlistUrl: string | undefined, uri: string | undefined) {
 	const g = globalState();
 	if (g.controller || g.booting) return;
@@ -163,6 +172,16 @@ function ensureEmbed(host: HTMLElement, playlistUrl: string | undefined, uri: st
 	});
 }
 
+function togglePlayback(g: SpotifyGlobal) {
+	if (!g.controller) return;
+	if (g.lastPaused) {
+		setUiState('loading', g);
+		g.controller.resume();
+	} else {
+		g.controller.pause();
+	}
+}
+
 function bindUi() {
 	const g = globalState();
 	const { playBtn } = currentUi();
@@ -178,15 +197,13 @@ function bindUi() {
 			if (!g.controller || !g.embedReady) {
 				g.pendingPlay = true;
 				setUiState('loading', g);
+				const host = document.getElementById('spotify-header-embed-host');
+				if (host) {
+					ensureEmbed(host, host.dataset.spotifyUrl, host.dataset.spotifyUri);
+				}
 				return;
 			}
-
-			if (g.lastPaused) {
-				setUiState('loading', g);
-				g.controller.resume();
-			} else {
-				g.controller.pause();
-			}
+			togglePlayback(g);
 		},
 		{ signal },
 	);
@@ -206,47 +223,91 @@ function vaultEl() {
 	return document.getElementById('spotify-audio-vault');
 }
 
-function pinHostHidden(host: HTMLElement) {
-	host.classList.add('spotify-header-sink--hidden');
-	host.classList.remove('spotify-header-sink--page');
-	host.setAttribute('aria-hidden', 'true');
-	host.style.cssText = '';
-}
-
-function showHostOnMusicPage(host: HTMLElement) {
-	host.classList.remove('spotify-header-sink--hidden');
-	host.classList.add('spotify-header-sink--page');
-	host.setAttribute('aria-hidden', 'false');
-	host.style.cssText = '';
-	for (const frame of host.querySelectorAll('iframe')) {
-		frame.removeAttribute('style');
+function clearPlacementWatch() {
+	layoutObserver?.disconnect();
+	layoutObserver = null;
+	if (reflowHandler) {
+		window.removeEventListener('scroll', reflowHandler);
+		window.removeEventListener('resize', reflowHandler);
+		reflowHandler = null;
 	}
 }
 
-function placeHost(host: HTMLElement) {
-	const mount = musicMount();
+function hideVault(vault: HTMLElement) {
+	vault.classList.add('spotify-audio-vault--hidden');
+	vault.classList.remove('spotify-audio-vault--music');
+	vault.setAttribute('aria-hidden', 'true');
+	Object.assign(vault.style, {
+		position: 'fixed',
+		left: '-10000px',
+		top: '0',
+		width: `${EMBED_WIDTH}px`,
+		height: `${EMBED_HEIGHT}px`,
+		opacity: '0',
+		pointerEvents: 'none',
+		zIndex: '-1',
+	});
+}
+
+function positionVaultOnMusic(vault: HTMLElement, mount: HTMLElement) {
+	const place = () => {
+		const rect = mount.getBoundingClientRect();
+		const width = Math.max(rect.width, 280);
+		Object.assign(vault.style, {
+			position: 'fixed',
+			left: `${rect.left}px`,
+			top: `${rect.top}px`,
+			width: `${width}px`,
+			height: `${EMBED_HEIGHT}px`,
+			opacity: '1',
+			pointerEvents: 'auto',
+			zIndex: '20',
+		});
+	};
+
+	place();
+	if (!layoutObserver) {
+		layoutObserver = new ResizeObserver(place);
+		layoutObserver.observe(mount);
+	}
+	if (!reflowHandler) {
+		reflowHandler = place;
+		window.addEventListener('scroll', reflowHandler, { passive: true });
+		window.addEventListener('resize', reflowHandler);
+	}
+}
+
+function syncVaultPlacement() {
 	const vault = vaultEl();
+	const host = document.getElementById('spotify-header-embed-host');
+	const mount = musicMount();
 
-	if (mount) {
-		mount.appendChild(host);
-		showHostOnMusicPage(host);
-		return;
-	}
+	if (!vault || !host) return;
 
-	if (vault) {
-		vault.appendChild(host);
-		pinHostHidden(host);
+	ensureHostInVault(host, vault);
+	clearPlacementWatch();
+
+	const onMusic = Boolean(mount);
+	if (onMusic && mount) {
+		vault.classList.remove('spotify-audio-vault--hidden');
+		vault.classList.add('spotify-audio-vault--music');
+		vault.setAttribute('aria-hidden', 'false');
+		positionVaultOnMusic(vault, mount);
+	} else {
+		hideVault(vault);
 	}
 }
 
 function init() {
 	const host = document.getElementById('spotify-header-embed-host');
+	const vault = vaultEl();
 	const uri = host?.dataset.spotifyUri;
 	const playlistUrl = host?.dataset.spotifyUrl;
 
-	if (!host || (!uri && !playlistUrl)) return;
+	if (!host || !vault || (!uri && !playlistUrl)) return;
 
-	placeHost(host);
+	ensureHostInVault(host, vault);
+	syncVaultPlacement();
 	bindUi();
 	ensureEmbed(host, playlistUrl, uri);
 }
@@ -254,3 +315,4 @@ function init() {
 init();
 document.addEventListener('astro:page-load', init);
 document.addEventListener('astro:after-swap', init);
+document.addEventListener('astro:before-swap', clearPlacementWatch);
