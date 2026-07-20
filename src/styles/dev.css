@@ -537,6 +537,11 @@ a.twin__name:hover {
 	padding: 0.2rem 0 0;
 }
 
+.console-title:has(+ .about-ls) {
+	margin-bottom: 0.4rem;
+	gap: 0.45rem;
+}
+
 .console-prompt {
 	width: 100%;
 	margin-bottom: 0.35rem;
@@ -580,14 +585,14 @@ a.twin__name:hover {
 }
 
 .about-ls {
-	margin: -0.65rem 0 1.25rem;
+	margin: 0 0 1rem;
 }
-.about-ls__form {
-	margin-bottom: 0.35rem;
+.about-ls__form.cmd-block__line {
+	margin-bottom: 0.2rem;
 }
 .about-ls__out {
 	margin-top: 0;
-	padding: 0.65rem 0.85rem;
+	padding: 0.45rem 0.75rem;
 }
 .about-ls__list {
 	gap: 0.15rem;
