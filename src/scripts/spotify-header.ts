@@ -27,6 +27,7 @@ type SpotifyGlobal = {
 	controller: SpotifyEmbedController | null;
 	embedReady: boolean;
 	booting: boolean;
+	bootStartedAt: number;
 	pendingPlay: boolean;
 	lastPaused: boolean;
 	lastState: PlayerState;
@@ -39,11 +40,13 @@ declare global {
 		__spotifyIframeApi?: SpotifyIFrameAPI;
 		__spotifyHdrBoot?: Array<(api: SpotifyIFrameAPI) => void>;
 		__spotifyGlobal?: SpotifyGlobal;
+		__spotifyRunInit?: () => void;
 	}
 }
 
 const EMBED_WIDTH = 860;
 const EMBED_HEIGHT = 380;
+const BOOT_TIMEOUT_MS = 15000;
 
 let layoutObserver: ResizeObserver | null = null;
 let reflowHandler: (() => void) | null = null;
@@ -54,6 +57,7 @@ function globalState(): SpotifyGlobal {
 			controller: null,
 			embedReady: false,
 			booting: false,
+			bootStartedAt: 0,
 			pendingPlay: false,
 			lastPaused: true,
 			lastState: 'paused',
@@ -152,11 +156,26 @@ function ensureHostInVault(host: HTMLElement, vault: HTMLElement) {
 	}
 }
 
+function resetHost(host: HTMLElement, g: SpotifyGlobal) {
+	host.innerHTML = '';
+	host.removeAttribute('data-spotify-ready');
+	g.controller = null;
+	g.embedReady = false;
+	g.booting = false;
+}
+
 function ensureEmbed(host: HTMLElement, playlistUrl: string | undefined, uri: string | undefined) {
 	const g = globalState();
-	if (g.controller || g.booting) return;
+
+	if (g.controller) return;
+
+	if (g.booting) {
+		if (Date.now() - g.bootStartedAt < BOOT_TIMEOUT_MS) return;
+		resetHost(host, g);
+	}
 
 	g.booting = true;
+	g.bootStartedAt = Date.now();
 
 	const options: { width: number; height: number; uri?: string; url?: string } = {
 		width: EMBED_WIDTH,
@@ -166,6 +185,7 @@ function ensureEmbed(host: HTMLElement, playlistUrl: string | undefined, uri: st
 	else if (uri) options.uri = uri;
 
 	void whenSpotifyApi().then((api) => {
+		if (g.controller) return;
 		api.createController(host, options, (ctrl) => {
 			wireController(ctrl, host, g);
 		});
@@ -194,13 +214,14 @@ function bindUi() {
 	playBtn.addEventListener(
 		'click',
 		() => {
+			const host = document.getElementById('spotify-header-embed-host');
+			if (host) {
+				ensureEmbed(host, host.dataset.spotifyUrl, host.dataset.spotifyUri);
+			}
+
 			if (!g.controller || !g.embedReady) {
 				g.pendingPlay = true;
 				setUiState('loading', g);
-				const host = document.getElementById('spotify-header-embed-host');
-				if (host) {
-					ensureEmbed(host, host.dataset.spotifyUrl, host.dataset.spotifyUri);
-				}
 				return;
 			}
 			togglePlayback(g);
@@ -233,19 +254,24 @@ function clearPlacementWatch() {
 	}
 }
 
+/** In viewport but off-screen — Spotify often skips `ready` when parked at left:-10000px */
 function hideVault(vault: HTMLElement) {
 	vault.classList.add('spotify-audio-vault--hidden');
 	vault.classList.remove('spotify-audio-vault--music');
 	vault.setAttribute('aria-hidden', 'true');
 	Object.assign(vault.style, {
 		position: 'fixed',
-		left: '-10000px',
-		top: '0',
+		left: '0',
+		bottom: '0',
+		top: 'auto',
 		width: `${EMBED_WIDTH}px`,
 		height: `${EMBED_HEIGHT}px`,
-		opacity: '0',
+		maxWidth: '100vw',
+		transform: 'translateY(calc(100% + 32px))',
+		opacity: '0.01',
 		pointerEvents: 'none',
 		zIndex: '-1',
+		overflow: 'hidden',
 	});
 }
 
@@ -257,8 +283,11 @@ function positionVaultOnMusic(vault: HTMLElement, mount: HTMLElement) {
 			position: 'fixed',
 			left: `${rect.left}px`,
 			top: `${rect.top}px`,
+			bottom: 'auto',
 			width: `${width}px`,
 			height: `${EMBED_HEIGHT}px`,
+			maxWidth: '100vw',
+			transform: 'none',
 			opacity: '1',
 			pointerEvents: 'auto',
 			zIndex: '20',
@@ -287,8 +316,7 @@ function syncVaultPlacement() {
 	ensureHostInVault(host, vault);
 	clearPlacementWatch();
 
-	const onMusic = Boolean(mount);
-	if (onMusic && mount) {
+	if (mount) {
 		vault.classList.remove('spotify-audio-vault--hidden');
 		vault.classList.add('spotify-audio-vault--music');
 		vault.setAttribute('aria-hidden', 'false');
@@ -308,9 +336,11 @@ function init() {
 
 	ensureHostInVault(host, vault);
 	syncVaultPlacement();
-	bindUi();
 	ensureEmbed(host, playlistUrl, uri);
+	bindUi();
 }
+
+window.__spotifyRunInit = init;
 
 init();
 document.addEventListener('astro:page-load', init);
