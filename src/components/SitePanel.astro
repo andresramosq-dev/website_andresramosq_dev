@@ -9,77 +9,88 @@ function joinItems(items: readonly string[]) {
 	}));
 }
 
+interface Props {
+	part: 'intro' | 'routes' | 'meta';
+}
+
+const { part } = Astro.props;
 const { aboutSite } = site;
 ---
 
-<div class="site-about">
-	<p class="site-about__lead">
-		<span class="site-about__desc">{aboutSite.leadBefore}</span>{' '}
-		<a class="site-about__domain" href="/about">{site.domain}</a>
-		<span class="site-about__desc">{aboutSite.leadAfter}</span>
-	</p>
-
-	{aboutSite.body.map((line) => (
-		<p class="site-about__out">{line}</p>
-	))}
-
-	<div class="tag-box tag-box--c site-about__box">
-		<div class="tag-box__key">here</div>
-		<ul class="site-about__map">
-			{aboutSite.findHere.map((entry) => (
-				<li>
-					<a class="site-about__map-link" href={entry.href}>
-						<span class="site-about__map-label">{entry.label}</span>
-					</a>
-					<span class="site-about__map-note">{entry.note}</span>
-				</li>
-			))}
-		</ul>
+{part === 'intro' && (
+	<div class="site-about">
+		<p class="site-about__lead">
+			<span class="site-about__desc">{aboutSite.leadBefore}</span>{' '}
+			<span class="site-about__domain site-about__domain--text">{site.domain}</span>
+			<span class="site-about__desc">{aboutSite.leadAfter}</span>
+		</p>
+		{aboutSite.body.map((line) => (
+			<p class="site-about__out">{line}</p>
+		))}
 	</div>
+)}
 
-	<div class="tag-box tag-box--c site-about__box">
-		<div class="tag-box__key">soon</div>
-		<ul class="site-about__map site-about__map--idle">
-			{aboutSite.comingSoon.map((entry) => (
-				<li>
-					<span class="site-about__map-label site-about__map-label--idle">{entry.label}</span>
-					<span class="site-about__map-note">{entry.note}</span>
-				</li>
-			))}
-		</ul>
-	</div>
-
-	<div class="tag-box tag-box--c site-about__build">
-		<div class="tag-box__key">build</div>
-		<div class="tag-box__text">
-			<span class="site-about__out-inline">{aboutSite.builtBefore}</span>{' '}
-			{joinItems(aboutSite.builtWith).map(({ item, sep }) => (
-				<>
-					{sep}<BioTag label={item} />
-				</>
-			))}
-			<span class="site-about__out-inline">{aboutSite.builtMid}</span>{' '}
-			{joinItems(aboutSite.builtAlso).map(({ item, sep }) => (
-				<>
-					{sep}<BioTag label={item} />
-				</>
-			))}
-			<span class="site-about__out-inline">{aboutSite.builtAfter}</span>
+{part === 'routes' && (
+	<div class="site-about">
+		<div class="tag-box tag-box--c site-about__box">
+			<div class="tag-box__key">here</div>
+			<ul class="site-about__map">
+				{aboutSite.findHere.map((entry) => (
+					<li>
+						<a class="site-about__map-link" href={entry.href}>
+							<span class="site-about__map-label">{entry.label}</span>
+						</a>
+						<span class="site-about__map-note">{entry.note}</span>
+					</li>
+				))}
+			</ul>
+		</div>
+		<div class="tag-box tag-box--c site-about__box">
+			<div class="tag-box__key">soon</div>
+			<ul class="site-about__map site-about__map--idle">
+				{aboutSite.comingSoon.map((entry) => (
+					<li>
+						<span class="site-about__map-label site-about__map-label--idle">{entry.label}</span>
+						<span class="site-about__map-note">{entry.note}</span>
+					</li>
+				))}
+			</ul>
 		</div>
 	</div>
+)}
 
-	<p class="site-about__idea">{aboutSite.design}</p>
-	<p class="site-about__lang">{aboutSite.language}</p>
-
-	<div class="tag-box tag-box--c site-about__box">
-		<div class="tag-box__key">legal</div>
-		<ul class="site-about__map site-about__map--inline">
-			{aboutSite.legal.map((entry, i) => (
-				<li>
-					{i > 0 && <span class="site-about__sep" aria-hidden="true">·</span>}
-					<a class="site-about__map-link" href={entry.href}>{entry.label}</a>
-				</li>
-			))}
-		</ul>
+{part === 'meta' && (
+	<div class="site-about">
+		<div class="tag-box tag-box--c site-about__build">
+			<div class="tag-box__key">build</div>
+			<div class="tag-box__text">
+				<span class="site-about__out-inline">{aboutSite.builtBefore}</span>{' '}
+				{joinItems(aboutSite.builtWith).map(({ item, sep }) => (
+					<>
+						{sep}<BioTag label={item} />
+					</>
+				))}
+				<span class="site-about__out-inline">{aboutSite.builtMid}</span>{' '}
+				{joinItems(aboutSite.builtAlso).map(({ item, sep }) => (
+					<>
+						{sep}<BioTag label={item} />
+					</>
+				))}
+				<span class="site-about__out-inline">{aboutSite.builtAfter}</span>
+			</div>
+		</div>
+		<p class="site-about__idea">{aboutSite.design}</p>
+		<p class="site-about__lang">{aboutSite.language}</p>
+		<div class="tag-box tag-box--c site-about__box">
+			<div class="tag-box__key">legal</div>
+			<ul class="site-about__map site-about__map--inline">
+				{aboutSite.legal.map((entry, i) => (
+					<li>
+						{i > 0 && <span class="site-about__sep" aria-hidden="true">·</span>}
+						<a class="site-about__map-link" href={entry.href}>{entry.label}</a>
+					</li>
+				))}
+			</ul>
+		</div>
 	</div>
-</div>
+)}

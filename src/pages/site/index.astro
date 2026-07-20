@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ConsoleTitle from '../../components/ConsoleTitle.astro';
 import TermPath from '../../components/TermPath.astro';
+import SiteLs from '../../components/SiteLs.astro';
 import CmdBlock from '../../components/CmdBlock.astro';
 import SitePanel from '../../components/SitePanel.astro';
 ---
@@ -9,8 +10,17 @@ import SitePanel from '../../components/SitePanel.astro';
 <BaseLayout title="site" path="/site">
 	<TermPath path="/site" />
 	<ConsoleTitle id="site-top" title="about this site" segment="site" cmd="site -title" />
+	<SiteLs />
 
-	<CmdBlock cmd="cat site.txt" id="site">
-		<SitePanel />
+	<CmdBlock cmd="cat site.txt" cwd="~/site" id="site-intro">
+		<SitePanel part="intro" />
+	</CmdBlock>
+
+	<CmdBlock cmd="cat routes.txt" cwd="~/site" id="site-routes">
+		<SitePanel part="routes" />
+	</CmdBlock>
+
+	<CmdBlock cmd="cat meta.txt" cwd="~/site" id="site-meta">
+		<SitePanel part="meta" />
 	</CmdBlock>
 </BaseLayout>

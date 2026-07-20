@@ -2,17 +2,17 @@
 import { site } from '../data/site';
 
 const entries = [
-	{ label: '.', target: 'about-top' },
-	{ label: 'whoami', target: 'profile' },
-	{ label: 'bio.txt', target: 'bio' },
-	{ label: 'now.txt', target: 'now' },
+	{ label: '.', target: 'site-top' },
+	{ label: 'site.txt', target: 'site-intro' },
+	{ label: 'routes.txt', target: 'site-routes' },
+	{ label: 'meta.txt', target: 'site-meta' },
 ] as const;
 ---
 
-<div class="about-ls" data-about-ls>
+<div class="about-ls site-ls" data-about-ls>
 	<form class="about-ls__form cmd-block__line console-prompt" data-about-ls-form>
 		<span class="cmd-block__path">
-			<span class="cmd-block__user">{site.consoleUser}</span>@<span class="cmd-block__host">{site.domain}</span><span class="cmd-block__colon">:</span><span class="cmd-block__cwd">~/about</span>
+			<span class="cmd-block__user">{site.consoleUser}</span>@<span class="cmd-block__host">{site.domain}</span><span class="cmd-block__colon">:</span><span class="cmd-block__cwd">~/site</span>
 		</span>
 		<span class="cmd-block__sig"> @</span>
 		<span class="cmd-block__cmd">ls</span>
@@ -20,9 +20,6 @@ const entries = [
 	</form>
 	<div class="about-ls__out cmd-block__out" data-about-ls-out hidden>
 		<ul class="ls-out about-ls__list">
-			<li>
-				<a class="about-ls__item about-ls__item--link" href="/site">site.txt</a>
-			</li>
 			{entries.map((entry) => (
 				<li>
 					<button type="button" class="about-ls__item" data-about-ls-target={entry.target}>
@@ -60,7 +57,7 @@ const entries = [
 			btn.addEventListener('click', () => {
 				const id = btn.dataset.aboutLsTarget;
 				if (id) {
-					if (id === 'about-top') {
+					if (id === 'site-top' || id === 'about-top') {
 						window.scrollTo({ top: 0, behavior: 'smooth' });
 					} else {
 						document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });

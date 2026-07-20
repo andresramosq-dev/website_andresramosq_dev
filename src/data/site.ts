@@ -71,20 +71,20 @@ export const site = {
 };
 
 export const nav = [
-	{ label: 'about', href: '/about' },
-	{ label: 'site', href: '/site' },
-	{ label: 'blog', href: '/blog' },
-	{ label: 'notas', href: '/notas' },
-	{ label: 'posts', href: '/posts' },
-	{ label: 'archive', href: '/archive' },
-	{ label: 'tags', href: '/tags' },
-	{ label: 'subscribe', href: '/subscribe' },
-	{ label: 'contact', href: '/contact' },
-	{ label: 'uses', href: '/uses' },
-	{ label: 'search', href: '/search' },
-	{ label: 'rss', href: '/rss' },
-	{ label: 'stacks', href: '/stacks' },
-	{ label: 'tastes', href: '/tastes' },
+	{ label: 'about', href: '/about', navigate: true },
+	{ label: 'site', href: '/site', navigate: true },
+	{ label: 'blog', href: '/blog', navigate: false },
+	{ label: 'notas', href: '/notas', navigate: false },
+	{ label: 'posts', href: '/posts', navigate: false },
+	{ label: 'archive', href: '/archive', navigate: false },
+	{ label: 'tags', href: '/tags', navigate: false },
+	{ label: 'subscribe', href: '/subscribe', navigate: false },
+	{ label: 'contact', href: '/contact', navigate: false },
+	{ label: 'uses', href: '/uses', navigate: false },
+	{ label: 'search', href: '/search', navigate: false },
+	{ label: 'rss', href: '/rss', navigate: false },
+	{ label: 'stacks', href: '/stacks', navigate: false },
+	{ label: 'tastes', href: '/tastes', navigate: false },
 ] as const;
 
 export const now = {

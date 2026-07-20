@@ -51,6 +51,17 @@ const spotifyEmbedSrc = spotifyPlaylistEmbedSrc(tastes.spotify.playlistUrl);
             {nav.map((item) => {
               const current =
                 path === item.href || (item.href.length > 1 && path.startsWith(`${item.href}/`));
+              if (item.navigate) {
+                return (
+                  <a
+                    href={item.href}
+                    class:list={['nav__item', 'nav__item--link', current && 'nav__item--current']}
+                    aria-current={current ? 'page' : undefined}
+                  >
+                    {item.label}
+                  </a>
+                );
+              }
               return (
                 <span
                   class:list={['nav__item', current && 'nav__item--current']}
