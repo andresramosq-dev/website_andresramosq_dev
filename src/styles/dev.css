@@ -710,7 +710,7 @@ a.twin__name:hover {
 .whoami__val,
 .whoami__val--name,
 .whoami__val--role,
-.whoami__handle {
+.whoami__val--handle {
 	font-size: 0.86rem;
 	font-weight: 400;
 	line-height: 1.5;
@@ -735,14 +735,8 @@ a.twin__name:hover {
 .whoami__val--role {
 	color: var(--ink);
 }
-.whoami__handle {
+.whoami__val--handle {
 	color: #7a9a7a;
-	text-decoration: none;
-}
-.whoami__handle:hover {
-	color: var(--cmd);
-	text-decoration: underline;
-	text-underline-offset: 3px;
 }
 .whoami__icons {
 	display: inline-flex;
@@ -1150,7 +1144,7 @@ a.twin__name:hover {
 	.whoami__val,
 	.whoami__val--name,
 	.whoami__val--role,
-	.whoami__handle {
+	.whoami__val--handle {
 		font-size: 0.82rem;
 	}
 	.whoami__icons { gap: 0.6rem; }

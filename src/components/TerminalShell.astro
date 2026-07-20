@@ -1,29 +1,14 @@
 ---
 import { site } from '../data/site';
 import SpotifyHeaderBar from './SpotifyHeaderBar.astro';
-
-const github = site.social.find((item) => item.id === 'github');
-const linkedin = site.social.find((item) => item.id === 'linkedin');
 ---
 
 <div class="twin">
 	<header class="twin__bar">
 		<code class="twin__title">
 			<span class="twin__blog">{site.consoleUser}</span><span class="twin__at">@</span><a href="/about" class="twin__host">{site.domain}</a>
-			{github ? (
-				<a href={github.href} class="twin__handle" target="_blank" rel="noreferrer">
-					{site.handle}
-				</a>
-			) : (
-				<span class="twin__handle">{site.handle}</span>
-			)}{' '}
-			{linkedin ? (
-				<a href={linkedin.href} class="twin__name" target="_blank" rel="noreferrer">
-					"{site.name}"
-				</a>
-			) : (
-				<span class="twin__name">"{site.name}"</span>
-			)}
+			<span class="twin__handle">{site.handle}</span>{' '}
+			<a href="/about" class="twin__name">"{site.name}"</a>
 		</code>
 		<SpotifyHeaderBar />
 	</header>
