@@ -8,15 +8,15 @@ import { now } from '../../data/site';
 
 <BaseLayout title="about me" path="/about">
 	<div class="console-session">
-		<CmdBlock cmd="whoami" cwd="~/" transcript id="profile">
+		<CmdBlock cmd="whoami" cwd="~/about" transcript id="profile">
 			<WhoamiPanel />
 		</CmdBlock>
 
-		<CmdBlock cmd="cat bio.txt" cwd="~/" transcript id="bio">
+		<CmdBlock cmd="cat bio.txt" cwd="~/about" transcript id="bio">
 			<BioPanel />
 		</CmdBlock>
 
-		<CmdBlock cmd="cat now.txt" cwd="~/" transcript id="now">
+		<CmdBlock cmd="cat now.txt" cwd="~/about" transcript id="now">
 			<dl class="console-kv">
 				<div class="console-kv__row">
 					<dt>focused_on</dt>
