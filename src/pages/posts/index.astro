@@ -2,20 +2,63 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CmdBlock from '../../components/CmdBlock.astro';
 import BlogPostList from '../../components/blog/BlogPostList.astro';
+import BlogTagNav from '../../components/blog/BlogTagNav.astro';
+import { categories } from '../../data/site';
+import type { CategoryId } from '../../data/site';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags))].sort((a, b) =>
+	a.localeCompare(b),
+);
+const usedCategoryIds = new Set(allPosts.map((p) => p.data.category));
+const usedCategories = categories.filter((c) => usedCategoryIds.has(c.id));
+
+const categoryParam = Astro.url.searchParams.get('category');
+const tagParam = Astro.url.searchParams.get('tag');
+
+const activeCategory: CategoryId | 'all' =
+	categoryParam && usedCategoryIds.has(categoryParam as CategoryId)
+		? (categoryParam as CategoryId)
+		: 'all';
+const activeTag: string | 'all' =
+	tagParam && allTags.includes(tagParam) ? tagParam : 'all';
+
+let posts = allPosts;
+if (activeCategory !== 'all') {
+	posts = posts.filter((p) => p.data.category === activeCategory);
+}
+if (activeTag !== 'all') {
+	posts = posts.filter((p) => p.data.tags.includes(activeTag));
+}
 ---
 
 <BaseLayout title="posts" path="/posts">
 	<div class="console-session">
+		{allPosts.length > 0 && (
+			<CmdBlock cmd="filter --list" cwd="~/posts" transcript id="posts-filters">
+				<BlogTagNav
+					activeCategory={activeCategory}
+					activeTag={activeTag}
+					categories={usedCategories}
+					tags={allTags}
+				/>
+			</CmdBlock>
+		)}
+
 		<CmdBlock cmd="ls posts/" cwd="~/posts" transcript id="posts-index">
-			{posts.length === 0 ? (
+			{allPosts.length === 0 ? (
 				<p class="route-stub">
 					<span class="route-stub__muted">#</span> no posts yet — add a <code>.md</code> file under{' '}
 					<code>src/content/blog/</code>
+				</p>
+			) : posts.length === 0 ? (
+				<p class="route-stub">
+					<span class="route-stub__muted">#</span> no posts match this filter —{' '}
+					<a class="posts-index__filter-reset" href="/posts">show all</a>
 				</p>
 			) : (
 				<BlogPostList posts={posts} />

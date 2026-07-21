@@ -1,49 +1,80 @@
 ---
-import { categories } from '../../data/site';
 import type { CategoryId } from '../../data/site';
+
+interface CategoryOption {
+	id: CategoryId;
+	label: string;
+}
 
 interface Props {
 	activeCategory: CategoryId | 'all';
 	activeTag: string | 'all';
-	allTags: string[];
+	categories: CategoryOption[];
+	tags: string[];
 }
 
-const { activeCategory, activeTag, allTags } = Astro.props;
+const { activeCategory, activeTag, categories, tags } = Astro.props;
+
+function href(category: CategoryId | 'all', tag: string | 'all') {
+	const params = new URLSearchParams();
+	if (category !== 'all') params.set('category', category);
+	if (tag !== 'all') params.set('tag', tag);
+	const q = params.toString();
+	return q ? `/posts?${q}` : '/posts';
+}
 ---
 
 <nav class="blog-tags" aria-label="Filter posts">
-	<p class="blog-tags__label">tags</p>
-	<ul class="blog-tags__list">
-		<li>
-			<a
-				href="/posts"
-				class:list={['blog-tags__chip', activeCategory === 'all' && activeTag === 'all' && 'blog-tags__chip--on']}
-				data-blog-filter="all"
-			>
-				all
-			</a>
-		</li>
-		{categories.map((cat) => (
+	<div class="blog-tags__group">
+		<p class="blog-tags__label">category</p>
+		<ul class="blog-tags__list">
 			<li>
 				<a
-					href={`/posts?category=${cat.id}`}
-					class:list={['blog-tags__chip', activeCategory === cat.id && activeTag === 'all' && 'blog-tags__chip--on']}
-					data-blog-filter-category={cat.id}
+					href={href('all', activeTag)}
+					class:list={['blog-tags__chip', activeCategory === 'all' && 'blog-tags__chip--on']}
 				>
-					{cat.label}
+					all
 				</a>
 			</li>
-		))}
-		{allTags.map((tag) => (
-			<li>
-				<a
-					href={`/posts?tag=${encodeURIComponent(tag)}`}
-					class:list={['blog-tags__chip', 'blog-tags__chip--tag', activeTag === tag && 'blog-tags__chip--on']}
-					data-blog-filter-tag={tag}
-				>
-					#{tag}
-				</a>
-			</li>
-		))}
-	</ul>
+			{categories.map((cat) => (
+				<li>
+					<a
+						href={href(cat.id, activeTag)}
+						class:list={['blog-tags__chip', activeCategory === cat.id && 'blog-tags__chip--on']}
+					>
+						{cat.label}
+					</a>
+				</li>
+			))}
+		</ul>
+	</div>
+	{tags.length > 0 && (
+		<div class="blog-tags__group">
+			<p class="blog-tags__label">tags</p>
+			<ul class="blog-tags__list">
+				<li>
+					<a
+						href={href(activeCategory, 'all')}
+						class:list={['blog-tags__chip', activeTag === 'all' && 'blog-tags__chip--on']}
+					>
+						all
+					</a>
+				</li>
+				{tags.map((tag) => (
+					<li>
+						<a
+							href={href(activeCategory, tag)}
+							class:list={[
+								'blog-tags__chip',
+								'blog-tags__chip--tag',
+								activeTag === tag && 'blog-tags__chip--on',
+							]}
+						>
+							#{tag}
+						</a>
+					</li>
+				))}
+			</ul>
+		</div>
+	)}
 </nav>
