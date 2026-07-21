@@ -3,9 +3,7 @@ import '../styles/dev.css';
 import { ClientRouter } from 'astro:transitions';
 import SiteFooter from '../components/SiteFooter.astro';
 import TerminalShell from '../components/TerminalShell.astro';
-import SpotifyFloatPanel from '../components/SpotifyFloatPanel.astro';
-import { site, nav, tastes } from '../data/site';
-import { spotifyPlaylistEmbedSrc } from '../lib/spotify';
+import { site, nav } from '../data/site';
 
 interface Props {
 	title?: string;
@@ -15,7 +13,6 @@ interface Props {
 
 const { title, description, path = '/about' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
-const spotifyEmbedSrc = spotifyPlaylistEmbedSrc(tastes.spotify.playlistUrl);
 ---
 
 <!doctype html>
@@ -27,21 +24,8 @@ const spotifyEmbedSrc = spotifyPlaylistEmbedSrc(tastes.spotify.playlistUrl);
     <meta name="author" content={site.name} />
     <title>{pageTitle}</title>
     <ClientRouter />
-    {spotifyEmbedSrc ? (
-      <>
-        <link rel="preconnect" href="https://open.spotify.com" />
-        <link rel="dns-prefetch" href="https://open.spotify.com" />
-      </>
-    ) : null}
   </head>
   <body>
-    {spotifyEmbedSrc ? (
-      <>
-        <SpotifyFloatPanel />
-        <script src="../scripts/spotify-panel.ts"></script>
-      </>
-    ) : null}
-
     <a class="skip" href="#main">Skip to content</a>
 
     <div class="desk">
@@ -50,30 +34,15 @@ const spotifyEmbedSrc = spotifyPlaylistEmbedSrc(tastes.spotify.playlistUrl);
           <nav class="nav" aria-label="Routes">
             {nav.map((item) => {
               const current =
-                item.navigate === true &&
-                (path === item.href || (item.href.length > 1 && path.startsWith(`${item.href}/`)));
-              if (item.navigate === true) {
-                return (
-                  <a
-                    href={item.href}
-                    class:list={['nav__item', 'nav__item--link', current && 'nav__item--current']}
-                    aria-current={current ? 'page' : undefined}
-                  >
-                    {item.label}
-                  </a>
-                );
-              }
-              if (item.navigate === 'music') {
-                return (
-                  <a href="#" class="nav__item nav__item--link" data-spotify-open>
-                    {item.label}
-                  </a>
-                );
-              }
+                path === item.href || (item.href.length > 1 && path.startsWith(`${item.href}/`));
               return (
-                <span class="nav__item">
+                <a
+                  href={item.href}
+                  class:list={['nav__item', 'nav__item--link', current && 'nav__item--current']}
+                  aria-current={current ? 'page' : undefined}
+                >
                   {item.label}
-                </span>
+                </a>
               );
             })}
           </nav>

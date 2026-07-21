@@ -22,7 +22,6 @@ export const site = {
 		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/andresramosq-dev', value: 'github.com/andresramosq-dev' },
 		{ id: 'linkedin', icon: 'linkedin' as const, label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramosq-dev', value: 'linkedin.com/in/andresramosq-dev' },
 		{ id: 'gmail', icon: 'mail' as const, label: 'Gmail', href: 'mailto:andresramosq.dev@gmail.com', value: 'andresramosq.dev@gmail.com' },
-		{ id: 'spotify', icon: 'spotify' as const, label: 'Spotify', href: 'https://open.spotify.com/user/12163431588', value: 'open.spotify.com/user/12163431588' },
 		{ id: 'cv', icon: 'cv' as const, label: 'CV', href: '/about', value: 'cv' },
 	] as const,
 	links: [
@@ -52,12 +51,11 @@ export const site = {
 };
 
 export const nav = [
-	{ label: 'about', href: '/about', navigate: true },
-	{ label: 'site', href: '/site', navigate: true },
-	{ label: 'blog', href: '/blog', navigate: true },
-	{ label: 'subscribe', href: '/subscribe', navigate: true },
-	{ label: 'privacy', href: '/privacy', navigate: true },
-	{ label: 'music', href: '#', navigate: 'music' },
+	{ label: 'about', href: '/about' },
+	{ label: 'site', href: '/site' },
+	{ label: 'blog', href: '/blog' },
+	{ label: 'subscribe', href: '/subscribe' },
+	{ label: 'privacy', href: '/privacy' },
 ] as const;
 
 export const now = {

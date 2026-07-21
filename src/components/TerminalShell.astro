@@ -1,6 +1,5 @@
 ---
 import { site } from '../data/site';
-import SpotifyHeaderBar from './SpotifyHeaderBar.astro';
 ---
 
 <div class="twin">
@@ -10,7 +9,6 @@ import SpotifyHeaderBar from './SpotifyHeaderBar.astro';
 			<span class="twin__handle">{site.handle}</span>{' '}
 			<span class="twin__name">"{site.name}"</span>
 		</code>
-		<SpotifyHeaderBar />
 	</header>
 	<div class="twin__body">
 		<slot />
