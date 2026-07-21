@@ -9,9 +9,10 @@ export const site = {
 	tagline: 'Responsible for balancing product growth with system stability.',
 	description:
 		'Personal console of Andrés Ramos. Backend development, APIs, microservices, and notes on the craft.',
-	bioStack: ['JavaScript', 'TypeScript', 'Node.js', 'NestJS', 'Python', 'PostgreSQL', 'AWS', 'Docker'] as const,
+	bioStack: ['JavaScript', 'TypeScript', 'Node.js', 'NestJS', 'Python', 'PostgreSQL', 'AWS', 'Docker', 'Git'] as const,
 	bioValues: ['clean code', 'modular architecture'] as const,
-	bioLead: 'Backend developer with 4+ years in APIs, scalable services, and cloud infrastructure',
+	bioLead:
+		'Backend developer with 4+ years building APIs, scalable services, and cloud infrastructure in production',
 	bioExperience: [
 		'I have built and maintained an insurance SOAT sales platform: 2 insurer integrations, a payment gateway, +20% fraud detection, -60% redundant data, plus ongoing bug fixing and system upkeep.',
 		'I have also built a Virtual Contact Center from scratch — IAM, module registration, inbound/outbound calls, and more — leading the systems team and balancing product with engineering.',
