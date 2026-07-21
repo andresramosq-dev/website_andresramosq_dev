@@ -1,23 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ConsoleTitle from '../../components/ConsoleTitle.astro';
-import SiteLs from '../../components/SiteLs.astro';
 import CmdBlock from '../../components/CmdBlock.astro';
 import SitePanel from '../../components/SitePanel.astro';
-import ConsolePrompt from '../../components/ConsolePrompt.astro';
 ---
 
 <BaseLayout title="AndresRamos.Dev" path="/site">
-	<ConsoleTitle id="site-top" title="AndresRamos.Dev" segment="site" cmd="site -title" />
-	<SiteLs />
+	<div class="console-session">
+		<CmdBlock cmd="cat site.txt" cwd="~/site" transcript id="site-intro">
+			<SitePanel part="intro" />
+		</CmdBlock>
 
-	<CmdBlock cmd="cat site.txt" cwd="~/site" id="site-intro">
-		<SitePanel part="intro" />
-	</CmdBlock>
-
-	<CmdBlock cmd="cat meta.txt" cwd="~/site" id="site-meta">
-		<SitePanel part="meta" />
-	</CmdBlock>
-
-	<ConsolePrompt cwd="~/site" />
+		<CmdBlock cmd="cat meta.txt" cwd="~/site" transcript id="site-meta">
+			<SitePanel part="meta" />
+		</CmdBlock>
+	</div>
 </BaseLayout>
