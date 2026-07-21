@@ -26,6 +26,8 @@ export const site = {
 		{ id: 'spotify', icon: 'spotify' as const, label: 'Spotify', href: 'https://open.spotify.com/user/12163431588', value: 'open.spotify.com/user/12163431588' },
 		{ id: 'cv', icon: 'cv' as const, label: 'CV', href: '/about', value: 'cv' },
 	] as const,
+	/** Web3Forms public access key (safe in frontend; emails go to Gmail on file at web3forms.com) */
+	web3formsAccessKey: '2791c709-132a-4af4-b315-bba690013bd5',
 	links: [
 		{ label: 'GitHub', href: 'https://github.com/andresramosq-dev' },
 		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramosq-dev' },

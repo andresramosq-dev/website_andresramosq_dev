@@ -1,72 +1,63 @@
 ---
 import { site } from '../data/site';
 
-const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY ?? '';
-const mailTo = site.social.find((s) => s.id === 'gmail')?.href ?? 'mailto:andresramosq.dev@gmail.com';
+const accessKey =
+	import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY?.trim() || site.web3formsAccessKey;
 ---
 
 <div class="contact-mail">
-	{
-		accessKey ? (
-			<form
-				class="contact-mail__form"
-				action="https://api.web3forms.com/submit"
-				method="POST"
-				data-contact-form
-			>
-				<input type="hidden" name="access_key" value={accessKey} />
-				<input type="hidden" name="from_name" value="andresramosq.dev contact" />
-				<input type="checkbox" name="botcheck" class="contact-mail__hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+	<form
+		class="contact-mail__form"
+		action="https://api.web3forms.com/submit"
+		method="POST"
+		data-contact-form
+	>
+		<input type="hidden" name="access_key" value={accessKey} />
+		<input type="hidden" name="from_name" value="andresramosq.dev contact" />
+		<input type="checkbox" name="botcheck" class="contact-mail__hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-				<label class="contact-mail__row">
-					<span class="contact-mail__key">from</span>
-					<input
-						class="contact-mail__input"
-						type="email"
-						name="email"
-						required
-						autocomplete="email"
-						placeholder="you@example.com"
-						aria-label="Your email"
-					/>
-				</label>
-				<label class="contact-mail__row">
-					<span class="contact-mail__key">subject</span>
-					<input
-						class="contact-mail__input"
-						type="text"
-						name="subject"
-						required
-						maxlength={200}
-						placeholder="What is it about?"
-						aria-label="Subject"
-					/>
-				</label>
-				<label class="contact-mail__row contact-mail__row--body">
-					<span class="contact-mail__key">message</span>
-					<textarea
-						class="contact-mail__input contact-mail__input--area"
-						name="message"
-						required
-						rows={6}
-						placeholder="Your message…"
-						aria-label="Message"
-					/>
-				</label>
-				<div class="contact-mail__actions">
-					<button class="contact-mail__send" type="submit">
-						send
-					</button>
-					<p class="contact-mail__status" data-contact-status hidden aria-live="polite" />
-				</div>
-			</form>
-		) : (
-			<p class="contact-mail__fallback">
-				Mail relay is not configured yet. Write directly to{' '}
-				<a href={mailTo}>andresramosq.dev@gmail.com</a>.
-			</p>
-		)
-	}
+		<label class="contact-mail__row">
+			<span class="contact-mail__key">from</span>
+			<input
+				class="contact-mail__input"
+				type="email"
+				name="email"
+				required
+				autocomplete="email"
+				placeholder="you@example.com"
+				aria-label="Your email"
+			/>
+		</label>
+		<label class="contact-mail__row">
+			<span class="contact-mail__key">subject</span>
+			<input
+				class="contact-mail__input"
+				type="text"
+				name="subject"
+				required
+				maxlength={200}
+				placeholder="What is it about?"
+				aria-label="Subject"
+			/>
+		</label>
+		<label class="contact-mail__row contact-mail__row--body">
+			<span class="contact-mail__key">message</span>
+			<textarea
+				class="contact-mail__input contact-mail__input--area"
+				name="message"
+				required
+				rows={6}
+				placeholder="Your message…"
+				aria-label="Message"
+			/>
+		</label>
+		<div class="contact-mail__actions">
+			<button class="contact-mail__send" type="submit">
+				send
+			</button>
+			<p class="contact-mail__status" data-contact-status hidden aria-live="polite" />
+		</div>
+	</form>
 </div>
 
 <script>
@@ -107,7 +98,7 @@ const mailTo = site.social.find((s) => s.id === 'gmail')?.href ?? 'mailto:andres
 				}
 			} catch {
 				if (status) {
-					status.textContent = 'could not send. Try again or email me directly.';
+					status.textContent = 'could not send. Try again or email andresramosq.dev@gmail.com.';
 					status.dataset.state = 'error';
 				}
 			} finally {
