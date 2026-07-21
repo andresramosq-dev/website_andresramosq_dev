@@ -355,11 +355,40 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	color: var(--cmd);
 }
 
-.now-panel__link {
+.now-feed {
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 1rem;
+}
+.now-feed__row {
+	display: grid;
+	grid-template-columns: 5.75rem 1fr;
+	gap: 0.5rem 1rem;
+	align-items: start;
+	margin: 0;
+}
+.now-feed__row dt {
+	margin: 0;
+	font-size: 0.78rem;
+	font-weight: 500;
+	color: var(--prompt);
+}
+.now-feed__row dt::after {
+	content: ':';
+	color: #7a9a7a;
+}
+.now-feed__row dd {
+	margin: 0;
+	font-size: 0.84rem;
+	line-height: 1.55;
+	color: var(--text);
+}
+.now-feed__link {
 	color: var(--cmd);
 	text-decoration: none;
 }
-.now-panel__link:hover {
+.now-feed__link:hover {
 	color: var(--link-hover);
 	text-decoration: underline;
 	text-underline-offset: 3px;
@@ -757,22 +786,25 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	box-shadow: none;
 }
 .console-session .whoami .tag-box,
-.console-session .bio .tag-box,
-.console-session .site-about .tag-box--solo {
+.console-session .bio .tag-box {
 	background: rgba(0, 0, 0, 0.2);
 	border: 1px solid var(--border2);
 	border-radius: 0;
 	padding: 0.55rem 0.65rem;
 }
 .console-session .whoami .tag-box__text,
-.console-session .bio .tag-box__text,
-.console-session .site-about__quote .tag-box__text {
+.console-session .bio .tag-box__text {
 	color: #fff;
 }
-.console-session .site-about .tag-box--c.site-about__build {
+.console-session .site-about__lang {
+	margin: 0;
+	padding: 0.55rem 0.65rem;
 	background: rgba(0, 0, 0, 0.2);
 	border: 1px solid var(--border2);
 	border-radius: 0;
+	color: #fff;
+	font-size: 0.86rem;
+	line-height: 1.55;
 }
 .console-session .bio__lead,
 .console-session .bio__body,
@@ -1616,6 +1648,10 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	}
 	.contact-mail__actions {
 		padding-left: 0;
+	}
+	.now-feed__row {
+		grid-template-columns: 1fr;
+		gap: 0.25rem;
 	}
 	.now-item { padding: 0.65rem 0.7rem; }
 	.now-item dd { font-size: 0.82rem; }

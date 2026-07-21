@@ -56,9 +56,9 @@ export const site = {
 
 export const nav = [
 	{ label: 'about', href: '/about' },
+	{ label: 'now', href: '/now' },
 	{ label: 'site', href: '/site' },
 	{ label: 'blog', href: '/blog' },
-	{ label: 'now', href: '/now' },
 	{ label: 'contact', href: '/contact' },
 ] as const;
 
@@ -66,7 +66,7 @@ export const now = {
 	learning:
 		'Right now I am improving my English — this site is part of that practice. I am also strengthening how I guide product calls and software architecture: clearer trade-offs, simpler systems, and backends that hold up in production.',
 	looking_for:
-		'I am looking for strong challenges and projects where I can add real value, help them grow, and push them toward production. Winners are built with people who stay when it gets hard; that is the kind of work I want.',
+		'I want meaningful projects where I can contribute, help them grow, and ship to production. If you are building something and need backend + product sense, say hi.',
 	contact_before: 'If you are building something and want someone on the backend who cares about product and architecture, ',
 	contact_link: 'contact me',
 	contact_after: '.',

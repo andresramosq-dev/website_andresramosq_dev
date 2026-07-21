@@ -2,10 +2,19 @@
 import { now } from '../data/site';
 ---
 
-<div class="now-panel console-doc">
-	<p class="console-doc__line console-doc__line--open">{now.learning}</p>
-	<p class="console-doc__line">{now.looking_for}</p>
-	<p class="console-doc__line">
-		{now.contact_before}<a class="now-panel__link" href="/contact">{now.contact_link}</a>{now.contact_after}
-	</p>
-</div>
+<dl class="now-feed">
+	<div class="now-feed__row">
+		<dt>learning</dt>
+		<dd>{now.learning}</dd>
+	</div>
+	<div class="now-feed__row">
+		<dt>open_to</dt>
+		<dd>{now.looking_for}</dd>
+	</div>
+	<div class="now-feed__row">
+		<dt>reach_out</dt>
+		<dd>
+			{now.contact_before}<a class="now-feed__link" href="/contact">{now.contact_link}</a>{now.contact_after}
+		</dd>
+	</div>
+</dl>
