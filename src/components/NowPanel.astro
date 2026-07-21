@@ -2,19 +2,19 @@
 import { now } from '../data/site';
 ---
 
-<dl class="now-feed">
-	<div class="now-feed__row">
+<dl class="console-kv now-doc">
+	<div class="console-kv__row">
 		<dt>learning</dt>
 		<dd>{now.learning}</dd>
 	</div>
-	<div class="now-feed__row">
+	<div class="console-kv__row">
 		<dt>open_to</dt>
 		<dd>{now.looking_for}</dd>
 	</div>
-	<div class="now-feed__row">
+	<div class="console-kv__row">
 		<dt>reach_out</dt>
 		<dd>
-			{now.contact_before}<a class="now-feed__link" href="/contact">{now.contact_link}</a>{now.contact_after}
+			{now.contact_before}<a class="now-doc__link" href="/contact">{now.contact_link}</a>{now.contact_after}
 		</dd>
 	</div>
 </dl>

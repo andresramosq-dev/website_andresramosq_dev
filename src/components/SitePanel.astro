@@ -32,8 +32,7 @@ const { aboutSite } = site;
 
 {part === 'meta' && (
 	<div class="site-about">
-		<div class="tag-box tag-box--c site-about__build">
-			<div class="tag-box__key">build</div>
+		<div class="tag-box tag-box--c tag-box--solo site-about__build">
 			<div class="tag-box__text">
 				<span class="site-about__out-inline">{aboutSite.builtBefore}</span>{' '}
 				{joinItems(aboutSite.builtWith).map(({ item, sep }) => (
@@ -51,8 +50,6 @@ const { aboutSite } = site;
 			</div>
 		</div>
 		<p class="site-about__idea">{aboutSite.design}</p>
-		<div class="tag-box tag-box--c tag-box--solo">
-			<div class="tag-box__text">{aboutSite.language}</div>
-		</div>
+		<p class="site-about__lang">{aboutSite.language}</p>
 	</div>
 )}
