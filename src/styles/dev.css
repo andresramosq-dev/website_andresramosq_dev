@@ -1763,6 +1763,13 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	display: grid;
 	gap: 0.4rem;
 }
+.posts-index__head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.35rem 1rem;
+}
 .posts-index__title {
 	font-size: 0.86rem;
 	font-weight: 500;
@@ -1782,6 +1789,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	font-size: 0.72rem;
 	line-height: 1.4;
 	color: var(--prompt);
+	white-space: nowrap;
 }
 .article-meta {
 	margin: 0;

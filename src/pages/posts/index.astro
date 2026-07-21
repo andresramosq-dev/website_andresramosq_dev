@@ -11,7 +11,7 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 
 <BaseLayout title="posts" path="/posts">
 	<div class="console-session">
-		<CmdBlock cmd="ls -1" cwd="~/posts" transcript id="posts-index">
+		<CmdBlock cmd="ls posts/" cwd="~/posts" transcript id="posts-index">
 			{posts.length === 0 ? (
 				<p class="route-stub">
 					<span class="route-stub__muted">#</span> no posts yet — add a <code>.md</code> file under{' '}
