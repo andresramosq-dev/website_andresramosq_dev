@@ -599,10 +599,85 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .cmd-block__sig { color: var(--muted); }
 .cmd-block__line--idle { margin-top: 0.5rem; margin-bottom: 0; }
 .cmd-block__user { color: var(--prompt); }
+.cmd-block__at { color: var(--muted); }
 .cmd-block__host { color: var(--host); }
 .cmd-block__colon { color: #7a9a7a; }
 .cmd-block__cwd { color: var(--cmd); }
 .cmd-block__cmd { color: var(--ink); }
+
+.cmd-block__out--transcript {
+	background: transparent;
+	border: none;
+	border-radius: 0;
+	padding: 0.25rem 0 0.15rem 0.65rem;
+	border-left: 2px solid var(--border2);
+}
+
+/* About — sesión tipo scrollback de terminal */
+.console-session {
+	font-family: var(--mono);
+	font-size: 0.84rem;
+	line-height: 1.55;
+	color: var(--text);
+}
+.console-session .cmd-block {
+	margin-bottom: 1.35rem;
+}
+.console-session .cmd-block:last-child {
+	margin-bottom: 0.5rem;
+}
+.console-session .cmd-block__line {
+	margin-bottom: 0.25rem;
+	font-size: 0.8rem;
+}
+.console-session .whoami {
+	gap: 0.85rem;
+}
+.console-session .whoami__photo {
+	border-color: var(--border2);
+	box-shadow: none;
+}
+.console-session .tag-box {
+	background: rgba(0, 0, 0, 0.2);
+	border: 1px solid var(--border2);
+	border-left: 2px solid var(--prompt);
+	border-radius: 0;
+	padding: 0.55rem 0.65rem;
+}
+.console-session .bio__lead,
+.console-session .bio__body,
+.console-session .bio__close {
+	max-width: none;
+}
+.console-kv {
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.65rem;
+}
+.console-kv__row {
+	display: grid;
+	grid-template-columns: 6.5rem 1fr;
+	gap: 0.5rem 0.85rem;
+	align-items: baseline;
+	margin: 0;
+}
+.console-kv__row dt {
+	margin: 0;
+	font-size: 0.78rem;
+	font-weight: 500;
+	color: var(--prompt);
+}
+.console-kv__row dt::after {
+	content: ':';
+	color: #7a9a7a;
+}
+.console-kv__row dd {
+	margin: 0;
+	font-size: 0.84rem;
+	line-height: 1.55;
+	color: var(--text);
+}
 
 .cmd-block__out {
 	margin-left: 0;
@@ -1385,6 +1460,10 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	}
 	.bio__tag { white-space: normal; }
 	.now-grid { grid-template-columns: 1fr; }
+	.console-kv__row {
+		grid-template-columns: 1fr;
+		gap: 0.2rem;
+	}
 	.now-item { padding: 0.65rem 0.7rem; }
 	.now-item dd { font-size: 0.82rem; }
 	.console-doc,

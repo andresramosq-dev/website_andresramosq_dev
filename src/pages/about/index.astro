@@ -7,30 +7,30 @@ import { now } from '../../data/site';
 ---
 
 <BaseLayout title="about me" path="/about">
-	<CmdBlock cmd="whoami" id="profile">
-		<WhoamiPanel />
-	</CmdBlock>
+	<div class="console-session">
+		<CmdBlock cmd="whoami" cwd="~/" transcript id="profile">
+			<WhoamiPanel />
+		</CmdBlock>
 
-	<CmdBlock cmd="cat bio.txt" id="bio">
-		<BioPanel />
-	</CmdBlock>
+		<CmdBlock cmd="cat bio.txt" cwd="~/" transcript id="bio">
+			<BioPanel />
+		</CmdBlock>
 
-	<CmdBlock cmd="cat now.txt" id="now">
-		<dl class="now-grid">
-			<div class="now-item">
-				<dt>focused_on</dt>
-				<dd>{now.focused_on}</dd>
-			</div>
-			<div class="now-item">
-				<dt>looking_for</dt>
-				<dd>{now.looking_for}</dd>
-			</div>
-			<div class="now-item">
-				<dt>philosophy</dt>
-				<dd>{now.philosophy}</dd>
-			</div>
-		</dl>
-	</CmdBlock>
-
-	<ConsolePrompt />
+		<CmdBlock cmd="cat now.txt" cwd="~/" transcript id="now">
+			<dl class="console-kv">
+				<div class="console-kv__row">
+					<dt>focused_on</dt>
+					<dd>{now.focused_on}</dd>
+				</div>
+				<div class="console-kv__row">
+					<dt>looking_for</dt>
+					<dd>{now.looking_for}</dd>
+				</div>
+				<div class="console-kv__row">
+					<dt>philosophy</dt>
+					<dd>{now.philosophy}</dd>
+				</div>
+			</dl>
+		</CmdBlock>
+	</div>
 </BaseLayout>
