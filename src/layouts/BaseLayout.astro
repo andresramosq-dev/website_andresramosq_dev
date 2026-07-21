@@ -36,21 +36,26 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
               >{site.domain}</span
             ><span class="term-hd__colon">:</span><span class="term-hd__path">~/</span><span class="term-hd__cmd"> ls</span>
           </p>
-          <nav class="nav" aria-label="Routes">
-            {nav.map((item) => {
-              const current =
-                path === item.href || (item.href.length > 1 && path.startsWith(`${item.href}/`));
-              return (
-                <a
-                  href={item.href}
-                  class:list={['nav__item', 'nav__item--link', current && 'nav__item--current']}
-                  aria-current={current ? 'page' : undefined}
-                >
-                  {item.label}
-                </a>
-              );
-            })}
-            </nav>
+          <nav class="nav-out" aria-label="Routes">
+            <p class="nav-out__total" aria-hidden="true">total {nav.length}</p>
+            <ul class="ls-out nav__list">
+              {nav.map((item) => {
+                const current =
+                  path === item.href || (item.href.length > 1 && path.startsWith(`${item.href}/`));
+                return (
+                  <li>
+                    <a
+                      href={item.href}
+                      class:list={['nav__link', current && 'nav__link--current']}
+                      aria-current={current ? 'page' : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
         </header>
 
         <main id="main" class="main">
