@@ -194,7 +194,8 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	font-weight: 600;
 }
 .term-hd__prompt .term-hd__cmd {
-	color: var(--text);
+	color: var(--ink);
+	font-weight: 500;
 }
 
 .nav {
