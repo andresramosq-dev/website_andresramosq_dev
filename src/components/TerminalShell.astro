@@ -1,5 +1,12 @@
 ---
 import { site } from '../data/site';
+
+interface Props {
+	path?: string;
+}
+
+const { path = '/about' } = Astro.props;
+const cwd = path === '/' ? '~' : `~${path}`;
 ---
 
 <div class="twin">
@@ -10,7 +17,10 @@ import { site } from '../data/site';
 			<span class="twin__dot twin__dot--max"></span>
 		</div>
 		<code class="twin__title">
-			<span class="twin__blog">{site.consoleUser}</span><span class="twin__at">@</span><span class="twin__host">{site.domain}</span>
+			<span class="twin__ps1"
+				><span class="twin__user">{site.consoleUser}</span><span class="twin__at">@</span>{site.domain}<span
+					class="twin__colon">:</span>{cwd}</span
+			><span class="twin__dollar twin__dollar--blink" aria-hidden="true">$</span>
 		</code>
 	</header>
 	<div class="twin__body">

@@ -30,13 +30,15 @@ const cwd = path === '/' ? '~' : `~${path}`;
     <a class="skip" href="#main">Skip to content</a>
 
     <div class="desk">
-      <TerminalShell>
+      <TerminalShell path={path}>
         <header class="term-hd">
-          <p class="term-hd__line" aria-hidden="true">
-            <span class="term-hd__user">{site.consoleUser}</span><span class="term-hd__at">@</span><span class="term-hd__host">{site.domain}</span><span class="term-hd__colon">:</span><span class="term-hd__cwd">{cwd}</span><span class="term-hd__dollar">$</span>
-            <span class="term-hd__cmd">ls</span>
-          </p>
-          <nav class="nav" aria-label="Routes">
+          <div class="term-hd__row">
+            <span class="term-hd__ps1"
+              ><span class="term-hd__user">{site.consoleUser}</span><span class="term-hd__at">@</span>{site.domain}<span
+                class="term-hd__colon">:</span>{cwd}</span
+            ><span class="term-hd__dollar" aria-hidden="true">$</span>
+            <span class="term-hd__cmd">ls -la</span>
+            <nav class="nav" aria-label="Routes">
             {nav.map((item) => {
               const current =
                 path === item.href || (item.href.length > 1 && path.startsWith(`${item.href}/`));
@@ -46,11 +48,13 @@ const cwd = path === '/' ? '~' : `~${path}`;
                   class:list={['nav__item', 'nav__item--link', current && 'nav__item--current']}
                   aria-current={current ? 'page' : undefined}
                 >
+                  <span class="nav__perm" aria-hidden="true">drwxr-xr-x</span>
                   {item.label}
                 </a>
               );
             })}
-          </nav>
+            </nav>
+          </div>
         </header>
 
         <main id="main" class="main">
