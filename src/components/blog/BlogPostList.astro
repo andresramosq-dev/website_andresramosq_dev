@@ -14,14 +14,14 @@ const fmt = (d: Date) =>
 <div class="posts-index" data-posts-list>
 	{posts.map((post) => (
 		<article class="posts-index__item">
-			<a class="posts-index__link" href={`/posts/${post.id}`}>
-				<header class="posts-index__head">
-					<h2 class="posts-index__title">{post.data.title}</h2>
+			<a class="posts-index__link tag-box tag-box--c tag-box--solo" href={`/posts/${post.id}`}>
+				<div class="tag-box__text posts-index__body">
+					<span class="posts-index__title">{post.data.title}</span>
+					<span class="posts-index__desc">{post.data.description}</span>
 					<time class="posts-index__date" datetime={post.data.pubDate.toISOString()}>
 						{fmt(post.data.pubDate)}
 					</time>
-				</header>
-				<p class="posts-index__desc">{post.data.description}</p>
+				</div>
 			</a>
 		</article>
 	))}

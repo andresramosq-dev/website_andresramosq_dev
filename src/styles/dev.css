@@ -793,7 +793,8 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .console-session .whoami .tag-box,
 .console-session .bio .tag-box,
-.console-session .site-about .tag-box {
+.console-session .site-about .tag-box,
+.console-session .posts-index .tag-box {
 	background: rgba(0, 0, 0, 0.2);
 	border: 1px solid var(--border2);
 	border-radius: 0;
@@ -801,7 +802,8 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .console-session .whoami .tag-box__text,
 .console-session .bio .tag-box__text,
-.console-session .site-about .tag-box__text {
+.console-session .site-about .tag-box__text,
+.console-session .posts-index .tag-box__text {
 	color: #fff;
 }
 .console-session .bio__lead,
@@ -1668,11 +1670,6 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	}
 	.now-item { padding: 0.65rem 0.7rem; }
 	.now-item dd { font-size: 0.82rem; }
-	.posts-index__head {
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 0.2rem;
-	}
 	.console-doc,
 	.console-doc__line {
 		font-size: 0.82rem;
@@ -1747,7 +1744,7 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 .posts-index {
 	display: grid;
-	gap: 1.1rem;
+	gap: 0.65rem;
 	font-family: var(--mono);
 }
 .posts-index__item {
@@ -1756,44 +1753,35 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .posts-index__link {
 	display: block;
 	text-decoration: none;
-	padding: 0 0 0 0.7rem;
-	border-left: 2px solid var(--border2);
 	transition: border-color 0.12s ease, background 0.12s ease;
 }
 .posts-index__link:hover {
-	border-left-color: var(--prompt);
-	background: rgba(0, 0, 0, 0.18);
+	border-color: var(--prompt);
+	background: rgba(0, 0, 0, 0.28);
+}
+.posts-index__body {
+	display: grid;
+	gap: 0.4rem;
+}
+.posts-index__title {
+	font-size: 0.86rem;
+	font-weight: 500;
+	line-height: 1.45;
+	color: #fff;
 }
 .posts-index__link:hover .posts-index__title {
 	color: var(--cmd);
 }
-.posts-index__head {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: baseline;
-	justify-content: space-between;
-	gap: 0.35rem 1rem;
-}
-.posts-index__title {
-	margin: 0;
-	font-size: 0.88rem;
-	font-weight: 500;
-	line-height: 1.45;
-	color: var(--ink);
+.posts-index__desc {
+	font-size: 0.8rem;
+	font-weight: 400;
+	line-height: 1.55;
+	color: rgba(255, 255, 255, 0.88);
 }
 .posts-index__date {
 	font-size: 0.72rem;
 	line-height: 1.4;
 	color: var(--prompt);
-	white-space: nowrap;
-}
-.posts-index__desc {
-	margin: 0.4rem 0 0;
-	font-size: 0.8rem;
-	font-weight: 400;
-	line-height: 1.55;
-	color: var(--text);
-	max-width: 52rem;
 }
 .article-meta {
 	margin: 0;
