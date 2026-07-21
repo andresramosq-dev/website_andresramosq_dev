@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CmdBlock from '../../components/CmdBlock.astro';
+import MarkdownBody from '../../components/blog/MarkdownBody.astro';
+import BlogComments from '../../components/blog/BlogComments.astro';
+import { getCollection, render } from 'astro:content';
+import { categoryLabel } from '../../data/site';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog', ({ data }) => !data.draft);
+	return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const fullPath = `/blog/${post.id}`;
+const fmt = (d: Date) =>
+	d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+---
+
+<BaseLayout title={post.data.title} description={post.data.description} path={fullPath}>
+	<div class="console-session">
+		<CmdBlock cmd={`cat ${post.id}.md`} cwd="~/blog" transcript id="post">
+			<dl class="article-meta">
+				<div class="article-meta__row">
+					<dt>title</dt>
+					<dd>{post.data.title}</dd>
+				</div>
+				<div class="article-meta__row">
+					<dt>date</dt>
+					<dd>
+						<time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+					</dd>
+				</div>
+				<div class="article-meta__row">
+					<dt>category</dt>
+					<dd>{categoryLabel[post.data.category]}</dd>
+				</div>
+				<div class="article-meta__row">
+					<dt>read</dt>
+					<dd>{post.data.minutes} min</dd>
+				</div>
+				{post.data.tags.length > 0 && (
+					<div class="article-meta__row article-meta__row--wide">
+						<dt>tags</dt>
+						<dd class="article-meta__tags">
+							{post.data.tags.map((tag) => (
+								<span class="article-meta__tag">#{tag}</span>
+							))}
+						</dd>
+					</div>
+				)}
+			</dl>
+
+			<MarkdownBody class="blog-article">
+				<Content />
+			</MarkdownBody>
+
+			<p class="article-back">
+				<a href="/blog">← ls ~/blog</a>
+			</p>
+		</CmdBlock>
+
+		<CmdBlock cmd="comments --thread" cwd="~/blog" transcript id="comments">
+			<BlogComments postId={post.id} />
+		</CmdBlock>
+	</div>
+</BaseLayout>

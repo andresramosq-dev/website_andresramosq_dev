@@ -258,6 +258,12 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	gap: 0.65rem;
 	margin: 0;
 }
+.contact-mail__warn {
+	margin: 0 0 0.5rem;
+	font-size: 0.78rem;
+	color: var(--term-amber);
+	line-height: 1.5;
+}
 .contact-mail__hp {
 	position: absolute;
 	width: 1px;
@@ -1696,6 +1702,9 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 }
 
 /* blog */
+.blog-article {
+	margin-top: 1rem;
+}
 .blog-tags {
 	margin-bottom: 1rem;
 }
