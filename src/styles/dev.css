@@ -258,12 +258,6 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	gap: 0.65rem;
 	margin: 0;
 }
-.contact-mail__warn {
-	margin: 0 0 0.5rem;
-	font-size: 0.78rem;
-	color: var(--term-amber);
-	line-height: 1.5;
-}
 .contact-mail__hp {
 	position: absolute;
 	width: 1px;
@@ -1792,24 +1786,28 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	white-space: nowrap;
 }
 .posts-index__more {
-	margin: 0.35rem 0 0;
-	padding: 0.35rem 0;
-	border: none;
-	background: none;
 	font-family: var(--mono);
 	font-size: 0.78rem;
-	color: var(--cmd);
+	line-height: 1.2;
+	color: var(--prompt);
+	background: transparent;
+	border: 1px solid var(--prompt);
+	border-radius: 0;
+	padding: 0.4rem 0.85rem;
 	cursor: pointer;
-	text-decoration: underline;
-	text-underline-offset: 3px;
+}
+.posts-index__footer {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 0.5rem;
 }
 .posts-index__more:hover:not(:disabled) {
-	color: var(--prompt);
+	color: #7a9a7a;
+	border-color: #7a9a7a;
 }
 .posts-index__more:disabled {
 	opacity: 0.45;
-	cursor: default;
-	text-decoration: none;
+	cursor: not-allowed;
 }
 .article-meta {
 	margin: 0;

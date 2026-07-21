@@ -28,9 +28,11 @@ const fmt = (d: Date) =>
 			</a>
 		</article>
 	))}
-	<button type="button" class="posts-index__more" data-posts-more>
-		continuar
-	</button>
+	<div class="posts-index__footer">
+		<button type="button" class="posts-index__more" data-posts-more>
+			Continue
+		</button>
+	</div>
 </div>
 
 <script>
@@ -52,9 +54,9 @@ const fmt = (d: Date) =>
 				el.hidden = i >= visible;
 			});
 			if (more) {
+				const noMorePages = items.length <= pageSize;
 				const atEnd = visible >= items.length;
-				more.disabled = atEnd;
-				more.hidden = false;
+				more.disabled = noMorePages || atEnd;
 			}
 		};
 
