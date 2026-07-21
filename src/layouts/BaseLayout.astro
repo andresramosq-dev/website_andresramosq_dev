@@ -13,6 +13,7 @@ interface Props {
 
 const { title, description, path = '/about' } = Astro.props;
 const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
+const cwd = path === '/' ? '~' : `~${path}`;
 ---
 
 <!doctype html>
@@ -32,7 +33,7 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
       <TerminalShell>
         <header class="term-hd">
           <p class="term-hd__line" aria-hidden="true">
-            <span class="term-hd__prompt">$</span>
+            <span class="term-hd__user">{site.consoleUser}</span><span class="term-hd__at">@</span><span class="term-hd__host">{site.domain}</span><span class="term-hd__colon">:</span><span class="term-hd__cwd">{cwd}</span><span class="term-hd__dollar">$</span>
             <span class="term-hd__cmd">ls</span>
           </p>
           <nav class="nav" aria-label="Routes">
