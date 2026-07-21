@@ -15,27 +15,30 @@ interface Props {
 
 const { activeCategory, activeTag, categories, tags } = Astro.props;
 
-function href(category: CategoryId | 'all', tag: string | 'all') {
-	const params = new URLSearchParams();
-	if (category !== 'all') params.set('category', category);
-	if (tag !== 'all') params.set('tag', tag);
-	const q = params.toString();
-	return q ? `/posts?${q}` : '/posts';
+/** Category and tag are mutually exclusive — one query param at a time. */
+function hrefCategory(category: CategoryId | 'all') {
+	if (category === 'all') return '/posts';
+	return `/posts?category=${category}`;
+}
+
+function hrefTag(tag: string | 'all') {
+	if (tag === 'all') return '/posts';
+	return `/posts?tag=${encodeURIComponent(tag)}`;
 }
 
 const activeCategoryLabel =
 	activeCategory === 'all' ? null : (categories.find((c) => c.id === activeCategory)?.label ?? activeCategory);
-const summaryParts: string[] = [];
-if (activeCategoryLabel) summaryParts.push(activeCategoryLabel);
-if (activeTag !== 'all') summaryParts.push(`#${activeTag}`);
-const summary = summaryParts.length > 0 ? summaryParts.join(' · ') : 'all';
+
+let summary = 'all';
+if (activeTag !== 'all') summary = `#${activeTag}`;
+else if (activeCategoryLabel) summary = activeCategoryLabel;
 ---
 
 <div class="posts-filters" data-posts-filters data-open="0">
 	<div class="posts-filters__bar">
 		<p class="posts-filters__status">
 			<span class="posts-filters__key">filters</span>
-			<span class="posts-filters__val">{summary}</span>
+			<span class="posts-filters__val" data-posts-filter-summary>{summary}</span>
 		</p>
 		<button
 			type="button"
@@ -60,8 +63,11 @@ const summary = summaryParts.length > 0 ? summaryParts.join(' · ') : 'all';
 				<ul class="blog-tags__list">
 					<li>
 						<a
-							href={href('all', activeTag)}
-							class:list={['blog-tags__chip', activeCategory === 'all' && 'blog-tags__chip--on']}
+							href={hrefCategory('all')}
+							class:list={[
+								'blog-tags__chip',
+								activeCategory === 'all' && activeTag === 'all' && 'blog-tags__chip--on',
+							]}
 						>
 							all
 						</a>
@@ -69,8 +75,11 @@ const summary = summaryParts.length > 0 ? summaryParts.join(' · ') : 'all';
 					{categories.map((cat) => (
 						<li>
 							<a
-								href={href(cat.id, activeTag)}
-								class:list={['blog-tags__chip', activeCategory === cat.id && 'blog-tags__chip--on']}
+								href={hrefCategory(cat.id)}
+								class:list={[
+									'blog-tags__chip',
+									activeCategory === cat.id && activeTag === 'all' && 'blog-tags__chip--on',
+								]}
 							>
 								{cat.label}
 							</a>
@@ -84,8 +93,11 @@ const summary = summaryParts.length > 0 ? summaryParts.join(' · ') : 'all';
 					<ul class="blog-tags__list">
 						<li>
 							<a
-								href={href(activeCategory, 'all')}
-								class:list={['blog-tags__chip', activeTag === 'all' && 'blog-tags__chip--on']}
+								href={hrefTag('all')}
+								class:list={[
+									'blog-tags__chip',
+									activeTag === 'all' && activeCategory === 'all' && 'blog-tags__chip--on',
+								]}
 							>
 								all
 							</a>
@@ -93,7 +105,7 @@ const summary = summaryParts.length > 0 ? summaryParts.join(' · ') : 'all';
 						{tags.map((tag) => (
 							<li>
 								<a
-									href={href(activeCategory, tag)}
+									href={hrefTag(tag)}
 									class:list={[
 										'blog-tags__chip',
 										'blog-tags__chip--tag',
@@ -128,6 +140,11 @@ const summary = summaryParts.length > 0 ? summaryParts.join(' · ') : 'all';
 			root.dataset.bound = '1';
 			toggle.addEventListener('click', () => {
 				setOpen(panel.hidden);
+			});
+			root.querySelectorAll<HTMLAnchorElement>('.blog-tags__chip').forEach((link) => {
+				link.addEventListener('click', () => {
+					setOpen(false);
+				});
 			});
 		}
 

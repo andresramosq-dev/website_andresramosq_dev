@@ -20,19 +20,21 @@ const usedCategories = categories.filter((c) => usedCategoryIds.has(c.id));
 const categoryParam = Astro.url.searchParams.get('category');
 const tagParam = Astro.url.searchParams.get('tag');
 
-const activeCategory: CategoryId | 'all' =
-	categoryParam && usedCategoryIds.has(categoryParam as CategoryId)
-		? (categoryParam as CategoryId)
-		: 'all';
-const activeTag: string | 'all' =
-	tagParam && allTags.includes(tagParam) ? tagParam : 'all';
+let activeCategory: CategoryId | 'all' = 'all';
+let activeTag: string | 'all' = 'all';
+
+// One filter at a time: tag wins if both appear in the URL.
+if (tagParam && allTags.includes(tagParam)) {
+	activeTag = tagParam;
+} else if (categoryParam && usedCategoryIds.has(categoryParam as CategoryId)) {
+	activeCategory = categoryParam as CategoryId;
+}
 
 let posts = allPosts;
-if (activeCategory !== 'all') {
-	posts = posts.filter((p) => p.data.category === activeCategory);
-}
 if (activeTag !== 'all') {
 	posts = posts.filter((p) => p.data.tags.includes(activeTag));
+} else if (activeCategory !== 'all') {
+	posts = posts.filter((p) => p.data.category === activeCategory);
 }
 ---
 
