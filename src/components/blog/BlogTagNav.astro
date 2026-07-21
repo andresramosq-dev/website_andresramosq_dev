@@ -22,59 +22,120 @@ function href(category: CategoryId | 'all', tag: string | 'all') {
 	const q = params.toString();
 	return q ? `/posts?${q}` : '/posts';
 }
+
+const filterActive = activeCategory !== 'all' || activeTag !== 'all';
+const activeCategoryLabel =
+	activeCategory === 'all' ? null : (categories.find((c) => c.id === activeCategory)?.label ?? activeCategory);
+const summaryParts: string[] = [];
+if (activeCategoryLabel) summaryParts.push(activeCategoryLabel);
+if (activeTag !== 'all') summaryParts.push(`#${activeTag}`);
+const summary = summaryParts.length > 0 ? summaryParts.join(' · ') : 'all';
+const openByDefault = filterActive;
 ---
 
-<nav class="blog-tags" aria-label="Filter posts">
-	<div class="blog-tags__group">
-		<p class="blog-tags__label">category</p>
-		<ul class="blog-tags__list">
-			<li>
-				<a
-					href={href('all', activeTag)}
-					class:list={['blog-tags__chip', activeCategory === 'all' && 'blog-tags__chip--on']}
-				>
-					all
-				</a>
-			</li>
-			{categories.map((cat) => (
-				<li>
-					<a
-						href={href(cat.id, activeTag)}
-						class:list={['blog-tags__chip', activeCategory === cat.id && 'blog-tags__chip--on']}
-					>
-						{cat.label}
-					</a>
-				</li>
-			))}
-		</ul>
+<div class="posts-filters" data-posts-filters data-open={openByDefault ? '1' : '0'}>
+	<div class="posts-filters__bar">
+		<p class="posts-filters__status">
+			<span class="posts-filters__key">filters</span>
+			<span class="posts-filters__val">{summary}</span>
+		</p>
+		<button
+			type="button"
+			class="posts-filters__toggle"
+			data-posts-filters-toggle
+			aria-expanded={openByDefault}
+			aria-controls="posts-filters-panel"
+		>
+			{openByDefault ? 'Hide filters' : 'Show filters'}
+		</button>
 	</div>
-	{tags.length > 0 && (
-		<div class="blog-tags__group">
-			<p class="blog-tags__label">tags</p>
-			<ul class="blog-tags__list">
-				<li>
-					<a
-						href={href(activeCategory, 'all')}
-						class:list={['blog-tags__chip', activeTag === 'all' && 'blog-tags__chip--on']}
-					>
-						all
-					</a>
-				</li>
-				{tags.map((tag) => (
+
+	<div
+		id="posts-filters-panel"
+		class="posts-filters__panel"
+		data-posts-filters-panel
+		hidden={!openByDefault}
+	>
+		<nav class="blog-tags" aria-label="Filter posts">
+			<div class="blog-tags__group">
+				<p class="blog-tags__label">category</p>
+				<ul class="blog-tags__list">
 					<li>
 						<a
-							href={href(activeCategory, tag)}
-							class:list={[
-								'blog-tags__chip',
-								'blog-tags__chip--tag',
-								activeTag === tag && 'blog-tags__chip--on',
-							]}
+							href={href('all', activeTag)}
+							class:list={['blog-tags__chip', activeCategory === 'all' && 'blog-tags__chip--on']}
 						>
-							#{tag}
+							all
 						</a>
 					</li>
-				))}
-			</ul>
-		</div>
-	)}
-</nav>
+					{categories.map((cat) => (
+						<li>
+							<a
+								href={href(cat.id, activeTag)}
+								class:list={['blog-tags__chip', activeCategory === cat.id && 'blog-tags__chip--on']}
+							>
+								{cat.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+			{tags.length > 0 && (
+				<div class="blog-tags__group">
+					<p class="blog-tags__label">tags</p>
+					<ul class="blog-tags__list">
+						<li>
+							<a
+								href={href(activeCategory, 'all')}
+								class:list={['blog-tags__chip', activeTag === 'all' && 'blog-tags__chip--on']}
+							>
+								all
+							</a>
+						</li>
+						{tags.map((tag) => (
+							<li>
+								<a
+									href={href(activeCategory, tag)}
+									class:list={[
+										'blog-tags__chip',
+										'blog-tags__chip--tag',
+										activeTag === tag && 'blog-tags__chip--on',
+									]}
+								>
+									#{tag}
+								</a>
+							</li>
+						))}
+					</ul>
+				</div>
+			)}
+		</nav>
+	</div>
+</div>
+
+<script>
+	function bindPostsFilters(root: HTMLElement) {
+		if (root.dataset.bound === '1') return;
+		root.dataset.bound = '1';
+
+		const panel = root.querySelector<HTMLElement>('[data-posts-filters-panel]');
+		const toggle = root.querySelector<HTMLButtonElement>('[data-posts-filters-toggle]');
+		if (!panel || !toggle) return;
+
+		const setOpen = (open: boolean) => {
+			panel.hidden = !open;
+			toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+			toggle.textContent = open ? 'Hide filters' : 'Show filters';
+			root.dataset.open = open ? '1' : '0';
+		};
+
+		toggle.addEventListener('click', () => {
+			setOpen(panel.hidden);
+		});
+	}
+
+	document.querySelectorAll<HTMLElement>('[data-posts-filters]').forEach(bindPostsFilters);
+	document.addEventListener('astro:page-load', () => {
+		document.querySelectorAll<HTMLElement>('[data-posts-filters]').forEach(bindPostsFilters);
+	});
+</script>
