@@ -757,15 +757,22 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	box-shadow: none;
 }
 .console-session .whoami .tag-box,
-.console-session .bio .tag-box {
+.console-session .bio .tag-box,
+.console-session .site-about .tag-box--solo {
 	background: rgba(0, 0, 0, 0.2);
 	border: 1px solid var(--border2);
 	border-radius: 0;
 	padding: 0.55rem 0.65rem;
 }
 .console-session .whoami .tag-box__text,
-.console-session .bio .tag-box__text {
+.console-session .bio .tag-box__text,
+.console-session .site-about__quote .tag-box__text {
 	color: #fff;
+}
+.console-session .site-about .tag-box--c.site-about__build {
+	background: rgba(0, 0, 0, 0.2);
+	border: 1px solid var(--border2);
+	border-radius: 0;
 }
 .console-session .bio__lead,
 .console-session .bio__body,
