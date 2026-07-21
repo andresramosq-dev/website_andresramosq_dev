@@ -3,7 +3,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CmdBlock from '../../components/CmdBlock.astro';
 import WhoamiPanel from '../../components/WhoamiPanel.astro';
 import BioPanel from '../../components/BioPanel.astro';
-import { now } from '../../data/site';
 ---
 
 <BaseLayout title="about me" path="/about">
@@ -14,23 +13,6 @@ import { now } from '../../data/site';
 
 		<CmdBlock cmd="cat profile.txt" cwd="~/about" transcript id="bio">
 			<BioPanel />
-		</CmdBlock>
-
-		<CmdBlock cmd="cat now.txt" cwd="~/about" transcript id="now">
-			<dl class="console-kv">
-				<div class="console-kv__row">
-					<dt>focused_on</dt>
-					<dd>{now.focused_on}</dd>
-				</div>
-				<div class="console-kv__row">
-					<dt>looking_for</dt>
-					<dd>{now.looking_for}</dd>
-				</div>
-				<div class="console-kv__row">
-					<dt>philosophy</dt>
-					<dd>{now.philosophy}</dd>
-				</div>
-			</dl>
 		</CmdBlock>
 	</div>
 </BaseLayout>
