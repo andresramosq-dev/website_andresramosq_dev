@@ -16,11 +16,13 @@ const fmt = (d: Date) =>
 		<article class="posts-index__item">
 			<a class="posts-index__link tag-box tag-box--c tag-box--solo" href={`/posts/${post.id}`}>
 				<div class="tag-box__text posts-index__body">
-					<span class="posts-index__title">{post.data.title}</span>
+					<header class="posts-index__head">
+						<span class="posts-index__title">{post.data.title}</span>
+						<time class="posts-index__date" datetime={post.data.pubDate.toISOString()}>
+							{fmt(post.data.pubDate)}
+						</time>
+					</header>
 					<span class="posts-index__desc">{post.data.description}</span>
-					<time class="posts-index__date" datetime={post.data.pubDate.toISOString()}>
-						{fmt(post.data.pubDate)}
-					</time>
 				</div>
 			</a>
 		</article>
