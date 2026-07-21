@@ -50,8 +50,9 @@ const spotifyEmbedSrc = spotifyPlaylistEmbedSrc(tastes.spotify.playlistUrl);
           <nav class="nav" aria-label="Routes">
             {nav.map((item) => {
               const current =
-                path === item.href || (item.href.length > 1 && path.startsWith(`${item.href}/`));
-              if (item.navigate) {
+                item.navigate === true &&
+                (path === item.href || (item.href.length > 1 && path.startsWith(`${item.href}/`)));
+              if (item.navigate === true) {
                 return (
                   <a
                     href={item.href}
@@ -62,11 +63,15 @@ const spotifyEmbedSrc = spotifyPlaylistEmbedSrc(tastes.spotify.playlistUrl);
                   </a>
                 );
               }
+              if (item.navigate === 'music') {
+                return (
+                  <a href="#" class="nav__item nav__item--link" data-spotify-open>
+                    {item.label}
+                  </a>
+                );
+              }
               return (
-                <span
-                  class:list={['nav__item', current && 'nav__item--current']}
-                  aria-current={current ? 'page' : undefined}
-                >
+                <span class="nav__item">
                   {item.label}
                 </span>
               );

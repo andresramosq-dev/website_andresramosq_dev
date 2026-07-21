@@ -55,15 +55,9 @@ export const nav = [
 	{ label: 'about', href: '/about', navigate: true },
 	{ label: 'site', href: '/site', navigate: true },
 	{ label: 'blog', href: '/blog', navigate: true },
-	{ label: 'archive', href: '/archive', navigate: false },
-	{ label: 'tags', href: '/tags', navigate: false },
-	{ label: 'subscribe', href: '/subscribe', navigate: false },
-	{ label: 'contact', href: '/contact', navigate: false },
-	{ label: 'uses', href: '/uses', navigate: false },
-	{ label: 'search', href: '/search', navigate: false },
-	{ label: 'rss', href: '/rss', navigate: false },
-	{ label: 'stacks', href: '/stacks', navigate: false },
-	{ label: 'tastes', href: '/tastes', navigate: false },
+	{ label: 'subscribe', href: '/subscribe', navigate: true },
+	{ label: 'privacy', href: '/privacy', navigate: true },
+	{ label: 'music', href: '#', navigate: 'music' },
 ] as const;
 
 export const now = {
