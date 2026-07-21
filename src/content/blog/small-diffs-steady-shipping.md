@@ -5,6 +5,7 @@ pubDate: 2026-04-18
 category: metodo
 tags: ["workflow", "teams"]
 minutes: 4
+draft: true
 ---
 
 Short posts are valid. This one is a placeholder until the next idea is ready to publish.

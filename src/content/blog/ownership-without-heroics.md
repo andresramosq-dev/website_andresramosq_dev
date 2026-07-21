@@ -5,6 +5,7 @@ pubDate: 2026-03-22
 category: oficio
 tags: ["ops", "culture"]
 minutes: 5
+draft: true
 ---
 
 Another stub article for the index. Use category chips (`code`, `method`, `craft`, `design`) and `#tags` to filter posts.
