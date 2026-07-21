@@ -957,6 +957,9 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	font-size: 0.86rem;
 	font-weight: 400;
 }
+.tag-box--c.tag-box--solo {
+	grid-template-columns: 1fr;
+}
 .tag-box--c {
 	display: grid;
 	grid-template-columns: auto 1fr;
