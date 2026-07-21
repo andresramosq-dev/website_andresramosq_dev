@@ -23,17 +23,15 @@ function href(category: CategoryId | 'all', tag: string | 'all') {
 	return q ? `/posts?${q}` : '/posts';
 }
 
-const filterActive = activeCategory !== 'all' || activeTag !== 'all';
 const activeCategoryLabel =
 	activeCategory === 'all' ? null : (categories.find((c) => c.id === activeCategory)?.label ?? activeCategory);
 const summaryParts: string[] = [];
 if (activeCategoryLabel) summaryParts.push(activeCategoryLabel);
 if (activeTag !== 'all') summaryParts.push(`#${activeTag}`);
 const summary = summaryParts.length > 0 ? summaryParts.join(' · ') : 'all';
-const openByDefault = filterActive;
 ---
 
-<div class="posts-filters" data-posts-filters data-open={openByDefault ? '1' : '0'}>
+<div class="posts-filters" data-posts-filters data-open="0">
 	<div class="posts-filters__bar">
 		<p class="posts-filters__status">
 			<span class="posts-filters__key">filters</span>
@@ -43,10 +41,10 @@ const openByDefault = filterActive;
 			type="button"
 			class="posts-filters__toggle"
 			data-posts-filters-toggle
-			aria-expanded={openByDefault}
+			aria-expanded="false"
 			aria-controls="posts-filters-panel"
 		>
-			{openByDefault ? 'Hide filters' : 'Show filters'}
+			Show filters
 		</button>
 	</div>
 
@@ -54,7 +52,7 @@ const openByDefault = filterActive;
 		id="posts-filters-panel"
 		class="posts-filters__panel"
 		data-posts-filters-panel
-		hidden={!openByDefault}
+		hidden
 	>
 		<nav class="blog-tags" aria-label="Filter posts">
 			<div class="blog-tags__group">
@@ -115,9 +113,6 @@ const openByDefault = filterActive;
 
 <script>
 	function bindPostsFilters(root: HTMLElement) {
-		if (root.dataset.bound === '1') return;
-		root.dataset.bound = '1';
-
 		const panel = root.querySelector<HTMLElement>('[data-posts-filters-panel]');
 		const toggle = root.querySelector<HTMLButtonElement>('[data-posts-filters-toggle]');
 		if (!panel || !toggle) return;
@@ -129,9 +124,14 @@ const openByDefault = filterActive;
 			root.dataset.open = open ? '1' : '0';
 		};
 
-		toggle.addEventListener('click', () => {
-			setOpen(panel.hidden);
-		});
+		if (root.dataset.bound !== '1') {
+			root.dataset.bound = '1';
+			toggle.addEventListener('click', () => {
+				setOpen(panel.hidden);
+			});
+		}
+
+		setOpen(false);
 	}
 
 	document.querySelectorAll<HTMLElement>('[data-posts-filters]').forEach(bindPostsFilters);
