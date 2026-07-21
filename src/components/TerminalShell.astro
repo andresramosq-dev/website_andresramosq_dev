@@ -4,6 +4,11 @@ import { site } from '../data/site';
 
 <div class="twin">
 	<header class="twin__bar">
+		<div class="twin__dots" aria-hidden="true">
+			<span class="twin__dot twin__dot--close"></span>
+			<span class="twin__dot twin__dot--min"></span>
+			<span class="twin__dot twin__dot--max"></span>
+		</div>
 		<code class="twin__title">
 			<span class="twin__blog">{site.consoleUser}</span><span class="twin__at">@</span><span class="twin__host">{site.domain}</span>
 		</code>

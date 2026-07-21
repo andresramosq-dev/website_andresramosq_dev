@@ -31,6 +31,10 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
     <div class="desk">
       <TerminalShell>
         <header class="term-hd">
+          <p class="term-hd__line" aria-hidden="true">
+            <span class="term-hd__prompt">$</span>
+            <span class="term-hd__cmd">ls</span>
+          </p>
           <nav class="nav" aria-label="Routes">
             {nav.map((item) => {
               const current =
