@@ -8,7 +8,7 @@ import { now } from '../../data/site';
 
 <BaseLayout title="about me" path="/about">
 	<div class="console-session">
-		<CmdBlock cmd="whoami" cwd="~/about" transcript id="profile">
+		<CmdBlock cmd="cat whoami.txt" cwd="~/about" transcript id="profile">
 			<WhoamiPanel />
 		</CmdBlock>
 
