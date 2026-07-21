@@ -60,7 +60,6 @@ export const nav = [
 	{ label: 'blog', href: '/blog' },
 	{ label: 'now', href: '/now' },
 	{ label: 'contact', href: '/contact' },
-	{ label: 'subscribe', href: '/subscribe' },
 	{ label: 'privacy', href: '/privacy' },
 ] as const;
 
