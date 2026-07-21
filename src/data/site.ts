@@ -19,9 +19,10 @@ export const site = {
 	bioQuote:
 		"I don't work to become the old man I want to be — I work so I don't lose the young man I once wanted to become.",
 	social: [
-		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/andresramosq-dev', value: 'github.com/andresramosq-dev' },
 		{ id: 'linkedin', icon: 'linkedin' as const, label: 'LinkedIn', href: 'https://www.linkedin.com/in/andresramosq-dev', value: 'linkedin.com/in/andresramosq-dev' },
-		{ id: 'gmail', icon: 'mail' as const, label: 'Gmail', href: 'mailto:andresramosq.dev@gmail.com', value: 'andresramosq.dev@gmail.com' },
+		{ id: 'gmail', icon: 'mail' as const, label: 'Email', href: 'mailto:andresramosq.dev@gmail.com', value: 'andresramosq.dev@gmail.com' },
+		{ id: 'github', icon: 'github' as const, label: 'GitHub', href: 'https://github.com/andresramosq-dev', value: 'github.com/andresramosq-dev' },
+		{ id: 'spotify', icon: 'spotify' as const, label: 'Spotify', href: 'https://open.spotify.com/user/12163431588', value: 'open.spotify.com/user/12163431588' },
 		{ id: 'cv', icon: 'cv' as const, label: 'CV', href: '/about', value: 'cv' },
 	] as const,
 	links: [
