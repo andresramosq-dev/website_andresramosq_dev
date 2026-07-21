@@ -10,12 +10,12 @@ export const site = {
 	description:
 		'Personal console of Andrés Ramos. Backend development, APIs, microservices, and notes on the craft.',
 	bioStack: ['JavaScript', 'TypeScript', 'Node.js', 'NestJS', 'Python', 'PostgreSQL', 'AWS', 'Docker', 'Git'] as const,
-	bioValues: ['clean code', 'modular architecture'] as const,
+	bioValues: ['analysis', 'automation', 'clean code', 'modular architecture'] as const,
 	bioLead:
 		'Backend developer with 4+ years building APIs, scalable services, and cloud infrastructure in production',
 	bioExperience: [
-		'I have built and maintained an insurance SOAT sales platform: 2 insurer integrations, a payment gateway, +20% fraud detection, -60% redundant data, plus ongoing bug fixing and system upkeep.',
-		'I have also built a Virtual Contact Center from scratch — IAM, module registration, inbound/outbound calls, and more — leading the systems team and balancing product with engineering.',
+		'I build and maintain a SOAT sales platform for insurance—integrations with two carriers, a payment gateway, fraud detection, and more.',
+		'I also built a Virtual Contact Center from scratch: IAM, module registration, inbound and outbound calls, and more—leading the systems team and balancing product with engineering.',
 	] as const,
 	bioQuote:
 		"I don't work to become the old man I want to be — I work so I don't lose the young man I once wanted to become.",
