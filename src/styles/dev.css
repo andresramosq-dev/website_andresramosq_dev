@@ -1803,8 +1803,13 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	text-decoration: underline;
 	text-underline-offset: 3px;
 }
-.posts-index__more:hover {
+.posts-index__more:hover:not(:disabled) {
 	color: var(--prompt);
+}
+.posts-index__more:disabled {
+	opacity: 0.45;
+	cursor: default;
+	text-decoration: none;
 }
 .article-meta {
 	margin: 0;

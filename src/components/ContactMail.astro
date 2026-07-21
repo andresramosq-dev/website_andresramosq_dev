@@ -1,14 +1,8 @@
 ---
 const accessKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY?.trim() ?? '';
-const formDisabled = !accessKey;
 ---
 
 <div class="contact-mail">
-	{formDisabled && (
-		<p class="contact-mail__warn" role="status">
-			Contact form is not configured (missing <code>PUBLIC_WEB3FORMS_ACCESS_KEY</code>).
-		</p>
-	)}
 	<form
 		class="contact-mail__form"
 		action="https://api.web3forms.com/submit"
@@ -55,7 +49,7 @@ const formDisabled = !accessKey;
 			/>
 		</label>
 		<div class="contact-mail__actions">
-			<button class="contact-mail__send" type="submit" disabled={formDisabled}>
+			<button class="contact-mail__send" type="submit">
 				send
 			</button>
 			<p class="contact-mail__status" data-contact-status hidden aria-live="polite" />

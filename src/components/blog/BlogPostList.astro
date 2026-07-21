@@ -28,7 +28,7 @@ const fmt = (d: Date) =>
 			</a>
 		</article>
 	))}
-	<button type="button" class="posts-index__more" data-posts-more hidden>
+	<button type="button" class="posts-index__more" data-posts-more>
 		continuar
 	</button>
 </div>
@@ -52,7 +52,9 @@ const fmt = (d: Date) =>
 				el.hidden = i >= visible;
 			});
 			if (more) {
-				more.hidden = visible >= items.length;
+				const atEnd = visible >= items.length;
+				more.disabled = atEnd;
+				more.hidden = false;
 			}
 		};
 
