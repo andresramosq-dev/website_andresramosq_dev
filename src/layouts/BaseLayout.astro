@@ -32,9 +32,9 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
       <TerminalShell>
         <header class="term-hd">
           <p class="term-hd__prompt" aria-hidden="true">
-            <span class="term-hd__user">{site.consoleUser}</span><span class="term-hd__at">@</span>{site.domain}<span
-              class="term-hd__home">:~/</span
-            ><span class="term-hd__cmd"> ls</span>
+            <span class="term-hd__user">{site.consoleUser}</span><span class="term-hd__at">@</span><span class="term-hd__host"
+              >{site.domain}</span
+            ><span class="term-hd__colon">:</span><span class="term-hd__path">~/</span><span class="term-hd__cmd"> ls</span>
           </p>
           <nav class="nav" aria-label="Routes">
             {nav.map((item) => {
