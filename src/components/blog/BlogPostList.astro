@@ -6,12 +6,13 @@ interface Props {
 }
 
 const { posts } = Astro.props;
+const pageSize = 10;
 
 const fmt = (d: Date) =>
 	d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
 ---
 
-<div class="posts-index" data-posts-list>
+<div class="posts-index" data-posts-list data-posts-page-size={pageSize}>
 	{posts.map((post) => (
 		<article class="posts-index__item">
 			<a class="posts-index__link tag-box tag-box--c tag-box--solo" href={`/posts/${post.id}`}>
@@ -27,4 +28,44 @@ const fmt = (d: Date) =>
 			</a>
 		</article>
 	))}
+	<button type="button" class="posts-index__more" data-posts-more hidden>
+		continuar
+	</button>
 </div>
+
+<script>
+	const DEFAULT_PAGE_SIZE = 10;
+
+	function bindPostsList(root: HTMLElement) {
+		if (root.dataset.bound === '1') return;
+		root.dataset.bound = '1';
+
+		const pageSize = Number(root.dataset.postsPageSize) || DEFAULT_PAGE_SIZE;
+		const items = [...root.querySelectorAll<HTMLElement>('.posts-index__item')];
+		const more = root.querySelector<HTMLButtonElement>('[data-posts-more]');
+		if (items.length === 0) return;
+
+		let visible = Math.min(pageSize, items.length);
+
+		const sync = () => {
+			items.forEach((el, i) => {
+				el.hidden = i >= visible;
+			});
+			if (more) {
+				more.hidden = visible >= items.length;
+			}
+		};
+
+		sync();
+
+		more?.addEventListener('click', () => {
+			visible = Math.min(visible + pageSize, items.length);
+			sync();
+		});
+	}
+
+	document.querySelectorAll<HTMLElement>('[data-posts-list]').forEach(bindPostsList);
+	document.addEventListener('astro:page-load', () => {
+		document.querySelectorAll<HTMLElement>('[data-posts-list]').forEach(bindPostsList);
+	});
+</script>

@@ -1791,6 +1791,21 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	color: var(--prompt);
 	white-space: nowrap;
 }
+.posts-index__more {
+	margin: 0.35rem 0 0;
+	padding: 0.35rem 0;
+	border: none;
+	background: none;
+	font-family: var(--mono);
+	font-size: 0.78rem;
+	color: var(--cmd);
+	cursor: pointer;
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+.posts-index__more:hover {
+	color: var(--prompt);
+}
 .article-meta {
 	margin: 0;
 	display: grid;
