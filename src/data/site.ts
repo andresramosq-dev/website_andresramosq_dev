@@ -56,7 +56,7 @@ export const nav = [
 	{ label: 'about', href: '/about' },
 	{ label: 'now', href: '/now' },
 	{ label: 'site', href: '/site' },
-	{ label: 'blog', href: '/blog' },
+	{ label: 'posts', href: '/posts' },
 	{ label: 'contact', href: '/contact' },
 ] as const;
 

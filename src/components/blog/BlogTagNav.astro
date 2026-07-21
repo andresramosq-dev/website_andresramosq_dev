@@ -16,7 +16,7 @@ const { activeCategory, activeTag, allTags } = Astro.props;
 	<ul class="blog-tags__list">
 		<li>
 			<a
-				href="/blog"
+				href="/posts"
 				class:list={['blog-tags__chip', activeCategory === 'all' && activeTag === 'all' && 'blog-tags__chip--on']}
 				data-blog-filter="all"
 			>
@@ -26,7 +26,7 @@ const { activeCategory, activeTag, allTags } = Astro.props;
 		{categories.map((cat) => (
 			<li>
 				<a
-					href={`/blog?category=${cat.id}`}
+					href={`/posts?category=${cat.id}`}
 					class:list={['blog-tags__chip', activeCategory === cat.id && activeTag === 'all' && 'blog-tags__chip--on']}
 					data-blog-filter-category={cat.id}
 				>
@@ -37,7 +37,7 @@ const { activeCategory, activeTag, allTags } = Astro.props;
 		{allTags.map((tag) => (
 			<li>
 				<a
-					href={`/blog?tag=${encodeURIComponent(tag)}`}
+					href={`/posts?tag=${encodeURIComponent(tag)}`}
 					class:list={['blog-tags__chip', 'blog-tags__chip--tag', activeTag === tag && 'blog-tags__chip--on']}
 					data-blog-filter-tag={tag}
 				>

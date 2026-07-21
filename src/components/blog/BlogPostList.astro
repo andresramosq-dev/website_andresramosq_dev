@@ -11,18 +11,18 @@ const fmt = (d: Date) =>
 	d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
 ---
 
-<ul class="blog-index" data-blog-list>
+<div class="posts-index" data-posts-list>
 	{posts.map((post) => (
-		<li class="blog-index__item">
-			<a class="blog-index__link" href={`/blog/${post.id}`}>
-				<time class="blog-index__date" datetime={post.data.pubDate.toISOString()}>
-					{fmt(post.data.pubDate)}
-				</time>
-				<span class="blog-index__body">
-					<span class="blog-index__title">{post.data.title}</span>
-					<span class="blog-index__desc">{post.data.description}</span>
-				</span>
+		<article class="posts-index__item">
+			<a class="posts-index__link" href={`/posts/${post.id}`}>
+				<header class="posts-index__head">
+					<h2 class="posts-index__title">{post.data.title}</h2>
+					<time class="posts-index__date" datetime={post.data.pubDate.toISOString()}>
+						{fmt(post.data.pubDate)}
+					</time>
+				</header>
+				<p class="posts-index__desc">{post.data.description}</p>
 			</a>
-		</li>
+		</article>
 	))}
-</ul>
+</div>

@@ -10,7 +10,7 @@ export const GET: APIRoute = async ({ site: astroSite }) => {
 
 	const items = posts
 		.map((post) => {
-			const url = new URL(`/blog/${post.id}`, base).href;
+			const url = new URL(`/posts/${post.id}`, base).href;
 			return `    <item>
       <title><![CDATA[${post.data.title}]]></title>
       <link>${url}</link>

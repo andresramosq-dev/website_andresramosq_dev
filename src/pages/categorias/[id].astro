@@ -24,7 +24,7 @@ const fullPath = `/categorias/${category.id}`;
   <TermPanel label={`blog/?tag=${category.label}`}>
     <FeedList
       items={posts.map((p) => ({
-        href: `/blog/${p.id}`,
+        href: `/posts/${p.id}`,
         title: p.data.title,
         meta: fmt(p.data.pubDate),
       }))}
