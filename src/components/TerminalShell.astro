@@ -1,18 +1,11 @@
 ---
 import { site } from '../data/site';
-
-interface Props {
-	path?: string;
-}
-
-const { path = '/about' } = Astro.props;
-const cwd = path === '/' ? '~' : `~${path}`;
 ---
 
 <div class="twin">
 	<header class="twin__bar">
 		<code class="twin__title">
-			<span class="twin__blog">{site.consoleUser}</span><span class="twin__at">@</span><span class="twin__host">{site.domain}</span><span class="twin__colon">:</span><span class="twin__cwd">{cwd}</span>
+			<span class="twin__blog">{site.consoleUser}</span><span class="twin__at">@</span><span class="twin__host">{site.domain}</span>
 		</code>
 	</header>
 	<div class="twin__body">
