@@ -6,16 +6,19 @@ import BlogTagNav from '../../components/blog/BlogTagNav.astro';
 import { categories } from '../../data/site';
 import type { CategoryId } from '../../data/site';
 import { getCollection } from 'astro:content';
+import {
+	buildPostIndex,
+	indexCategoryIds,
+	indexTagNames,
+	resolvePostsFromIndex,
+} from '../../lib/blog-index';
 
-const allPosts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const postIndex = buildPostIndex(allPosts);
+const postsById = new Map(allPosts.map((p) => [p.id, p]));
 
-const allTags = [...new Set(allPosts.flatMap((p) => p.data.tags))].sort((a, b) =>
-	a.localeCompare(b),
-);
-const usedCategoryIds = new Set(allPosts.map((p) => p.data.category));
-const usedCategories = categories.filter((c) => usedCategoryIds.has(c.id));
+const usedCategories = categories.filter((c) => indexCategoryIds(postIndex).includes(c.id));
+const allTags = indexTagNames(postIndex);
 
 const categoryParam = Astro.url.searchParams.get('category');
 const tagParam = Astro.url.searchParams.get('tag');
@@ -23,36 +26,36 @@ const tagParam = Astro.url.searchParams.get('tag');
 let activeCategory: CategoryId | 'all' = 'all';
 let activeTag: string | 'all' = 'all';
 
-// One filter at a time: tag wins if both appear in the URL.
-if (tagParam && allTags.includes(tagParam)) {
+if (tagParam && postIndex.byTag[tagParam]) {
 	activeTag = tagParam;
-} else if (categoryParam && usedCategoryIds.has(categoryParam as CategoryId)) {
+} else if (categoryParam && postIndex.byCategory[categoryParam as CategoryId]) {
 	activeCategory = categoryParam as CategoryId;
 }
 
-let posts = allPosts;
-if (activeTag !== 'all') {
-	posts = posts.filter((p) => p.data.tags.includes(activeTag));
-} else if (activeCategory !== 'all') {
-	posts = posts.filter((p) => p.data.category === activeCategory);
-}
+const posts = resolvePostsFromIndex(postIndex, postsById, {
+	category: activeCategory,
+	tag: activeTag,
+});
+
+const categoryLabels = Object.fromEntries(usedCategories.map((c) => [c.id, c.label]));
 ---
 
 <BaseLayout title="posts" path="/posts">
 	<div class="console-session">
-		{allPosts.length > 0 && (
+		{postIndex.all.length > 0 && (
 			<CmdBlock cmd="filter --list" cwd="~/posts" transcript id="posts-filters">
 				<BlogTagNav
 					activeCategory={activeCategory}
 					activeTag={activeTag}
 					categories={usedCategories}
 					tags={allTags}
+					categoryLabels={categoryLabels}
 				/>
 			</CmdBlock>
 		)}
 
 		<CmdBlock cmd="ls posts/" cwd="~/posts" transcript id="posts-index">
-			{allPosts.length === 0 ? (
+			{postIndex.all.length === 0 ? (
 				<p class="route-stub">
 					<span class="route-stub__muted">#</span> no posts yet — add a <code>.md</code> file under{' '}
 					<code>src/content/blog/</code>
@@ -60,7 +63,7 @@ if (activeTag !== 'all') {
 			) : posts.length === 0 ? (
 				<p class="route-stub">
 					<span class="route-stub__muted">#</span> no posts match this filter —{' '}
-					<a class="posts-index__filter-reset" href="/posts">show all</a>
+					<a class="posts-index__filter-reset" href="/posts" data-astro-reload>show all</a>
 				</p>
 			) : (
 				<BlogPostList posts={posts} />

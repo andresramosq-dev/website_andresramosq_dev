@@ -11,11 +11,11 @@ interface Props {
 	activeTag: string | 'all';
 	categories: CategoryOption[];
 	tags: string[];
+	categoryLabels: Record<string, string>;
 }
 
-const { activeCategory, activeTag, categories, tags } = Astro.props;
+const { activeCategory, activeTag, categories, tags, categoryLabels } = Astro.props;
 
-/** Category and tag are mutually exclusive — one query param at a time. */
 function hrefCategory(category: CategoryId | 'all') {
 	if (category === 'all') return '/posts';
 	return `/posts?category=${category}`;
@@ -32,9 +32,18 @@ const activeCategoryLabel =
 let summary = 'all';
 if (activeTag !== 'all') summary = `#${activeTag}`;
 else if (activeCategoryLabel) summary = activeCategoryLabel;
+
+const labelsJson = JSON.stringify(categoryLabels);
 ---
 
-<div class="posts-filters" data-posts-filters data-open="0">
+<div
+	class="posts-filters"
+	data-posts-filters
+	data-open="0"
+	data-active-category={activeCategory}
+	data-active-tag={activeTag}
+	data-category-labels={labelsJson}
+>
 	<div class="posts-filters__bar">
 		<p class="posts-filters__status">
 			<span class="posts-filters__key">filters</span>
@@ -68,6 +77,9 @@ else if (activeCategoryLabel) summary = activeCategoryLabel;
 								'blog-tags__chip',
 								activeCategory === 'all' && activeTag === 'all' && 'blog-tags__chip--on',
 							]}
+							data-filter-kind="category"
+							data-filter-value="all"
+							data-astro-reload
 						>
 							all
 						</a>
@@ -80,6 +92,9 @@ else if (activeCategoryLabel) summary = activeCategoryLabel;
 									'blog-tags__chip',
 									activeCategory === cat.id && activeTag === 'all' && 'blog-tags__chip--on',
 								]}
+								data-filter-kind="category"
+								data-filter-value={cat.id}
+								data-astro-reload
 							>
 								{cat.label}
 							</a>
@@ -98,6 +113,9 @@ else if (activeCategoryLabel) summary = activeCategoryLabel;
 									'blog-tags__chip',
 									activeTag === 'all' && activeCategory === 'all' && 'blog-tags__chip--on',
 								]}
+								data-filter-kind="tag"
+								data-filter-value="all"
+								data-astro-reload
 							>
 								all
 							</a>
@@ -111,6 +129,9 @@ else if (activeCategoryLabel) summary = activeCategoryLabel;
 										'blog-tags__chip--tag',
 										activeTag === tag && 'blog-tags__chip--on',
 									]}
+									data-filter-kind="tag"
+									data-filter-value={tag}
+									data-astro-reload
 								>
 									#{tag}
 								</a>
@@ -124,6 +145,40 @@ else if (activeCategoryLabel) summary = activeCategoryLabel;
 </div>
 
 <script>
+	function parseCategoryLabels(root: HTMLElement): Record<string, string> {
+		try {
+			return JSON.parse(root.dataset.categoryLabels ?? '{}') as Record<string, string>;
+		} catch {
+			return {};
+		}
+	}
+
+	function syncFilterUi(root: HTMLElement) {
+		const params = new URLSearchParams(window.location.search);
+		const tag = params.get('tag');
+		const category = params.get('category');
+		const labels = parseCategoryLabels(root);
+
+		let summary = 'all';
+		if (tag) summary = `#${tag}`;
+		else if (category) summary = labels[category] ?? category;
+
+		const summaryEl = root.querySelector('[data-posts-filter-summary]');
+		if (summaryEl) summaryEl.textContent = summary;
+
+		root.querySelectorAll<HTMLAnchorElement>('.blog-tags__chip').forEach((chip) => {
+			const kind = chip.dataset.filterKind;
+			const value = chip.dataset.filterValue ?? '';
+			let on = false;
+			if (kind === 'tag') {
+				on = value === 'all' ? !tag && !category : tag === value;
+			} else if (kind === 'category') {
+				on = value === 'all' ? !tag && !category : !tag && category === value;
+			}
+			chip.classList.toggle('blog-tags__chip--on', on);
+		});
+	}
+
 	function bindPostsFilters(root: HTMLElement) {
 		const panel = root.querySelector<HTMLElement>('[data-posts-filters-panel]');
 		const toggle = root.querySelector<HTMLButtonElement>('[data-posts-filters-toggle]');
@@ -148,6 +203,7 @@ else if (activeCategoryLabel) summary = activeCategoryLabel;
 			});
 		}
 
+		syncFilterUi(root);
 		setOpen(false);
 	}
 
