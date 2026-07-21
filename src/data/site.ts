@@ -58,17 +58,20 @@ export const nav = [
 	{ label: 'about', href: '/about' },
 	{ label: 'site', href: '/site' },
 	{ label: 'blog', href: '/blog' },
+	{ label: 'now', href: '/now' },
+	{ label: 'contact', href: '/contact' },
 	{ label: 'subscribe', href: '/subscribe' },
 	{ label: 'privacy', href: '/privacy' },
 ] as const;
 
 export const now = {
-	focused_on:
-		'Experimenting with AI, deepening architecture skills, leading product ideas, and strengthening my English.',
+	learning:
+		'Right now I am improving my English — this site is part of that practice. I am also strengthening how I guide product calls and software architecture: clearer trade-offs, simpler systems, and backends that hold up in production.',
 	looking_for:
-		'Projects or ideas where I can contribute and help take them to production. If you have a project or a proposal, get in touch.',
-	philosophy:
-		'I aim for simplicity: clear, clean, modular software — tied to the product.',
+		'I am looking for strong challenges and projects where I can add real value, help them grow, and push them toward production. Winners are built with people who stay when it gets hard; that is the kind of work I want.',
+	contact_before: 'If you are building something and want someone on the backend who cares about product and architecture, ',
+	contact_link: 'contact me',
+	contact_after: '.',
 };
 
 export const stack = {

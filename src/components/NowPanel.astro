@@ -1,0 +1,11 @@
+---
+import { now } from '../data/site';
+---
+
+<div class="now-panel console-doc">
+	<p class="console-doc__line console-doc__line--open">{now.learning}</p>
+	<p class="console-doc__line">{now.looking_for}</p>
+	<p class="console-doc__line">
+		{now.contact_before}<a class="now-panel__link" href="/contact">{now.contact_link}</a>{now.contact_after}
+	</p>
+</div>

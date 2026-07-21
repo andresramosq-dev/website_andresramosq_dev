@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CmdBlock from '../../components/CmdBlock.astro';
+import NowPanel from '../../components/NowPanel.astro';
+---
+
+<BaseLayout title="now" path="/now">
+	<div class="console-session">
+		<CmdBlock cmd="cat now.txt" cwd="~/now" transcript id="now">
+			<NowPanel />
+		</CmdBlock>
+	</div>
+</BaseLayout>

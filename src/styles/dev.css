@@ -355,6 +355,16 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	color: var(--cmd);
 }
 
+.now-panel__link {
+	color: var(--cmd);
+	text-decoration: none;
+}
+.now-panel__link:hover {
+	color: var(--link-hover);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
 .spotify-embed {
 	line-height: 0;
 	overflow: hidden;
