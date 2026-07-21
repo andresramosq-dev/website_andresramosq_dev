@@ -1,0 +1,55 @@
+---
+import { site, nav } from '../data/site';
+
+interface Props {
+	path: string;
+}
+
+const { path } = Astro.props;
+
+function isCurrent(href: string): boolean {
+	return path === href || (href.length > 1 && path.startsWith(`${href}/`));
+}
+---
+
+<header class="term-hd" transition:persist="site-nav">
+	<p class="term-hd__prompt" aria-hidden="true">
+		<span class="term-hd__user">{site.consoleUser}</span><span class="term-hd__at">@</span><span class="term-hd__host"
+			>{site.domain}</span
+		><span class="term-hd__colon">:</span><span class="term-hd__path">~/</span><span class="term-hd__cmd"> ls</span>
+	</p>
+	<nav class="nav" aria-label="Routes" data-site-nav>
+		{
+			nav.map((item) => {
+				const current = isCurrent(item.href);
+				return (
+					<a
+						href={item.href}
+						class:list={['nav__item', 'nav__item--link', current && 'nav__item--current']}
+						aria-current={current ? 'page' : undefined}
+						data-nav-href={item.href}
+					>
+						{item.label}
+					</a>
+				);
+			})
+		}
+	</nav>
+</header>
+
+<script>
+	function syncSiteNav() {
+		const path = document.body.dataset.path;
+		if (!path) return;
+		document.querySelectorAll<HTMLAnchorElement>('[data-site-nav] [data-nav-href]').forEach((link) => {
+			const href = link.dataset.navHref ?? '';
+			const current = path === href || (href.length > 1 && path.startsWith(`${href}/`));
+			link.classList.toggle('nav__item--current', current);
+			if (current) link.setAttribute('aria-current', 'page');
+			else link.removeAttribute('aria-current');
+		});
+	}
+
+	syncSiteNav();
+	document.addEventListener('astro:page-load', syncSiteNav);
+</script>

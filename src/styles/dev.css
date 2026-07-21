@@ -225,9 +225,10 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	text-decoration: none;
 }
 .nav__item {
-	padding: 0.12rem 0.45rem;
+	margin: 0;
+	padding: 0;
 	font-size: 0.78rem;
-	color: var(--muted);
+	color: var(--cmd);
 	border: none;
 }
 .nav__item::before {

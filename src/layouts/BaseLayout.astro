@@ -2,8 +2,9 @@
 import '../styles/dev.css';
 import { ClientRouter } from 'astro:transitions';
 import SiteFooter from '../components/SiteFooter.astro';
+import SiteNav from '../components/SiteNav.astro';
 import TerminalShell from '../components/TerminalShell.astro';
-import { site, nav } from '../data/site';
+import { site } from '../data/site';
 
 interface Props {
 	title?: string;
@@ -25,33 +26,12 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
     <title>{pageTitle}</title>
     <ClientRouter />
   </head>
-  <body>
+  <body data-path={path}>
     <a class="skip" href="#main">Skip to content</a>
 
     <div class="desk">
       <TerminalShell>
-        <header class="term-hd">
-          <p class="term-hd__prompt" aria-hidden="true">
-            <span class="term-hd__user">{site.consoleUser}</span><span class="term-hd__at">@</span><span class="term-hd__host"
-              >{site.domain}</span
-            ><span class="term-hd__colon">:</span><span class="term-hd__path">~/</span><span class="term-hd__cmd"> ls</span>
-          </p>
-          <nav class="nav" aria-label="Routes">
-            {nav.map((item) => {
-              const current =
-                path === item.href || (item.href.length > 1 && path.startsWith(`${item.href}/`));
-              return (
-                <a
-                  href={item.href}
-                  class:list={['nav__item', 'nav__item--link', current && 'nav__item--current']}
-                  aria-current={current ? 'page' : undefined}
-                >
-                  {item.label}
-                </a>
-              );
-            })}
-          </nav>
-        </header>
+        <SiteNav path={path} />
 
         <main id="main" class="main">
           <slot />
