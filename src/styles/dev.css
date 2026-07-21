@@ -637,18 +637,16 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	border-color: var(--border2);
 	box-shadow: none;
 }
-.console-session .whoami .tag-box {
+.console-session .whoami .tag-box,
+.console-session .bio .tag-box {
 	background: rgba(0, 0, 0, 0.2);
 	border: 1px solid var(--border2);
 	border-radius: 0;
 	padding: 0.55rem 0.65rem;
 }
-.console-session .bio .tag-box {
-	background: rgba(0, 0, 0, 0.2);
-	border: 1px solid var(--border2);
-	border-left: 2px solid var(--prompt);
-	border-radius: 0;
-	padding: 0.55rem 0.65rem;
+.console-session .whoami .tag-box__text,
+.console-session .bio .tag-box__text {
+	color: var(--text);
 }
 .console-session .bio__lead,
 .console-session .bio__body,
