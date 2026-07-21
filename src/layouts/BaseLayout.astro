@@ -31,13 +31,12 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
     <div class="desk">
       <TerminalShell>
         <header class="term-hd">
-          <div class="term-hd__row">
-            <span class="term-hd__prompt" aria-hidden="true"
-              ><span class="term-hd__user">{site.consoleUser}</span><span class="term-hd__at">@</span>{site.domain}<span
-                class="term-hd__home">:~/</span
-              ><span class="term-hd__cmd"> ls</span></span
-            >
-            <nav class="nav" aria-label="Routes">
+          <p class="term-hd__prompt" aria-hidden="true">
+            <span class="term-hd__user">{site.consoleUser}</span><span class="term-hd__at">@</span>{site.domain}<span
+              class="term-hd__home">:~/</span
+            ><span class="term-hd__cmd"> ls</span>
+          </p>
+          <nav class="nav" aria-label="Routes">
             {nav.map((item) => {
               const current =
                 path === item.href || (item.href.length > 1 && path.startsWith(`${item.href}/`));
@@ -52,7 +51,6 @@ const pageTitle = title ? `${title} — ${site.domain}` : site.domain;
               );
             })}
             </nav>
-          </div>
         </header>
 
         <main id="main" class="main">
