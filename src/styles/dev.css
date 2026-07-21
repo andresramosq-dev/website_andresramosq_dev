@@ -246,6 +246,114 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	color: var(--prompt);
 }
 
+/* contact — mail compose */
+.contact-mail {
+	font-family: var(--mono);
+	font-size: 0.84rem;
+	line-height: 1.5;
+}
+.contact-mail__form {
+	display: grid;
+	gap: 0.65rem;
+	margin: 0;
+}
+.contact-mail__hp {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+.contact-mail__row {
+	display: grid;
+	grid-template-columns: 5.25rem 1fr;
+	gap: 0.5rem 0.75rem;
+	align-items: baseline;
+	margin: 0;
+}
+.contact-mail__row--body {
+	align-items: start;
+}
+.contact-mail__key {
+	color: var(--prompt);
+	font-size: 0.8rem;
+}
+.contact-mail__key::after {
+	content: ':';
+	color: #7a9a7a;
+	margin-left: 0.05em;
+}
+.contact-mail__input {
+	width: 100%;
+	margin: 0;
+	padding: 0.35rem 0.5rem;
+	font: inherit;
+	font-size: 0.84rem;
+	line-height: 1.45;
+	color: var(--ink);
+	background: rgba(0, 0, 0, 0.25);
+	border: 1px solid var(--border2);
+	border-radius: 0;
+	caret-color: var(--prompt);
+}
+.contact-mail__input:focus {
+	outline: 1px solid var(--prompt);
+	outline-offset: 0;
+}
+.contact-mail__input--area {
+	resize: vertical;
+	min-height: 6.5rem;
+}
+.contact-mail__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.75rem 1rem;
+	margin-top: 0.25rem;
+	padding-left: 6rem;
+}
+.contact-mail__send {
+	font-family: var(--mono);
+	font-size: 0.78rem;
+	line-height: 1.2;
+	color: var(--prompt);
+	background: transparent;
+	border: 1px solid var(--prompt);
+	border-radius: 0;
+	padding: 0.35rem 0.75rem;
+	cursor: pointer;
+}
+.contact-mail__send:hover:not(:disabled) {
+	color: #7a9a7a;
+	border-color: #7a9a7a;
+}
+.contact-mail__send:disabled {
+	opacity: 0.55;
+	cursor: wait;
+}
+.contact-mail__status {
+	margin: 0;
+	font-size: 0.78rem;
+	color: var(--muted);
+}
+.contact-mail__status[data-state='ok'] {
+	color: var(--host);
+}
+.contact-mail__status[data-state='error'] {
+	color: #e06c75;
+}
+.contact-mail__fallback {
+	margin: 0;
+	color: var(--muted);
+	font-size: 0.84rem;
+}
+.contact-mail__fallback a {
+	color: var(--cmd);
+}
+
 .spotify-embed {
 	line-height: 0;
 	overflow: hidden;
@@ -1483,6 +1591,13 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 	.console-kv__row {
 		grid-template-columns: 1fr;
 		gap: 0.2rem;
+	}
+	.contact-mail__row {
+		grid-template-columns: 1fr;
+		gap: 0.25rem;
+	}
+	.contact-mail__actions {
+		padding-left: 0;
 	}
 	.now-item { padding: 0.65rem 0.7rem; }
 	.now-item dd { font-size: 0.82rem; }

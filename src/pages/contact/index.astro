@@ -1,8 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import RoutePlaceholder from '../../components/RoutePlaceholder.astro';
+import CmdBlock from '../../components/CmdBlock.astro';
+import ContactMail from '../../components/ContactMail.astro';
 ---
 
 <BaseLayout title="contact" path="/contact">
-	<RoutePlaceholder path="/contact" />
+	<div class="console-session">
+		<CmdBlock cmd="mail --compose" cwd="~/contact" transcript>
+			<ContactMail />
+		</CmdBlock>
+	</div>
 </BaseLayout>
