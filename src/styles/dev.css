@@ -103,12 +103,11 @@ a:hover { color: var(--link-hover); text-decoration: underline; text-underline-o
 .twin__host {
 	color: var(--host);
 }
-.twin__handle {
+.twin__colon {
 	color: #7a9a7a;
-	margin-left: 0.55rem;
 }
-.twin__name {
-	color: var(--ink);
+.twin__cwd {
+	color: var(--cmd);
 }
 .twin__body {
 	flex: 1;
