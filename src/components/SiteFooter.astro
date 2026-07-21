@@ -1,20 +1,36 @@
 ---
+import Icon from './Icon.astro';
 import { site } from '../data/site';
 
 const year = new Date().getFullYear();
+const social = site.social.filter((s) => s.href && s.id !== 'cv');
 ---
 
 <footer class="ftr" role="contentinfo">
 	<div class="ftr__bar">
+		<div class="ftr__social" aria-label="Social links">
+			{social.map((s) => (
+				<a
+					class="ftr__icon"
+					href={s.href}
+					aria-label={s.label}
+					target={s.href.startsWith('http') ? '_blank' : undefined}
+					rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
+				>
+					<Icon name={s.icon} size={16} />
+				</a>
+			))}
+		</div>
+
 		<p class="ftr__copy">
 			<span class="ftr__copy-mark" aria-hidden="true">©</span>
 			{year} {site.domain}
 		</p>
 
 		<nav class="ftr__menu" aria-label="Footer">
-			<a href="/subscribe">subscribe</a>
 			<a href="/privacy">privacy</a>
-			<a href="#" data-spotify-open>music</a>
+			<a href="/subscribe">subscribe</a>
+			<a href="#" data-spotify-open>Music</a>
 		</nav>
-	</div>
+	</motion>
 </footer>
